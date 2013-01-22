@@ -11,8 +11,14 @@
              dayNamesShort: <%= I18n.translate('date.abbr_day_names').to_json %>,
              dayNamesMin: <%= I18n.translate('date.abbr_day_names').collect{|x| x[0..0]}.to_json %>,
              weekHeader: '<%= _("Wk") %>',
-             dateFormat: '<%= I18n.translate('date.formats.default').sub("%Y", "yy").sub("%m", "mm").sub("%d", "dd").gsub("-", "/") %>'}
+             dateFormat: '<%= I18n.translate('date.formats.default').sub("%Y", "yy").sub("%m", "mm").sub("%d", "dd").gsub("-", "/") %>',
+             showButtonPanel : true}
   );
-  });
+    //Override default jquery ui calendar behaviour to return todays date to input field when today selected.
+    //.blur is required to allow reselection of widget if required
+    $('button.ui-datepicker-current').live('click', function() {
+			$.datepicker._curInst.input.datepicker('setDate', new Date()).datepicker('hide').blur();
+		});
+});
 </script>
 
