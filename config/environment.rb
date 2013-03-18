@@ -18,7 +18,7 @@ end
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.17' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.18' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -43,7 +43,7 @@ require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
 require 'configuration'
 
 # Application version
-ALAVETELI_VERSION = '0.6.9'
+ALAVETELI_VERSION = '0.7'
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
@@ -117,17 +117,6 @@ end
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = Configuration::domain
 
-# So that javascript assets use full URL, so proxied admin URLs read javascript OK
-if (Configuration::domain != "")
-    ActionController::Base.asset_host = Proc.new { |source, request|
-        if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
-            Configuration::admin_public_url
-        else
-            Configuration::domain
-        end
-    }
-end
-
 # fallback locale and available locales
 available_locales = Configuration::available_locales.split(/ /)
 default_locale = Configuration::default_locale
@@ -145,7 +134,6 @@ require 'ruby19.rb'
 require 'activesupport_cache_extensions.rb'
 require 'timezone_fixes.rb'
 require 'use_spans_for_errors.rb'
-require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'
 require 'willpaginate_extension.rb'
 require 'sendmail_return_path.rb'
@@ -155,6 +143,7 @@ require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 require 'mail_handler'
+require "cookie_store_with_line_break_fix"
 
 if !Configuration.exception_notifications_from.blank? && !Configuration.exception_notifications_to.blank?
   ExceptionNotification::Notifier.sender_address = Configuration::exception_notifications_from

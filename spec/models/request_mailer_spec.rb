@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe RequestMailer, " when receiving incoming mail" do
@@ -27,7 +28,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', 'dummy@localhost')
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should == "Could not identify the request from the email address"
 
         deliveries = ActionMailer::Base.deliveries
@@ -47,7 +48,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should =~ /there is no "From" address/
 
         deliveries = ActionMailer::Base.deliveries
@@ -67,7 +68,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should =~ /Only the authority can reply/
 
         deliveries = ActionMailer::Base.deliveries
@@ -152,7 +153,7 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1 # arrives in holding pen
-        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.info_request_events.last
         last_event.params[:rejected_reason].should =~ /allow new responses from nobody/
 
         # should be a message to admin regarding holding pen
@@ -327,6 +328,27 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
 
 end
 
+
+describe RequestMailer, 'when sending a new response email' do
+
+  before do
+      @user = mock_model(User, :name_and_email => 'test name and email')
+      @public_body = mock_model(PublicBody, :name => 'Test public body')
+      @info_request = mock_model(InfoRequest, :user => @user,
+                                              :law_used_full => 'Freedom of Information',
+                                              :title => 'Here is a character that needs quoting …',
+                                              :public_body => @public_body,
+                                              :display_status => 'Refused.',
+                                              :url_title => 'test_request')
+      @incoming_message = mock_model(IncomingMessage, :info_request => @info_request)
+  end
+
+  it 'should not error when sending mails requests with characters requiring quoting in the subject' do
+    @mail = RequestMailer.create_new_response(@info_request, @incoming_message)
+  end
+
+end
+
 describe RequestMailer, 'requires_admin' do
     before(:each) do
         user = mock_model(User, :name_and_email => 'Bruce Jones',
@@ -345,15 +367,9 @@ describe RequestMailer, 'requires_admin' do
         mail.body.should include('http://test.host/en/admin/request/show/123')
     end
 
-    context 'has an ADMIN_BASE_URL set' do
-        before(:each) do
-            Configuration::should_receive(:admin_base_url).and_return('http://our.proxy.server/admin/alaveteli/')
-        end
-
-        it 'body should contain the full admin URL' do
-            mail = RequestMailer.deliver_requires_admin(@info_request)
-
-            mail.body.should include('http://our.proxy.server/admin/alaveteli/request/show/123')
-        end
+    it "body should contain the message from the user" do
+        mail = RequestMailer.deliver_requires_admin(@info_request, nil, "Something has gone wrong")
+        mail.body.should include 'Something has gone wrong'
     end
+
 end
