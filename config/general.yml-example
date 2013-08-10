@@ -88,6 +88,7 @@ BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 # The emergency user
 ADMIN_USERNAME: 'adminxxxx'
 ADMIN_PASSWORD: 'passwordx'
+DISABLE_EMERGENCY_USER: false
 
 # Set this to true, and the admin interface will be available to anonymous users
 SKIP_ADMIN_AUTH: false
@@ -186,3 +187,8 @@ MTA_LOG_PATH: '/var/log/exim4/exim-mainlog-*'
 
 # Whether we are using "exim" or "postfix" for our MTA
 MTA_LOG_TYPE: "exim"
+
+# URL where people can donate to the organisation running the site. If set,
+# this will be included in the message people see when their request is
+# successful.
+DONATION_URL: "http://www.mysociety.org/donate/"

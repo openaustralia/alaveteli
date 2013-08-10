@@ -2,7 +2,7 @@
 # Controller for main admin pages.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminGeneralController < AdminController
     skip_before_filter :authenticate, :only => :admin_js
@@ -134,7 +134,7 @@ class AdminGeneralController < AdminController
 
     def debug
         @admin_current_user = admin_current_user
-        @current_commit = `git log -1 --format="%H"`
+        @current_commit = alaveteli_git_commit
         @current_branch = `git branch | perl -ne 'print $1 if /^\\* (.*)/'`
         @current_version = `git describe --always --tags`
         repo = `git remote show origin -n | perl -ne 'print $1 if m{Fetch URL: .*github\\.com[:/](.*)\\.git}'`

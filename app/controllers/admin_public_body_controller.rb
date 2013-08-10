@@ -2,7 +2,7 @@
 # Controller for editing public bodies from the admin interface.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require "public_body_categories"
 
@@ -14,7 +14,7 @@ class AdminPublicBodyController < AdminController
 
     def _lookup_query_internal
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             @query = params[:query]
             if @query == ""
                 @query = nil
@@ -23,12 +23,10 @@ class AdminPublicBodyController < AdminController
             if @page == ""
                 @page = nil
             end
-            @public_bodies = PublicBody.paginate :order => "public_body_translations.name", :page => @page, :per_page => 100,
-                :conditions =>  @query.nil? ? "public_body_translations.locale = '#{@locale}'" :
+            @public_bodies = PublicBody.joins(:translations).where(@query.nil? ? "public_body_translations.locale = '#{@locale}'" :
                                 ["(lower(public_body_translations.name) like lower('%'||?||'%') or
                                  lower(public_body_translations.short_name) like lower('%'||?||'%') or
-                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query],
-              :joins => :translations
+                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query]).paginate :order => "public_body_translations.name", :page => @page, :per_page => 100
         end
         @public_bodies_by_tag = PublicBody.find_by_tag(@query)
     end
@@ -75,8 +73,11 @@ class AdminPublicBodyController < AdminController
 
     def show
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             @public_body = PublicBody.find(params[:id])
+            @info_requests = @public_body.info_requests.paginate :order => "created_at desc",
+                                                                 :page => params[:page],
+                                                                 :per_page => 100
             render
         end
     end
@@ -87,7 +88,7 @@ class AdminPublicBodyController < AdminController
     end
 
     def create
-        PublicBody.with_locale(I18n.default_locale) do
+        I18n.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_current_user()
             @public_body = PublicBody.new(params[:public_body])
             if @public_body.save
@@ -106,7 +107,7 @@ class AdminPublicBodyController < AdminController
     end
 
     def update
-        PublicBody.with_locale(I18n.default_locale) do
+        I18n.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_current_user()
             @public_body = PublicBody.find(params[:id])
             if @public_body.update_attributes(params[:public_body])
@@ -120,7 +121,7 @@ class AdminPublicBodyController < AdminController
 
     def destroy
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             public_body = PublicBody.find(params[:id])
 
             if public_body.info_requests.size > 0
@@ -145,12 +146,12 @@ class AdminPublicBodyController < AdminController
             if params[:csv_file]
                 csv_contents = params[:csv_file].read
                 @original_csv_file = params[:csv_file].original_filename
+                csv_contents = normalize_string_to_utf8(csv_contents)
             # or from previous dry-run temporary file
             elsif params[:temporary_csv_file] && params[:original_csv_file]
                 csv_contents = retrieve_csv_data(params[:temporary_csv_file])
                 @original_csv_file = params[:original_csv_file]
             end
-
             if !csv_contents.nil?
                 # Try with dry run first
                 errors, notes = PublicBody.import_csv(csv_contents,

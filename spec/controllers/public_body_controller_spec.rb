@@ -2,7 +2,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PublicBodyController, "when showing a body" do
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data
@@ -43,33 +43,28 @@ describe PublicBodyController, "when showing a body" do
             :conditions => ["public_body_id = ?", public_bodies(:humpadink_public_body).id])
     end
 
-    it "should assign the body using different locale from that used for url_name" do
-        PublicBody.with_locale(:es) do
-            get :show, {:url_name => "dfh", :view => 'all'}
-            assigns[:public_body].notes.should == "Baguette"
-        end
+    it "should redirect to the canonical name in the chosen locale" do
+        get :show, {:url_name => "dfh", :view => 'all', :show_locale => "es"}
+        response.should redirect_to "http://test.host/es/body/edfh"
     end
 
     it "should assign the body using same locale as that used in url_name" do
-        PublicBody.with_locale(:es) do
-            get :show, {:url_name => "edfh", :view => 'all'}
-            assigns[:public_body].notes.should == "Baguette"
-        end
+        get :show, {:url_name => "edfh", :view => 'all', :show_locale => "es"}
+        response.should contain("Baguette")
     end
 
     it "should redirect use to the relevant locale even when url_name is for a different locale" do
-        old_filters = ActionController::Routing::Routes.filters
-        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        RoutingFilter.active = false
 
         get :show, {:url_name => "edfh", :view => 'all'}
         response.should redirect_to "http://test.host/body/dfh"
 
-        ActionController::Routing::Routes.filters = old_filters
+        RoutingFilter.active = true
     end
 
     it "should remember the filter (view) setting on redirecting" do
         get :show, :show_locale => "es", :url_name => "tgq", :view => 'successful'
-        response.should redirect_to show_public_body_successful_url(:url_name => "etgq")
+        response.should redirect_to 'http://test.host/es/body/etgq/successful'
     end
 
     it "should redirect to newest name if you use historic name of public body in URL" do
@@ -84,7 +79,7 @@ describe PublicBodyController, "when showing a body" do
 end
 
 describe PublicBodyController, "when listing bodies" do
-    integrate_views
+    render_views
 
     it "should be successful" do
         get :list
@@ -92,7 +87,7 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list all bodies from default locale, even when there are no translations for selected locale" do
-        PublicBody.with_locale(:en) do
+        I18n.with_locale(:en) do
             @english_only = PublicBody.new(:name => 'English only',
                                           :short_name => 'EO',
                                           :request_email => 'english@flourish.org',
@@ -100,7 +95,7 @@ describe PublicBodyController, "when listing bodies" do
                                           :last_edit_comment => '')
             @english_only.save
         end
-        PublicBody.with_locale(:es) do
+        I18n.with_locale(:es) do
             get :list
             assigns[:public_bodies].include?(@english_only).should == true
         end
@@ -112,9 +107,12 @@ describe PublicBodyController, "when listing bodies" do
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == PublicBody.all(
-            :conditions => "id <> #{PublicBody.internal_admin_body.id}",
-            :order => "(select name from public_body_translations where public_body_id=public_bodies.id and locale='en')")
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:humpadink_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
         assigns[:tag].should == "all"
         assigns[:description].should == ""
     end
@@ -152,11 +150,20 @@ describe PublicBodyController, "when listing bodies" do
 
         get :list, :tag => "other"
         response.should render_template('list')
-        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id not in (#{public_bodies(:humpadink_public_body).id}, #{PublicBody.internal_admin_body.id})")
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
 
         get :list
         response.should render_template('list')
-        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
+        assigns[:public_bodies].should == [ public_bodies(:other_public_body),
+            public_bodies(:humpadink_public_body),
+            public_bodies(:forlorn_public_body),
+            public_bodies(:geraldine_public_body),
+            public_bodies(:sensible_walks_public_body),
+            public_bodies(:silly_walks_public_body) ]
     end
 
     it "should list a machine tagged thing, should get it in both ways" do
@@ -176,8 +183,11 @@ describe PublicBodyController, "when listing bodies" do
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "eats_cheese:stilton"
+    end
 
-
+    it 'should return a "406 Not Acceptable" code if asked for a json version of a list' do
+        get :list, :format => 'json'
+        response.code.should == '406'
     end
 
 end
@@ -198,7 +208,7 @@ end
 
 describe PublicBodyController, "when doing type ahead searches" do
 
-    integrate_views
+    render_views
 
     before(:each) do
         load_raw_emails_data

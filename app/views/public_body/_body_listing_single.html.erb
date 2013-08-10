@@ -1,0 +1,32 @@
+<% if @highlight_words.nil? 
+      @highlight_words = []
+   end %>
+
+<div class="body_listing">
+	<span class="head">
+    <%= link_to highlight_words(public_body.name, @highlight_words), public_body_path(public_body) %>
+   	</span>
+    <span class="desc">
+    <% if !public_body.short_name.empty? || !public_body.notes_without_html.empty? %>
+        <% if !public_body.short_name.empty? %>
+            <%= _("Also called {{other_name}}.", :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
+        <% end %>
+        <% if !public_body.notes_without_html.empty? %>
+            <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
+        <% end %>
+        <br>
+    <% end %>
+	</span>
+    <span class="bottomline">
+        <%= n_('{{count}} request made.', '{{count}} requests made.', public_body.info_requests.size,
+        :count => public_body.info_requests.size) %>
+        <% if !@include_request_link_in_authority_listing.nil? %>
+        <%= link_to _("Make your own request"), public_body_path(public_body) %>.
+        <% end %>
+        <br>
+        <span class="date_added">
+            <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
+        </span>
+    </span>
+</div>
+

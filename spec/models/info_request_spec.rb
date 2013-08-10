@@ -426,8 +426,8 @@ describe InfoRequest do
 
         before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment', :response? => false)
-            @mock_response_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response', :response? => true)
+            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment', :response? => false)
+            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response', :response? => true)
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :info_request_events => [@mock_response_event, @mock_comment_event])
@@ -457,16 +457,16 @@ describe InfoRequest do
     describe 'when applying censor rules' do
 
         before do
-            @global_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @global_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                   :apply_to_binary! => nil)
-            @user_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @user_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                 :apply_to_binary! => nil)
-            @request_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @request_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                    :apply_to_binary! => nil)
-            @body_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
+            @body_rule = mock_model(CensorRule, :apply_to_text! => nil,
                                                 :apply_to_binary! => nil)
-            @user = safe_mock_model(User, :censor_rules => [@user_rule])
-            @body = safe_mock_model(PublicBody, :censor_rules => [@body_rule])
+            @user = mock_model(User, :censor_rules => [@user_rule])
+            @body = mock_model(PublicBody, :censor_rules => [@body_rule])
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :title => 'title')
@@ -562,7 +562,48 @@ describe InfoRequest do
             @info_request.prominence = 'requester_only'
             @info_request.all_can_view?.should == false
         end
-
     end
 
+    describe  'when generating json for the api' do
+
+        before do
+            @user = mock_model(User, :json_for_api => { :id => 20,
+                                                        :url_name => 'alaveteli_user',
+                                                        :name => 'Alaveteli User',
+                                                        :ban_text => '',
+                                                        :about_me => 'Hi' })
+        end
+
+        it 'should return full user info for an internal request' do
+            @info_request = InfoRequest.new(:user => @user)
+            @info_request.user_json_for_api.should == { :id => 20,
+                                                        :url_name => 'alaveteli_user',
+                                                        :name => 'Alaveteli User',
+                                                        :ban_text => '',
+                                                        :about_me => 'Hi' }
+        end
+    end
+
+    describe 'when working out a subject for a followup emails' do
+
+        it "should not be confused by an nil subject in the incoming message" do
+            ir = info_requests(:fancy_dog_request)
+            im = mock_model(IncomingMessage,
+                            :subject => nil,
+                            :valid_to_reply_to? => true)
+            subject = ir.email_subject_followup im
+            subject.should match(/^Re: Freedom of Information request.*fancy dog/)
+        end
+
+        it "should return a hash with the user's name for an external request" do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com',
+                                            :external_user_name => 'External User')
+            @info_request.user_json_for_api.should == {:name => 'External User'}
+        end
+
+        it 'should return "Anonymous user" for an anonymous external user' do
+            @info_request = InfoRequest.new(:external_url => 'http://www.example.com')
+            @info_request.user_json_for_api.should == {:name => 'Anonymous user'}
+        end
+    end
 end

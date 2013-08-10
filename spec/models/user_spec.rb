@@ -27,10 +27,21 @@ describe User, "showing the name" do
         @user.name.should == 'Some Name'
     end
 
-    it 'should show if user has been banned' do
-        @user.ban_text = "Naughty user"
-        @user.name.should == 'Some Name (Account suspended)'
+    describe  'if user has been banned' do
+
+        before do
+            @user.ban_text = "Naughty user"
+        end
+
+        it 'should show an "Account suspended" suffix' do
+            @user.name.should == 'Some Name (Account suspended)'
+        end
+
+        it 'should return a string when the user has been banned, not a SafeBuffer' do
+            @user.name.class.should == String
+        end
     end
+
 
 end
 
@@ -152,10 +163,10 @@ end
 describe User, "when reindexing referencing models" do
 
     before do
-        @request_event = safe_mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
-        @request = safe_mock_model(InfoRequest, :info_request_events => [@request_event])
-        @comment_event = safe_mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
-        @comment = safe_mock_model(Comment, :info_request_events => [@comment_event])
+        @request_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
+        @request = mock_model(InfoRequest, :info_request_events => [@request_event])
+        @comment_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
+        @comment = mock_model(Comment, :info_request_events => [@comment_event])
         @user = User.new(:comments => [@comment], :info_requests => [@request])
     end
 

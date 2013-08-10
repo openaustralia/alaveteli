@@ -26,8 +26,7 @@
 require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
-    include ActionView::Helpers::UrlHelper
-    include ActionController::UrlWriter
+    include Rails.application.routes.url_helpers
 
     strip_attributes!
 
@@ -51,7 +50,7 @@ class InfoRequest < ActiveRecord::Base
 
     has_tag_string
 
-    named_scope :visible, :conditions => {:prominence => "normal"}
+    scope :visible, :conditions => {:prominence => "normal"}
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validate :must_be_valid_state
@@ -81,6 +80,11 @@ class InfoRequest < ActiveRecord::Base
         'blackhole' # just dump them
     ]
 
+    # only check on create, so existing models with mixed case are allowed
+    validate :title_formatting, :on => :create
+
+    after_initialize :set_defaults
+
     def self.enumerate_states
         states = [
         'waiting_response',
@@ -102,6 +106,12 @@ class InfoRequest < ActiveRecord::Base
             states += InfoRequest.theme_extra_states
         end
         states
+    end
+
+    # Possible reasons that a request could be reported for administrator attention
+    def report_reasons
+        ["Contains defamatory material", "Not a valid request", "Request for personal information",
+            "Contains personal information", "Vexatious", "Other"]
     end
 
     def must_be_valid_state
@@ -146,9 +156,13 @@ class InfoRequest < ActiveRecord::Base
         end
     end
 
+    def user_json_for_api
+        is_external? ? { :name => user_name || _("Anonymous user") } : user.json_for_api
+    end
+
     @@custom_states_loaded = false
     begin
-        if ENV["RAILS_ENV"] != "test"
+        if !Rails.env.test?
             require 'customstates'
             include InfoRequestCustomStates
             @@custom_states_loaded = true
@@ -185,21 +199,6 @@ class InfoRequest < ActiveRecord::Base
         self.comments.find(:all, :conditions => 'visible')
     end
 
-    # Central function to do all searches
-    # (Not really the right place to put it, but everything can get it here, and it
-    # does *mainly* find info requests, via their events, so hey)
-    def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        offset = (page - 1) * per_page
-
-        return ::ActsAsXapian::Search.new(
-            models, query,
-            :offset => offset, :limit => per_page,
-            :sort_by_prefix => order,
-            :sort_by_ascending => ascending,
-            :collapse_by_prefix => collapse
-        )
-    end
-
     # If the URL name has changed, then all request: queries will break unless
     # we update index for every event. Also reindex if prominence changes.
     after_update :reindex_some_request_events
@@ -225,17 +224,6 @@ class InfoRequest < ActiveRecord::Base
     def clear_in_database_caches!
         for incoming_message in self.incoming_messages
             incoming_message.clear_in_database_caches!
-        end
-    end
-
-    # For debugging
-    def InfoRequest.profile_search(query)
-        t = Time.now.usec
-        for i in (1..10)
-            t = Time.now.usec - t
-            secs = t / 1000000.0
-            STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search([InfoRequestEvent], query, "created_at", true, nil, 25, 1).results
         end
     end
 
@@ -290,7 +278,7 @@ public
         end
     end
     def email_subject_followup(incoming_message = nil)
-        if incoming_message.nil? || !incoming_message.valid_to_reply_to?
+        if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
             'Re: ' + self.email_subject_request
         else
             if incoming_message.subject.match(/^Re:/i)
@@ -347,7 +335,10 @@ public
     # copying an email, and that doesn't matter)
     def InfoRequest.find_by_incoming_email(incoming_email)
         id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-        return self.find_by_magic_email(id, hash)
+        if hash_from_id(id) == hash
+            # Not using find(id) because we don't exception raised if nothing found
+            find_by_id(id)
+        end
     end
 
     # Return list of info requests which *might* be right given email address
@@ -456,7 +447,7 @@ public
 
             if !allow
                 if self.handle_rejected_responses == 'bounce'
-                    RequestMailer.deliver_stopped_responses(self, email, raw_email_data) if !is_external?
+                    RequestMailer.stopped_responses(self, email, raw_email_data).deliver if !is_external?
                 elsif self.handle_rejected_responses == 'holding_pen'
                     InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
@@ -474,6 +465,17 @@ public
         incoming_message = IncomingMessage.new
 
         ActiveRecord::Base.transaction do
+
+            # To avoid a deadlock when simultaneously dealing with two
+            # incoming emails that refer to the same InfoRequest, we
+            # lock the row for update.  In Rails 3.2.0 and later this
+            # can be done with info_request.with_lock or
+            # info_request.lock!, but upgrading to that version of
+            # Rails creates many other problems at the moment.  In the
+            # interim, just use raw SQL to do the SELECT ... FOR UPDATE
+            raw_sql = "SELECT * FROM info_requests WHERE id = #{self.id} LIMIT 1 FOR UPDATE"
+            ActiveRecord::Base.connection.execute(raw_sql)
+
             raw_email = RawEmail.new
             incoming_message.raw_email = raw_email
             incoming_message.info_request = self
@@ -484,13 +486,13 @@ public
             self.awaiting_description = true
             params = { :incoming_message_id => incoming_message.id }
             if !rejected_reason.empty?
-                params[:rejected_reason] = rejected_reason
+                params[:rejected_reason] = rejected_reason.to_str
             end
             self.log_event("response", params)
             self.save!
         end
         self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-        RequestMailer.deliver_new_response(self, incoming_message) if !is_external?
+        RequestMailer.new_response(self, incoming_message).deliver if !is_external?
     end
 
 
@@ -543,8 +545,21 @@ public
 
     # states which require administrator action (hence email administrators
     # when they are entered, and offer state change dialog to them)
+    def InfoRequest.requires_admin_states
+        return ['requires_admin', 'error_message', 'attention_requested']
+    end
+
     def requires_admin?
         ['requires_admin', 'error_message', 'attention_requested'].include?(described_state)
+    end
+
+    # Report this request for administrator attention
+    def report!(reason, message, user)
+        ActiveRecord::Base.transaction do
+            set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
+            self.attention_requested = true # tells us if attention has ever been requested
+            save!
+        end
     end
 
     # change status, including for last event for later historical purposes
@@ -564,7 +579,7 @@ public
         if self.requires_admin?
             # Check there is someone to send the message "from"
             if !set_by.nil? || !self.user.nil?
-                RequestMailer.deliver_requires_admin(self, set_by, message)
+                RequestMailer.requires_admin(self, set_by, message).deliver
             end
         end
 
@@ -579,7 +594,7 @@ public
             RequestClassification.create!(:user_id => set_by.id,
                                           :info_request_event_id => event.id)
 
-            RequestMailer.deliver_old_unclassified_updated(self) if !is_external?
+            RequestMailer.old_unclassified_updated(self).deliver if !is_external?
         end
     end
 
@@ -694,7 +709,7 @@ public
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::reply_late_after_days, Configuration::working_or_calendar_days)
+        Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::reply_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
@@ -702,10 +717,10 @@ public
         last_sent = last_event_forming_initial_request
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
-            Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::special_reply_very_late_after_days, Configuration::working_or_calendar_days)
+            Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::special_reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
         else
             # public interest test ICO guidance gives 40 working maximum
-            Holiday.due_date_from(self.date_initial_request_last_sent_at, Configuration::reply_very_late_after_days, Configuration::working_or_calendar_days)
+            Holiday.due_date_from(self.date_initial_request_last_sent_at, AlaveteliConfiguration::reply_very_late_after_days, AlaveteliConfiguration::working_or_calendar_days)
         end
     end
 
@@ -791,6 +806,16 @@ public
         end
     end
 
+    # Returns last event
+    def get_last_event
+        events = self.info_request_events
+        if events.size == 0
+            return nil
+        else
+            return events[-1]
+        end
+    end
+
     # Get previous email sent to
     def get_previous_email_sent_to(info_request_event)
         last_email = nil
@@ -867,10 +892,10 @@ public
     end
 
     def InfoRequest.magic_email_for_id(prefix_part, id)
-        magic_email = Configuration::incoming_email_prefix
+        magic_email = AlaveteliConfiguration::incoming_email_prefix
         magic_email += prefix_part + id.to_s
         magic_email += "-" + InfoRequest.hash_from_id(id)
-        magic_email += "@" + Configuration::incoming_email_domain
+        magic_email += "@" + AlaveteliConfiguration::incoming_email_domain
         return magic_email
     end
 
@@ -881,25 +906,7 @@ public
     end
 
     def InfoRequest.hash_from_id(id)
-        return Digest::SHA1.hexdigest(id.to_s + Configuration::incoming_email_secret)[0,8]
-    end
-
-    # Called by find_by_incoming_email - and used to be called by separate
-    # function for envelope from address, until we abandoned it.
-    def InfoRequest.find_by_magic_email(id, hash)
-        expected_hash = InfoRequest.hash_from_id(id)
-        #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
-        if hash != expected_hash
-            return nil
-        else
-            begin
-                return self.find(id)
-            rescue ActiveRecord::RecordNotFound
-                # so error email is sent to admin, rather than the exception sending weird
-                # error to the public body.
-                return nil
-            end
-        end
+        return Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration::incoming_email_secret)[0,8]
     end
 
     # Used to find when event last changed
@@ -1052,25 +1059,6 @@ public
         InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only') and url_title <> 'holding_pen'"
     end
 
-    # Returns a random FOI request
-    def InfoRequest.random
-        max_id = InfoRequest.connection.select_value('select max(id) as a from info_requests').to_i
-        info_request = nil
-        count = 0
-        while info_request.nil?
-            if count > 100
-                return nil
-            end
-            id = rand(max_id) + 1
-            begin
-                count += 1
-                info_request = find(id, :conditions => ["prominence = 'normal'"])
-            rescue ActiveRecord::RecordNotFound
-            end
-        end
-        return info_request
-    end
-
     def json_for_api(deep)
         ret = {
             :id => self.id,
@@ -1104,7 +1092,7 @@ public
 
     before_save :purge_in_cache
     def purge_in_cache
-        if !Configuration::varnish_host.blank? && !self.id.nil?
+        if !AlaveteliConfiguration::varnish_host.blank? && !self.id.nil?
             # we only do this for existing info_requests (new ones have a nil id)
             path = url_for(:controller => 'request', :action => 'show', :url_title => self.url_title, :only_path => true, :locale => :none)
             req = PurgeRequest.find_by_url(path)
@@ -1121,6 +1109,35 @@ public
       self.class.content_columns.map{|c| c unless %w(title url_title).include?(c.name) }.compact.each do |column|
         yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
       end
+    end
+
+    private
+
+    def set_defaults
+        begin
+            if self.described_state.nil?
+                self.described_state = 'waiting_response'
+            end            
+        rescue ActiveModel::MissingAttributeError
+            # this should only happen on Model.exists?() call. It can be safely ignored.
+            # See http://www.tatvartha.com/2011/03/activerecordmissingattributeerror-missing-attribute-a-bug-or-a-features/       
+        end
+        # FOI or EIR?
+        if !self.public_body.nil? && self.public_body.eir_only?
+            self.law_used = 'eir'
+        end
+    end
+
+    def title_formatting
+        if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
+            errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
+        end
+        if !self.title.nil? && title.size > 200
+            errors.add(:title, _('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
+        end
+        if !self.title.nil? && self.title =~ /^(FOI|Freedom of Information)\s*requests?$/i
+            errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
+        end
     end
 end
 

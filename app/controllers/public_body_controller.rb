@@ -3,7 +3,7 @@
 # Show information about a public body.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'fastercsv'
 
@@ -16,7 +16,7 @@ class PublicBodyController < ApplicationController
             return
         end
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
             raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
             if @public_body.url_name.nil?
@@ -69,7 +69,7 @@ class PublicBodyController < ApplicationController
         @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
         raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
 
-        PublicBody.with_locale(self.locale_from_params()) do
+        I18n.with_locale(self.locale_from_params()) do
             if params[:submitted_view_email]
                 if verify_recaptcha
                     flash.discard(:error)
@@ -127,13 +127,13 @@ class PublicBodyController < ApplicationController
                 @description = _("in the category ‘{{category_name}}’", :category_name=>category_name)
             end
         end
-        PublicBody.with_locale(@locale) do
-            @public_bodies = PublicBody.paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 100,
-              :conditions => conditions,
-              :joins => :translations
+        I18n.with_locale(@locale) do
+            @public_bodies = PublicBody.where(conditions).joins(:translations).order("public_body_translations.name").paginate(
+              :page => params[:page], :per_page => 100
             )
-            render :template => "public_body/list"
+            respond_to do |format|
+                format.html { render :template => "public_body/list" }
+            end
         end
     end
 

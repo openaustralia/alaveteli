@@ -9,15 +9,17 @@ namespace :themes do
         File.join(plugin_dir, theme_name)
     end
 
+    def checkout(commitish)
+        puts "Checking out #{commitish}" if verbose
+        system "git checkout #{commitish}"
+    end
+
     def checkout_tag(version)
-        checkout_command = "git checkout #{usage_tag(version)}"
-        success = system(checkout_command)
-        puts "Using tag #{usage_tag(version)}" if verbose && success
-        success
+        checkout usage_tag(version)
     end
 
     def checkout_remote_branch(branch)
-        system("git checkout origin/#{branch}")
+        checkout "origin/#{branch}"
     end
 
     def usage_tag(version)
@@ -31,7 +33,7 @@ namespace :themes do
             if system(clone_command)
                 Dir.chdir install_path do
                     # First try to checkout a specific branch of the theme
-                    tag_checked_out = checkout_remote_branch(Configuration::theme_branch) if Configuration::theme_branch
+                    tag_checked_out = checkout_remote_branch(AlaveteliConfiguration::theme_branch) if AlaveteliConfiguration::theme_branch
                     if !tag_checked_out
                         # try to checkout a tag exactly matching ALAVETELI VERSION
                         tag_checked_out = checkout_tag(ALAVETELI_VERSION)
@@ -94,10 +96,10 @@ namespace :themes do
     desc "Install themes specified in the config file's THEME_URLS"
     task :install => :environment do
         verbose = true
-        Configuration::theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
-        if ! Configuration::theme_url.blank?
+        AlaveteliConfiguration::theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
+        if ! AlaveteliConfiguration::theme_url.blank?
             # Old version of the above, for backwards compatibility
-            install_theme(Configuration::theme_url, verbose, deprecated=true)
+            install_theme(AlaveteliConfiguration::theme_url, verbose, deprecated=true)
         end
     end
 end

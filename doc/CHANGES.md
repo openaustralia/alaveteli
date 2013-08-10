@@ -1,3 +1,59 @@
+# Version 0.12
+## Highlighted features
+*  Remove support for theme stylesheet inclusion via template (deprecated in version 0.5)
+* Addition of a simple JSON API for querying the Ruby and Alaveteli version of an Alaveteli instance - made available at /version.json (Matthew Landauer)
+* Users can now give more information when reporting a request as unsuitable (Matthew Landauer)
+* The donation url presented to users when they report their request as successful or partially successful is now option and the url itself can be configured using the config param DONATION_URL
+* Internal review request text is now translatable
+* config/crontab.ugly is now config/crontab-example
+* Search query highlighting should now work with non-ascii characters [issue #505](https://github.com/mysociety/alaveteli/issues/505) (Matthew Landauer)
+* A bug that allowed people to sign up with email addresses with spaces in them has been fixed [issue #980](https://github.com/mysociety/alaveteli/issues/980)
+
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=30&state=closed)
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+* Add a DONATION_URL to your config/general.yml file if you want to use your own donation URL.
+
+# Version 0.11
+## Highlighted features
+* Upgrade of the Rails framework to version 3.1.12 (Henare Degan, Matthew Landauer, Mark Longair, Louise Crow)
+
+## Upgrade notes
+* Manually remove vendor/rails-locales
+* Themes created for 0.9 and below should be updated to work with Rails 3. See `THEMES-UPGRADE.md` for notes on upgrading your theme. You will need to manually remove your old theme directory before running `rails-post-deploy`.
+* The `config/httpd.conf` has moved to `config/httpd.conf-example`, as it may need customization before deploying. It also has a new line setting RackEnv to production - copy this to your config/httpd.conf file.
+* Alaveteli now uses the [mail gem](https://github.com/mikel/mail) rather than [tmail](https://github.com/mikel/tmail) to handle mail. If you're using Exim as your MTA, you'll need to use the setting `extract_addresses_remove_arguments = false` in your Exim conf (see INSTALL-exim4.md for details). This means it won't remove addresses specified with -t on command line from the mail recipient list.
+
+# Version 0.9
+## Highlighted features
+* Consistent and more informative variable interpolation syntax in translated phrases. All of these phrases will now appear in the form "There are {{count}} people following this request", where some were previously in the form "There are %s people following this request". (Matthew Landauer)
+* Replaces deprecated calls to with_locale on ActiveRecord classes in preparation for upgrade to Globalize3 (Matthew Landauer)
+* Fixes a database deadlock bug caused by near-simultaneous incoming emails for the same info request (Mark Longair)
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+
+
+# Version 0.8
+## Highlighted features
+* Support for running the site over SSL/TLS only and corresponding removal of support for a proxied admin interface, including the deprecation of the main_url and admin_url helpers.
+* Merging of the adminbootstrap theme into core Alaveteli, replacing the existing admin theme. (Matthew Landauer)
+* Move to HTML 5 (Matthew Landauer)
+* More consistent UI for links in the admin interface
+* [Security] Upgrades the Rails version to 2.3.17 to get fixes for CVE-2013-0277, CVE-2013-0276 (Although core Alaveteli does not use serialize or attr_protected), upgrade JSON gem to get fix for CVE-2013-0269.
+* A bugfix for Chrome's autofilling of signup fields (Vaughan Rouesnel)
+* Improvements to the accessibility of the search boxes (Nathan Jenkins)
+* Only one email sent when asking for admin attention to a request  [issue #789](https://github.com/mysociety/alaveteli/pull/864) (Matthew Landauer)
+* A number of XSS escaping fixes for Version 0.7 (Matthew Landauer)
+* The emergency admin account can now be disabled
+
+## Upgrade notes
+* Check out this version and run `rails-post-deploy` as usual.
+* Remove adminbootstrap from the THEME_URLS or THEME_URL config variable, and remove vendor/plugins/adminbootstraptheme, and the softlink public/adminbootstraptheme.
+* There is a new config variable FORCE_SSL, which defaults to true, meaning that Alaveteli will redirect all "http" requests to "https", set the Strict-Transport-Security header and flag all cookies as "secure". For more information about running your install over SSL/TLS, see the [install guide](https://github.com/mysociety/alaveteli/blob/develop/doc/INSTALL.md#set-up-production-web-server). If you don't want to run over SSL/TLS, add the config variable FORCE_SSL to your config/general.yml and set it to false.
+* If you would like to disable the emergency user account, set DISABLE_EMERGENCY_USER to true in you config/general.yml
+
 # Version 0.7
 ## Highlighted features
 * [Security] Upgrades the Rails version from 2.3.15 to 2.3.16 to get fix for a critical security flaw in Rails (CVE-2013-0333).

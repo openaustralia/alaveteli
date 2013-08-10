@@ -3,7 +3,7 @@
 # social bookmarking.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class TrackController < ApplicationController
 
@@ -80,10 +80,7 @@ class TrackController < ApplicationController
 
     # Track a search term
     def track_search_query
-        # XXX should be better thing in rails routes than having to do this
-        # join just to get / and . to work in a query.
-        query_array = params[:query_array]
-        @query = query_array.join("/")
+        @query = params[:query_array]
 
         # XXX more hackery to make alternate formats still work with query_array
         if /^(.*)\.json$/.match(@query)
@@ -156,11 +153,14 @@ class TrackController < ApplicationController
 
     def atom_feed_internal
         @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1)
+        # We're assuming that a request to a feed url with no format suffix wants atom/xml
+        # so set that as the default, regardless of content negotiation
+        request.format = 'xml' unless params[:format]
         respond_to do |format|
-            format.atom { render :template => 'track/atom_feed', :content_type => "application/atom+xml" }
             format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
-                    lambda { |t| @template.highlight_and_excerpt(t, @xapian_object.words_to_highlight, 150) }
+                    lambda { |t| view_context.highlight_and_excerpt(t, @xapian_object.words_to_highlight, 150) }
                 ) } }
+            format.any { render :template => 'track/atom_feed.atom', :layout => false, :content_type => 'application/atom+xml' }
         end
     end
 

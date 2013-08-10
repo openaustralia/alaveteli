@@ -3,14 +3,7 @@
 # particular model.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-
-begin
-  require 'xmlsimple'
-rescue LoadError
-  # Debian maintainers put their xmlsimple in a different location :(
-  require 'lib/xmlsimple'
-end
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'open-uri'
 
@@ -21,11 +14,11 @@ class GeneralController < ApplicationController
         medium_cache
         # get some example searches and public bodies to display
         # either from config, or based on a (slow!) query if not set
-        body_short_names = Configuration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
+        body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
         @locale = self.locale_from_params()
         locale_condition = 'public_body_translations.locale = ?'
         conditions = [locale_condition, @locale]
-        PublicBody.with_locale(@locale) do
+        I18n.with_locale(@locale) do
             if body_short_names.empty?
                 # This is too slow
                 @popular_bodies = PublicBody.visible.find(:all,
@@ -71,7 +64,7 @@ class GeneralController < ApplicationController
     def blog
         medium_cache
         @feed_autodetect = []
-        @feed_url = Configuration::blog_feed
+        @feed_url = AlaveteliConfiguration::blog_feed
         separator = @feed_url.include?('?') ? '&' : '?'
         @feed_url = "#{@feed_url}#{separator}lang=#{self.locale_from_params()}"
         @blog_items = []
@@ -84,7 +77,7 @@ class GeneralController < ApplicationController
                 @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
             end
         end
-        @twitter_user = Configuration::twitter_username
+        @twitter_user = AlaveteliConfiguration::twitter_username
     end
 
     # Just does a redirect from ?query= search to /query
@@ -109,7 +102,7 @@ class GeneralController < ApplicationController
     def search
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
-        combined = params[:combined]
+        combined = params[:combined].split("/")
         @sortby = nil
         @bodies = @requests = @users = true
         if combined.size > 0 && (['advanced'].include?(combined[-1]))
@@ -160,7 +153,7 @@ class GeneralController < ApplicationController
             # structured query which should show newest first, rather than a free text search
             # where we want most relevant as default.
             begin
-                dummy_query = ::ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+                dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
             rescue => e
                 flash[:error] = "Your query was not quite right. " + CGI.escapeHTML(e.to_str)
                 redirect_to search_url("")
@@ -176,10 +169,8 @@ class GeneralController < ApplicationController
         # Query each type separately for separate display (XXX we are calling
         # perform_search multiple times and it clobbers per_page for each one,
         # so set as separate var)
-        requests_per_page = 25
-        if params[:requests_per_page]
-            requests_per_page = params[:requests_per_page].to_i
-        end
+        requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
+
         @this_page_hits = @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
         if @requests
             @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', requests_per_page)
@@ -218,16 +209,19 @@ class GeneralController < ApplicationController
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
     end
 
-    # Jump to a random request
-    def random_request
-        info_request = InfoRequest.random
-        redirect_to request_url(info_request)
+    # Handle requests for non-existent URLs - will be handled by ApplicationController::render_exception
+    def not_found
+        raise RouteNotFound
     end
 
-    def custom_css
-        long_cache
-        @locale = self.locale_from_params()
-        render(:layout => false, :content_type => 'text/css')
+    def version
+        respond_to do |format|
+            format.json { render :json => {
+                :alaveteli_git_commit => alaveteli_git_commit,
+                :alaveteli_version => ALAVETELI_VERSION,
+                :ruby_version => RUBY_VERSION
+            }}
+        end
     end
 end
 

@@ -3,7 +3,7 @@
 # -
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 module LinkToHelper
 
@@ -36,7 +36,7 @@ module LinkToHelper
     end
 
     def outgoing_message_url(outgoing_message, options = {})
-        return request_path(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
+        request_url(outgoing_message.info_request, options.merge(:anchor => "outgoing-#{outgoing_message.id}"))
     end
 
     def outgoing_message_path(outgoing_message)
@@ -238,7 +238,7 @@ module LinkToHelper
     # TODO: Remove in next release
     def main_url(relative_path, append = nil)
         warn "[DEPRECATION] main_url is deprecated. Please remove it from your theme."
-        url_prefix = "http://" + Configuration::domain
+        url_prefix = "http://" + AlaveteliConfiguration::domain
         url = url_prefix + relative_path
         if !append.nil?
             begin
@@ -282,5 +282,13 @@ module LinkToHelper
     def year_from_date(date)
         return date.strftime("%Y").strip
     end
+
+    #I18n locale switcher
+
+    def locale_switcher(locale, params)
+        params['locale'] = locale
+        return url_for(params)
+    end
+
 end
 

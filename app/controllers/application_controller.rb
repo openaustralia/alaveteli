@@ -5,19 +5,21 @@
 # will be available for all controllers.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+# Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require 'open-uri'
 
 class ApplicationController < ActionController::Base
     class PermissionDenied < StandardError
     end
+    class RouteNotFound < StandardError
+    end
+    # assign our own handler method for non-local exceptions
+    rescue_from Exception, :with => :render_exception
+
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
-
-    # Send notification email on exceptions
-    include ExceptionNotification::Notifiable
 
     # Note: a filter stops the chain if it redirects or renders something
     before_filter :authentication_check
@@ -25,10 +27,6 @@ class ApplicationController < ActionController::Base
     before_filter :check_in_post_redirect
     before_filter :session_remember_me
     before_filter :set_vary_header
-    before_filter :set_popup_banner
-
-    # scrub sensitive parameters from the logs
-    filter_parameter_logging :password
 
     def set_vary_header
         response.headers['Vary'] = 'Cookie'
@@ -53,19 +51,22 @@ class ApplicationController < ActionController::Base
         anonymous_cache(24.hours)
     end
 
+    # This is an override of the method provided by gettext_i18n_rails - note the explicit
+    # setting of I18n.locale, required due to the I18nProxy used in Rails 3 to trigger the
+    # lookup_context and expire the template cache
     def set_gettext_locale
-        if Configuration::include_default_locale_in_urls == false
+        if AlaveteliConfiguration::include_default_locale_in_urls == false
             params_locale = params[:locale] ? params[:locale] : I18n.default_locale
         else
             params_locale = params[:locale]
         end
-        if Configuration::use_default_browser_language
+        if AlaveteliConfiguration::use_default_browser_language
             requested_locale = params_locale || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
         else
             requested_locale = params_locale || session[:locale] || cookies[:locale] || I18n.default_locale
         end
         requested_locale = FastGettext.best_locale_in(requested_locale)
-        session[:locale] = FastGettext.set_locale(requested_locale)
+        session[:locale] = I18n.locale = FastGettext.set_locale(requested_locale)
         if !@user.nil?
             if @user.locale != requested_locale
                 @user.locale = session[:locale]
@@ -73,9 +74,6 @@ class ApplicationController < ActionController::Base
             end
         end
     end
-
-    # scrub sensitive parameters from the logs
-    filter_parameter_logging :password
 
     helper_method :locale_from_params
 
@@ -92,7 +90,7 @@ class ApplicationController < ActionController::Base
     # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
     around_filter :record_memory
     def record_memory
-        record_memory = Configuration::debug_record_memory
+        record_memory = AlaveteliConfiguration::debug_record_memory
         if record_memory
             logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
             File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
@@ -120,52 +118,36 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    # Override default error handler, for production sites.
-    def rescue_action_in_public(exception)
-        # Looks for before_filters called something like `set_view_paths_{themename}`. These
-        # are set by the themes.
-        # Normally, this is called by the theme itself in a
-        # :before_filter, but when there's an error, this doesn't
-        # happen.  By calling it here, we can ensure error pages are
-        # still styled according to the theme.
-        ActionController::Base.before_filters.select{|f| f.to_s =~ /set_view_paths/}.each do |f|
-            self.send(f)
+    def render_exception(exception)
+
+        # In development, or the admin interface, or for a local request, let Rails handle the exception
+        # with its stack trace templates. Local requests in testing are a special case so that we can
+        # test this method - there we use consider_all_requests_local to control behaviour.
+        if Rails.application.config.consider_all_requests_local || local_request? ||
+        (request.local? && !Rails.env.test?)
+            raise exception
         end
-        # Make sure expiry time for session is set (before_filters are
-        # otherwise missed by this override)
-        session_remember_me
 
-        # Make sure the locale is set correctly too
-        set_gettext_locale
-
+        @exception_backtrace = exception.backtrace.join("\n")
+        @exception_class = exception.class.to_s
+        @exception_message = exception.message
         case exception
-        when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
+        when ActiveRecord::RecordNotFound, RouteNotFound
             @status = 404
         when PermissionDenied
             @status = 403
         else
+            message = "\n#{@exception_class} (#{@exception_message}):\n"
+            backtrace = Rails.backtrace_cleaner.clean(exception.backtrace, :silent)
+            message << "  " << backtrace.join("\n  ")
+            Rails.logger.fatal("#{message}\n\n")
+            ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
             @status = 500
-            notify_about_exception exception
         end
-        # Display user appropriate error message
-        @exception_backtrace = exception.backtrace.join("\n")
-        @exception_class = exception.class.to_s
-        @exception_message = exception.message
-        render :template => "general/exception_caught.rhtml", :status => @status
-    end
-
-    # For development sites.
-    alias original_rescue_action_locally rescue_action_locally
-    def rescue_action_locally(exception)
-        # Make sure expiry time for session is set (before_filters are
-        # otherwise missed by this override)
-        session_remember_me
-
-        # Make sure the locale is set correctly too
-        set_gettext_locale
-
-        # Display default, detailed error for developers
-        original_rescue_action_locally(exception)
+        respond_to do |format|
+            format.html{ render :template => "general/exception_caught", :status => @status }
+            format.any{ render :nothing => true, :status => @status }
+        end
     end
 
     def local_request?
@@ -175,6 +157,7 @@ class ApplicationController < ActionController::Base
     # Called from test code, is a mimic of UserController.confirm, for use in following email
     # links when in controller tests (though we also have full integration tests that
     # can work over multiple controllers)
+    # TODO: Move this to the tests. It shouldn't be here
     def test_code_redirect_by_email_token(token, controller_example_group)
         post_redirect = PostRedirect.find_by_email_token(token)
         if post_redirect.nil?
@@ -182,7 +165,7 @@ class ApplicationController < ActionController::Base
         end
         session[:user_id] = post_redirect.user.id
         session[:user_circumstance] = post_redirect.circumstance
-        params = controller_example_group.params_from(:get, post_redirect.local_part_uri)
+        params = Rails.application.routes.recognize_path(post_redirect.local_part_uri)
         params.merge(post_redirect.post_params)
         controller_example_group.get params[:action], params
     end
@@ -258,7 +241,7 @@ class ApplicationController < ActionController::Base
     # Check the user is logged in
     def authenticated?(reason_params)
         unless session[:user_id]
-            post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
+            post_redirect = PostRedirect.new(:uri => request.fullpath, :post_params => params,
                 :reason_params => reason_params)
             post_redirect.save!
             # 'modal' controls whether the sign-in form will be displayed in the typical full-blown
@@ -346,10 +329,10 @@ class ApplicationController < ActionController::Base
 
     #
     def check_read_only
-        if !Configuration::read_only.empty?
+        if !AlaveteliConfiguration::read_only.empty?
             flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
                 :site_name => site_name,
-                :read_only => Configuration::read_only)
+                :read_only => AlaveteliConfiguration::read_only)
             redirect_to frontpage_url
         end
 
@@ -380,12 +363,15 @@ class ApplicationController < ActionController::Base
 
         # Peform the search
         @per_page = per_page
-        if this_page.nil?
-            @page = get_search_page_from_params
-        else
-            @page = this_page
-        end
-        result = InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page)
+        @page = this_page || get_search_page_from_params
+
+        result = ActsAsXapian::Search.new(models, @query,
+            :offset => (@page - 1) * @per_page,
+            :limit => @per_page,
+            :sort_by_prefix => order,
+            :sort_by_ascending => ascending,
+            :collapse_by_prefix => collapse
+        )
         result.results # Touch the results to load them, otherwise accessing them from the view
                        # might fail later if the database has subsequently been reopened.
         return result
@@ -552,16 +538,17 @@ class ApplicationController < ActionController::Base
 
     def country_from_ip
         country = ""
-        if !Configuration::gaze_url.empty?
-            country = quietly_try_to_open("#{Configuration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
+        if !AlaveteliConfiguration::gaze_url.empty?
+            country = quietly_try_to_open("#{AlaveteliConfiguration::gaze_url}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
         end
-        country = Configuration::iso_country_code if country.empty?
+        country = AlaveteliConfiguration::iso_country_code if country.empty?
         return country
     end
 
-    def set_popup_banner
-        @popup_banner = render_to_string(:partial => "general/popup_banner").strip.html_safe
+    def alaveteli_git_commit
+      `git log -1 --format="%H"`.strip
     end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
