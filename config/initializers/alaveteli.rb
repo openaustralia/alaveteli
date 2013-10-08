@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.12'
+ALAVETELI_VERSION = '0.14'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -25,7 +25,6 @@ ALAVETELI_VERSION = '0.12'
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
-# The Rails cache is set up by the Interlock plugin to use memcached
 
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration::domain
@@ -34,14 +33,6 @@ if AlaveteliConfiguration::force_ssl
   ActionMailer::Base.default_url_options[:protocol] = "https"
 end
 
-# fallback locale and available locales
-available_locales = AlaveteliConfiguration::available_locales.split(/ /)
-default_locale = AlaveteliConfiguration::default_locale
-
-FastGettext.default_available_locales = available_locales
-I18n.locale = default_locale
-I18n.available_locales = available_locales.map {|locale_name| locale_name.to_sym}
-I18n.default_locale = default_locale
 
 # Load monkey patches and other things from lib/
 require 'ruby19.rb'
@@ -57,6 +48,11 @@ require 'public_body_categories'
 require 'ability'
 require 'normalize_string'
 require 'alaveteli_file_types'
+require 'alaveteli_localization'
+require 'message_prominence'
+
+AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
+                                  AlaveteliConfiguration::default_locale)
 
 # Allow tests to be run under a non-superuser database account if required
 if Rails.env == 'test' and ActiveRecord::Base.configurations['test']['constraint_disabling'] == false

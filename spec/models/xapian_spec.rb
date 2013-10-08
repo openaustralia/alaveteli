@@ -373,6 +373,11 @@ end
 # I would expect ActsAsXapian to have some tests under vendor/plugins/acts_as_xapian, but
 # it looks like this is not the case. Putting a test here instead.
 describe ActsAsXapian::Search, "#words_to_highlight" do
+    before(:each) do
+         load_raw_emails_data
+         get_fixtures_xapian_index
+     end
+
     it "should return a list of words used in the search" do
         s = ActsAsXapian::Search.new([PublicBody], "albatross words", :limit => 100)
         s.words_to_highlight.should == ["albatross", "words"]
@@ -392,6 +397,37 @@ describe ActsAsXapian::Search, "#words_to_highlight" do
     it "should handle non-ascii characters" do
         s = ActsAsXapian::Search.new([PublicBody], "adatigénylés words tag:mice", :limit => 100)
         s.words_to_highlight.should == ["adatigénylés", "words"]
+    end
+
+end
+
+describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
+
+    before(:each) do
+        load_raw_emails_data
+        get_fixtures_xapian_index
+        # Use the before create job hook to simulate a race condition with another process
+        # by creating an acts_as_xapian_job record for the same model
+        class InfoRequestEvent
+            def xapian_before_create_job_hook(action, model, model_id)
+                ActsAsXapian::ActsAsXapianJob.create!(:model => model,
+                                                      :model_id => model_id,
+                                                      :action => action)
+            end
+        end
+    end
+
+    after(:each) do
+        # Reset the before create job hook
+        class InfoRequestEvent
+            def xapian_before_create_job_hook(action, model, model_id)
+            end
+        end
+    end
+
+    it 'should not raise an error but should fail silently' do
+        ir = info_requests(:naughty_chicken_request)
+        ir.reindex_request_events
     end
 
 end

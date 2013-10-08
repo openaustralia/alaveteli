@@ -1,15 +1,13 @@
 # coding: utf-8
-
 # == Schema Information
-# Schema version: 114
 #
 # Table name: incoming_messages
 #
-#  id                             :integer         not null, primary key
-#  info_request_id                :integer         not null
-#  created_at                     :datetime        not null
-#  updated_at                     :datetime        not null
-#  raw_email_id                   :integer         not null
+#  id                             :integer          not null, primary key
+#  info_request_id                :integer          not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  raw_email_id                   :integer          not null
 #  cached_attachment_text_clipped :text
 #  cached_main_body_text_folded   :text
 #  cached_main_body_text_unfolded :text
@@ -19,6 +17,9 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
+#  prominence                     :string(255)      default("normal"), not null
+#  prominence_reason              :text
+#
 
 # models/incoming_message.rb:
 # An (email) message from really anybody to be logged with a request. e.g. A
@@ -37,6 +38,7 @@ require 'zip/zip'
 require 'iconv' unless RUBY_VERSION >= '1.9'
 
 class IncomingMessage < ActiveRecord::Base
+    extend MessageProminence
     belongs_to :info_request
     validates_presence_of :info_request
 
@@ -48,6 +50,8 @@ class IncomingMessage < ActiveRecord::Base
 
     belongs_to :raw_email
 
+    has_prominence
+
     # See binary_mask_stuff function below. It just test for inclusion
     # in this hash, not the value of the right hand side.
     DoNotBinaryMask = {
@@ -58,6 +62,12 @@ class IncomingMessage < ActiveRecord::Base
         'image/bmp' => 1,
         'application/zip' => 1,
     }
+
+    # Given that there are in theory many info request events, a convenience method for
+    # getting the response event
+    def response_event
+        self.info_request_events.detect{ |e| e.event_type == 'response' }
+    end
 
     # Return a cached structured mail object
     def mail(force = nil)
@@ -151,14 +161,17 @@ class IncomingMessage < ActiveRecord::Base
         parse_raw_email!
         super
     end
+
     def subject
         parse_raw_email!
         super
     end
+
     def mail_from
         parse_raw_email!
         super
     end
+
     def safe_mail_from
         if !self.mail_from.nil?
             mail_from = self.mail_from.dup
@@ -166,6 +179,15 @@ class IncomingMessage < ActiveRecord::Base
             return mail_from
         end
     end
+
+    def specific_from_name?
+        !safe_mail_from.nil? && safe_mail_from.strip != info_request.public_body.name.strip
+    end
+
+    def from_public_body?
+        safe_mail_from.nil? || (mail_from_domain == info_request.public_body.request_email_domain)
+    end
+
     def mail_from_domain
         parse_raw_email!
         super
@@ -258,7 +280,7 @@ class IncomingMessage < ActiveRecord::Base
     # Used by binary_mask_stuff - replace text in place
     def _binary_mask_stuff_internal!(text)
         # Keep original size, so can check haven't resized it
-        orig_size = text.size
+        orig_size = text.mb_chars.size
 
         # Replace ASCII email addresses...
         text.gsub!(MySociety::Validate.email_find_regexp) do |email|
@@ -293,7 +315,7 @@ class IncomingMessage < ActiveRecord::Base
         # Replace censor items
         self.info_request.apply_censor_rules_to_binary!(text)
 
-        raise "internal error in binary_mask_stuff" if text.size != orig_size
+        raise "internal error in binary_mask_stuff" if text.mb_chars.size != orig_size
         return text
     end
 

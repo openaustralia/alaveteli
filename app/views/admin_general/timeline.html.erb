@@ -34,7 +34,7 @@
         <%= request_both_links(event.info_request) %>
         <% if event.event_type == 'edit' %>
             was edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% for p in ['title', 'prominence', 'described_state', 'awaiting_description']
+            <% for p in ['title', 'described_state', 'awaiting_description']
                     if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                         %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
                     end
@@ -88,7 +88,7 @@
         <% elsif event.event_type == 'comment' %>
             had an annotation posted by <%=h event.comment.user.name %>.
         <% elsif event.event_type == 'status_update' %>
-                had its status updated by <%=h User.find(event.params[:user_id]).name %> from '<%= h event.params[:old_described_state] %>' to '<%= h event.params[:described_state] %>'.
+                had its status updated by <%= event.params[:user_id] ? User.find(event.params[:user_id]).name : event.params[:script] %> from '<%= h event.params[:old_described_state] %>' to '<%= h event.params[:described_state] %>'.
         <% else %>
             had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
         <% end %>
