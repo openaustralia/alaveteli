@@ -33,6 +33,7 @@ gem 'rmagick', :require => 'RMagick'
 gem 'ruby-msg', '~> 1.5.0'
 gem "statistics2", "~> 0.54"
 gem 'syslog_protocol'
+gem 'thin'
 gem 'vpim'
 gem 'will_paginate'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
@@ -44,12 +45,11 @@ gem 'zip'
 gem 'fast_gettext'
 gem 'gettext_i18n_rails'
 gem 'gettext'
-# Use until this PR is merged: https://github.com/svenfuchs/globalize3/pull/191
-gem 'globalize3', :git => 'git://github.com/henare/globalize3.git', :branch => 'not-null-empty-attributes'
+gem 'globalize3', :git => 'git://github.com/globalize/globalize.git', :ref => '5fd95f2389dff1'
 gem 'locale'
 gem 'routing-filter'
 gem 'unicode'
-gem 'unidecode'
+gem 'unidecoder'
 
 group :test do
   gem 'fakeweb'

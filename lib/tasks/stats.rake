@@ -1,8 +1,14 @@
 namespace :stats do
 
-  desc 'Produce transaction stats'
+  desc 'Produce monthly transaction stats for a period starting START_YEAR'
   task :show => :environment do
-    month_starts = (Date.new(2009, 1)..Date.new(2011, 8)).select { |d| d.day == 1 }
+    example = 'rake stats:show START_YEAR=2009 [START_MONTH=3 END_YEAR=2012 END_MONTH=10]'
+    check_for_env_vars(['START_YEAR'], example)
+    start_year = (ENV['START_YEAR']).to_i
+    start_month = (ENV['START_MONTH'] || 1).to_i
+    end_year = (ENV['END_YEAR'] || Time.now.year).to_i
+    end_month = (ENV['END_MONTH'] || Time.now.month).to_i
+    month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
     headers = ['Period',
                'Requests sent',
                'Annotations added',
@@ -94,7 +100,7 @@ namespace :stats do
   desc 'Update statistics in the public_bodies table'
   task :update_public_bodies_stats => :environment do
     verbose = ENV['VERBOSE'] == '1'
-    PublicBody.all.each do |public_body|
+    PublicBody.find_each(:batch_size => 10) do |public_body|
       puts "Counting overdue requests for #{public_body.name}" if verbose
 
       # Look for values of 'waiting_response_overdue' and
@@ -102,7 +108,12 @@ namespace :stats do
       # described_state column, and instead need to be calculated:
       overdue_count = 0
       very_overdue_count = 0
-      InfoRequest.find_each(:conditions => {:public_body_id => public_body.id}) do |ir|
+      InfoRequest.find_each(:batch_size => 200,
+                            :conditions => {
+                                :public_body_id => public_body.id,
+                                :awaiting_description => false,
+                                :prominence => 'normal'
+                            }) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
           very_overdue_count += 1

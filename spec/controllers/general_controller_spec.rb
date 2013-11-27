@@ -73,11 +73,10 @@ describe GeneralController, "when showing the frontpage" do
     end
 
     it "should render the front page with default language" do
-        old_default_locale = I18n.default_locale
-        I18n.default_locale = "es"
-        get :frontpage
-        response.should have_selector('html[lang="es"]')
-        I18n.default_locale = old_default_locale
+        with_default_locale("es") do
+            get :frontpage
+            response.should have_selector('html[lang="es"]')
+        end
     end
 
     it "should render the front page with default language and ignore the browser setting" do
@@ -85,11 +84,10 @@ describe GeneralController, "when showing the frontpage" do
         config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
         accept_language = "en-GB,en-US;q=0.8,en;q=0.6"
         request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
-        old_default_locale = I18n.default_locale
-        I18n.default_locale = "es"
-        get :frontpage
-        response.should have_selector('html[lang="es"]')
-        I18n.default_locale = old_default_locale
+        with_default_locale("es") do
+            get :frontpage
+            response.should have_selector('html[lang="es"]')
+        end
     end
 
     it "should render the front page with browser-selected language when there's no default set" do
@@ -219,6 +217,17 @@ describe GeneralController, 'when using xapian search' do
         assigns[:xapian_bodies].should == nil
     end
 
+    it 'should highlight words for a user-only request' do
+      get :search, :combined => "bob/users"
+      assigns[:highlight_words].should == ['bob']
+    end
+
+    it 'should show spelling corrections for a user-only request' do
+      get :search, :combined => "rob/users"
+      assigns[:spelling_correction].should == 'bob'
+      response.body.should include('did_you_mean')
+    end
+
     it "should filter results based on end of URL being 'requests'" do
         get :search, :combined => "bob/requests"
         assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [
@@ -236,6 +245,11 @@ describe GeneralController, 'when using xapian search' do
         assigns[:xapian_requests].should == nil
         assigns[:xapian_users].should == nil
         assigns[:xapian_bodies].results.map{|x|x[:model]}.should == [public_bodies(:geraldine_public_body)]
+    end
+
+    it 'should show "Browse all" link if there are no results for a search restricted to bodies' do
+        get :search, :combined => "noresultsshouldbefound/bodies"
+        response.body.should include('Browse all')
     end
 
     it "should show help when searching for nothing" do
