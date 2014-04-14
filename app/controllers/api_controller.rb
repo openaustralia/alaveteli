@@ -16,11 +16,14 @@ class ApiController < ApplicationController
             :status => @request.calculate_status,
 
             :public_body_url => make_url("body", @request.public_body.url_name),
-            :requestor_url => make_url("user", @request.user.url_name),
+
             :request_email => @request.incoming_email,
 
             :request_text => @request.last_event_forming_initial_request.outgoing_message.body,
         }
+        if @request.user
+            @request_data[:requestor_url] = make_url("user", @request.user.url_name)
+        end
 
         render :json => @request_data
     end
@@ -200,7 +203,7 @@ class ApiController < ApplicationController
             ])
         end
         if feed_type == "atom"
-            render :template => "api/request_events.atom", :layout => false
+            render :template => "api/request_events", :formats => ['atom'], :layout => false
         elsif feed_type == "json"
             # For the JSON feed, we take a "since" parameter that allows the client
             # to restrict to events more recent than a certain other event
