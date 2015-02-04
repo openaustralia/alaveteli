@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require "capistrano-rbenv"
 
 set :stage, 'staging' unless exists? :stage
 

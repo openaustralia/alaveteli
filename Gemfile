@@ -80,6 +80,7 @@ end
 
 group :development do
   gem 'capistrano'
+  gem 'capistrano-rbenv', '~> 1.0'
   gem 'mailcatcher'
   gem 'quiet_assets'
   gem 'rdoc'
@@ -90,4 +91,3 @@ group :debug do
   gem 'debugger', :platforms => :ruby_19
   gem 'annotate'
 end
-
