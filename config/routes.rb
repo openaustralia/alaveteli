@@ -16,7 +16,7 @@ Alaveteli::Application.routes.draw do
     match '/blog' => 'general#blog', :as => :blog
     match '/search' => 'general#search_redirect', :as => :search_redirect
     match '/search/all' => 'general#search_redirect', :as => :search_redirect
-    # XXX combined is the search query, and then if sorted a "/newest" at the end.
+    # `combined` is the search query, and then if sorted a "/newest" at the end.
     # Couldn't find a way to do this in routes which also picked up multiple other slashes
     # and dots and other characters that can appear in search query. So we sort it all
     # out in the controller.
@@ -72,7 +72,8 @@ Alaveteli::Application.routes.draw do
     # Use /user/XXXX for things that anyone can see about that user.
     # Note that /profile isn't indexed by search (see robots.txt)
     match '/profile/sign_in' => 'user#signin', :as => :signin
-    match '/profile/sign_up' => 'user#signup', :as => :signup
+    match '/profile/sign_up' => 'user#signup', :as => :signup, :via => :post
+    match '/profile/sign_up' => 'user#signin', :via => :get
     match '/profile/sign_out' => 'user#signout', :as => :signout
 
     match '/c/:email_token' => 'user#confirm', :as => :confirm
@@ -130,7 +131,7 @@ Alaveteli::Application.routes.draw do
     match '/:feed/list/:view' => 'track#track_list', :as => :track_list, :view => nil, :feed => /(track|feed)/
     match '/:feed/body/:url_name' => 'track#track_public_body', :as => :track_public_body, :feed => /(track|feed)/
     match '/:feed/user/:url_name' => 'track#track_user', :as => :track_user, :feed => /(track|feed)/
-    # XXX :format doesn't work. See hacky code in the controller that makes up for this.
+    # TODO: :format doesn't work. See hacky code in the controller that makes up for this.
     match '/:feed/search/:query_array' => 'track#track_search_query',
           :as => :track_search,
           :feed => /(track|feed)/,
@@ -261,6 +262,7 @@ Alaveteli::Application.routes.draw do
 
     match '/api/v2/request/:id.json' => 'api#show_request', :as => :api_show_request, :via => :get
     match '/api/v2/request/:id.json' => 'api#add_correspondence', :as => :api_add_correspondence, :via => :post
+    match '/api/v2/request/:id/update.json' => 'api#update_state', :as => :api_update_state, :via => :post
 
     match '/api/v2/body/:id/request_events.:feed_type' => 'api#body_request_events', :as => :api_body_request_events, :feed_type => '^(json|atom)$'
     ####

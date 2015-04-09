@@ -104,7 +104,6 @@ GEM
     fancybox-rails (0.2.1)
       railties (>= 3.1.0)
     fast_gettext (0.7.0)
-    fastercsv (1.5.5)
     foundation-rails (5.2.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -155,13 +154,15 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.8.0.218)
+    newrelic_rpm (3.9.1.236)
     nokogiri (1.5.9)
     paper_trail (2.7.2)
       activerecord (~> 3.0)
       railties (~> 3.0)
     pg (0.15.1)
     polyglot (0.3.5)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -295,7 +296,6 @@ DEPENDENCIES
   fakeweb
   fancybox-rails
   fast_gettext
-  fastercsv (>= 1.5.5)
   foundation-rails
   gettext
   gettext_i18n_rails
@@ -312,6 +312,7 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   pg
+  quiet_assets
   rack
   rails (= 3.2.21)
   rails-i18n

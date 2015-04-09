@@ -26,7 +26,7 @@ ISO_COUNTRY_CODE: GB
 TIME_ZONE: Australia/Sydney
 
 # These feeds are displayed accordingly on the Alaveteli "blog" page:
-BLOG_FEED: 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
+BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'
 TWITTER_USERNAME: 'whatdotheyknow'
 # Set the widget_id to get the Twitter sidebar on the blog page.
 # To get one https://twitter.com/settings/widgets
@@ -174,10 +174,11 @@ GA_CODE: ''
 
 # If you want to override *all* the public body request emails with your own
 # email so that request emails that would normally go to the public body
-# go to you, then uncomment below and fill in your email.
+# go to you, then change the value below to your email.
 # Useful for a staging server to play with the whole process of sending requests
-# without inadvertently sending an email to a real authority
-#OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com
+# without inadvertently sending an email to a real authority.
+# Leave blank ('') to send requests to the real authority emails.
+OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 
 # Search path for external commandline utilities (such as pdftohtml, pdftk, unrtf)
 UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
@@ -245,6 +246,8 @@ SHARED_DIRECTORIES:
  - files/
  - cache/
  - lib/acts_as_xapian/xapiandbs/
+ - log/
+ - tmp/pids
  - vendor/bundle
  - public/assets
 
@@ -255,4 +258,4 @@ SHARED_DIRECTORIES:
 ALLOW_BATCH_REQUESTS: false
 
 # Should we use the responsive stylesheets?
-RESPONSIVE_STYLING: false
+RESPONSIVE_STYLING: true
