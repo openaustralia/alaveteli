@@ -3,13 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Clarisse Umutesi Mwitegereze <clarisse@mediae.org>, 2014
+# mySociety <transifex@mysociety.org>, 2015
+# Stephen Abbott Pugh <stephendabbott@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 14:45+0000\n"
-"PO-Revision-Date: 2014-10-13 16:41+0000\n"
-"Last-Translator: louisecrow <louise@mysociety.org>\n"
+"POT-Creation-Date: 2014-12-02 13:14+0000\n"
+"PO-Revision-Date: 2015-02-09 11:36+0000\n"
+"Last-Translator: Stephen Abbott Pugh <stephendabbott@gmail.com>\n"
 "Language-Team: Kinyarwanda (http://www.transifex.com/projects/p/alaveteli/language/rw/)\n"
 "Language: rw\n"
 "MIME-Version: 1.0\n"
@@ -18,3676 +21,3733 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "  This will appear on your {{site_name}} profile, to make it\\n            easier for others to get involved with what you're doing."
-msgstr ""
+msgstr " Ibi bizagaragara ku mwirondoro wawe kuri {{site_name}} kugirango\\n            byorohereza abandi kugira uruhare mubyo mukora."
 
 msgid " (<strong>no ranty</strong> politics, read our <a href=\"{{url}}\">moderation policy</a>)"
-msgstr ""
+msgstr " (<strong>nta magambo</strong>yo gusebanya , soma <a href=\"{{url}}\">amabwiriza y'ubworoherane atugenga</a>)"
 
 msgid " (<strong>patience</strong>, especially for large files, it may take a while!)"
-msgstr ""
+msgstr "  (<strong>Mwihangane</strong>, cyane cyane ku ma dosiye manini, zishobora gutinda!)"
 
 msgid " (you)"
-msgstr ""
+msgstr "(wowe)"
 
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr "- reba unabaze ibibazo by'ubwisanzure bwo kumenya amakuru"
 
 msgid " - wall"
-msgstr ""
+msgstr "- urukuta"
 
 msgid " < "
-msgstr ""
+msgstr " < "
 
 msgid " << "
-msgstr ""
+msgstr " << "
 
 msgid " <strong>Note:</strong>\\n    We will send you an email. Follow the instructions in it to change\\n    your password."
-msgstr ""
+msgstr " <strong>Icyitonderwa:</strong>\\n    Turakoherereza imeli. Kurikiza amabwiriza arimo kugirango uhindure \\n    ijambobanga."
 
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr ""
+msgstr " <strong>Icyitonderwa:</strong> Imeli yawe izahabwa"
 
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Vuga mu magambo make</strong> ibikubiye mu makuru wahawe."
 
 msgid " > "
-msgstr ""
+msgstr " > "
 
 msgid " >> "
-msgstr ""
+msgstr " >> "
 
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr "Tugire inama ku buryo <strong>bwiza bwo gusobanura</strong> ikibazo."
 
 msgid " Ideas on what <strong>other documents to request</strong> which the authority may hold. "
-msgstr ""
+msgstr "Ibitekerezo ku <strong>zindi dosiye zisabwa</strong> umuyobozi yaba afite. "
 
 msgid " If you know the address to use, then please <a href=\"{{url}}\">send it to us</a>.\\n        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
+msgstr " Niba uzi aderesi yakoreshwa turagusaba <a href=\"{{url}}\">uyitwoherereze</a>.\\n        Ushobora kuyibona ku rubuga rwabo, cyangwa se ubaterefonnye ukababaza."
 
 msgid " Include relevant links, such as to a campaign page, your blog or a\\n            twitter account. They will be made clickable. \\n            e.g."
-msgstr ""
+msgstr "Shyiramo utundi turango, nk'urubuga rwo kwiyamamarizaho, urubuga rw'amakuru agezweho cyangwa se\\n            konti ya twitter. Abandi bazaba bashobora kudukandaho. \\n            Urugero:"
 
 msgid " Link to the information requested, if it is <strong>already available</strong> on the Internet. "
-msgstr ""
+msgstr " Aho wakura amakuru wasabye, niba <strong>yamaze gutangwa</strong> kuri interineti. "
 
 msgid " Offer better ways of <strong>wording the request</strong> to get the information. "
-msgstr ""
+msgstr " Tanga amagambo meza <strong>yo gusobanura iki kibazo</strong> kugirango uhabwe amakuru. "
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr ""
+msgstr " Tubwire uburyo <strong>wakoresheje amakuru</strong>, n'uturango aho bishoboka."
 
 msgid " Suggest <strong>where else</strong> the requester might find the information. "
-msgstr ""
+msgstr " Tanga inama <strong>y'ahandi</strong> uwatanze ikibazo ashobora gukura amakuru. "
 
 msgid " What are you investigating using Freedom of Information? "
-msgstr ""
+msgstr " Ni ubuhe ushakashatsi uri gukora ukoresheje ubwisanzure bwo kumenya amakuru? "
 
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr " Turi kukwoherereza imeli irimo amavugurura ku kibazo."
 
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr " Uraza kubona imeli y'amavugurura ku kibazo."
+
+msgid " filtered by status: '{{status}}'"
+msgstr "Biyunguruwe hakurikijwe irangamimerere: '{{status}}'"
 
 msgid " when you send this message."
-msgstr ""
+msgstr "niwohereza ubu butumwa."
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Imibare ku byaha byakozwe byatangajwe n'urukiko rw'ibanze rwa Wales'"
 
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'Uko umugezi Tyne wagiye uhumanywa'"
 
 msgid "'{{link_to_authority}}', a public authority"
-msgstr ""
+msgstr "'{{link_to_authority}}', umuyobozi"
 
 msgid "'{{link_to_request}}', a request"
-msgstr ""
+msgstr "'{{link_to_request}}', ikibazo"
 
 msgid "'{{link_to_user}}', a person"
-msgstr ""
+msgstr "'{{link_to_user}}', umuntu"
 
 msgid "(hide)"
-msgstr ""
+msgstr "(hisha)"
 
 msgid "(or <a href=\"{{url}}\">sign in</a>)"
-msgstr ""
+msgstr "(cyangwa se <a href=\"{{url}}\">injiramo</a>)"
 
 msgid "(show)"
-msgstr ""
+msgstr "(erekana)"
 
 msgid "*unknown*"
-msgstr ""
+msgstr "*ntizwi*"
 
 msgid ",\\n\\n\\n\\nYours,\\n\\n{{user_name}}"
-msgstr ""
+msgstr ",\\n\\n\\n\\nMurakoze,\\n\\n{{user_name}}"
 
 msgid "- or -"
-msgstr ""
+msgstr "-cyangwa se-"
 
 msgid "1. Select an authority"
-msgstr ""
+msgstr "1. Hitamo umuyobozi"
 
 msgid "1. Select authorities"
-msgstr ""
+msgstr "1. Hitamo abayobozi"
 
 msgid "2. Ask for Information"
-msgstr ""
+msgstr "2. Saba amakuru"
 
 msgid "3. Now check your request"
-msgstr ""
+msgstr "3. Subiramo ikibazo wabajije"
 
 msgid "<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us to add one</a>."
-msgstr ""
+msgstr "<a href=\"{{browse_url}}\">Reba byose</a> cyangwa <a href=\"{{add_url}}\">udusabe kongeraho imwe</a>."
 
 msgid "<a href=\"{{url}}\">Add an annotation</a> (to help the requester or others)"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Ongeraho igisobanuro</a> (cyo gufasha uwabajije ikibazo cyangwa n'abandi)"
 
 msgid "<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more ({{user_name}} only)"
-msgstr ""
+msgstr "<a href=\"{{url}}\">Injiramo</a> kugirango uhindure ijambobanga, ibyo wiyandikishijemo n'ibindi ({{user_name}} gusa)"
 
 msgid "<p>All done! Thank you very much for your help.</p><p>There are <a href=\"{{helpus_url}}\">more things you can do</a> to help {{site_name}}.</p>"
-msgstr ""
+msgstr "<p>Mwarangije! Murakoze cyane ku bufasha bwanyu.</p><p>Hari <a href=\"{{helpus_url}}\">ibindi mushobora gukora</a> byadufasha {{site_name}}.</p>"
 
 msgid "<p>Thank you! Here are some ideas on what to do next:</p>\\n            <ul>\\n            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>\\n            <li>If you would like to contest the authority's claim that they do not hold the information, here is\\n            <a href=\"{{complain_url}}\">how to complain</a>.\\n            </li>\\n            <li>We have <a href=\"{{other_means_url}}\">suggestions</a>\\n            on other means to answer your question.\\n            </li>\\n            </ul>"
-msgstr ""
+msgstr "<p>Murakoze! Dore ibindi mushobora gukurikizaho:</p>\\n            <ul>\\n            <li>Kugirango woherereze ikibazo cyawe undi muyobozi, andukura ikibazo cyawe hano munsi, hanyuma <a href=\"{{find_authority_url}}\">ushake uwo muyobozi wundi</a>.</li>\\n            <li>Niba wifuza guhinyuza umuyobozi uvuga ko adafite amakuru, hano hari uburyo\\n            <a href=\"{{complain_url}}\">watanga ikirego</a>.\\n            </li>\\n            <li>Dufite <a href=\"{{other_means_url}}\">ibitekerezo</a>\\n            ku bundi buryo bwo gusubiza ikibazo cyawe.\\n            </li>\\n            </ul>"
 
 msgid "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
+msgstr "<p>Murakoze! Twizere ko utari butegereze ikindi gihe kirekire.</p> <p>Mu mategeko, wagombye kuba wahawe igisubizo ako kanya, mbere y'uko umunsi ushira kuwa <strong>{{date_response_required_by}}</strong>.</p>"
 
 msgid "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\\n{{date_response_required_by}}</strong>.</p>"
-msgstr ""
+msgstr "<p>Murakoze! Twizereko utazategereza igihe kirekire.</p> <p>Mu mategeko, wagombye guhita uhabwa igisubizo, mbere y'uko umunsi ushira kuri uyu wa<strong>\\n{{date_response_required_by}}</strong>.</p>"
 
 msgid "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Murakoze! Twizere ko utazategereza igihe kirekire.</p><p>Wakagombye guhabwa igisubizo mu minsi {{late_number_of_days}} , cyangwa se ukamenyeshwa bibaye bizatwara igihe kirekire. (<a href=\"{{review_url}}\">details</a>).</p>"
 
 msgid "<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>"
-msgstr ""
+msgstr "<p>Murakoze! Ikibazo cyanyu cyarengeranyeho iminsi irenga {{very_late_number_of_days}} y'akazi. Ibibazo byinshi bigomba kuba byasubijwe mu minsi {{late_number_of_days}} y'akazi. Niba wifuza kubaza impamvu utasubijwe, reba ahakurikira.</p>"
 
 msgid "<p>Thanks for changing the text about you on your profile.</p>\\n            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr ""
+msgstr "<p>Murakoze guhindura amagambo yo ku kirango cyanyu.</p>\\n            <p><strong>Hanyuma...</strong> Mushobora no gushyiraho ifoto ikuranga.</p>"
 
 msgid "<p>Thanks for updating your profile photo.</p>\\n                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr ""
+msgstr "<p>Urakoze guhindura ifoto ikuranga.</p>\\n                <p><strong>Hanyuma...</strong> Ushobora kwongeraho amagambo agusobanura n'ubushakashatsi wakoze ku kirango cyawe.</p>"
 
 msgid "<p>We recommend that you edit your request and remove the email address.\\n                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>Twakugira inama yo gukura imeli yawe mu kibazo watanze.\\n                Ni uyirekeraho, izohererezwa umuyobozi, ariko ntizagaragara ku rubuga.</p>"
 
 msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p>"
-msgstr ""
+msgstr "<p>Tunejejwe n'uko wabonye amakuru yose wifuzaga. Ni uramuka wanditse ibijyanye n'aya makuru cyangwa se ukayakoresha mu bundi buryo, uzagaruke wongere ibisobanuro hano hasi uvuga ibyo wakoze.</p>"
 
 msgid "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>"
-msgstr ""
+msgstr "<p>Tunejejwe n'uko wabonye amakuru yose wifuzaga. Ni uramuka wanditse ibijyanye n'aya makuru cyangwa se ukayakoresha mu bundi buryo, uzagaruke  hanyuma ushyireho ibisobanuro hano hasi utubwire ibyo wakoze.</p><p>Niba wabonye {{site_name}} yagufashije, <a href=\"{{donation_url}}\">mutere inkunga</a> umuryango udahanira inyungu urukoresha.</p>"
 
 msgid "<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr ""
+msgstr "<p>Tunejejwe n'uko wabonye amwe mu makuru wifuzaga. Niba  {{site_name}} yagufashije, <a href=\"{{donation_url}}\">tera inkunga</a> umuryango urukoresha.</p><p>Niba wifuza kugerageza kubaza amakuru asigaye, dore ibyo ushobora gukora.</p>"
 
 msgid "<p>We're glad you got some of the information that you wanted.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
-msgstr ""
+msgstr "<p>Tunejejwe n'uko wabonye amwe mu makuru washakaga.</p><p>Niba wifuza kugerageza kubona amakuru asigaye, dore ibyo ushobora gukora.</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Singombwa gushyira imeli yawe mu kibazo kugirango uhabwe igisubizo. (<a href=\"{{url}}\">details</a>).</p>"
 
 msgid "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"{{url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Singombwa gushyira imeli yawe mu kibazo kugirango uhabwe igisubizo, kubera ko tuyikubaza ahakurikira (<a href=\"{{url}}\">details</a>).</p>"
 
 msgid "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>"
-msgstr ""
+msgstr "<p>Mu kibazo cyawe harimo <strong>aho utuye</strong>. Keretse niba birebana n'ikibazo wabajije, ariko byaba byiza udashyize aderesi yawe mu kibazo, kuko <strong>izagaragarira buri wese kuri interineti</strong>.</p>"
 
 msgid "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\\n            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\\n            replied by then.</p>\\n            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\\n            annotation below telling people about your writing.</p>"
-msgstr ""
+msgstr "<p>Ikibazo {{law_used_full}} cyawe <strong>cyoherejwe</strong>!</p>\\n            <p><strong>Tuzakwoherereza ubutumwa kuri imeli</strong> ikibazo cyawe nigisubizwa, cyangwa nyuma y'iminsi {{late_number_of_days}} y'akazi umuyobozi bireba ni aba\\n            atarasubiza.</p>\\n            <p>Niwandika kuri iki kibazo (urugero nko ku mbuga nkoranyabantu cyangwa ku rubuga rw'amakuru agezweho) jya kuri iyi paji, hanyuma wongere\\n            ibisobanuro hano hasi ubwire abantu ibyo wandika.</p>"
 
 msgid "<p>Your {{law_used_full}} requests will be <strong>sent</strong> shortly!</p>\\n            <p><strong>We will email you</strong> when they have been sent.\\n            We will also email you when there is a response to any of them, or after {{late_number_of_days}} working days if the authorities still haven't\\n            replied by then.</p>\\n            <p>If you write about these requests (for example in a forum or a blog) please link to this page.</p>"
-msgstr ""
+msgstr "<p>Ibibazo {{law_used_full}} byawe<strong>turabyohereza</strong> mukanya!</p>\\n            <p><strong>Turakoherereza imeli</strong> nitumara kubyohereza.\\n            Tuzanakoherereza imeli nihagira igisubizwa, cyangwa nyuma y'iminsi {{late_number_of_days}} y'akazi abayobozi nibaba\\n            batarasubiza.</p>\\n            <p>Ni ugira icyo wandika kuri ibi bibazo (urugero ku rubuga cyangwa urubuga rw'amakuru agezweho) jya kuri iyi paji.</p>"
 
 msgid "<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}} turi kuyikoraho imirimo. Ushobora kubona ibibazo byabajijwe cyera gusa. Ntushobora kubaza ibindi bibazo, gukurikirana ibyabajijwe cyera cyangwa kwongeraho ibisobanuro cyangwa se guhindura ikusanyirizo.</p> <p>{{read_only}}</p>"
 
 msgid "<small>If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way.</small>\\n</p>"
-msgstr ""
+msgstr "<small>Niba ukoresha imeli yo kuri interineti cyangwa se ufite \"junk mail\" utuyunguruzo, reba no muri \\ndosiye muri imeli rwivanga zawe. Hari igihe ubutumwa bwacu ariho bujya.</small>\\n</p>"
 
 msgid "<strong> Can I request information about myself?</strong>\\n\t\t\t<a href=\"{{url}}\">No! (Click here for details)</a>"
-msgstr ""
+msgstr "<strong> Nshobora gusaba amakuru anyerekeyeho?</strong>\\n\t\t\t<a href=\"{{url}}\">Oya! (Kanda hano kugirango ubone ibisobanuro)</a>"
 
 msgid "<strong><code>commented_by:tony_bowden</code></strong> to search annotations made by Tony Bowden, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>commented_by:tony_bowden</code></strong>Gushaka ibisobanuro byashyizweho na Tony Bowden, andika izina nk'uko bimeze muri URL."
 
 msgid "<strong><code>filetype:pdf</code></strong> to find all responses with PDF attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
-msgstr ""
+msgstr "<strong><code>filetype:pdf</code></strong> Kugirango ubone ibisubizo byose bifite amadosiye ya PDF. Cyangwa ugerageze izi: <code>{{list_of_file_extensions}}</code>"
 
 msgid "<strong><code>request:</code></strong> to restrict to a specific request, typing the title as in the URL."
-msgstr ""
+msgstr "<strong><code>ikibazo:</code></strong> kugirango ubone ikibazo runaka, byandike nk'uko biri muri URL."
 
 msgid "<strong><code>requested_by:julian_todd</code></strong> to search requests made by Julian Todd, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>requested_by:julian_todd</code></strong>gushaka ibibazo byabajijwe na Julian Todd, byandike nk'uko biri muri URL."
 
 msgid "<strong><code>requested_from:home_office</code></strong> to search requests from the Home Office, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>requested_from:home_office</code></strong> gushaka ibibazo byabarijwe ku biro byanyu, andika amazina uko ameze muri URL."
 
 msgid "<strong><code>status:</code></strong> to select based on the status or historical status of the request, see the <a href=\"{{statuses_url}}\">table of statuses</a> below."
-msgstr ""
+msgstr "<strong><code>status:</code></strong> guhitamo ukurikije irangamimerere cyangwa amateka y'itangamimerere y'ikibazo, reba <a href=\"{{statuses_url}}\">imbonerahamwe y'irangamimerere</a> ikurikira."
 
 msgid "<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \\n    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\\n    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr ""
+msgstr "<strong><code>tag:charity</code></strong> kugirango ubone abayobozi bose cyangwa se ibibazo byose bifite ikimenyetso runaka. Ushobora gushyiramo utumenyetso twinshi,  \\n    ndetse n'agaciro k'utwo tumenyetso, urugero: <code>tag:openlylocal NDETSE tag:financial_transaction:335633</code>. Icyitonderwa: buri jambo wanditse \\n    rishobora kuba rifite icyo bihuye,ugomba gushyiraho <code>NDETSE</code> nkana niba ushaka ibisubizo byose bihari."
 
 msgid "<strong><code>variety:</code></strong> to select type of thing to search for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
-msgstr ""
+msgstr "<strong><code>ibitandukanye:</code></strong> guhitamo ubwoko bw'ikintu ushaka, reba <a href=\"{{varieties_url}}\">urutonde rw'ibintu byose bihari</a> ahakurikira."
 
 msgid "<strong>Advice</strong> on how to get a response that will satisfy the requester. </li>"
-msgstr ""
+msgstr "<strong>Inama</strong> ku buryo bwo kubona igisubizo cyanyura uwabajije. </li>"
 
 msgid "<strong>All the information</strong> has been sent"
-msgstr ""
+msgstr "<strong>Amakuru yose</strong> yoherejwe"
 
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
-msgstr ""
+msgstr "<strong>Hari ikindi</strong>, urugero nko gusobanuza, gutanga inama, gushimira."
 
 msgid "<strong>Caveat emptor!</strong> To use this data in an honourable way, you will need \\na good internal knowledge of user behaviour on {{site_name}}. How, \\nwhy and by whom requests are categorised is not straightforward, and there will\\nbe user error and ambiguity. You will also need to understand FOI law, and the\\nway authorities use it. Plus you'll need to be an elite statistician.  Please\\n<a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr ""
+msgstr "<strong>Icyitonderwa:</strong> Kugirango ukoreshe aya makuru mu buryo bwiza, ugomba kuba \\nusobanukiwe imyifatire y'abakoresha neza uru rubuga {{site_name}}. Uburyo, \\nimpamvu n'abo ibibazo bibazwa ntabwo bikurikiza umurongo umwe, kandi uzabona\\nkwitiranya no kwibeshya kw'abakoresha urubuga. Ugomba no kuba usobanukiwe neza itegeko rigenga ubwisanzure bwo kumenya amakuru, ndetse\\nn'uburyo abayobozi barikoresha. Icyongeyeho, ugomba kuba usobanukiwe imibare.  Ushobora \\n<a href=\"{{contact_path}}\">kutwandikira</a> utubaza ibibazo."
 
 msgid "<strong>Clarification</strong> has been requested"
-msgstr ""
+msgstr "<strong>Basabye</strong> ibisobanuro"
 
 msgid "<strong>No response</strong> has been received\\n                <small>(maybe there's just an acknowledgement)</small>"
-msgstr ""
+msgstr "<strong>Nta gisubizo</strong> twabonye\\n                <small>(Bashobora kuba barabyemeye gusa)</small>"
 
 msgid "<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority."
-msgstr ""
+msgstr "<strong>Icyitonderwa:</strong> Kuberako turi mu igerageza, ibibazo biri kwoherezwa kuri {{email}} aho kwohererezwa umuyobozi."
 
 msgid "<strong>Note:</strong> You're sending a message to yourself, presumably\\n            to try out how it works."
-msgstr ""
+msgstr "<strong>Icyitonderwa:</strong> Uri kwiyoherereza ubutumwa, \\n            kugirango umenye uko bikora."
 
 msgid "<strong>Note:</strong>\\n    We will send an email to your new email address. Follow the\\n    instructions in it to confirm changing your email."
-msgstr ""
+msgstr "<strong>Icyitonderwa:</strong>\\n    Turohereza ubutumwa kuri imeli yawe nshyashya. Kurikiza\\n    amabwiriza arimo kugirango wemeze guhindura imeli yawe."
 
 msgid "<strong>Privacy note:</strong> If you want to request private information about\\n    yourself then <a href=\"{{url}}\">click here</a>."
-msgstr ""
+msgstr "<strong>Icyitonderwa:</strong> Niba ushaka kumenya amakuru\\n    akwerekeyeho <a href=\"{{url}}\">kanda hano</a>."
 
 msgid "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,\\n    wherever you do something on {{site_name}}."
-msgstr ""
+msgstr "<strong>Icyitonderwa:</strong> Ifoto yawe izajya igaragarira abantu bose kuri interineti,\\n    igihe cyose uzajya ugira ikintu ukora kuri {{site_name}}."
 
 msgid "<strong>Privacy warning:</strong> Your message, and any response\\n        to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>Icyitonderwa:</strong> Ubutumwa bwayu n'igisubizo cyose\\n        buzahabwa, bizajya bishyirwa ku mugaragaro kuri uru rubuga."
 
 msgid "<strong>Some of the information</strong> has been sent "
-msgstr ""
+msgstr "<strong>Hari amakuru</strong> yamaze kwoherezwa "
 
 msgid "<strong>Thank</strong> the public authority or "
-msgstr ""
+msgstr "<strong>Shimira</strong> umuyobozi cyangwa "
 
 msgid "<strong>did not have</strong> the information requested."
-msgstr ""
+msgstr "<strong>ntiyari afite</strong> amakuru wasabye."
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Ubutumwa<a href=\"{{request_url}}\">bwo gukurikirana</a> iki kibazo <em>{{request_title}}</em> bwohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
 msgid "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The request status is: {{request_status}}"
-msgstr ""
+msgstr "Ubutumwa <a href=\"{{request_url}}\">bwo gusubiza</a> iki ikibazo <em>{{request_title}}</em> bwoherejwe na {{public_body_name}} kuri {{info_request_user}} kuwa {{date}}.  Irangamimerere y'ikibazo cyawe ni: {{request_status}}"
 
 msgid "A <strong>summary</strong> of the response if you have received it by post. "
-msgstr ""
+msgstr "Incamake <strong></strong> y'igisubizo niba waracyohererejwe ku iposita. "
 
 msgid "A Freedom of Information request"
-msgstr ""
+msgstr "Ikibazo cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "A full history of my FOI request and all correspondence is available on the Internet at this address: {{url}}"
-msgstr ""
+msgstr "Urutonde rw'ibibazo byose nabajije ndetse n'ibiganiro byayikurikiye biraboneka kuri interineti kuri iyi aderesi:  {{url}}"
 
 msgid "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Ikindi kibazo, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, cyohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
 msgid "A public authority"
-msgstr ""
+msgstr "Umuyobozi"
 
 msgid "A response will be sent <strong>by post</strong>"
-msgstr ""
+msgstr "Muzohererezwa igisubizo <strong>ku iposita</strong>"
 
 msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr ""
+msgstr "Igisubizo kidasanzwe, byari bikenewe kurebwaho neza n'itsinda rya, {{site_name}}"
 
 msgid "A vexatious request"
-msgstr ""
+msgstr "Ikibazo gikomeretsa"
 
 msgid "A {{site_name}} user"
-msgstr ""
+msgstr "Umuntu ukoresha {{site_name}}"
 
 msgid "About you:"
-msgstr ""
+msgstr "Ibikwerekeyeho"
 
 msgid "Act on what you've learnt"
-msgstr ""
+msgstr "Gira icyo ukora ku byo wamenye"
 
 msgid "Acts as xapian/acts as xapian job"
-msgstr ""
+msgstr "Acts as xapian/acts as xapian job"
 
 msgid "ActsAsXapian::ActsAsXapianJob|Action"
-msgstr ""
+msgstr "ActsAsXapian::ActsAsXapianJob|Action"
 
 msgid "ActsAsXapian::ActsAsXapianJob|Model"
-msgstr ""
+msgstr "ActsAsXapian::ActsAsXapianJob|Model"
 
 msgid "Add an annotation"
-msgstr ""
+msgstr "Ongeraho ibisobanuro"
 
 msgid "Add an annotation to your request with choice quotes, or\\n                a <strong>summary of the response</strong>."
-msgstr ""
+msgstr "Ongera ibisobanuro ku kibazo cyawe hamwe n'ibyo abandi bavuze, cyangwa se\\n                incamake <strong>y'igisubizo</strong>."
 
 msgid "Add authority - {{public_body_name}}"
-msgstr ""
+msgstr "Ongeraho umuyobozi - {{public_body_name}}"
 
 msgid "Add the authority:"
-msgstr ""
+msgstr "Ongeraho umuyobozi:"
 
 msgid "Added on {{date}}"
-msgstr ""
+msgstr "Byashyizweho ku wa {{date}}"
 
 msgid "Admin level is not included in list"
-msgstr ""
+msgstr "Urwego rw'ubuyobozi ntabwo buri kuri uru rutonde"
 
 msgid "Administration URL:"
-msgstr ""
+msgstr "URL y'ubuyobozi:"
 
 msgid "Advanced search"
-msgstr ""
+msgstr "Ishakiro ryimbitse"
 
 msgid "Advanced search tips"
-msgstr ""
+msgstr "Uburyo bwo gushaka byimbitse"
 
 msgid "Advise on whether the <strong>refusal is legal</strong>, and how to complain about it if not."
-msgstr ""
+msgstr "Tubwire niba <strong>guhakanirwa bijyanye n'amategeko</strong>, n'uburyo bwo gutanga ikirego bibaye bidahuje n'itegeko."
 
 msgid "Air, water, soil, land, flora and fauna (including how these effect\\n            human beings)"
-msgstr ""
+msgstr "Umwuka, amazi, ubutaka, inyamaswa n'ibihingwa (n'ingaruka bigira ku\\n            bantu)"
 
 msgid "All of the information requested has been received"
-msgstr ""
+msgstr "Amakuru yose wabajije yakiriwe"
 
 msgid "All the options below can use <strong>status</strong> or <strong>latest_status</strong> before the colon. For example, <strong>status:not_held</strong> will match requests which have <em>ever</em> been marked as not held; <strong>latest_status:not_held</strong> will match only requests that are <em>currently</em> marked as not held."
-msgstr ""
+msgstr "Aya mahitamo yose akurikira ashobora gukoreshwaho <strong>irangamimerere</strong> cyangwa <strong>irangamimerere_riheruka</strong> mbere y'utudomo tubiri. Urugero: <strong>irangamimerere:ntabyo_dufite</strong> izaba iriho ibibazo byose byaba <em>byarigeze </em> guhabwa ikimenyetso cy'uko nta bisubizo bifitiwe; <strong>irangamimerere_riheruka:ntabyo_dufite</strong> izaba iriho ibibazo bitarabonerwa ibisubizo gusa <em>kugeza ubu</em> biriho ikimenyetso cy'uko nta bisubizo bifitiwe."
 
 msgid "All the options below can use <strong>variety</strong> or <strong>latest_variety</strong> before the colon. For example, <strong>variety:sent</strong> will match requests which have <em>ever</em> been sent; <strong>latest_variety:sent</strong> will match only requests that are <em>currently</em> marked as sent."
-msgstr ""
+msgstr "Amahitamo yose akurikira ashobora gukoreshwaho <strong>impinduka</strong> cyangwa <strong>impinduka_iheruka</strong> mbere y'utudomo tubiri. Urugero: <strong>impinduka:yoherejwe</strong> izaba iriho ibibazo byaba <em>byarigeze</em> kwoherezwa; <strong>impinduka_iheruka:yoherejwe</strong> izajya iba iriho ibibazo <em>biriho </em>  ikimenyetso cy'uko byoherejwe ubu."
 
 msgid "Also called {{other_name}}."
-msgstr ""
+msgstr "Uzwi no ku izina rya {{other_name}}."
 
 msgid "Also send me alerts by email"
-msgstr ""
+msgstr "Mushobora no kunyoherereza imbuzi kuri imeli"
 
 msgid "Alter your subscription"
-msgstr ""
+msgstr "Hindura uko wiyandikishije"
 
 msgid "Although all responses are automatically published, we depend on\\nyou, the original requester, to evaluate them."
-msgstr ""
+msgstr "N'ubwo ibisubizo byose bihita bishyirwa ku mugaragaro, tugendera kuri\\nwowe, watanze ikibazo bwa mbere, kugirango tubisesengure."
 
 msgid "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> was made by {{event_comment_user}} on {{date}}"
-msgstr ""
+msgstr "Igisobanuro<a href=\"{{request_url}}\"></a> kuri <em>{{request_title}}</em> cyashyizweho na {{event_comment_user}} kuwa {{date}}"
 
 msgid "An <strong>error message</strong> has been received"
-msgstr ""
+msgstr "Ubutumwa <strong>bwo kwibeshya</strong> bwakiriwe"
 
 msgid "An Environmental Information Regulations request"
-msgstr ""
+msgstr "Ikibazo cyo gusaba amakuru ku mategeko agenga ibidukujije"
 
 msgid "An anonymous user"
-msgstr ""
+msgstr "Umuntu ukoresha urubuga utazwi"
 
 msgid "Annotation added to request"
-msgstr ""
+msgstr "Ibisobanuro byongewe ku kibazo"
 
 msgid "Annotations"
-msgstr ""
+msgstr "Ibisobanuro"
 
 msgid "Annotations are so anyone, including you, can help the requester with their request. For example:"
-msgstr ""
+msgstr "Ibisobanuro bifasha buri wese, nawe urimo, kwunganira uwabajije ku kibazo afite. Urugero:"
 
 msgid "Annotations will be posted publicly here, and are\\n        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Ibisobanuro birashyirwa hano ku mugaragaro, kandi\\n        <strong>ntabwo</strong> bizohererezwa {{public_body_name}}."
 
 msgid "Anonymous user"
-msgstr ""
+msgstr "Umuntu ukoresha urubuga utazwi"
 
 msgid "Anyone:"
-msgstr ""
+msgstr "Ueo ariwe wese:"
 
 msgid "Applies to"
-msgstr ""
+msgstr "Bireba"
 
 msgid "Are we missing a public authority?"
-msgstr ""
+msgstr "Hari umuyobozi twibagiwe?"
 
 msgid "Are you the owner of any commercial copyright on this page?"
-msgstr ""
+msgstr "Waba ufite uburenganzira kuri bimwe mu bicuruzwa byamamazwa hano?"
 
 msgid "Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries."
-msgstr ""
+msgstr "Saba <strong></strong> impapuro cyangwa amakuru yihariye, uru rubuga ntabwo rukwiye kubarizwaho ibintu biri rusange."
 
 msgid "Ask us to add an authority"
-msgstr ""
+msgstr "Dusabe kwongeraho umuyobozi"
 
 msgid "Ask us to update FOI email"
-msgstr ""
+msgstr "Dusabe ku kuvugurura imeli yawe y'ubwisanzure bwo kumenya amakuru"
 
 msgid "Ask us to update the email address for {{public_body_name}}"
-msgstr ""
+msgstr "Dusabe kuvugurura imeli ya {{public_body_name}}"
 
 msgid "At the bottom of this page, write a reply to them trying to persuade them to scan it in\\n            (<a href=\"{{url}}\">more details</a>)."
-msgstr ""
+msgstr "Bandikire hano hasi ubasabe ku yi sikana\\n            (<a href=\"{{url}}\">ibindi bisobanuro</a>)."
 
 msgid "Attachment (optional):"
-msgstr ""
+msgstr "Umugereka (si ngombwa)"
 
 msgid "Attachment:"
-msgstr ""
+msgstr "Umugereka"
 
 msgid "Authority email:"
-msgstr ""
+msgstr "Imeli y'umuyobozi:"
 
 msgid "Authority:"
-msgstr ""
+msgstr "Umuyobozi"
 
 msgid "Awaiting classification."
-msgstr ""
+msgstr "Gitegereje gushyingurwa."
 
 msgid "Awaiting internal review."
-msgstr ""
+msgstr "Gitegereje isuzuma."
 
 msgid "Awaiting response."
-msgstr ""
+msgstr "Gitegereje igisubizo"
 
 msgid "Batch created by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Urutonde rwakozwe na {{info_request_user}} kuwa {{date}}"
 
 msgid "Beginning with"
-msgstr ""
+msgstr "Duhereye kuri"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
-msgstr ""
+msgstr "Shaka <a href='{{url}}'>ibindi bibazo</a> ku ngero z'amagambo wakoresha mu kibazo cyawe."
 
 msgid "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request."
-msgstr ""
+msgstr "Shaka <a href='{{url}}'>ibindi bibazo</a> byabajijwe '{{public_body_name}}' kugirango ubone ingero z'amagambo wakoresha mu kibazo cyawe."
 
 msgid "Browse all authorities..."
-msgstr ""
+msgstr "Shaka abayobozi bose..."
 
 msgid "Browse and search requests"
-msgstr ""
+msgstr "Shaka ibibazo"
 
 msgid "Browse requests"
-msgstr ""
+msgstr "Shaka ibibazo"
 
 msgid "By law, under all circumstances, {{public_body_link}} should have responded by now"
-msgstr ""
+msgstr "Mu mategeko, uko byaba bimeze kose, {{public_body_link}} yagombaga kuba yaramaze gusubiza"
 
 msgid "By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and"
-msgstr ""
+msgstr "Mu mategeko, {{public_body_link}} yakagombye kuba yasubije <strong>ako kanya</strong> ndetse"
 
 msgid "Calculated home page"
-msgstr ""
+msgstr "Paji ibanza yabazwe"
 
 msgid "Can't find the one you want?"
-msgstr ""
+msgstr "Ntushobora kubona uwo ushaka?"
 
 msgid "Cancel a {{site_name}} alert"
-msgstr ""
+msgstr "Kuraho imbuzi za {{site_name}}"
 
 msgid "Cancel some {{site_name}} alerts"
-msgstr ""
+msgstr "Kuraho zimwe mu mbuzi za {{site_name}} "
 
 msgid "Cancel, return to your profile page"
-msgstr ""
+msgstr "Hagarika, subira kuri paji ikuranga"
 
 msgid "Censor rule"
-msgstr ""
+msgstr "Itegeko ry'umucamanza"
 
 msgid "CensorRule|Last edit comment"
-msgstr ""
+msgstr "CensorRule|Last edit comment"
 
 msgid "CensorRule|Last edit editor"
-msgstr ""
+msgstr "CensorRule|Last edit editor"
 
 msgid "CensorRule|Regexp"
-msgstr ""
+msgstr "CensorRule|Regexp"
 
 msgid "CensorRule|Replacement"
-msgstr ""
+msgstr "CensorRule|Replacement"
 
 msgid "CensorRule|Text"
-msgstr ""
+msgstr "CensorRule|Text"
 
 msgid "Change email on {{site_name}}"
-msgstr ""
+msgstr "Hindura imeli kuri {{site_name}}"
 
 msgid "Change password on {{site_name}}"
-msgstr ""
+msgstr "Hindura ijambobanga kuri {{site_name}}"
 
 msgid "Change profile photo"
-msgstr ""
+msgstr "Hindura ifoto ikuranga "
 
 msgid "Change the text about you on your profile at {{site_name}}"
-msgstr ""
+msgstr "Hindura amagambo avuga uwo uri we ahakuranga kuri {{site_name}}"
 
 msgid "Change your email"
-msgstr ""
+msgstr "Hindura imeli yawe"
 
 msgid "Change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Hindura imeli yawe ikoreshwa kuri {{site_name}}"
 
 msgid "Change your password"
-msgstr ""
+msgstr "Hindura ijambobanga"
 
 msgid "Change your password on {{site_name}}"
-msgstr ""
-
-msgid "Charity registration"
-msgstr ""
+msgstr "Hindura ijambobanga kuri {{site_name}}"
 
 msgid "Check for mistakes if you typed or copied the address."
-msgstr ""
+msgstr "Reba niba nta makosa ari muri aderesi niba wayandukuye "
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
+msgstr "Reba niba utashyizemo <strong>amakuru yawe bwite</strong>."
 
 msgid "Choose a reason"
-msgstr ""
+msgstr "Hitamo impamvu"
 
 msgid "Choose your profile photo"
-msgstr ""
+msgstr "Hitamo ifoto ikuranga"
 
 msgid "Clarification"
-msgstr ""
+msgstr "Ibisobanuro"
 
 msgid "Clarification sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Ibisobanuro byohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
 msgid "Clarify your FOI request - "
-msgstr ""
+msgstr "Sobanura ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
 
 msgid "Classify an FOI response from "
-msgstr ""
+msgstr "Shyingura igisubizo cy'ubwisanzure bwo kumenya amakuru cyatanzwe na"
 
 msgid "Clear photo"
-msgstr ""
+msgstr "Ifoto igaragara neza"
 
 msgid "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal\\nreview, asking them to find out why response to the request has been so slow."
-msgstr ""
+msgstr "Kanda kuri iri huza riri hasi woherereze ubutumwa {{public_body_name}} umusaba gusubiza ikibazo cyawe. Ushobora gusaba ko \\nbagikurikirana, kugirango bamenye impamvu watinze guhabwa igisubizo."
 
 msgid "Click on the link below to send a message to {{public_body}} reminding them to reply to your request."
-msgstr ""
+msgstr "Kanda ku ihuza rikurikira kugirango woherereze ubutumwa {{public_body}} ubibutsa kugusubiza."
 
 msgid "Close"
-msgstr ""
+msgstr "Funga"
 
 msgid "Close the request and respond:"
-msgstr ""
+msgstr "Funga ikibazo hanyuma usubize"
 
 msgid "Comment"
-msgstr ""
+msgstr "Igitekerezo"
 
 msgid "Comment|Body"
-msgstr ""
+msgstr "Comment|Body"
 
 msgid "Comment|Comment type"
-msgstr ""
+msgstr "Comment|Comment type"
 
 msgid "Comment|Locale"
-msgstr ""
+msgstr "Comment|Locale"
 
 msgid "Comment|Visible"
-msgstr ""
+msgstr "Comment|Visible"
 
 msgid "Confirm you want to follow all successful FOI requests"
-msgstr ""
+msgstr "Emeza ko ushaka gukirikira ibibazo byose by'ubwisanzure bwo kumenya amakurubyamaze gusubizwa"
 
 msgid "Confirm you want to follow new requests"
-msgstr ""
+msgstr "Emeza ko ushaka gukurikira ibibazo bishya"
 
 msgid "Confirm you want to follow new requests or responses matching your search"
-msgstr ""
+msgstr "Emeza ko ushaka gukurikira ibibazo cyangwa ibisubizo bishya bijyanye n'ibyo washatse"
 
 msgid "Confirm you want to follow requests by '{{user_name}}'"
-msgstr ""
+msgstr "Emeza ko ushaka gukurikira ibibazo byatanzwe na '{{user_name}}'"
 
 msgid "Confirm you want to follow requests to '{{public_body_name}}'"
-msgstr ""
+msgstr "Emeza ko ushaka gukurikira ibibazo byabajijwe '{{public_body_name}}'"
 
 msgid "Confirm you want to follow the request '{{request_title}}'"
-msgstr ""
+msgstr "Emeza ko ushaka gukurikira ikibazo '{{request_title}}'"
 
 msgid "Confirm your FOI request to {{public_body_name}}"
-msgstr ""
+msgstr "Emeza ikibazo cy'ubwisanzure bwo kumenya amakuru wabajije {{public_body_name}}"
 
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Emeza konti yawe kuri {{site_name}}"
 
 msgid "Confirm your annotation to {{info_request_title}}"
-msgstr ""
+msgstr "Emeza insobanuro yawe kuri {{info_request_title}}"
 
 msgid "Confirm your email address"
-msgstr ""
+msgstr "Emeza imeli yawe "
 
 msgid "Confirm your new email address on {{site_name}}"
-msgstr ""
+msgstr "Emeza imeli yawe nshya kuri {{site_name}}"
 
 msgid "Considered by administrators as not an FOI request and hidden from site."
-msgstr ""
+msgstr "Abayobozi b'urubuga babonye iki kibazo atari icy'ubwisanzure bwo kumenya amakuru ndetse cyahishwe ku rubuga."
 
 msgid "Considered by administrators as vexatious and hidden from site."
-msgstr ""
+msgstr "Abayobozi b'urubuga babonye gikomeretsanya kandi cyahishwe ku rubuga."
 
 msgid "Contact {{recipient}}"
-msgstr ""
+msgstr "Aho ubarizwa {{recipient}}"
 
 msgid "Contact {{site_name}}"
-msgstr ""
+msgstr "Aho ubarizwa {{site_name}}"
 
 msgid "Contains defamatory material"
-msgstr ""
+msgstr "Harimo ibintu bisebanya"
 
 msgid "Contains personal information"
-msgstr ""
+msgstr "Harimo amakuru bwite"
 
 msgid "Could not identify the request from the email address"
-msgstr ""
+msgstr "Ntitwabashije kumenya ikibazo muri imeli"
 
 msgid "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."
-msgstr ""
+msgstr "Ntitwabashije kumenya ubwoko bw'ifoto washyizeho. PNG, JPEG, GIF n'izindi zikoreshwa cyane nizo zishobora kujyaho."
 
 msgid "Created by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Yashizweho na {{info_request_user}} kuwa {{date}}."
 
 msgid "Crop your profile photo"
-msgstr ""
+msgstr "Gabanya ifoto ikuranga"
 
 msgid "Cultural sites and built structures (as they may be affected by the\\n            environmental factors listed above)"
-msgstr ""
+msgstr "Ahantu ndanga mateka n'ahubatswe (kuko hashobora gukorwaho \\n            n'amategeko agenga ibidukikije ari haruguru)"
 
 msgid "Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and"
-msgstr ""
+msgstr "Ubu <strong>gitegereje igisubizo</strong> cya {{public_body_link}}, bagomba guhita basubiza kandi"
 
 msgid "Date:"
-msgstr ""
+msgstr "Itariki:"
 
 msgid "Dear [Authority name],"
-msgstr ""
+msgstr "Nyakubahwa [Authority name],"
 
 msgid "Dear {{name}},"
-msgstr ""
+msgstr "Nyakubahwa {{name}},"
 
 msgid "Dear {{public_body_name}},"
-msgstr ""
+msgstr "Nyakubahwa {{public_body_name}},"
 
 msgid "Dear {{user_name}},"
-msgstr ""
+msgstr "Nyakubahwa {{user_name}},"
 
 msgid "Default locale"
-msgstr ""
+msgstr "Indangakarere isanzwe"
 
 msgid "Defunct."
-msgstr ""
+msgstr "Ntikora."
 
 msgid "Delayed response to your FOI request - "
-msgstr ""
+msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyatinze gusubizwa -"
 
 msgid "Delayed."
-msgstr ""
+msgstr "Cyakerewe."
 
 msgid "Delivery error"
-msgstr ""
+msgstr "Ntiyoherejwe"
 
 msgid "Destroy {{name}}"
-msgstr ""
+msgstr "Kuraho {{name}}"
 
 msgid "Details of request '"
-msgstr ""
+msgstr "Ibisobanuro by'ikibazo '"
 
 msgid "Did you mean: {{correction}}"
-msgstr ""
+msgstr "Washakaga kuvuga: {{correction}}"
 
 msgid "Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:"
-msgstr ""
+msgstr "Icyitonderwa: ubu butumwa n'ibindi byose wasubiza bizashyirwa kuri interineti. Amategeko yacu agenga ubuzima bwite n'uburenganzira bw'umwanditsi:"
 
 msgid "Disclosure log"
-msgstr ""
+msgstr "Kugaragaza ibyanditswe"
 
 msgid "Disclosure log URL"
-msgstr ""
+msgstr "URL yo kugaragaza ibyanditswe"
 
 msgid "Do not fill in this field"
-msgstr ""
+msgstr "Ntiwuzuze hano"
 
 msgid "Don't have a superuser account yet?"
-msgstr ""
+msgstr "Ntabwo urafungura konti y'umukoresharubuga wihariye?"
 
 msgid "Don't want to address your message to {{person_or_body}}?  You can also write to:"
-msgstr ""
+msgstr "Ntabwo ushaka kwoherereza ubutumwa bwawe {{person_or_body}}?  Ushobora no kwandikira:"
 
 msgid "Done"
-msgstr ""
+msgstr "Warangije"
 
 msgid "Done &gt;&gt;"
-msgstr ""
+msgstr "Warangije &gt;&gt;"
 
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Kurura dosiye y'abantu bose muvugana"
 
 msgid "Download original attachment"
-msgstr ""
+msgstr "Kurura umugereka w'umwimerere"
 
 msgid "EIR"
-msgstr ""
+msgstr "EIR"
 
 msgid "Edit"
-msgstr ""
+msgstr "Hindura"
 
 msgid "Edit and add <strong>more details</strong> to the message above,\\n                explaining why you are dissatisfied with their response."
-msgstr ""
+msgstr "Hindura kandi utange <strong>ibindi bisobanuro</strong> ku butumwa buri haruguru,\\n                usobanura impamvu utanyuzwe n'igisubizo cyabo."
 
 msgid "Edit text about you"
-msgstr ""
+msgstr "Hindura ubutumwa bukuvugaho"
 
 msgid "Edit this request"
-msgstr ""
+msgstr "Hindura iki kibazo"
 
 msgid "Either the email or password was not recognised, please try again."
-msgstr ""
+msgstr "Imeli cyangwa ijambobanga ntabwo twabimenye, ongera ugerageze."
 
 msgid "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
-msgstr ""
+msgstr "Imeli cyangwa ijambobanga ntabwo twabimenye, ongera ugerageze.Cyangwa se ufungure indi konti ukoresheje ifishi iri iburyo"
 
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "Imeli isa nk'itabaho"
 
 msgid "Email me future updates to this request"
-msgstr ""
+msgstr "Muzanyoherereze imeli ku mavugurura y'iki kibazo"
 
 msgid "Email:"
-msgstr ""
+msgstr "Imeli:"
 
 msgid "Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>"
-msgstr ""
+msgstr "Andika amagambo uri gushaka ushyizemo umwanya hagati, urugero: <strong>umurongo wo kuririraho</strong>"
 
 msgid "Enter your response below. You may attach one file (use email, or\\n  <a href=\"{{url}}\">contact us</a> if you need more)."
-msgstr ""
+msgstr "Injiza igisubizo aha hakurikira. Ushobora kongeraho dosiye (koresha imeli, cyangwa se,\\n  <a href=\"{{url}}\">utwandikire</a> niba hari ibindi wifuza)."
 
 msgid "Environmental Information Regulations"
-msgstr ""
+msgstr "Amakuru ku mategeko agenga ibidukikije"
 
 msgid "Environmental Information Regulations requests made"
-msgstr ""
+msgstr "Ibibazo byatanzwe ku mategeko agenga ibidukikije"
 
 msgid "Environmental Information Regulations requests made using this site"
-msgstr ""
+msgstr "Ibibazo byatanzwe kuri uru rubuga ku mategeko agenga ibidukikije"
 
 msgid "Event history"
-msgstr ""
+msgstr "Amateka y'ibyabaye"
 
 msgid "Event history details"
-msgstr ""
+msgstr "Ibisobanuro ku mateka y'ibyabaye"
 
 msgid "Event {{id}}"
-msgstr ""
+msgstr "Icyabaye {{id}}"
 
 msgid "Everything that you enter on this page, including <strong>your name</strong>,\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Ibintu byose ushyira kuri uru rubuga, harimo <strong>amazina yawe</strong>,\\n                bizajya <strong>bigaragarira buri wese</strong> kuri\\n                uru rubuga iteka ryose (<a href=\"{{url}}\">why?</a>)."
 
 msgid "Everything that you enter on this page\\n                will be <strong>displayed publicly</strong> on\\n                this website forever (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Ibintu byose ushyira kuri uru rubuga\\n                bizashyirwa <strong>ku mugaragaro</strong> kuri \\n                uru rubuga iteka ryose (<a href=\"{{url}}\">why?</a>)."
 
 msgid "FOI"
-msgstr ""
+msgstr "Ubwisanzure bwo kumenya amakuru"
 
 msgid "FOI email address for {{public_body}}"
-msgstr ""
+msgstr "Aderesi imeli y'ubwisanzure bwo kumenya amakuru ya {{public_body}}"
 
 msgid "FOI request – {{title}}"
-msgstr ""
+msgstr "Ikibazo cy'ubwisanzure bwo kumenya amakuru  – {{title}}"
 
 msgid "FOI requests"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru"
 
 msgid "FOI requests by '{{user_name}}'"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru bya {{user_name}}'"
 
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru {{start_count}} kugera kuri {{end_count}} bya {{total_count}}"
 
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr ""
+msgstr "Igisubizo cy'ubwisanzur bwo kumenya amakuru kirasaba umuyobozi w'urubuga ({{reason}}) - {{title}}"
+
+msgid "Failed"
+msgstr "Yanze"
 
 msgid "Failed to convert image to a PNG"
-msgstr ""
+msgstr "Byanze guhindura ifoto muri PNG"
 
 msgid "Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}"
-msgstr ""
+msgstr "Byanze guha ifoto ibipimo bikwiye: kuri {{cols}}x{{rows}}, igomba kuba {{width}}x{{height}}"
 
 msgid "Filter"
-msgstr ""
+msgstr "Muyunguruzi"
+
+msgid "Filter by Request Status (optional)"
+msgstr "Yungurura ukurikije irangamimerere y'ikibazo (si ngombwa)"
 
 msgid "First, did your other requests succeed?"
-msgstr ""
+msgstr "Icya mbere, ibindi bibazo byawe byarasubijwe?"
 
-msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n           like information from. <strong>By law, they have to respond</strong>\\n           (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgid "First, type in the <strong>name of the UK public authority</strong> you'd\\n        like information from. <strong>By law, they have to respond</strong>\\n        (<a href=\"{{url}}\">why?</a>)."
+msgstr "Utangira, andika <strong>izina ry’ikigo mu Rwanda</strong> wifuza\\n gusaba amakuru. <strong>Amategeko ategeka ibigo gutanga amakuru</strong>\\n (<a href=\"{{url}}\">impamvu?</a>)."
 
 msgid "Foi attachment"
-msgstr ""
+msgstr "Umugereka w'ubwisanzure bwo kumenya amakuru"
 
 msgid "FoiAttachment|Charset"
-msgstr ""
+msgstr "FoiAttachment|Charset"
 
 msgid "FoiAttachment|Content type"
-msgstr ""
+msgstr "FoiAttachment|Content type"
 
 msgid "FoiAttachment|Display size"
-msgstr ""
+msgstr "FoiAttachment|Display size"
 
 msgid "FoiAttachment|Filename"
-msgstr ""
+msgstr "FoiAttachment|Filename"
 
 msgid "FoiAttachment|Hexdigest"
-msgstr ""
+msgstr "FoiAttachment|Hexdigest"
 
 msgid "FoiAttachment|Url part number"
-msgstr ""
+msgstr "FoiAttachment|Url part number"
 
 msgid "FoiAttachment|Within rfc822 subject"
-msgstr ""
+msgstr "FoiAttachment|Within rfc822 subject"
 
 msgid "Follow"
-msgstr ""
+msgstr "Kurikira"
 
 msgid "Follow all new requests"
-msgstr ""
+msgstr "Kurikira ibibazo bishya byose"
 
 msgid "Follow new successful responses"
-msgstr ""
+msgstr "Kurikira ibisubizo bishya"
 
 msgid "Follow requests to {{public_body_name}}"
-msgstr ""
+msgstr "Kurikira ibibazo byabajijwe {{public_body_name}}"
 
 msgid "Follow these requests"
-msgstr ""
+msgstr "Kurikira ibi bibazo"
 
 msgid "Follow things matching this search"
-msgstr ""
+msgstr "Kurikira ibintu bihuye n'ibyo washatse"
 
 msgid "Follow this authority"
-msgstr ""
+msgstr "Kurikira uyu muyobozi"
 
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "Kurikira uru rubuga kugirango ubone ikibazo:"
 
 msgid "Follow this link to see the requests:"
-msgstr ""
+msgstr "Kurikira iri huza ubona ibibazo:"
 
 msgid "Follow this person"
-msgstr ""
+msgstr "Kurikira uyu muntu"
 
 msgid "Follow this request"
-msgstr ""
+msgstr "Kurikira iki kibazo"
 
 #. "Follow up" in this context means a further
 #. message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up"
-msgstr ""
+msgstr "Gukurikirana"
 
 #. "Follow up message" in this context means a
 #. further message sent by the requester to the authority after
 #. the initial request
 msgid "Follow up message sent by requester"
-msgstr ""
+msgstr "Gukurikirana ubutumwa bwatanzwe n'uwabajije"
 
 msgid "Follow up messages to existing requests are sent to "
-msgstr ""
+msgstr "Ubutumwa bwo gukurikirana ibibazo bwohererejwe"
 
 msgid "Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Ubutumwa bwo gukurikirana bwohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
 #. "Follow ups" in this context means further
 #. messages sent by the requester to the authority after
 #. the initial request
 msgid "Follow ups and new responses to this request have been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and need to send a follow up."
-msgstr ""
+msgstr "Ubutumwa bwo gukurikira n'ibisubizo bishya kuri iki kibazo byarahagaritswe kugirango twirinde sipamu. Turabasaba <a href=\"{{url}}\">kutwandikira </a> niba uri {{user_link}} kandi ushaka kwohereza ubutumwa bwo gukurikirana."
 
 msgid "Follow us on twitter"
-msgstr ""
+msgstr "Dukurikire kuri twitter"
 
 msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
-msgstr ""
+msgstr "Ubutumwa bwo gukurikirana iki kibazo ntibushobora kwoherezwa, kuko cyatangiwe ahandi, hanyuma kigashyirwa hano na {{public_body_name}} mu mwanya w'uwakibajije."
 
 msgid "For an unknown reason, it is not possible to make a request to this authority."
-msgstr ""
+msgstr "Ku bw'impamvu itazwi, ntabwo bishoboka kubaza uyu muyobozi ikibazo."
 
 msgid "Forgotten your password?"
-msgstr ""
+msgstr "Wibagiwe ijambobanga ryawe?"
 
 msgid "Found {{count}} public authority {{description}}"
 msgid_plural "Found {{count}} public authorities {{description}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Yabonye {{count}} umuyobozi {{description}}"
+msgstr[1] "Yabonye {{count}} abayobozi {{description}}"
 
 msgid "Freedom of Information"
-msgstr ""
+msgstr "Ubwisanzure bwo kumenya amakuru"
 
 msgid "Freedom of Information Act"
-msgstr ""
+msgstr "Igikorwa cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "Freedom of Information law does not apply to this authority, so you cannot make\\n                a request to it."
-msgstr ""
+msgstr "Itegeko ry'ubwisanzure bwo kumenya amakuru ntabwo rireba uyu muyobozi, rero ntushobora gutanga\\n                ikibazo kirireba."
 
 msgid "Freedom of Information law no longer applies to"
-msgstr ""
+msgstr "Itegeko ry'ubwisanzure bwo kumenya amakuru ntabwo rikireba "
 
 msgid "Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to "
-msgstr ""
+msgstr "Itegeko ry'ubwisanzure bwo kumenya amakuru ntirikireba uyu muyobozi. Ubutumwa bwo gukurikirana ibibazo byabajijwe mbere bwohererezwa"
 
 msgid "Freedom of Information requests made"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru byatanzwe"
 
 msgid "Freedom of Information requests made by this person"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru byatanzwe n'uyu muntu"
 
 msgid "Freedom of Information requests made by you"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya watanze"
 
 msgid "Freedom of Information requests made using this site"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru byatanzwe hakoreshejwe uru rubuga"
 
 msgid "Freedom of information requests to"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru bya"
 
 msgid "From"
-msgstr ""
+msgstr "Kuva"
 
 msgid "From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr ""
+msgstr "Kuva kuri paji y'ikibazo, gerageza gusubiza ku ubutumwa runaka aho kwohereza,\\n    ubutumwa rusange bwo gukurikirana. Niba ukeneye kwohereza ubutumwa rusange bwo gukurikirana, no kumenya\\n    imeli izajya aho ikwiye kujya, turagusaba <a href=\"{{url}}\">kuyitwoherereza</a>."
 
 msgid "From:"
-msgstr ""
+msgstr "Iva:"
 
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr ""
+msgstr "TANGA IBISOBANURO KU KIREGO CYAWE HANO"
 
 msgid "Handled by post."
-msgstr ""
+msgstr "Byoherejwe n'iposita."
 
 msgid "Has tag string/has tag string tag"
-msgstr ""
+msgstr "Ifite akarango"
 
 msgid "HasTagString::HasTagStringTag|Model"
-msgstr ""
+msgstr "HasTagString::HasTagStringTag|Model"
 
 msgid "HasTagString::HasTagStringTag|Name"
-msgstr ""
+msgstr "HasTagString::HasTagStringTag|Name"
 
 msgid "HasTagString::HasTagStringTag|Value"
-msgstr ""
+msgstr "HasTagString::HasTagStringTag|Value"
 
 msgid "Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors outside {{country_name}}"
-msgstr ""
+msgstr "Muraho! Dufite <a href=\"{{url}}\">ubutumwa bw'ingenzi</a> bw'abasura bava hanze ya {{country_name}}"
 
 msgid "Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in other countries"
-msgstr ""
+msgstr "Muraho! Dufite <a href=\"{{url}}\">ubutumwa bw'ingenzi</a>ku bashyitsi bo mu bindi bihugu"
 
 msgid "Hello! You can make Freedom of Information requests within {{country_name}} at {{link_to_website}}"
-msgstr ""
+msgstr "Muraho! Ushobora gutanga ikibazo ku bwisanzure bwo kumenya amakuru uri  {{country_name}} ukoresheje {{link_to_website}}"
 
 msgid "Hello, {{username}}!"
-msgstr ""
+msgstr "Muraho, {{username}}!"
 
 msgid "Help"
-msgstr ""
+msgstr "Ubufasha"
 
 msgid "Here <strong>described</strong> means when a user selected a status for the request, and\\nthe most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by\\n{{site_name}} for intermediate events, which weren't given an explicit\\ndescription by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
-msgstr ""
+msgstr "Ibi <strong>bigaragazwa hano</strong> bivuga ko iyo ukoresha urubuga yahisemo irangamimerere ry'ikibazo, kandi\\nirangamimerere ry'igikorwa giheruka ryahinduwe hakurikijwe ibyo. <strong>Bibazwe</strong> hanyuma bishyirwaho na\\n{{site_name}} ku bikorwa byabaye mo hagati, umukoresharubuga atatangiye \\nibisobanuro bihagije. Reba <a href=\"{{search_path}}\">ibifasha mu gushaka</a> Kugirango uhabwe ibisobanuro by'aho igeze."
 
 msgid "Here is the message you wrote, in case you would like to copy the text and save it for later."
-msgstr ""
+msgstr "Dore ubutumwa wanditse, niba ubyifuza, ushobora kububika kugirango uzabashe kongera kubukoresha ikindi gihe."
 
 msgid "Hi! We need your help. The person who made the following request\\n    hasn't told us whether or not it was successful. Would you mind taking\\n    a moment to read it and help us keep the place tidy for everyone?\\n    Thanks."
-msgstr ""
+msgstr "Mwiriwe! Dukeneye ubufasha bwanyu. Umuntu watanze iki kibazo\\n    ntiyatubwiye niba cyaroherejwe cyangwa kitaroherejwe. Ushobora kudufasha ugafata\\n    umwanya ukagisoma bityo bikadufasha gukora isuku ku rubuga?\\n    Murakoze."
 
 msgid "Hide request"
-msgstr ""
+msgstr "Hisha ikibazo"
 
 msgid "Holiday"
-msgstr ""
+msgstr "Ikiruhuko"
 
 msgid "Holiday|Day"
-msgstr ""
+msgstr "Holiday|Day"
 
 msgid "Holiday|Description"
-msgstr ""
+msgstr "Holiday|Description"
 
 msgid "Home"
-msgstr ""
+msgstr "Ahabanza"
 
 msgid "Home page"
-msgstr ""
+msgstr "Ipaji ibanza"
 
 msgid "Home page of authority"
-msgstr ""
+msgstr "Ipaji ibanza y'umuyobozi "
 
 msgid "However, you have the right to request environmental\\n            information under a different law"
-msgstr ""
+msgstr "Nyamara, ufite uburenganzira bwo gusaba amakuru \\n            ku bidukikije ukoresheje irindi tegeko"
 
 msgid "Human health and safety"
-msgstr ""
+msgstr "Ubuzima n'umutekano w'abantu"
 
 msgid "I am asking for <strong>new information</strong>"
-msgstr ""
+msgstr "Ndi gusaba <strong>amakuru mashya</strong>"
 
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr ""
+msgstr "Ndi gusaba <strong>isuzuma</strong>"
 
 msgid "I am writing to request an internal review of {{public_body_name}}'s handling of my FOI request '{{info_request_title}}'."
-msgstr ""
+msgstr "Nanditse nsaba isuzuma ry'igisubizo nahawe na {{public_body_name}}ku kibazo nabajije cy'ubwisanzure bwo kumenya amakuru '{{info_request_title}}'."
 
 msgid "I don't like these ones &mdash; give me some more!"
-msgstr ""
+msgstr "Izi ntabwo zinejeje &mdash; mumpe izindi!"
 
 msgid "I don't want to do any more tidying now!"
-msgstr ""
+msgstr "Sinshaka kongera gukora indi suku!"
 
 msgid "I like this request"
-msgstr ""
+msgstr "Nakunze iki kibazo"
 
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr ""
+msgstr "Nifuzaga <strong>gukuraho iki kibazo</strong>"
 
 msgid "I'm still <strong>waiting</strong> for my information\\n                <small>(maybe you got an acknowledgement)</small>"
-msgstr ""
+msgstr "Ndacyategereje <strong></strong> igisubizo cyanjye\\n                <small>(ahari wahawe icyemezo cy'uko cyakiriwe)</small>"
 
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr ""
+msgstr "Ndacyategereje <strong></strong> isuzuma"
 
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr ""
+msgstr "Ndacyategereje icyo <strong>isuzuma</strong> rizansubiza"
 
 msgid "I've been asked to <strong>clarify</strong> my request"
-msgstr ""
+msgstr "Bansabye <strong>gusobanura</strong> ikibazo cyanjye"
 
 msgid "I've received <strong>all the information"
-msgstr ""
+msgstr "Nakiriye <strong>amakuru yose"
 
 msgid "I've received <strong>some of the information</strong>"
-msgstr ""
+msgstr "Nakiriye <strong>amwe mu makuru</strong>"
 
 msgid "I've received an <strong>error message</strong>"
-msgstr ""
+msgstr "Nakiriye <strong>ubutumwa bwo kwibeshya</strong>"
 
 msgid "I've received an error message"
-msgstr ""
+msgstr "Nakiriye ubutumwa bwo kwibeshya"
 
 msgid "Id"
-msgstr ""
+msgstr "Indangamuntu"
 
 msgid "If the address is wrong, or you know a better address, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "Niba aderesi atari yo, cyangwa se uzi aderesi yaba nziza kurushaho, <a href=\"{{url}}\">twandikire</a>."
 
 msgid "If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below."
-msgstr ""
+msgstr "Niba ikosa ari uko ubutumwa butagiye, kandi ukaba uzi imeli y'ubwisanzure bwo kumenya amakuru umuyobozi asigaye akoresha, tubwire wuzuza iyi fishi ikurikira."
 
 msgid "If this is incorrect, or you would like to send a late response to the request\\nor an email on another subject to {{user}}, then please\\nemail {{contact_email}} for help."
-msgstr ""
+msgstr "Niba ibi ataribyo, cyangwa se ukaba wifuza kwohereza igisubizo gikerewe kuri iki kibazo\\ncyangwa se imeli ijyanye n'ibindi bintu kuri {{user}}, turagusaba\\nkutwandikira kuri {{contact_email}} kugirango tugufashe."
 
 msgid "If you are dissatisfied by the response you got from\\n            the public authority, you have the right to\\n            complain (<a href=\"{{url}}\">details</a>)."
-msgstr ""
+msgstr "Niba utishimiye igisubizo wahawe \\n            n'umuyobozi, ufite uburenganzira bwo\\n            gutanga ikirego(<a href=\"{{url}}\">details</a>)."
 
 msgid "If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "Niba ukiri guhura n'ingorane, <a href=\"{{url}}\">twandikire</a>."
 
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the message."
-msgstr ""
+msgstr "Niba ari wowe watanze ikibazo, ushobora  <a href=\"{{url}}\">kwinjira</a> kugirango usome ubutumwa."
 
 msgid "If you are the requester, then you may <a href=\"{{url}}\">sign in</a> to view the request."
-msgstr ""
+msgstr "Niba ari wowe watanze ikibazo, ushobora <a href=\"{{url}}\">kwinjira</a> kugirango usome ubutumwa."
 
 msgid "If you are thinking of using a pseudonym,\\n                please <a href=\"{{url}}\">read this first</a>."
-msgstr ""
+msgstr "Niba ushaka gukoresha irindi zina,\\n                turagusaba <a href=\"{{url}}\">kubanza gusoma ibi</a>."
 
 msgid "If you are {{user_link}}, please"
-msgstr ""
+msgstr "Niba uri {{user_link}}, turagusaba"
 
 msgid "If you believe this request is not suitable, you can report it for attention by the site administrators"
-msgstr ""
+msgstr "Niba utekereza ko iki kibazo kidahwitse, ushobora kubimenyesha abayobozi b'uru rubuga"
 
 msgid "If you can't click on it in the email, you'll have to <strong>select and copy\\nit</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\\nyou would type the address of any other webpage."
-msgstr ""
+msgstr "Niba udashobora kuyikandaho muri imeli, biragusaba <strong>kuyandukura\\n</strong> uyikura muri imeli.  Hanyuma <strong>uyandukure muri porogaramu nsomamakuru ya interineti</strong>, mu mwanya\\nwakwandikamo aderesi y'indi site ya interineti yose."
 
 msgid "If you can, scan in or photograph the response, and <strong>send us\\n                    a copy to upload</strong>."
-msgstr ""
+msgstr "Niba ubishoboye, wasikana cyangwa se ugafotora igisubizo hanyuma<strong>ukatwoherereza\\n                    ifoto yo gushyira ku rubuga</strong>."
 
 msgid "If you find this service useful as an FOI officer, please ask your web manager to link to us from your organisation's FOI page."
-msgstr ""
+msgstr "Niba wabonye iyi serivisi ari ingirakamaro nk'umukozi wa w'ubwisanzure bwo kumenya amakuru, wasaba umuyobozi w'urubuga rwa interineti rw'ikigo cyanyu kutwongera kuri paji yanyu ya y'ubwisanzure bwo kumenya amakuru."
 
 msgid "If you got the email <strong>more than six months ago</strong>, then this login link won't work any\\nmore. Please try doing what you were doing from the beginning."
-msgstr ""
+msgstr "Niba warabonye iyo imeli <strong>mu gihe kiri hejuru y'amezi atandatu ashize</strong>, iri huza ryo kwinjiriraho ntabwo riri bube rigikora\\n. Gerageza gukora ibyo wari urimo gukora uhereye aho watangiriye."
 
 msgid "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
-msgstr ""
+msgstr "Niba utarabikora, andika ubu butumwa bukurikira ubwira umuyobozi ko wakuyeho ikibazo cyawe. Ni utabikora ntibazamenya ko wakuyeho ikibazo cyawe."
 
 msgid "If you reply to this message it will go directly to {{user_name}}, who will\\nlearn your email address. Only reply if that is okay."
-msgstr ""
+msgstr "Ni usubiza ubu butumwa igisubizo kirahita cyohererezwa {{user_name}}, kandi\\nazabona imeli aderesi yawe. Subiza niba nta kibazo biguteye."
 
 msgid "If you use web-based email or have \"junk mail\" filters, also check your\\nbulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
+msgstr "Niba ukoresha imeli wafunguje ku rubuga runaka cyangwa se ufite  \"junk mail\" muyunguruzi, reba n'\\nahajya ubutumwa bwa sipamu. Hari igihe twohereza ubutumwa akaba ariho bujya."
 
 msgid "If you would like us to lift this ban, then you may politely\\n<a href=\"/help/contact\">contact us</a> giving reasons.\\n"
-msgstr ""
+msgstr "Niba wifuza ko dukuraho uyu muziro, ushobora\\n<a href=\"/help/contact\">kutwandikira mu kinyabupfura</a> ukaduha n'impamvu.\\n"
 
 msgid "If you're new to {{site_name}}"
-msgstr ""
+msgstr "Niba ari ubwa mbere ukoresheje {{site_name}}"
 
 msgid "If you've used {{site_name}} before"
-msgstr ""
+msgstr "Niba warigeze gukoresha {{site_name}} mbere"
 
 msgid "If your browser is set to accept cookies and you are seeing this message,\\nthen there is probably a fault with our server."
-msgstr ""
+msgstr "Niba ingenamikorere yawe yemera inyandiko nshyingurabutumwa ukaba wabonye ubu butumwa,\\nni ukuvuga ko hashobora kuba hari ikibazo muri mudasobwa mbikamakuru yacu"
 
 msgid "Incoming email address"
-msgstr ""
+msgstr "Aderesi ya imeli yinjiye"
 
 msgid "Incoming message"
-msgstr ""
+msgstr "Ubutumwa buje"
 
 msgid "IncomingMessage|Cached attachment text clipped"
-msgstr ""
+msgstr "IncomingMessage|Cached attachment text clipped"
 
 msgid "IncomingMessage|Cached main body text folded"
-msgstr ""
+msgstr "IncomingMessage|Cached main body text folded"
 
 msgid "IncomingMessage|Cached main body text unfolded"
-msgstr ""
+msgstr "IncomingMessage|Cached main body text unfolded"
 
 msgid "IncomingMessage|Last parsed"
-msgstr ""
+msgstr "IncomingMessage|Last parsed"
 
 msgid "IncomingMessage|Mail from"
-msgstr ""
+msgstr "IncomingMessage|Mail from"
 
 msgid "IncomingMessage|Mail from domain"
-msgstr ""
+msgstr "IncomingMessage|Mail from domain"
 
 msgid "IncomingMessage|Prominence"
-msgstr ""
+msgstr "IncomingMessage|Prominence"
 
 msgid "IncomingMessage|Prominence reason"
-msgstr ""
+msgstr "IncomingMessage|Prominence reason"
 
 msgid "IncomingMessage|Sent at"
-msgstr ""
+msgstr "IncomingMessage|Sent at"
 
 msgid "IncomingMessage|Subject"
-msgstr ""
+msgstr "IncomingMessage|Subject"
 
 msgid "IncomingMessage|Valid to reply to"
-msgstr ""
+msgstr "IncomingMessage|Valid to reply to"
 
 msgid "Individual requests"
-msgstr ""
+msgstr "Ibibazo bwite"
 
 msgid "Info request"
-msgstr ""
+msgstr "Gusaba amakuru"
 
 msgid "Info request batch"
-msgstr ""
+msgstr "Nimero y'aho wasabiye amakuru"
 
 msgid "Info request event"
-msgstr ""
+msgstr "Icyabarore cyo gusaba amakuru"
 
 msgid "InfoRequestBatch|Body"
-msgstr ""
+msgstr "InfoRequestBatch|Body"
 
 msgid "InfoRequestBatch|Sent at"
-msgstr ""
+msgstr "InfoRequestBatch|Sent at"
 
 msgid "InfoRequestBatch|Title"
-msgstr ""
+msgstr "InfoRequestBatch|Title"
 
 msgid "InfoRequestEvent|Calculated state"
-msgstr ""
+msgstr "InfoRequestEvent|Calculated state"
 
 msgid "InfoRequestEvent|Described state"
-msgstr ""
+msgstr "InfoRequestEvent|Described state"
 
 msgid "InfoRequestEvent|Event type"
-msgstr ""
+msgstr "InfoRequestEvent|Event type"
 
 msgid "InfoRequestEvent|Last described at"
-msgstr ""
+msgstr "InfoRequestEvent|Last described at"
 
 msgid "InfoRequestEvent|Params yaml"
-msgstr ""
+msgstr "InfoRequestEvent|Params yaml"
 
 msgid "InfoRequest|Allow new responses from"
-msgstr ""
+msgstr "InfoRequest|Allow new responses from"
 
 msgid "InfoRequest|Attention requested"
-msgstr ""
+msgstr "InfoRequest|Attention requested"
 
 msgid "InfoRequest|Awaiting description"
-msgstr ""
+msgstr "InfoRequest|Awaiting description"
 
 msgid "InfoRequest|Comments allowed"
-msgstr ""
+msgstr "InfoRequest|Comments allowed"
 
 msgid "InfoRequest|Described state"
-msgstr ""
+msgstr "InfoRequest|Described state"
 
 msgid "InfoRequest|External url"
-msgstr ""
+msgstr "InfoRequest|External url"
 
 msgid "InfoRequest|External user name"
-msgstr ""
+msgstr "InfoRequest|External user name"
 
 msgid "InfoRequest|Handle rejected responses"
-msgstr ""
+msgstr "InfoRequest|Handle rejected responses"
 
 msgid "InfoRequest|Idhash"
-msgstr ""
+msgstr "InfoRequest|Idhash"
 
 msgid "InfoRequest|Law used"
-msgstr ""
+msgstr "InfoRequest|Law used"
 
 msgid "InfoRequest|Prominence"
-msgstr ""
+msgstr "InfoRequest|Prominence"
 
 msgid "InfoRequest|Title"
-msgstr ""
+msgstr "InfoRequest|Title"
 
 msgid "InfoRequest|Url title"
-msgstr ""
+msgstr "InfoRequest|Url title"
 
 msgid "Information not held."
-msgstr ""
+msgstr "Ntabwo dufite ayo makuru"
 
 msgid "Information on emissions and discharges (e.g. noise, energy,\\n            radiation, waste materials)"
-msgstr ""
+msgstr "Amakuru ku bihumanya  (urugero: urusaku, ibikomoka ku ngufu,\\n            ibyuka bihumanya, imyanda)"
 
 msgid "Internal review request"
-msgstr ""
+msgstr "Gusaba igenzura"
 
 msgid "Internal review request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Ibaruwa isaba igenzura yohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
 msgid "Is {{email_address}} the wrong address for {{type_of_request}} requests to {{public_body_name}}? If so, please contact us using this form:"
-msgstr ""
+msgstr "Iyi imeli {{email_address}} ntabwo ariyo yakoreshwa mu gutanga ibibazo bijyanye na {{type_of_request}} kuri {{public_body_name}}? Niba atariyo, tubwire wuzuza iyi fishi:"
 
 msgid "It may be that your browser is not set to accept a thing called \"cookies\",\\nor cannot do so.  If you can, please enable cookies, or try using a different\\nbrowser.  Then press refresh to have another go."
-msgstr ""
+msgstr "Birashoboka ko ingenamikorere yawe itemera ibintu byitwa \"cookies\",\\ncyangwa se itabifitiye ubushobozi. Niba ubishoboye, shyiraho inyandiko nshyingura cyangwa ugerageze gukoresha indi\\nngenamikorere itandukanye.  Hanyuma ukande kukuvugurura wongere ugerageze."
 
 msgid "Items matching the following conditions are currently displayed on your wall."
-msgstr ""
+msgstr "Ibintu byujuje ibisabwa biri ku rukuta rwawe."
 
 msgid "Items sent in last month"
-msgstr ""
+msgstr "Ibintu byoherejwe mu kwezi gushize"
 
 msgid "Joined in"
-msgstr ""
+msgstr "Yinjiye"
 
 msgid "Joined {{site_name}} in"
-msgstr ""
+msgstr "Yinjiye kuri {{site_name}} "
 
 msgid "Just one more thing"
-msgstr ""
+msgstr "Ikindi kintu kimwe gusa"
 
 msgid "Keep it <strong>focused</strong>, you'll be more likely to get what you want (<a href=\"{{url}}\">why?</a>)."
-msgstr ""
+msgstr "Gerageza kurasa <strong>ku ntego</strong>, birakorohera kubona icyo ushaka. (<a href=\"{{url}}\">why?</a>)."
 
 msgid "Keywords"
-msgstr ""
+msgstr "Amagamboshingiro"
 
 msgid "Last authority viewed: "
-msgstr ""
+msgstr "Umuyobozi uheruka kureba:"
 
 msgid "Last request viewed: "
-msgstr ""
+msgstr "Ikibazo giheruka kurebwa:"
 
 msgid "Let us know what you were doing when this message\\nappeared and your browser and operating system type and version."
-msgstr ""
+msgstr "Tubwire icyo wari uri gukora igihe ubu butumwa \\nbwazaga n'ingenamikorere ukoresha n'uburyo ukoresha ndetse n'ubwoko bwayo."
 
 msgid "Link to this"
-msgstr ""
+msgstr "Iyandikishe kuri ibi"
 
 msgid "List of all authorities (CSV)"
-msgstr ""
+msgstr "Urutonde rw'abayobozi bose (CSV)"
 
 msgid "Listing FOI requests"
-msgstr ""
+msgstr "Urutonde rw'ibibazo by'ubwisanzure bwo kumenya amakuru"
 
 msgid "Listing public authorities"
-msgstr ""
+msgstr "Gukora urutonde rw'abayobozi bose"
 
 msgid "Listing public authorities matching '{{query}}'"
-msgstr ""
+msgstr "Gukora urutonde rw'abayobozi bose barebwa na '{{query}}'"
 
 msgid "Listing tracks"
-msgstr ""
+msgstr "Gukora urutonde rw'amashakiro"
 
 msgid "Listing users"
-msgstr ""
+msgstr "Gukora urutonde rw'abakoresha urubuga"
 
 msgid "Log in to download a zip file of {{info_request_title}}"
-msgstr ""
+msgstr "Injiramo kugirango ubone dosiye yegeranyije ya {{info_request_title}}"
 
 msgid "Log into the admin interface"
-msgstr ""
+msgstr "Injira mu rubuga rw'abayobozi"
 
 msgid "Long overdue."
-msgstr ""
+msgstr "Cyararengeranye cyane."
 
 msgid "Made between"
-msgstr ""
+msgstr "Byakozwe hagati ya"
 
 msgid "Mail server log"
-msgstr ""
+msgstr "Kwinjira muri imeli mbikamakuru"
 
 msgid "Mail server log done"
-msgstr ""
+msgstr "Warangije kwinjira muri imeli mbikamakuru"
 
 msgid "MailServerLogDone|Filename"
-msgstr ""
+msgstr "MailServerLogDone|Filename"
 
 msgid "MailServerLogDone|Last stat"
-msgstr ""
+msgstr "MailServerLogDone|Last stat"
 
 msgid "MailServerLog|Line"
-msgstr ""
+msgstr "MailServerLog|Line"
 
 msgid "MailServerLog|Order"
-msgstr ""
+msgstr "MailServerLog|Order"
 
 msgid "Make a batch request"
-msgstr ""
+msgstr "Baza ikibazo ku bantu benshi"
 
 msgid "Make a new EIR request"
-msgstr ""
+msgstr "Tanga ikindi kibazo ku mategeko agenga ibidukikije"
 
 msgid "Make a new FOI request"
-msgstr ""
+msgstr "Tanga ikibazo gishya kirebana n'ubwisanzure bwo kumenya amakuru"
 
 msgid "Make a new<br/>\\n  <strong>Freedom <span>of</span><br/>\\n  Information<br/>\\n  request</strong>"
-msgstr ""
+msgstr "Tanga ikibazo gishya kijyanye<br/>\\n  <strong>n’ubwisanzure<span>bwo</span><br/>\\n  kumenya amakuru<br/>\\n  </strong>"
 
 msgid "Make a request"
-msgstr ""
+msgstr "Tanga ikibazo"
 
 msgid "Make a request &raquo;"
-msgstr ""
+msgstr "Tanga ikibazo &raquo;"
 
 msgid "Make a request to these authorities"
-msgstr ""
+msgstr "Baza ikibazo aba bayobozi"
 
 msgid "Make a request to this authority"
-msgstr ""
+msgstr "Baza ikibazo uyu muyobozi"
 
 msgid "Make an {{law_used_short}} request"
-msgstr ""
+msgstr "Tanga ikibazo kuri {{law_used_short}} "
 
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
-msgstr ""
+msgstr "Baza {{law_used_short}} ikibazo '{{public_body_name}}'"
 
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr ""
+msgstr "Tanga ndetse ushake ibibazo by'ubwisanzure bwo kumenya amakuru"
 
 msgid "Make your own request"
-msgstr ""
+msgstr "Tanga ikibazo cyawe bwite"
 
 msgid "Many requests"
-msgstr ""
+msgstr "Ibibazo byinshi"
 
 msgid "Message"
-msgstr ""
+msgstr "Ubutumwa"
 
 msgid "Message has been removed"
-msgstr ""
+msgstr "Ubutumwa bwakuweho"
 
 msgid "Message sent using {{site_name}} contact form, "
-msgstr ""
+msgstr "Ubutumwa bwoherejwe hakoreshejwe ifishi yo kwohereza ubutumwa ya {{site_name}} , "
 
 msgid "Missing contact details for '"
-msgstr ""
+msgstr "Harabura umwirondoro wa '"
 
 msgid "More about this authority"
-msgstr ""
+msgstr "Ibindi kuri uyu muyobozi"
 
 msgid "More requests..."
-msgstr ""
+msgstr "Ibindi bibazo..."
 
 msgid "More similar requests"
-msgstr ""
+msgstr "Ibindi bibazo bisa n'iki"
 
 msgid "More successful requests..."
-msgstr ""
+msgstr "Ibindi bibazo byasubijwe..."
 
 msgid "My profile"
-msgstr ""
+msgstr "Ibindanga"
 
 msgid "My request has been <strong>refused</strong>"
-msgstr ""
+msgstr "Ikibazo cyanjye ntabwo <strong>cyakiriwe</strong>"
 
 msgid "My requests"
-msgstr ""
+msgstr "Ibibazo byanjye"
 
 msgid "My wall"
-msgstr ""
+msgstr "Urukuta rwanjye"
 
 msgid "Name can't be blank"
-msgstr ""
+msgstr "Ugomba gushyiraho izina"
 
 msgid "Name is already taken"
-msgstr ""
+msgstr "Izina ryamaze gufatwa"
 
 msgid "New Freedom of Information requests"
-msgstr ""
+msgstr "Ibindi bibazo bishya ku bwisanzure bwo kumenya amakuru"
 
 msgid "New censor rule"
-msgstr ""
+msgstr "Itegeko rishya ry'ubucamanza"
 
 msgid "New e-mail:"
-msgstr ""
+msgstr "Imeli nshya"
 
 msgid "New email doesn't look like a valid address"
-msgstr ""
+msgstr "Imeli nshya igaragara nk'aho idakora"
 
 msgid "New password:"
-msgstr ""
+msgstr "Ijambo banga rishya:"
 
 msgid "New password: (again)"
-msgstr ""
+msgstr "Ijambo banga rishya: (nanone)"
 
 msgid "New response to '{{title}}'"
-msgstr ""
+msgstr "Igisubizo gishya kuri '{{title}}'"
 
 msgid "New response to your FOI request - "
-msgstr ""
+msgstr "Igisubizo gishya ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
 
 msgid "New response to your request"
-msgstr ""
+msgstr "Igisubizo gishya ku kibazo cyawe"
 
 msgid "New response to {{law_used_short}} request"
-msgstr ""
+msgstr "Igisubizo gishya ku kibazo cya {{law_used_short}} "
 
 msgid "New updates for the request '{{request_title}}'"
-msgstr ""
+msgstr "Amavugurura ku kibazo '{{request_title}}'"
 
 msgid "Newest results first"
-msgstr ""
+msgstr "Banza ibisubizo bishya"
 
 msgid "Next"
-msgstr ""
+msgstr "Ahakurikira"
 
 msgid "Next, crop your photo &gt;&gt;"
-msgstr ""
+msgstr "Hanyuma, kata ifoto yawe &gt;&gt;"
 
 msgid "No requests of this sort yet."
-msgstr ""
+msgstr "Ntiturabona ibibazo nk'icyi "
 
 msgid "No results found."
-msgstr ""
+msgstr "Nta bisubizo"
 
 msgid "No similar requests found."
-msgstr ""
+msgstr "Nta bibazo nk'icyi byabonetse"
 
 msgid "No tracked things found."
-msgstr ""
+msgstr "Ibyo washatse ntibyabonetse"
 
 msgid "Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet."
-msgstr ""
+msgstr "Nta muntu urabaza  {{public_body_name}} ibibazo by'ubwisanzure bwo kumenya amakuru akoresheje uru rubuga."
 
 msgid "None found."
-msgstr ""
+msgstr "Nta na kimwe twabonye."
 
 msgid "None made."
-msgstr ""
+msgstr "Nta na kimwe cyatanzwe."
 
 msgid "Not a valid FOI request"
-msgstr ""
+msgstr "Si ikibazo cyemewe cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "Not a valid request"
-msgstr ""
+msgstr "Si ikibazo cyemewe"
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
-msgstr ""
+msgstr "Icyitonderwa: uwatanze ikibazo ntabwo azamenyeshwa insobanuro yawe, kuberako ikibazo cyashyizwe ahagaragara na {{public_body_name}} mu mwanya w'uwabajije."
 
 msgid "Notes:"
-msgstr ""
+msgstr "Icyitonderwa:"
 
 msgid "Now check your email!"
-msgstr ""
+msgstr "Reba imeli yawe!"
 
 msgid "Now preview your annotation"
-msgstr ""
+msgstr "Subiramo insobanuro yawe"
 
 msgid "Now preview your follow up"
-msgstr ""
+msgstr "Subiramo ikurikirana ryawe"
 
 msgid "Now preview your message asking for an internal review"
-msgstr ""
+msgstr "Subiramo ubutumwa bwawe busaba igenzura"
 
 msgid "Number of requests"
-msgstr ""
+msgstr "Umubare w'ibibazo"
 
 msgid "OR remove the existing photo"
-msgstr ""
+msgstr "CYAGWA SE kuraho ifoto yari isanzwe"
 
 msgid "Offensive? Unsuitable?"
-msgstr ""
+msgstr "Birakomeretsanya? Ntibikwiye?"
 
 msgid "Oh no! Sorry to hear that your request was refused. Here is what to do now."
-msgstr ""
+msgstr "Yoo, dutewe agahinda n'uko ikibazo cyawe bacyanze. Dore ibyo ushobora gukora ubu."
 
 msgid "Old e-mail:"
-msgstr ""
+msgstr "Imeli ishaje:"
 
 msgid "Old email address isn't the same as the address of the account you are logged in with"
-msgstr ""
+msgstr "Imeli wakoreshaga ntabwo ihuye na konti winjiriyeho ubu"
 
 msgid "Old email doesn't look like a valid address"
-msgstr ""
+msgstr "Imeli ishaje isa nk'itabaho"
 
 msgid "On this page"
-msgstr ""
+msgstr "Kuri iyi paji"
 
 msgid "One FOI request found"
-msgstr ""
+msgstr "Habonetse ikibazo kimwe cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "One person found"
-msgstr ""
+msgstr "Habonetse umuntu umwe "
 
 msgid "One public authority found"
-msgstr ""
+msgstr "Habonetse umuyobozi umwe"
 
 msgid "Only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL – don't worry about breaking URLs through renaming, as the history is used to redirect"
-msgstr ""
+msgstr "Shyiramo impine zisanzwe zikoreshwa, cyangwa se ureke kugira icyo wuzuzamo. Izina rigufi cyangwa rirerire rishobora gukoreshwa muri URL-ntugire ikibazo cyo kwangiza URL uhindura amazina, kuko inyandiko nshyingura ibyohereza kuri aderesi nyayo"
 
 msgid "Only requests made using {{site_name}} are shown."
-msgstr ""
+msgstr "Ibibazo byatanzwe hakoreshejwe {{site_name}} nibyo bigaragara gusa."
 
 msgid "Only the authority can reply to this request, and I don't recognise the address this reply was sent from"
-msgstr ""
+msgstr "Umuyobozi niwe wenyine ushobora gusubiza iki kibazo, kandi aderesi yakoreshejwe mu gusubiza sinyizi"
 
 msgid "Only the authority can reply to this request, but there is no \"From\" address to check against"
-msgstr ""
+msgstr "Umuyobozi niwe wenyine ushobora gusubiza, ariko nta \"From\" aderesi dushobora kugenzuriraho ko ari we"
 
 msgid "Or make a <a href=\"{{url}}\">batch request</a> to <strong>multiple authorities</strong> at once."
-msgstr ""
+msgstr "Cyangwa tanga <a href=\"{{url}}\">ikibazo</a> ku <strong>bayobozi benshi</strong> icyarimwe."
 
 msgid "Or search in their website for this information."
-msgstr ""
+msgstr "Cyangwa shaka amakuru ku rubuga rwabo rwa interineti "
 
 msgid "Original request sent"
-msgstr ""
+msgstr "Ikibazo cy'umwimerere cyoherejwe"
 
 msgid "Other"
-msgstr ""
+msgstr "Ikindi"
 
 msgid "Other:"
-msgstr ""
+msgstr "Ikindi:"
 
 msgid "Outgoing message"
-msgstr ""
+msgstr "Ubutumwa bwoherejwe"
 
 msgid "OutgoingMessage|Body"
-msgstr ""
+msgstr "OutgoingMessage|Body"
 
 msgid "OutgoingMessage|Last sent at"
-msgstr ""
+msgstr "OutgoingMessage|Last sent at"
 
 msgid "OutgoingMessage|Message type"
-msgstr ""
+msgstr "OutgoingMessage|Message type"
 
 msgid "OutgoingMessage|Prominence"
-msgstr ""
+msgstr "OutgoingMessage|Prominence"
 
 msgid "OutgoingMessage|Prominence reason"
-msgstr ""
+msgstr "OutgoingMessage|Prominence reason"
 
 msgid "OutgoingMessage|Status"
-msgstr ""
+msgstr "OutgoingMessage|Status"
 
 msgid "OutgoingMessage|What doing"
-msgstr ""
+msgstr "OutgoingMessage|What doing"
 
 msgid "Partially successful."
-msgstr ""
+msgstr "Hasubijwe igice kimwe."
 
 msgid "Password is not correct"
-msgstr ""
+msgstr "Ijambobanga siryo"
 
 msgid "Password:"
-msgstr ""
+msgstr "Ijambo banga:"
 
 msgid "Password: (again)"
-msgstr ""
+msgstr "Ijambo banga: (nanone)"
 
 msgid "Paste this link into emails, tweets, and anywhere else:"
-msgstr ""
+msgstr "Andukura iri huza muri imeli cyangwa ubutumwa bwo kuri twitter, n'ahandi aho ariho hose:"
 
 msgid "People"
-msgstr ""
+msgstr "Abantu"
 
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Abantu {{start_count}} kuri {{end_count}} muri {{total_count}}"
 
 msgid "Percentage of requests that are overdue"
-msgstr ""
+msgstr "Ijanisha ry'ibibazo byarengeje igihe"
 
 msgid "Percentage of total requests"
-msgstr ""
+msgstr "Ijanisha ry'ibibazo byose"
 
 msgid "Photo of you:"
-msgstr ""
+msgstr "Ifoto yawe:"
 
 msgid "Plans and administrative measures that affect these matters"
-msgstr ""
+msgstr "Gahunda n'ibyemezo by'ubuyobozi bigira ingaruka kuri iki kibazo"
 
 msgid "Play the request categorisation game"
-msgstr ""
+msgstr "Kina umukino wo gutandukanya ibibazo"
 
 msgid "Play the request categorisation game!"
-msgstr ""
+msgstr "Kina umukino wo gutandukanya ibibazo!"
 
 msgid "Please"
-msgstr ""
+msgstr "Turabasaba"
 
 msgid "Please <a href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
+msgstr "Turabasaba <a href=\"{{url}}\">kutwandikira </a> muramutse mugize ikibazo."
 
 msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
-msgstr ""
+msgstr "Turagusaba <a href=\"{{url}}\">kutuvugisha</a> kugirango tubikemure."
 
 msgid "Please <strong>answer the question above</strong> so we know whether the "
-msgstr ""
+msgstr "Turagusaba <strong>gusubiza ikibazo kiri haruguru</strong> kugirango tumenye niba "
 
 msgid "Please <strong>go to the following requests</strong>, and let us\\n        know if there was information in the recent responses to them."
-msgstr ""
+msgstr "Turagusaba <strong>kureba ibi bibazo bikurikira</strong>, hanyuma utumenyeshe\\n        niba hari amakuru mu bisubizo biherutse gutangwa."
 
 msgid "Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href=\"{{new_request_link}}\">file a new request</a>."
-msgstr ""
+msgstr "Turagusaba <strong></strong> ko wandika ubutumwa bwerekeranye n'ikibazo cyawe gusa {{request_link}}. Niba ushaka kubaza amakuru atari ari mu kibazo cyawe cy'umwimerere, <a href=\"{{new_request_link}}\">tanga ikindi kibazo</a>."
 
 msgid "Please ask for environmental information only"
-msgstr ""
+msgstr "Baza amakuru arebana n'ibidukikije gusa"
 
 msgid "Please check the URL (i.e. the long code of letters and numbers) is copied\\ncorrectly from your email."
-msgstr ""
+msgstr "Reba neza ko umurongo wa interineti (i.e. kode ndende y'inyuguti n'imibare) wandukuwe\\nneza muri imeli."
 
 msgid "Please choose a file containing your photo."
-msgstr ""
+msgstr "Hitamo dosiye irimo ifoto yawe."
 
 msgid "Please choose a reason"
-msgstr ""
+msgstr "Hitamo impamvu"
 
 msgid "Please choose what sort of reply you are making."
-msgstr ""
+msgstr "Hitamo ubwoko bw'igisubizo uri gutanga."
 
 msgid "Please choose whether or not you got some of the information that you wanted."
-msgstr ""
+msgstr "Hitamo niba warabonye cyangwa utarabonye amwe mu makuru wifuzaga."
 
 msgid "Please click on the link below to cancel or alter these emails."
-msgstr ""
+msgstr "Kanda kuri iri huza rikurikira kugirango uhagarike cyangwa ukosore izi imeli."
 
 msgid "Please click on the link below to confirm that you want to \\nchange the email address that you use for {{site_name}}\\nfrom {{old_email}} to {{new_email}}"
-msgstr ""
+msgstr "Kanda ku ihuza rkurikira kugirango wemeze ko ushaka \\nguhindura imeli ukoresha kuri {{site_name}}\\nive kuri {{old_email}} ibe {{new_email}}"
 
 msgid "Please click on the link below to confirm your email address."
-msgstr ""
+msgstr "Kanda ku ihuza rikurikira wemeza imeli yawe."
 
 msgid "Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway."
-msgstr ""
+msgstr "Sobanura neza ingingo y'ikibazo. Nta mpamvu yo kuvuga ko ari ikibazo cy'ubwisanzure bwo kumenya amakuru, n'ubundi duhita tubyongeraho"
 
 msgid "Please don't upload offensive pictures. We will take down images\\n    that we consider inappropriate."
-msgstr ""
+msgstr "Ntushyireho amafoto y'urukozasoni. Tuzakuraho amafoto\\n    tubona ko adakwiriye."
 
 msgid "Please enable \"cookies\" to carry on"
-msgstr ""
+msgstr "Fungura \"cookies\" kugirango ukomeze"
 
 msgid "Please enter a password"
-msgstr ""
+msgstr "Injiza ijambobanga"
 
 msgid "Please enter a subject"
-msgstr ""
+msgstr "Shyiraho impamvu"
 
 msgid "Please enter a summary of your request"
-msgstr ""
+msgstr "Andika incamake y'ikibazo cyawe"
 
 msgid "Please enter a valid email address"
-msgstr ""
+msgstr "Shyiramo imeli ikora"
 
 msgid "Please enter the message you want to send"
-msgstr ""
+msgstr "Andika ubutumwa ushaka kohereza"
 
 msgid "Please enter the name of the authority"
-msgstr ""
+msgstr "Andika izina ry'umuyobozi"
 
 msgid "Please enter the same password twice"
-msgstr ""
+msgstr "Andika ijambobanga rimwe inshuro ebyiri"
 
 msgid "Please enter your annotation"
-msgstr ""
+msgstr "Andika insobanuro yawe"
 
 msgid "Please enter your email address"
-msgstr ""
+msgstr "Andika imeli yawe"
 
 msgid "Please enter your follow up message"
-msgstr ""
+msgstr "Andika ubutumwa bwawe bwo gukurikirana"
 
 msgid "Please enter your letter requesting information"
-msgstr ""
+msgstr "Shyiramo ibarwa isaba amakuru"
 
 msgid "Please enter your name"
-msgstr ""
+msgstr "Shyiramo izina ryawe"
 
 msgid "Please enter your name, not your email address, in the name field."
-msgstr ""
+msgstr "Andika izina ryawe, atari imeli yawe, ahagenewe kujya izina."
 
 msgid "Please enter your new email address"
-msgstr ""
+msgstr "Andika imeli yawe nshyashya"
 
 msgid "Please enter your old email address"
-msgstr ""
+msgstr "Shyiramo imeli yawe ishaje"
 
 msgid "Please enter your password"
-msgstr ""
+msgstr "Shyiramo ijambobanga ryawe"
 
 msgid "Please give details explaining why you want a review"
-msgstr ""
+msgstr "Andika ibisobanuro by'impamvu ituma ushaka igenzura "
 
 msgid "Please keep it shorter than 500 characters"
-msgstr ""
+msgstr "Gerageza kuyandika ukoresheje inyuguti ziri munsi ya 500"
 
 msgid "Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence."
-msgstr ""
+msgstr "Incamake yigire ngufi, nk'umutwe wa imeli.Ushobora gukoresha amagambo make, aho gukoresha interuro ndende."
 
 msgid "Please only request information that comes under those categories, <strong>do not waste your\\n            time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "Saba amakuru ari muri iki cyiciro gusa, <strong>reka gutakaza\\n            umwanya wawe</strong> cyangwa umwanya w'abayobozi usaba amakuru atajyanye."
 
 msgid "Please pass this on to the person who conducts Freedom of Information reviews."
-msgstr ""
+msgstr "Turagusaba kugeza ubu butumwa ku muntu ukora igenzura ry'ubwisanzure bwo kumenya amakuru."
 
 msgid "Please select each of these requests in turn, and <strong>let everyone know</strong>\\nif they are successful yet or not."
-msgstr ""
+msgstr "Hitamo kimwe kimwe muri ibi bibazo, hanyuma <strong>umenyeshe buri wese</strong>\\nniba bamaze gusubizwa cyangwa batarasubizwa."
 
 msgid "Please sign at the bottom with your name, or alter the \"{{signoff}}\" signature"
-msgstr ""
+msgstr "Andika izina ryawe nk'umukono hano hasi ,cyangwa se ureke \"{{signoff}}\" gushyiraho umukono"
 
 msgid "Please sign in as "
-msgstr ""
+msgstr "Injira nka"
 
 msgid "Please sign in or make a new account."
-msgstr ""
+msgstr "Injira cyangwa ufungure indi konti."
 
 msgid "Please tell us more:"
-msgstr ""
+msgstr "Tubwire birenzeho:"
 
 msgid "Please type a message and/or choose a file containing your response."
-msgstr ""
+msgstr "Andika ubutumwa hanyuma/cyangwa uhitemo dosiye irimo igisubizo cyawe."
 
 msgid "Please use this email address for all replies to this request:"
-msgstr ""
+msgstr "Koresha iyi imeli wohereza ibisubizo byose kuri iki kibazo:"
 
 msgid "Please write a summary with some text in it"
-msgstr ""
+msgstr "Andika incamake irimo n'andi magambo make arengaho"
 
 msgid "Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read."
-msgstr ""
+msgstr "Andika incamake ukoresheje inyuguti nkuru n'into. Byorohereza abandi kuyisoma."
 
 msgid "Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read."
-msgstr ""
+msgstr "Andika ibisobanuro byawe ukoresheje inyuguti nkuru n'into. Byorohereza abandi kubisoma."
 
 msgid "Please write your follow up message containing the necessary clarifications below."
-msgstr ""
+msgstr "Andika ubutumwa bwawe bwo gukurikirana ahakurikira ushyiremo ibisobanuro byose bikenewe."
 
 msgid "Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read."
-msgstr ""
+msgstr "Andika ubutumwa bwawe ukoresheje inyuguti nkuru n'into. Byorohereza abandi kubusoma."
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
-msgstr ""
+msgstr "Garagaza <strong>amakuru ajyanye n'ibi</strong>, ubuvugizi cyangwa imbuga nyunguranabitekerezo zishobora kwifashishwa."
 
 msgid "Possibly related requests:"
-msgstr ""
+msgstr "Ibibazo bishobora kuba bihuye n'iki:"
 
 msgid "Post annotation"
-msgstr ""
+msgstr "Shyiraho insobanuro"
 
 msgid "Post redirect"
-msgstr ""
+msgstr "Shyiraho undi murongo"
 
 msgid "PostRedirect|Circumstance"
-msgstr ""
+msgstr "PostRedirect|Circumstance"
 
 msgid "PostRedirect|Email token"
-msgstr ""
+msgstr "PostRedirect|Email token"
 
 msgid "PostRedirect|Post params yaml"
-msgstr ""
+msgstr "PostRedirect|Post params yaml"
 
 msgid "PostRedirect|Reason params yaml"
-msgstr ""
+msgstr "PostRedirect|Reason params yaml"
 
 msgid "PostRedirect|Token"
-msgstr ""
+msgstr "PostRedirect|Token"
 
 msgid "PostRedirect|Uri"
-msgstr ""
+msgstr "PostRedirect|Uri"
 
 msgid "Posted on {{date}} by {{author}}"
-msgstr ""
+msgstr "Byashyizweho kuwa {{date}} na {{author}}"
 
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
-msgstr ""
+msgstr "Yakozwe na <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
 msgid "Prefer not to receive emails?"
-msgstr ""
+msgstr "Wahitamo kutabona imeli?"
 
 msgid "Prev"
-msgstr ""
+msgstr "Reba"
 
 msgid "Preview follow up to '"
-msgstr ""
+msgstr "Reba ubutumwa bwo gukurikirana bwohererejwe '"
 
 msgid "Preview new annotation on '{{info_request_title}}'"
-msgstr ""
+msgstr "Reba insobanuro nshya kuri '{{info_request_title}}'"
 
 msgid "Preview new {{law_used_short}} request"
-msgstr ""
+msgstr "Reba {{law_used_short}} ikibazo gishya"
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
-msgstr ""
+msgstr "Reba {{law_used_short}} ikibazo gishya cyabajijwe '{{public_body_name}}"
 
 msgid "Preview your annotation"
-msgstr ""
+msgstr "Reba insobanuro yawe"
 
 msgid "Preview your message"
-msgstr ""
+msgstr "Reba ubutumwa bwawe"
 
 msgid "Preview your public request"
-msgstr ""
+msgstr "Reba ikibazo cyawe ugiye gutanga ku mugaragaro"
 
 msgid "Profile photo"
-msgstr ""
+msgstr "Ifoto ikuranga"
 
 msgid "ProfilePhoto|Data"
-msgstr ""
+msgstr "ProfilePhoto|Data"
 
 msgid "ProfilePhoto|Draft"
-msgstr ""
+msgstr "ProfilePhoto|Draft"
 
 msgid "Public Bodies"
-msgstr ""
+msgstr "Abayobozi"
 
 msgid "Public Body"
-msgstr ""
+msgstr "Umuyobozi"
 
 msgid "Public Body Statistics"
-msgstr ""
+msgstr "Imibare y'abayobozi"
 
 msgid "Public authorities"
-msgstr ""
+msgstr "Abayobozi"
 
 msgid "Public authorities - {{description}}"
-msgstr ""
+msgstr "Abayobozi - {{description}}"
 
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Abayobozi {{start_count}} kuri {{end_count}} muri {{total_count}}"
 
 msgid "Public authority statistics"
-msgstr ""
+msgstr "Imibare y'abayobozi"
 
 msgid "Public authority – {{name}}"
-msgstr ""
+msgstr "Umuyobozi – {{name}}"
 
 msgid "Public bodies that most frequently replied with \"Not Held\""
-msgstr ""
+msgstr "Abayobozi bakunda gusubiza \"Not Held\""
 
 msgid "Public bodies with most overdue requests"
-msgstr ""
+msgstr "Abayobozi bafite ibibazo byinshi batarasubiza"
 
 msgid "Public bodies with the fewest successful requests"
-msgstr ""
+msgstr "Abayobozi bakemuye ibibazo bike"
 
 msgid "Public bodies with the most requests"
-msgstr ""
+msgstr "Abayobozi bakunda kubazwa ibibazo byinshi"
 
 msgid "Public bodies with the most successful requests"
-msgstr ""
+msgstr "Abayobozi bakemuye ibibazo byinshi"
 
 msgid "Public body"
-msgstr ""
+msgstr "Umuyobozi"
+
+msgid "Public body category"
+msgstr "Urwego rw'umuyobozi"
+
+msgid "Public body category link"
+msgstr "Ihuza ry'urwego rw'umuyobozi"
 
 msgid "Public body change request"
-msgstr ""
+msgstr "Hindura ikibazo cy'umuyobozi"
+
+msgid "Public body heading"
+msgstr "Umuyobozi ukuriye"
 
 msgid "Public notes"
-msgstr ""
+msgstr "Ubutumwa rusange"
 
 msgid "Public page"
-msgstr ""
+msgstr "Paji rusange"
 
 msgid "Public page not available"
-msgstr ""
+msgstr "Paji rusange ntibashije kuboneka"
+
+msgid "PublicBodyCategoryLink|Category display order"
+msgstr "PublicBodyCategoryLink|Category display order"
+
+msgid "PublicBodyCategory|Category tag"
+msgstr "PublicBodyCategory|Category tag"
+
+msgid "PublicBodyCategory|Description"
+msgstr "PublicBodyCategory|Description"
+
+msgid "PublicBodyCategory|Title"
+msgstr "PublicBodyCategory|Title"
 
 msgid "PublicBodyChangeRequest|Is open"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Is open"
 
 msgid "PublicBodyChangeRequest|Notes"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Notes"
 
 msgid "PublicBodyChangeRequest|Public body email"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Public body email"
 
 msgid "PublicBodyChangeRequest|Public body name"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Public body name"
 
 msgid "PublicBodyChangeRequest|Source url"
-msgstr ""
+msgstr "PublicBodyChangeRequest|Source url"
 
 msgid "PublicBodyChangeRequest|User email"
-msgstr ""
+msgstr "PublicBodyChangeRequest|User email"
 
 msgid "PublicBodyChangeRequest|User name"
-msgstr ""
+msgstr "PublicBodyChangeRequest|User name"
+
+msgid "PublicBodyHeading|Display order"
+msgstr "PublicBodyHeading|Display order"
+
+msgid "PublicBodyHeading|Name"
+msgstr "PublicBodyHeading|Name"
 
 msgid "PublicBody|Api key"
-msgstr ""
+msgstr "PublicBody|Api key"
 
 msgid "PublicBody|Disclosure log"
-msgstr ""
+msgstr "PublicBody|Disclosure log"
 
 msgid "PublicBody|First letter"
-msgstr ""
+msgstr "PublicBody|First letter"
 
 msgid "PublicBody|Home page"
-msgstr ""
+msgstr "PublicBody|Home page"
 
 msgid "PublicBody|Info requests count"
-msgstr ""
+msgstr "PublicBody|Info requests count"
 
 msgid "PublicBody|Info requests not held count"
-msgstr ""
+msgstr "PublicBody|Info requests not held count"
 
 msgid "PublicBody|Info requests overdue count"
-msgstr ""
+msgstr "PublicBody|Info requests overdue count"
 
 msgid "PublicBody|Info requests successful count"
-msgstr ""
+msgstr "PublicBody|Info requests successful count"
 
 msgid "PublicBody|Info requests visible classified count"
-msgstr ""
+msgstr "PublicBody|Info requests visible classified count"
 
 msgid "PublicBody|Last edit comment"
-msgstr ""
+msgstr "PublicBody|Last edit comment"
 
 msgid "PublicBody|Last edit editor"
-msgstr ""
+msgstr "PublicBody|Last edit editor"
 
 msgid "PublicBody|Name"
-msgstr ""
+msgstr "PublicBody|Name"
 
 msgid "PublicBody|Notes"
-msgstr ""
+msgstr "PublicBody|Notes"
 
 msgid "PublicBody|Publication scheme"
-msgstr ""
+msgstr "PublicBody|Publication scheme"
 
 msgid "PublicBody|Request email"
-msgstr ""
+msgstr "PublicBody|Request email"
 
 msgid "PublicBody|Short name"
-msgstr ""
+msgstr "PublicBody|Short name"
 
 msgid "PublicBody|Url name"
-msgstr ""
+msgstr "PublicBody|Url name"
 
 msgid "PublicBody|Version"
-msgstr ""
+msgstr "PublicBody|Version"
 
 msgid "Publication scheme"
-msgstr ""
+msgstr "Gahunda yo gutangaza"
 
 msgid "Publication scheme URL"
-msgstr ""
+msgstr "URL yo gutangazaho gahunda"
 
 msgid "Purge request"
-msgstr ""
+msgstr "Ikibazo kidafite umuziro"
 
 msgid "PurgeRequest|Model"
-msgstr ""
+msgstr "PurgeRequest|Model"
 
 msgid "PurgeRequest|Url"
-msgstr ""
+msgstr "PurgeRequest|Url"
 
 msgid "RSS feed"
-msgstr ""
+msgstr "Urwungano RSS"
 
 msgid "RSS feed of updates"
-msgstr ""
+msgstr "Urwungano RSS rw'ibyavuguruwe"
 
 msgid "Re-edit this annotation"
-msgstr ""
+msgstr "Ongera ukoosore iyi nsobanuro"
 
 msgid "Re-edit this message"
-msgstr ""
+msgstr "Ongera ukosore ubu butumwa"
 
 msgid "Read about <a href=\"{{advanced_search_url}}\">advanced search operators</a>, such as proximity and wildcards."
-msgstr ""
+msgstr "Soma ibijyanye <a href=\"{{advanced_search_url}}\">na porogaramu zifashishwa mu bushashatsi bwimbitse </a>, nka proximity na wildcards."
 
 msgid "Read blog"
-msgstr ""
+msgstr "Soma urubuga rw'amakuru agezweho"
 
 msgid "Received an error message, such as delivery failure."
-msgstr ""
+msgstr "Nakiriye ubutumwa bwo kwibeshya, nk'ubutumwa butagiye."
 
 msgid "Recently described results first"
-msgstr ""
+msgstr "Banza ibisubizo biherutse gusobanurwa"
 
 msgid "Refused."
-msgstr ""
+msgstr "Bagihakanye."
 
 msgid "Remember me</label> (keeps you signed in longer;\\n    do not use on a public computer) "
-msgstr ""
+msgstr "Munyibuke</label> (ituma umara umwanya ugaragara ko winjiye;\\n    ntuyikoreshe kuri mudasobwa rusange) "
 
 msgid "Report abuse"
-msgstr ""
+msgstr "Erekana ahabaye guhungabanywa"
 
 msgid "Report an offensive or unsuitable request"
-msgstr ""
+msgstr "Erekana ikibazo kidahwitse cyangwa gikomeretsa"
 
 msgid "Report request"
-msgstr ""
+msgstr "Erekana ikibazo"
 
 msgid "Report this request"
-msgstr ""
+msgstr "Erekana iki kibazo"
 
 msgid "Reported for administrator attention."
-msgstr ""
+msgstr "Gikeneye kurebwa n'abayobozi b'urubuga."
 
 msgid "Reporting a request notifies the site administrators. They will respond as soon as possible."
-msgstr ""
+msgstr "Iyo ugaragaje ikibazo, abayobozi b'urubuga bahita babimenyeshwa. Bazagerageza kugusubiza vuba bishoboka."
 
 msgid "Request an internal review"
-msgstr ""
+msgstr "Saba isuzuma"
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr ""
+msgstr "Saba {{person_or_body}} ifishi y'isuzuma"
 
 msgid "Request email"
-msgstr ""
+msgstr "Saba imeli"
 
 msgid "Request for personal information"
-msgstr ""
+msgstr "Saba amakuru bwite"
 
 msgid "Request has been removed"
-msgstr ""
+msgstr "Ikibazo cyakuweho"
 
 msgid "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Ikibazo cyohererejwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}."
 
 msgid "Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}."
-msgstr ""
+msgstr "Ikibazo cyabajijwe {{public_body_name}} na {{info_request_user}}. Cyasobanuwe na {{event_comment_user}} kuwa {{date}}."
 
 msgid "Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
-msgstr ""
+msgstr "Byabajijwe {{public_body_name}} na {{info_request_user}} kuwa {{date}}"
 
 msgid "Requested on {{date}}"
-msgstr ""
+msgstr "Cyabajijwe kuwa {{date}}"
 
 msgid "Requests are considered overdue if they are in the 'Overdue' or 'Very Overdue' states."
-msgstr ""
+msgstr "Ibibazo bibarwa ko byarengeje igihe iyo biri mu cyiciro cy''ibyarengeje igihe' cyangwa 'ibyarengeranye cyane'."
 
 msgid "Requests are considered successful if they were classified as either 'Successful' or 'Partially Successful'."
-msgstr ""
+msgstr "Ibibazo bibarwa ko byakemutse iyi biri mu cyiciro cy''ibyasubijwe' cyangwa 'byasubijwe igice gito'."
 
 msgid "Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
-msgstr ""
+msgstr "Gusaba amakuru bwite cyangwa ibibazo bikomeretsanya ntabwo bifatwa nk' ibijyanye n'ubwisanzure bwo kumenya amakuru (<a href=\"/help/about\">read more</a>)."
 
 msgid "Requests or responses matching your saved search"
-msgstr ""
+msgstr "Ibibazo cyangwa ibisubizo bihuye n'ibyo washatse"
 
 msgid "Requests similar to '{{request_title}}'"
-msgstr ""
+msgstr "Ibibazo bisa na '{{request_title}}'"
 
 msgid "Requests similar to '{{request_title}}' (page {{page}})"
-msgstr ""
+msgstr "Ibibazo bisa na '{{request_title}}' (page {{page}})"
 
 msgid "Requests will be sent to the following bodies:"
-msgstr ""
+msgstr "Ibibazo bizohererezwa abayobozi bakurikira:"
 
 msgid "Respond by email"
-msgstr ""
+msgstr "Subiza ukoresheje imeli"
 
 msgid "Respond to request"
-msgstr ""
+msgstr "Subiza ikibazo"
 
 msgid "Respond to the FOI request '{{request}}' made by {{user}}"
-msgstr ""
+msgstr "Subiza ikibazo cy'ubwisanzure bwo kumenya amakuru '{{request}}' cyatanzwe na {{user}}"
 
 msgid "Respond using the web"
-msgstr ""
+msgstr "Subiza ukoresheje interineti"
 
 msgid "Response"
-msgstr ""
+msgstr "Igisubizo"
 
 msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Igisubizo cyatanzwe na {{public_body_name}} kuri {{info_request_user}} kuwa {{date}}."
 
 msgid "Response from a public authority"
-msgstr ""
+msgstr "Igisubizo cy'umuyobozi"
 
 msgid "Response to '{{title}}'"
-msgstr ""
+msgstr "Igisubizo kuri '{{title}}'"
 
 msgid "Response to this request is <strong>delayed</strong>."
-msgstr ""
+msgstr "Igisubizo kuri iki kibazo <strong>cyakerewe</strong>."
 
 msgid "Response to this request is <strong>long overdue</strong>."
-msgstr ""
+msgstr "Igisubizo kuri iki kibazo <strong>cyararengeranye</strong>."
 
 msgid "Response to your request"
-msgstr ""
+msgstr "Igisubizo ku kibazo cyawe"
 
 msgid "Response:"
-msgstr ""
+msgstr "Igisubizo:"
 
 msgid "Restrict to"
-msgstr ""
+msgstr "Hagarikira kuri"
 
 msgid "Results page {{page_number}}"
-msgstr ""
+msgstr "Paji zabonetse {{page_number}}"
 
 msgid "Save"
-msgstr ""
+msgstr "Hunika"
 
 msgid "Search"
-msgstr ""
+msgstr "Shaka"
 
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr ""
+msgstr "Shaka ibibazo byo ku bwisanzure bwo kumenya amakuru, abayobozi, n'abakoresha urubuga"
 
 msgid "Search contributions by this person"
-msgstr ""
+msgstr "Shaka inyunganizi zatanzwe n'uyu muntu"
 
 msgid "Search for the authorities you'd like information from:"
-msgstr ""
+msgstr "Shaka umuyobozi wifuza kubaza amakuru:"
 
 msgid "Search for words in:"
-msgstr ""
+msgstr "Shaka amagambo ari muri:"
 
 msgid "Search in"
-msgstr ""
+msgstr "Shaka muri"
 
 msgid "Search over<br/>\\n  <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\\n  <strong>{{number_of_authorities}} authorities</strong>"
-msgstr ""
+msgstr "Shakisha<br/>\\n Ibibazo bigera kuri <strong>{{number_of_requests}} </strong><br/>\\n <span>Ubuyobozi busaga</span>  <strong>{{number_of_authorities}} </strong>"
 
 msgid "Search queries"
-msgstr ""
+msgstr "Shaka ibibazo"
 
 msgid "Search results"
-msgstr ""
+msgstr "Shaka ibyabonetse"
 
 msgid "Search the site to find what you were looking for."
-msgstr ""
+msgstr "Shaka ibyo wari ukeneye ku rubuga "
 
 msgid "Search within the {{count}} Freedom of Information requests to {{public_body_name}}"
 msgid_plural "Search within the {{count}} Freedom of Information requests made to {{public_body_name}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Shaka mu bibazo {{count}}  by'ubwisanzure bwo kumenya amakuru byabajijwe {{public_body_name}}"
+msgstr[1] "Shaka mu {{count}} bibazo by'ubwisanzure bwo kumenya amakuru byabajijwe {{public_body_name}}"
 
 msgid "Search your contributions"
-msgstr ""
+msgstr "Shaka inyunganizi zawe"
 
 msgid "See bounce message"
-msgstr ""
-
-msgid "Select one to see more information about the authority."
-msgstr ""
+msgstr "Reba ubutumwa butagiye"
 
 msgid "Select the authorities to write to"
-msgstr ""
+msgstr "Hitamo abayobozi bo kwandikira"
 
 msgid "Select the authority to write to"
-msgstr ""
+msgstr "Hitamo umuyobozi wo kwandikira"
 
 msgid "Send a followup"
-msgstr ""
+msgstr "Ohereza ubutumwa bwo gurikirana"
 
 msgid "Send a message to "
-msgstr ""
+msgstr "Oherereza ubutumwa "
 
 msgid "Send a public follow up message to {{person_or_body}}"
-msgstr ""
+msgstr "Oherereza {{person_or_body}} ubutumwa rusange bwo gukurikirana"
 
 msgid "Send a public reply to {{person_or_body}}"
-msgstr ""
+msgstr "Oherereza {{person_or_body}} igisubizo rusange"
 
 msgid "Send follow up to '{{title}}'"
-msgstr ""
+msgstr "Ohereza ubutumwa bwo gukurikirana '{{title}}'"
 
 msgid "Send message"
-msgstr ""
+msgstr "Ohereza ubutumwa"
 
 msgid "Send message to "
-msgstr ""
+msgstr "Oherereza ubutumwa"
 
 msgid "Send request"
-msgstr ""
+msgstr "Ohereza ikibazo"
 
 msgid "Sent to one authority by {{info_request_user}} on {{date}}."
 msgid_plural "Sent to {{authority_count}} authorities by {{info_request_user}} on {{date}}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Byohererejwe umuyobozi na {{info_request_user}} kuwa {{date}}."
+msgstr[1] "Byohererejwe abayobozi {{authority_count}} na {{info_request_user}} kuwa {{date}}."
 
 msgid "Set your profile photo"
-msgstr ""
+msgstr "Shyiraho ifoto ikuranga"
 
 msgid "Short name"
-msgstr ""
+msgstr "Izina rigufi"
 
 msgid "Short name is already taken"
-msgstr ""
+msgstr "Izina ryamaze gufatwa"
 
 msgid "Show most relevant results first"
-msgstr ""
+msgstr "Banza werekane ibisubizo bikenewe cyane"
 
 msgid "Show only..."
-msgstr ""
+msgstr "Erekana gusa...."
 
 msgid "Showing"
-msgstr ""
+msgstr "Kwerekana"
 
 msgid "Sign in"
-msgstr ""
+msgstr "Injira"
 
 msgid "Sign in as the emergency user"
-msgstr ""
+msgstr "Injira nk'ukoresha urubuga udasanzwe"
 
 msgid "Sign in or make a new account"
-msgstr ""
+msgstr "Injira cyangwa ufungure indi konti."
 
 msgid "Sign in or sign up"
-msgstr ""
+msgstr "Injira cyangwa ufunguze konti"
 
 msgid "Sign out"
-msgstr ""
+msgstr "Sohoka"
 
 msgid "Sign up"
-msgstr ""
+msgstr "Funguza"
 
 msgid "Similar requests"
-msgstr ""
+msgstr "Ibindi bibazo bisa n'iki"
 
 msgid "Simple search"
-msgstr ""
+msgstr "Gushaka byoroshye"
 
 msgid "Some notes have been added to your FOI request - "
-msgstr ""
+msgstr "Hari amagambo yongewe mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
 
 msgid "Some of the information requested has been received"
-msgstr ""
+msgstr "Amwe mu makuru yasabwe yakiriwe"
 
 msgid "Some people who've made requests haven't let us know whether they were\\nsuccessful or not.  We need <strong>your</strong> help &ndash;\\nchoose one of these requests, read it, and let everyone know whether or not the\\ninformation has been provided. Everyone'll be exceedingly grateful."
-msgstr ""
+msgstr "Bamwe mu bantu batanze ibibazo ntibatubwiye niba\\nbarasubijwe cyangwa batarasubijwe.  Dukeneye <strong>Ubufasha</strong> bwawe &ndash;\\nHitamo kimwe muri ibi bibazo, ugisome, hanyuma ubwire abantu bose niba\\namakuru yaratanzwe cyangwa ataratanzwe. Abantu bose bazagushimira ibyo."
 
 msgid "Somebody added a note to your FOI request - "
-msgstr ""
+msgstr "Hari umuntu wongeye amagambo mu kibazo cyawe cy'ubwisanzure bwo kumenya amakuru -"
 
 msgid "Someone has updated the status of your request"
-msgstr ""
+msgstr "Hari umuntu wavuguruye irangamimerere ry'ikibazo cyawe"
 
 msgid "Someone, perhaps you, just tried to change their email address on\\n{{site_name}} from {{old_email}} to {{new_email}}."
-msgstr ""
+msgstr "Hari umuntu, ushobora kuba ari wowe, umaze kugerageza guhindura imeli kuri\\n{{site_name}} iva kuri {{old_email}} ihinduka {{new_email}}."
 
 msgid "Sorry - you cannot respond to this request via {{site_name}}, because this is a copy of the request originally at {{link_to_original_request}}."
-msgstr ""
+msgstr "Mutwihanganire - ntushobora gusubiza iki kibazo ukoresheje {{site_name}}, kubera ko iyi ni kopi y'ikibazo, ikibazo cy'umwimerere kiri {{link_to_original_request}}."
 
 msgid "Sorry, but only {{user_name}} is allowed to do that."
-msgstr ""
+msgstr "Mutwihanganire, ariko {{user_name}} niwe wenyine wemerewe gukora ibyo."
 
 msgid "Sorry, there was a problem processing this page"
-msgstr ""
+msgstr "Mutwihanganire, habayeho ikibazo mu gufungura iyi paji"
 
 msgid "Sorry, we couldn't find that page"
-msgstr ""
+msgstr "Mutwihanganire, ntabwo twabonye iyi paji"
 
 msgid "Source URL:"
-msgstr ""
+msgstr "URL y'inkomoko"
 
 msgid "Source:"
-msgstr ""
+msgstr "Inkomoko:"
 
 msgid "Spam address"
-msgstr ""
+msgstr "Aderesi ya sipamu"
 
 msgid "SpamAddress|Email"
-msgstr ""
+msgstr "SpamAddress|Email"
 
 msgid "Special note for this authority!"
-msgstr ""
+msgstr "Ubutumwa bwihariye kuri uyu muyobozi!"
 
 msgid "Start your own blog"
-msgstr ""
+msgstr "Tangira urubuga rwawe bwite"
 
 msgid "Stay up to date"
-msgstr ""
+msgstr "Gezwaho amakuru yose"
 
 msgid "Still awaiting an <strong>internal review</strong>"
-msgstr ""
+msgstr "Kiracyategereje <strong>isuzuma</strong>"
 
 msgid "Subject"
-msgstr ""
+msgstr "Intego"
 
 msgid "Subject:"
-msgstr ""
+msgstr "Intego:"
 
 msgid "Submit"
-msgstr ""
+msgstr "Ohereza"
 
 msgid "Submit request"
-msgstr ""
+msgstr "Ohereza ikibazo"
 
 msgid "Submit status"
-msgstr ""
+msgstr "Ohereza irangamimerere"
 
 msgid "Submit status and send message"
-msgstr ""
+msgstr "Ohereza irangamimerere n'ubutumwa"
 
 msgid "Subscribe to blog"
-msgstr ""
+msgstr "Iyandikishe ku rubuga rw'amakuru bwite"
+
+msgid "Success"
+msgstr "Byasubijwe"
 
 msgid "Successful Freedom of Information requests"
-msgstr ""
+msgstr "Ibibazo by'ubwisanzure bwo kumenya amakuru byasubijwe"
 
 msgid "Successful."
-msgstr ""
+msgstr "Cyarasubijwe."
 
 msgid "Suggest how the requester can find the <strong>rest of the information</strong>."
-msgstr ""
+msgstr "Tanga ibitekerezo ku buryo uwabajije ashobora kubona <strong>amakuru asigaye</strong>."
 
 msgid "Summary:"
-msgstr ""
+msgstr "Incamake:"
 
 msgid "Table of statuses"
-msgstr ""
+msgstr "Urutonde rw'amarangamimerere"
 
 msgid "Table of varieties"
-msgstr ""
+msgstr "Urutonde rw'ibyiciro"
 
 msgid "Tags"
-msgstr ""
+msgstr "Ibimenyetso"
 
 msgid "Tags (separated by a space):"
-msgstr ""
+msgstr "Ibimenyetso (bitandukanyijwe n'umwanya hagati yabyo):"
 
 msgid "Tags:"
-msgstr ""
+msgstr "Ibimenyetso:"
 
 msgid "Technical details"
-msgstr ""
+msgstr "Ibisobanuro bya tekinike"
 
 msgid "Thank you for helping us keep the site tidy!"
-msgstr ""
+msgstr "Murakoze kudufasha kugira isuku kuri uru rubuga!"
 
 msgid "Thank you for making an annotation!"
-msgstr ""
+msgstr "Murakoze gutanga ibisobanuro!"
 
 msgid "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to "
-msgstr ""
+msgstr "Murakoze gusubiza iki kibazo cy'ubwisanzure bwo kumenya amakuru! Igisubizo cyawe cyatangajwe aha hakurikira, n'ihuza ku gisubizo cyawe yohererejwe "
 
 msgid "Thank you for updating the status of the request '<a href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests below for you to classify."
-msgstr ""
+msgstr "Urakoze kuvugurura irangamimerere y'ikibazo '<a href=\"{{url}}\">{{info_request_title}}</a>'. Hari ibindi bibazo hepfo bitegereje ko ubishyingura."
 
 msgid "Thank you for updating this request!"
-msgstr ""
+msgstr "Murakoze kuvugurura iki kibazo!"
 
 msgid "Thank you for updating your profile photo"
-msgstr ""
+msgstr "Murakoze kuvugurura ifoto ibaranga"
 
 msgid "Thank you! We'll look into what happened and try and fix it up."
-msgstr ""
+msgstr "Murakoze! Tuzareba ikibazo cyabayeho tugerageze no kugikemura."
 
 msgid "Thanks for helping - your work will make it easier for everyone to find successful\\nresponses, and maybe even let us make league tables..."
-msgstr ""
+msgstr "Murakoze ku bufasha bwanyu - ibyo mwakoze bizafasha abantu bose kubona \\nibisubizo byatanzwe, ndetse ahari byadufasha gukora n'imbonerahamwe..."
 
 msgid "Thanks for your suggestion to add {{public_body_name}}. It's been added to the site here:"
-msgstr ""
+msgstr "Murakoze ku nama yo kongeraho {{public_body_name}}. Yongewe hano kuri uru rubuga:"
 
 msgid "Thanks for your suggestion to update the email address for {{public_body_name}} to {{public_body_email}}. This has now been done and any new requests will be sent to the new address."
-msgstr ""
+msgstr "Murakoze ku nama yo kuvugurura imeli aderesi ya {{public_body_name}} ikaba {{public_body_email}}. Twamaze kubikora kandi ibindi bibazo bizoherezwa kuri aderesi nshya."
 
 msgid "Thanks very much - this will help others find useful stuff. We'll\\n            also, if you need it, give advice on what to do next about your\\n            requests."
-msgstr ""
+msgstr "Murakoze cyane - ibi bizafasha abandi kubona ibintu by'ingirakamaro. Ndetse\\n            niba ubyifuza, tuzaguha inama kubyo wakora ku \\n            bibazo byawe."
 
 msgid "Thanks very much for helping keep everything <strong>neat and organised</strong>.\\n    We'll also, if you need it, give you advice on what to do next about each of your\\n    requests."
-msgstr ""
+msgstr "Murakoze cyane ku bufasha bwo <strong>kubika ibintu byose biri ku murongo kandi bitunganyije.</strong>.\\n    Ndetse, niba ubyifuza, tuzaguha n'inama ku byo wakurikizaho gukora kuri buri cyose mu\\n    bibazo byawe."
 
 msgid "That doesn't look like a valid email address. Please check you have typed it correctly."
-msgstr ""
+msgstr "Ntabwo isa nka imeli ibaho. Reba niba wayanditse neza."
 
 msgid "The <strong>review has finished</strong> and overall:"
-msgstr ""
+msgstr "<strong>Isuzuma ryarangiye</strong> muri rusange:"
 
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
-msgstr ""
+msgstr "Igikorwa cy'ubwisanzure bwo kumenya amakuru <strong>ntabwo kireba </strong> "
 
 msgid "The URL where you found the email address. This field is optional, but it would help us a lot if you can provide a link to a specific page on the authority's website that gives this address, as it will make it much easier for us to check."
-msgstr ""
+msgstr "Aderesi ya interineti wakuyeho iyi imeli aderesi. Kuzuza hano si itegeko, ariko uduhaye ihuza ryo kuri paji yihariye ku rubuga rw'umuyobozi iriho iyi aderesi byadufasha cyane , kuko byatworohereza kubigenzura."
 
 msgid "The accounts have been left as they previously were."
-msgstr ""
+msgstr "Konti zagumye uko zari zimeze."
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)"
-msgstr ""
+msgstr "Umuyobozi ntabwo <strong>afite</strong> ayo amakuru <small>(bashobora kuba bavuze uyafite)"
 
 msgid "The authority email doesn't look like a valid address"
-msgstr ""
+msgstr "Imeli y'umuyobozi isa nk'itabaho"
 
 msgid "The authority only has a <strong>paper copy</strong> of the information."
-msgstr ""
+msgstr "Umuyobozi afite <strong>kopi yo mu mpapuro yonyine</strong> y'ayo makuru."
 
 msgid "The authority say that they <strong>need a postal\\n            address</strong>, not just an email, for it to be a valid FOI request"
-msgstr ""
+msgstr "Umuyobozi yavuze ko <strong>akeneye aho\\n            ubarizwa</strong>, atari imeli gusa, kugirango kibe ikibazo cyemewe cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "The authority would like to / has <strong>responded by post</strong> to this request."
-msgstr ""
+msgstr "Umuyobozi arifuza / yamaze <strong>kwohereza igisubizo cy'iki kibazo</strong> akoresheje iposita."
 
 msgid "The classification of requests (e.g. to say whether they were successful or not) is done manually by users and administrators of the site, which means that they are subject to error."
-msgstr ""
+msgstr "Ubushyinguro bw'ibibazo (urugero: kuvuga ko byasubijwe cyangwa bitasubijwe) bikorwa n'abakoresha urubuga ndetse n'abayobozi barwo, bisobanura ko bashobora kwibeshya."
 
 msgid "The contact email address for FOI requests to the authority."
-msgstr ""
+msgstr "Imeli yo kwoherezaho ibibazo by'ubwisanzure bwo kumenya amakuru ku muyobozi."
 
 msgid "The email that you, on behalf of {{public_body}}, sent to\\n{{user}} to reply to an {{law_used_short}}\\nrequest has not been delivered."
-msgstr ""
+msgstr "Imeli wohereje mu mwanya wa {{public_body}}, uyoherereza\\n{{user}} isubiza ikibazo cya {{law_used_short}}\\nntabwo yagiye."
 
 msgid "The error bars shown are 95% confidence intervals for the hypothesized underlying proportion (i.e. that which you would obtain by making an infinite number of requests through this site to that authority). In other words, the population being sampled is all the current and future requests to the authority through this site, rather than, say, all requests that have been made to the public body by any means."
-msgstr ""
+msgstr "Imirongo yo kwibeshya ni 95% y'intera hagati y'icyizere y'imibare mwibwira y'ibanze (ni ukuvuga iyo wabona utanze umubare w'ibibazo bitarangira kuri uwo muyobozi ukoresheje uru rubuga). Mu yandi magambo, abakoreweho ibarura ni ibibazo byabajijwe n'ibizabazwa umuyobozi hakoreshejwe uru rubuga, aho kuba, ibibazo byose byabajijwe umuyobozi binyuze mu nzira iyo ariyo yose."
+
+msgid "The last incoming message was created in the last day"
+msgstr "Ubutumwa bwa nyuma bwinjira bwashyizweho mu munsi watambutze"
+
+msgid "The last incoming message was created over a day ago"
+msgstr "Ubutumwa bwa nyuma bwinjira bwashyizweho mbere y'umunsi umwe ushize"
+
+msgid "The last outgoing message was created in the last day"
+msgstr "Ubutumwa bwa nyuma busohoka bwashyizweho mu munsi watambutse"
+
+msgid "The last outgoing message was created over a day ago"
+msgstr "ubutumwa bwa nyuma busohoka bwashyizweho mbere y'umunsi umwe ushize"
+
+msgid "The last user was created in the last day"
+msgstr "Umukoresharubuga wa nyuma yashyizweho mu munsi utambutse"
+
+msgid "The last user was created over a day ago"
+msgstr "Umukoresharubuga wa nyuma yashyizweho mbere y'umunsi umwe ushize"
 
 msgid "The page doesn't exist. Things you can try now:"
-msgstr ""
+msgstr "Iyo paji ntibaho. Dore ibyo ushobora gukora:"
 
 msgid "The percentages are calculated with respect to the total number of requests, which includes invalid requests; this is a known problem that will be fixed in a later release."
-msgstr ""
+msgstr "Ijanisha rikorwa hakurikijwe umubare w'ibibazo byose, harimo n'ibibazo bitemewe; iki ni ikibazo kizwi kizakemurwa muri raporo y'ubutaha."
 
 msgid "The public authority does not have the information requested"
-msgstr ""
+msgstr "Umuyobozi ntafite amakuru yasabwe"
 
 msgid "The public authority would like part of the request explained"
-msgstr ""
+msgstr "Hari ibyo umuyobozi yifuza gusobanurirwa mu kibazo yabajijwe"
 
 msgid "The public authority would like to / has responded by post"
-msgstr ""
+msgstr "Umuyobozi arifuza/yasubije akoresheje iposita"
 
 msgid "The request has been <strong>refused</strong>"
-msgstr ""
+msgstr "Ikibazo ntabwo <strong>cyakiriwe</strong>"
 
 msgid "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
-msgstr ""
+msgstr "Ikibazo cyaravuguruwe uhereye igihe washyiriyeho iyi paji. Reba ubutumwa bushya hepfo, maze wongere ugerageze."
 
 msgid "The request is <strong>waiting for clarification</strong>."
-msgstr ""
+msgstr "Ikibazo <strong>gitegereje ibisobanuro</strong>."
 
 msgid "The request was <strong>partially successful</strong>."
-msgstr ""
+msgstr "Ikibazo <strong>cyasubijwe igice</strong>."
 
 msgid "The request was <strong>refused</strong> by"
-msgstr ""
+msgstr "Ikibazo <strong>cyanzwe</strong> na"
 
 msgid "The request was <strong>successful</strong>."
-msgstr ""
+msgstr "Ikibazo <strong>cyarasubijwe</strong>."
 
 msgid "The request was refused by the public authority"
-msgstr ""
+msgstr "Ikibazo cyanzwe n'umuyobozi"
 
 msgid "The request you have tried to view has been removed. There are\\nvarious reasons why we might have done this, sorry we can't be more specific here. Please <a\\n    href=\"{{url}}\">contact us</a> if you have any questions."
-msgstr ""
+msgstr "Ikibazo uri kugerageza kureba cyakuweho. Hari \\nimpamvu zitandukanye zatumye tubikora, mutwihanganire ntabwo dushobora kuzibabwirira hano. Mushobora <a\\n    href=\"{{url}}\">kutwandikira </a> muramutse mufite ibindi bibazo."
 
 msgid "The requester has abandoned this request for some reason"
-msgstr ""
+msgstr "Uwatanze ikibazo yaretse gukomeza kugikurikirana kubera impamvu tutazi"
 
 msgid "The response to your request has been <strong>delayed</strong>.  You can say that,\\n            by law, the authority should normally have responded\\n            <strong>promptly</strong> and"
-msgstr ""
+msgstr "Igisubizo cy'ikibazo cyawe <strong>cyaratinze</strong>.  Ushobora kuvuga ko,\\n            hakurikijwe itegeko, umuyobozi yagombye kuba \\n            <strong>yarahise asubiza</strong> kandi"
 
 msgid "The response to your request is <strong>long overdue</strong>.   You can say that, by\\n            law, under all circumstances, the authority should have responded\\n            by now"
-msgstr ""
+msgstr "Igisubizo cy'ikibazo cyawe <strong>cyarakerewe cyawe</strong>.   Ushobora kuvuga ko hakurikijwe\\n            itegeko, uko byaba bimeze kose, umuyobozi yagombye kuba yaramaze gusubiza\\n            ubu"
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority."
-msgstr ""
+msgstr "Irangashakiro ntabwo riri gukora, rero ntabwo dushobora kwerekana ibibazo by'ubwisanzure bwo kumenya amakuru byabajijwe uyu muyobozi."
 
 msgid "The search index is currently offline, so we can't show the Freedom of Information requests this person has made."
-msgstr ""
+msgstr "Irangashakiro ntabwo riri gukora, rero ntabwo dushobora kwerekana ibibazo by'ubwisanzure bwo kumenya amakuru uyu muntu yatanze."
 
 msgid "The {{site_name}} team."
-msgstr ""
+msgstr "Itsinda rya {{site_name}} "
 
 msgid "Then you can cancel the alert."
-msgstr ""
+msgstr "Ubwo ushobora gukuraho imbuzi."
 
 msgid "Then you can cancel the alerts."
-msgstr ""
+msgstr "Ubwo ushobora gukuraho imbuzi."
 
 msgid "Then you can change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Ubwo ushobora guhindura imeli ikoreshwwa kuri {{site_name}}"
 
 msgid "Then you can change your password on {{site_name}}"
-msgstr ""
+msgstr "Ubwo ushobora guhindura ijambobanga kuri {{site_name}}"
 
 msgid "Then you can classify the FOI response you have got from "
-msgstr ""
+msgstr "Ubwo ushobora gushyingura  igisubizo wahawe ku bwisanzure bwo kumenya amakuru"
 
 msgid "Then you can download a zip file of {{info_request_title}}."
-msgstr ""
+msgstr "Ubwo ushobora kubika inyandiko ya {{info_request_title}}."
 
 msgid "Then you can log into the administrative interface"
-msgstr ""
+msgstr "Ubwo ushobora kwinjira mu rubuga rw'abayobozi"
 
 msgid "Then you can make a batch request"
-msgstr ""
+msgstr "Ubwo ushobora kubaza ikibazo kimwe ku bantu benshi"
 
 msgid "Then you can play the request categorisation game."
-msgstr ""
+msgstr "Ubwo ushobora gukina umukino wo gutandukanya ibibazo."
 
 msgid "Then you can report the request '{{title}}'"
-msgstr ""
+msgstr "Ubwo ushobora gutangaza ikibazo '{{title}}'"
 
 msgid "Then you can send a message to "
-msgstr ""
+msgstr "Ubwo ushobora kwohereza ubutumwa kuri"
 
 msgid "Then you can sign in to {{site_name}}"
-msgstr ""
+msgstr "Ubwo ushobora kwinjira kuri {{site_name}}"
 
 msgid "Then you can update the status of your request to "
-msgstr ""
+msgstr "Ubwo ushobora guhindura irangamimerere y'ikibazo kuri"
 
 msgid "Then you can upload an FOI response. "
-msgstr ""
+msgstr "Ubwo ushobora gushyiraho igisubizo cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "Then you can write follow up message to "
-msgstr ""
+msgstr "Ubwo ushobora kwandika ubutumwa bwo gukurikirana kuri"
 
 msgid "Then you can write your reply to "
-msgstr ""
+msgstr "Ubwo ushobora kwandika igisubizo cyawe kuri"
 
 msgid "Then you will be following all new FOI requests."
-msgstr ""
+msgstr "Ubwo uzaba ukurikira ibibazo byose by'ubwisanzure bwo kumenya amakuru."
 
 msgid "Then you will be notified whenever '{{user_name}}' requests something or gets a response."
-msgstr ""
+msgstr "Ubwo uzamenyeshwa igihe cyose '{{user_name}}' azagira icyo asaba cyangwa yahawe igisubizo."
 
 msgid "Then you will be notified whenever a new request or response matches your search."
-msgstr ""
+msgstr "Ubwo uzamenyeshwa igihe cyose hazaboneka ikibazo cyangwa igisubizo gishya gihuye n'ibyo washakaga."
 
 msgid "Then you will be notified whenever an FOI request succeeds."
-msgstr ""
+msgstr "Ubwo uzamenyeshwa igihe cyose ikibazo cy'ubwisanzure bwo kumenya amakuru kizasubizwa."
 
 msgid "Then you will be notified whenever someone requests something or gets a response from '{{public_body_name}}'."
-msgstr ""
+msgstr "Ubwo uzamenyeshwa igihe cyose hari umuntu uzabaza ikibazo cyangwa agahabwa igisubizo na '{{public_body_name}}'."
 
 msgid "Then you will be updated whenever the request '{{request_title}}' is updated."
-msgstr ""
+msgstr "Ubwo uzamenyeshwa igihe cyose ikibazo '{{request_title}}' kizavugururwa."
 
 msgid "Then you'll be allowed to send FOI requests."
-msgstr ""
+msgstr "Ubwo uzemererwa kwohereza ibibazo by'ubwisanzure bwo kumenya amakuru."
 
 msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr ""
+msgstr "Ubwo ikibazo cy'ubwisanzure bwo kumenya amakuru wabajije {{public_body_name}} kizoherezwa."
 
 msgid "Then your annotation to {{info_request_title}} will be posted."
-msgstr ""
+msgstr "Ubwo ibisobanuro watanze kuri {{info_request_title}} bizoherezwa."
 
 msgid "There are {{count}} new annotations on your {{info_request}} request. Follow this link to see what they wrote."
-msgstr ""
+msgstr "Hari ibisobanuro {{count}} bishya ku kibazo cyawe {{info_request}}. Kurikira iri huza urebe ibyo banditse."
 
 msgid "There is <strong>more than one person</strong> who uses this site and has this name.\\n    One of them is shown below, you may mean a different one:"
-msgstr ""
+msgstr "Hari <strong>abantu barenze umwe</strong> bakoresha uru rubuga kandi bitwa gutya.\\n    Umwe muribo aragaragara hepfo, ushobora kuba atariwe wavugaga:"
 
 msgid "There is a limit on the number of requests you can make in a day, because we don’t want public authorities to be bombarded with large numbers of inappropriate requests. If you feel you have a good reason to ask for the limit to be lifted in your case, please <a href='{{help_contact_path}}'>get in touch</a>."
-msgstr ""
+msgstr "Hari umubare ntarengwa w'ibibazo ushobora kubaza ku munsi, kuberako tutifuza ko abayobozi babazwa ibibazo byinshi bidakwiye. Niba wumva ifite impamvu ifatika yatuma usaba guhabwa umubare w'ibibazo birenze, ushobora <a href='{{help_contact_path}}'>kutwandikira</a>."
 
 msgid "There is nothing to display yet."
-msgstr ""
+msgstr "Nta kintu cyo kugaragaza kiraboneka."
 
 msgid "There is {{count}} person following this request"
 msgid_plural "There are {{count}} people following this request"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hari abantu {{count}} bakurikiye iki kibazo"
+msgstr[1] "Hari abantu {{count}} bakurikiye iki kibazo"
 
 msgid "There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team."
-msgstr ""
+msgstr "Habaye <strong>ikibazo mu kwohereza</strong> cyangwa se ikindi kibazo nk'icyo, bigomba gukosorwa n'itsinda rya {{site_name}}."
 
 msgid "There was an error with the words you entered, please try again."
-msgstr ""
+msgstr "Habayeho kwibeshya mu magambo wanditse, ongera ugerageze"
 
 msgid "There was no data calculated for this graph yet."
-msgstr ""
+msgstr "Imibare yo kuri iki gishushanyo ntirabobeka."
 
 msgid "There were no requests matching your query."
-msgstr ""
+msgstr "Nta bibazo bihuye n'ibyo wabajije."
 
 msgid "There were no results matching your query."
-msgstr ""
+msgstr "Nta bisubizo bihuye n'ibyo wabajije."
 
 msgid "These graphs were partly inspired by <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">some statistics that Mark Goodge produced for WhatDoTheyKnow</a>, so thanks are due to him."
-msgstr ""
+msgstr "Ibi bishushanyo byakomotse kuri <a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-whatdotheyknow/\">imwe mu mibare Mark Goodge yakoreye WhatDoTheyKnow</a>, rero turamushimiye."
 
 msgid "They are going to reply <strong>by post</strong>"
-msgstr ""
+msgstr "Bazasubiza <strong>bakoresheje iposita</strong>"
 
 msgid "They do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
-msgstr ""
+msgstr "Ntabwo <strong>bafite</strong> ayo makuru <small>(Bashobora kuba bavuze uyafite)</small>"
 
 msgid "They have been given the following explanation:"
-msgstr ""
+msgstr "Bahawe ibisobanuro bikurikira:"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law"
-msgstr ""
+msgstr "Ntabwo basubije ikibazo {{law_used_short}} cyawe {{title}} ako kanya, nk'uko bisabwa n'itegeko"
 
 msgid "They have not replied to your {{law_used_short}} request {{title}}, \\nas required by law"
-msgstr ""
+msgstr "Ntabwo basubije ikibazo {{law_used_short}} cyawe {{title}}, \\nnk'uko itegeko ribisaba"
 
 msgid "Things to do with this request"
-msgstr ""
+msgstr "Ibyo gukora kuri iki kibazo"
 
 msgid "Things you're following"
-msgstr ""
+msgstr "Ibintu ukurikira"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
-msgstr ""
+msgstr "Uyu muyobozi ntakibaho, rero ntushobora kumubaza ikibazo."
 
 msgid "This covers a very wide spectrum of information about the state of\\n            the <strong>natural and built environment</strong>, such as:"
-msgstr ""
+msgstr "Hano harimo amakuru atandukanye asobanura\\n            ku <strong>bidukikije karemano n'ibyakozwe</strong>, nka:"
 
 msgid "This external request has been hidden"
-msgstr ""
+msgstr "Iki kibazo cyo hanze cyakuweho"
 
 msgid "This is <a href=\"{{profile_url}}\">{{user_name}}'s</a> wall"
-msgstr ""
+msgstr "Uru ni urukuta rwa <a href=\"{{profile_url}}\">{{user_name}}</a>"
 
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
-msgstr ""
+msgstr "Iyi ni verisiyo yoroshye y'ikibazo y'ubwisanzure bwo kumenya amakuru \"{{request_title}}\". Kopi nshya yuzuye iboneka kuri interineti kuri {{full_url}}"
 
 msgid "This is an HTML version of an attachment to the Freedom of Information request"
-msgstr ""
+msgstr "Iyi ni verisiyo HTML ya dosiye iherekeje ikibazo cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "This is because {{title}} is an old request that has been\\nmarked to no longer receive responses."
-msgstr ""
+msgstr "Ibi ni ukubera ko {{title}} ari ikibazo kimaze igihe kirekire kikaba\\ncyarashyizwe ku rutonde rw'ibitagihawe ibisubizo."
 
 msgid "This is the first version."
-msgstr ""
+msgstr "Iyi ni verisiyo ya mbere"
 
 msgid "This is your own request, so you will be automatically emailed when new responses arrive."
-msgstr ""
+msgstr "Iki kibazo ni wowe wagitanze, rero uzohererezwa imeli nihagira igisubizo gishya uhabwa."
 
 msgid "This message has been hidden."
-msgstr ""
+msgstr "Ubu butumwa bwarahishwe."
 
 msgid "This message has been hidden. There are various reasons why we might have done this, sorry we can't be more specific here."
-msgstr ""
+msgstr "Ubu butumwa bwarahishwe. Hari impamvu zishobora kuba zaratumye tubikora, utwihanganire ntidushobora kuzikubwira."
 
 msgid "This message has prominence 'hidden'. You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Ubu butumwa bufite ikimenyetso cya 'burahishwe'. Urabasha kububona kuko winjiye nk' ukoresha urubuga udasanzwe."
 
 msgid "This message has prominence 'hidden'. {{reason}} You can only see it because you are logged in as a super user."
-msgstr ""
+msgstr "Ubu butumwa bufite ikimenyetso cya 'burahishwe'. {{reason}} Urabasha kububona kuko winjiye nk' ukoresha urubuga udasanzwe."
 
 msgid "This message is hidden, so that only you, the requester, can see it. Please <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr ""
+msgstr "Ubu butumwa burahishwe, ku buryo wowe wenyine, uwabajije ikibazo, ushobora kububona. Ushobora <a href=\"{{url}}\">kutwandikira</a> niba utazi impamvu."
 
 msgid "This message is hidden, so that only you, the requester, can see it. {{reason}}"
-msgstr ""
+msgstr "Ubu butumwa burahishwe, ku buryo wowe wenyine, uwabajije ikibazo, ushobora kububona. {{reason}}"
 
 msgid "This page of public body statistics is currently experimental, so there are some caveats that should be borne in mind:"
-msgstr ""
+msgstr "Iyi paji y'imibare y'abayobozi iracyari mu igeragezwa, rero imibare igaragara hano si iyo kwizerwa:"
 
 msgid "This particular request is finished:"
-msgstr ""
+msgstr "Iki kibazo cyararangiye:"
 
 msgid "This person has made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "Uyu muntu nta bibazo by'ubwisanzure bwo kumenya amakuru yabajije akoresheje uru rubuga."
 
 msgid "This person's annotations"
-msgstr ""
+msgstr "Insobanuro z'uyu muntu"
 
 msgid "This person's {{count}} Freedom of Information request"
 msgid_plural "This person's {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ikibazo {{count}} cy'uyu muntu cy'ubwisanzure bwo kumenya amakuru"
+msgstr[1] "Ibibazo {{count}} by'uyu muntu by'ubwisanzure bwo kumenya amakuru"
 
 msgid "This person's {{count}} annotation"
 msgid_plural "This person's {{count}} annotations"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Insobanuro {{count}} y'uyu muntu"
+msgstr[1] "Ibisobanuro {{count}} z'uyu muntu"
 
 msgid "This request <strong>requires administrator attention</strong>"
-msgstr ""
+msgstr "Iki kibazo <strong>gikeneye kurebwaho n'abayobozi b'urubuga</strong>"
 
 msgid "This request has already been reported for administrator attention"
-msgstr ""
+msgstr "Iki kibazo cyamaze kugaragazwa ko gikeneye kurebwaho n'abayobozi b'urubuga"
 
 msgid "This request has an <strong>unknown status</strong>."
-msgstr ""
+msgstr "Irangamimerere y'iki kibazo <strong>ntabwo rizwi</strong>."
 
 msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request"
-msgstr ""
+msgstr "Iki kibazo <strong>cyakuwe</strong> ku rubuga, kubera ko hari umuyobozi w'urubuga wabonye atari icy'ubwisanzure bwo kumenya amakuru"
 
 msgid "This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious"
-msgstr ""
+msgstr "Iki kibazo <strong>cyakuwe</strong> ku rubuga, kuberako hari umuyobozi w'urubuga wabonye gikomeretsanya"
 
 msgid "This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)"
-msgstr ""
+msgstr "Iki kibazo <strong>cyagaragajwe</strong> nk'igikenewe kurebwaho n'abayobozi b'urubuga (gishobora kuba gikomeretsanya cyangwa se ari icyo gusaba amakuru bwite)"
 
 msgid "This request has been <strong>withdrawn</strong> by the person who made it.\\n               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Iki kibazo <strong>cyakuweho</strong> n'uwakibajije.\\n               Hashobora kuba hari impamvu mu butumwa buri hasi."
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"{{url}}\">contact us</a>."
-msgstr ""
+msgstr "Iki kibazo cyashyizweho ikimenyetso ko gikeneye gukorerwa isuzuma n'abayobozi b'urubuga, ariko ntibarafata icyemezo cyo kugikuraho. Niba utekereza ko kigomba gukurwaho, turagusaba  <a href=\"{{url}}\">kutwandikira</a>."
 
 msgid "This request has been reported for administrator attention"
-msgstr ""
+msgstr "Iki kibazo cyagaragarijwe abayobozi b'urubuga ko bakwiye kukigaho."
 
 msgid "This request has been set by an administrator to \"allow new responses from nobody\""
-msgstr ""
+msgstr "Iki kibazo cyatanzwe n'umwe mu bayobozi b'urubuga kugirango \"allow new responses from nobody\""
 
 msgid "This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team."
-msgstr ""
+msgstr "Iki kibazo cyahawe igisubizo kidasanwe, kandi <strong>gikeneye kwigwaho</strong> n'itsinda rya {{site_name}}."
 
 msgid "This request has prominence 'hidden'. You can only see it because you are logged\\n    in as a super user."
-msgstr ""
+msgstr "Ubu butumwa bufite ikimenyetso cya 'burahishwe'. Ushobora kububona kubera ko winjiye\\n    nk'ukoresha urubuga udasanzwe."
 
 msgid "This request is hidden, so that only you the requester can see it. Please\\n    <a href=\"{{url}}\">contact us</a> if you are not sure why."
-msgstr ""
+msgstr "Ubu butumwa burahiswe, ku buryo wowe wenyine, wabajije ikibazo ushobora kububona. Ushobora \\n    <a href=\"{{url}}\">kutwandikira</a> niba utazi impamvu."
 
 msgid "This request is still in progress:"
-msgstr ""
+msgstr "Iki kibazo kiracyakurikiranywa:"
 
 msgid "This request requires administrator attention"
-msgstr ""
+msgstr "Iki kibazo gikeneye kurebwaho n'abayobozi b'urubuga"
 
 msgid "This request was not made via {{site_name}}"
-msgstr ""
+msgstr "Iki kibazo nticyabajijwe hakoreshejwe  {{site_name}}"
 
 msgid "This table shows the technical details of the internal events that happened\\nto this request on {{site_name}}. This could be used to generate information about\\nthe speed with which authorities respond to requests, the number of requests\\nwhich require a postal response and much more."
-msgstr ""
+msgstr "Izi mbonerahamwe ziragaragaza mu magambo arambuye ibikorwa tekinike by'imirimo yakozwe \\nkuri iki kibazo ku rubuga {{site_name}}. Ibi bishobora gukoreshwa mu gutanga amakuru ku \\ngihe abayobozi bafata mu gusubiza ibibazo, umubare w'ibibazo\\nbisubizwa hakoreshejwe iposita n'ibindi byinshi."
 
 msgid "This user has been banned from {{site_name}} "
-msgstr ""
+msgstr "Uyu muntu yaraciwe kuri {{site_name}} "
 
 msgid "This was not possible because there is already an account using \\nthe email address {{email}}."
-msgstr ""
+msgstr "Ibi ntibyashobotse kuko hari indi konti ikoreshwaho \\niyi imeli {{email}}."
 
 msgid "To cancel these alerts"
-msgstr ""
+msgstr "Gukuraho izi mbuzi"
 
 msgid "To cancel this alert"
-msgstr ""
+msgstr "Gukuraho iyi mbuzi"
 
 msgid "To carry on, you need to sign in or make an account. Unfortunately, there\\nwas a technical problem trying to do this."
-msgstr ""
+msgstr "Kugirango ukomeze, ugomba kwinjira cyangwa ugafunguza konti. Habayeho\\nikibazo cya tekinike mu kugerageza kubikora."
 
 msgid "To change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Kugirango uhindure imeli ikoreshwa kuri {{site_name}}"
 
 msgid "To classify the response to this FOI request"
-msgstr ""
+msgstr "Gushyingura igisubizo cy'iki kibazo cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "To do that please send a private email to "
-msgstr ""
+msgstr "Kugirango ubashe gukora ibyo, ohereza imeli bwite kuri"
 
 msgid "To do this, first click on the link below."
-msgstr ""
+msgstr "Kugirango ubashe kubikora, banza ukande ku ihuza rikurikira."
 
 msgid "To download the zip file"
-msgstr ""
+msgstr "Kugirango ubike dosiye yegeranyije"
 
 msgid "To follow all successful requests"
-msgstr ""
+msgstr "Gukurikira ibibazo byose byasubijwe"
 
 msgid "To follow new requests"
-msgstr ""
+msgstr "Gukurikira ibibazo bishya"
 
 msgid "To follow requests and responses matching your search"
-msgstr ""
+msgstr "Gukurikira ibibazo n'ibisubizo bihuye n'ibyo washatse"
 
 msgid "To follow requests by '{{user_name}}'"
-msgstr ""
+msgstr "Gukurikira ibibazo bya '{{user_name}}'"
 
 msgid "To follow requests made using {{site_name}} to the public authority '{{public_body_name}}'"
-msgstr ""
+msgstr "Gukurikira ibibazo byatanzwe hakoreshejwe {{site_name}} bibazwa umuyobozi '{{public_body_name}}'"
 
 msgid "To follow the request '{{request_title}}'"
-msgstr ""
+msgstr "Gukurikira ikibazo '{{request_title}}'"
 
 msgid "To help us keep the site tidy, someone else has updated the status of the \\n{{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr ""
+msgstr "Kugirango urubuga rube rusa neza, undi muntu yavuguruye irangamimerere y' \\n{{law_used_full}} ikibazo {{title}} wabajije {{public_body}}, iba \"{{display_status}}\" Niba utemera iri tsinda bagishyizemo, ushobora guhindura irangamimerere kuryo wumva rikwiriiye kuba."
 
 msgid "To let everyone know, follow this link and then select the appropriate box."
-msgstr ""
+msgstr "Kugirango umenyeshe abantu bose, kurikira iri huza hanyuma uhitemo akazu gakwiriye."
 
 msgid "To log into the administrative interface"
-msgstr ""
+msgstr "Kugirango winjire mu rubuga rw'abayobozi b'urubuga"
 
 msgid "To make a batch request"
-msgstr ""
+msgstr "Kubaza ikibazo kimwe abantu benshi"
 
 msgid "To play the request categorisation game"
-msgstr ""
+msgstr "Gukina umukino wo gutandukanya ibibazo"
 
 msgid "To post your annotation"
-msgstr ""
+msgstr "Gushyiraho insobanuro yawe"
 
 msgid "To reply to "
-msgstr ""
+msgstr "Gusubiza"
 
 msgid "To report this request"
-msgstr ""
+msgstr "Kugaragaza iki kibazo"
 
 msgid "To send a follow up message to "
-msgstr ""
+msgstr "Kwohereza ubutumwa bwo gukurikirana kuri"
 
 msgid "To send a message to "
-msgstr ""
+msgstr "Kwoherereza ubutumwa"
 
 msgid "To send your FOI request"
-msgstr ""
+msgstr "Kwohereza ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "To update the status of this FOI request"
-msgstr ""
+msgstr "Kuvugurura irangamimerere ry'iki kibazo cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "To upload a response, you must be logged in using an email address from "
-msgstr ""
+msgstr "Kugirango ushyireho igisubizo, ugomba kuba winjiye ukoresheje imeli aderesi ya"
 
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
-msgstr ""
+msgstr "Kugirango ukore ubushakashatsi bwimbitse, huza interuro n'uturango nk'uko bigaragazwa mu mabanga yo gushaka akurikira."
 
 msgid "To view the email address that we use to send FOI requests to {{public_body_name}}, please enter these words."
-msgstr ""
+msgstr "Kugirango urebe imeli dukoresha twohereza ibibazo by'ubwisanzure bwo kumenya amakuru kuri {{public_body_name}}, andika aya magambo."
 
 msgid "To view the response, click on the link below."
-msgstr ""
+msgstr "Kugirango urebe igisubizo, kanda akayoboro gakurikira."
 
 msgid "To {{public_body_link_absolute}}"
-msgstr ""
+msgstr "Kuri {{public_body_link_absolute}}"
 
 msgid "To:"
-msgstr ""
+msgstr "Kuri:"
 
 msgid "Today"
-msgstr ""
+msgstr "Uyu munsi"
 
 msgid "Too many requests"
-msgstr ""
+msgstr "Ibibazo byinshi cyane"
 
 msgid "Top search results:"
-msgstr ""
+msgstr "Ibyavuye mu ishakisha:"
 
 msgid "Track thing"
-msgstr ""
+msgstr "Kurikirana ikintu"
 
 msgid "Track this person"
-msgstr ""
+msgstr "Kurikirana uyu muntu"
 
 msgid "Track this search"
-msgstr ""
+msgstr "Kurikirana ubu bushakashatzi"
 
 msgid "TrackThing|Track medium"
-msgstr ""
+msgstr "TrackThing|Track medium"
 
 msgid "TrackThing|Track query"
-msgstr ""
+msgstr "TrackThing|Track query"
 
 msgid "TrackThing|Track type"
-msgstr ""
+msgstr "TrackThing|Track type"
 
 msgid "Turn off email alerts"
-msgstr ""
+msgstr "Funga imbuzi zo kuri imeli"
 
 msgid "Tweet this request"
-msgstr ""
+msgstr "Shyira iki kibazo kuri Twitter"
 
 msgid "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show things that happened in the first two weeks of January."
-msgstr ""
+msgstr "Andika <strong><code>01/01/2008..14/01/2008</code></strong> kugirango ubone ibintu byabaye mu byumweru bibiri bya mbere bya Mutarama gusa."
 
 msgid "URL name can't be blank"
-msgstr ""
+msgstr "Ugomba kuzuza izina URL"
 
 msgid "URL name is already taken"
-msgstr ""
+msgstr "Izina URL ryamaze gufatwa"
 
 msgid "Unable to change email address on {{site_name}}"
-msgstr ""
+msgstr "Ntibishoboka guhindura imeli kuri {{site_name}}"
 
 msgid "Unable to send a reply to {{username}}"
-msgstr ""
+msgstr "Ntibishoboka kwoherereza {{username}} igisubizo"
 
 msgid "Unable to send follow up message to {{username}}"
-msgstr ""
+msgstr "Ntibishoboka kwoherereza {{username}} ubutumwa bwo gukurikirana"
 
 msgid "Unclassified or hidden requests are not counted."
-msgstr ""
+msgstr "Ibibazo byashyinguwe cyangwa ibyahishwe ntabwo bibarwa."
 
 msgid "Unexpected search result type "
-msgstr ""
+msgstr "Ubwoko bw'igisubizo cy'ubushakashatsi cyitari cyiteguwe"
 
 msgid "Unfortunately we don't know the FOI\\nemail address for that authority, so we can't validate this.\\nPlease <a href=\"{{url}}\">contact us</a> to sort it out."
-msgstr ""
+msgstr "Ku bw'amahirwe make, ntabwo tuzi\\nimeli y'uwo muyobozi y'ubwisanzure bwo kumenya amakuru, rero ntabwo ibi dushobora kubiha agaciro.\\nTuragusaba <a href=\"{{url}}\">kutwandikira</a> kugirango tubikemure."
 
 msgid "Unfortunately, we do not have a working address for {{public_body_names}}."
-msgstr ""
+msgstr "Ku bw'amahirwe make, ntabwo dufite imeli ikora ya {{public_body_names}}."
 
 msgid "Unfortunately, we do not have a working {{info_request_law_used_full}}\\naddress for"
-msgstr ""
+msgstr "Ku bw'amahirwe make, ntabwo dufite {{info_request_law_used_full}}\\naderesi ikora ya"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Ntibizwi"
 
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Kwiyandukuza"
 
 msgid "Unusual response."
-msgstr ""
+msgstr "Igisubizo kidasanzwe."
 
 msgid "Update email address - {{public_body_name}}"
-msgstr ""
+msgstr "Vugurura imeli aderesi - {{public_body_name}}"
 
 msgid "Update the address:"
-msgstr ""
+msgstr "Vugurura aderesi:"
 
 msgid "Update the status of this request"
-msgstr ""
+msgstr "Vugurura irangamimerere ry'iki kibazo"
 
 msgid "Update the status of your request to "
-msgstr ""
+msgstr "Vugurura irangamimerere ry'ikibazo cyawe ribe"
 
 msgid "Upload FOI response"
-msgstr ""
+msgstr "Shyiraho igisubizo cy'ubwisanzure bwo kumenya amakuru"
 
 msgid "Use OR (in capital letters) where you don't mind which word,  e.g. <strong><code>commons OR lords</code></strong>"
-msgstr ""
+msgstr "Koresha CYANGWA (mu cyapa) aho ushobora gukoresha ijambo iryo ari ryo ryose,  urugero: <strong><code>abategetsi CYANGWA abayobozi</code></strong>"
 
 msgid "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Liverpool City Council\"</code></strong>"
-msgstr ""
+msgstr "Koresha udukubo ushaka kubona interuro runaka, Urugero: <strong><code>\"Ubuyobozi bw'umujyi wa Kigali\"</code></strong>"
 
 msgid "User"
-msgstr ""
+msgstr "Ukoresha urubuga"
 
 msgid "User info request sent alert"
-msgstr ""
+msgstr "Imbuzi yo gusaba amakuru y'ukoresha urubuga yoherejwe"
 
 msgid "User – {{name}}"
-msgstr ""
+msgstr "Ukoresha urubuga – {{name}}"
 
 msgid "UserInfoRequestSentAlert|Alert type"
-msgstr ""
+msgstr "UserInfoRequestSentAlert|Alert type"
 
 msgid "Users cannot usually make batch requests to multiple authorities at once because we don’t want public authorities to be bombarded with large numbers of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you think you have good reason to send the same request to multiple authorities at once."
-msgstr ""
+msgstr "Mu bisanzwe, abakoresha urubuga ntibashobora kwohereza ibibazo byinshi ku bayobozi benshi icyarimwe kubera ko tudashaka ko abayobozi bakira umubare munini w'ibibazo bidakwiye. Turagusaba <a href=\"{{url}}\">kutwandikira </a> niba utekereza ko ufite impamvu ifatika yo kwoherereza abayobozi benshi ikibazo kimwe icyarimwe."
 
 msgid "User|About me"
-msgstr ""
+msgstr "User|About me"
 
 msgid "User|Admin level"
-msgstr ""
+msgstr "User|Admin level"
 
 msgid "User|Ban text"
-msgstr ""
+msgstr "User|Ban text"
 
 msgid "User|Can make batch requests"
-msgstr ""
+msgstr "User|Can make batch requests"
 
 msgid "User|Email"
-msgstr ""
+msgstr "User|Email"
 
 msgid "User|Email bounce message"
-msgstr ""
+msgstr "User|Email bounce message"
 
 msgid "User|Email bounced at"
-msgstr ""
+msgstr "User|Email bounced at"
 
 msgid "User|Email confirmed"
-msgstr ""
+msgstr "User|Email confirmed"
 
 msgid "User|Hashed password"
-msgstr ""
+msgstr "User|Hashed password"
+
+msgid "User|Identity card number"
+msgstr "User|Identity card number"
 
 msgid "User|Last daily track email"
-msgstr ""
+msgstr "User|Last daily track email"
 
 msgid "User|Locale"
-msgstr ""
+msgstr "User|Locale"
 
 msgid "User|Name"
-msgstr ""
+msgstr "User|Name"
 
 msgid "User|No limit"
-msgstr ""
+msgstr "User|No limit"
 
 msgid "User|Receive email alerts"
-msgstr ""
+msgstr "User|Receive email alerts"
 
 msgid "User|Salt"
-msgstr ""
+msgstr "User|Salt"
 
 msgid "User|Url name"
-msgstr ""
+msgstr "User|Url name"
 
 msgid "Version {{version}}"
-msgstr ""
+msgstr "Inyandiko {{version}}"
 
 msgid "Vexatious"
-msgstr ""
+msgstr "Gikomeretsanya"
 
 msgid "View FOI email address"
-msgstr ""
+msgstr "Reba imeli y'ubwisanzure bwo kumenya amakuru"
 
 msgid "View FOI email address for '{{public_body_name}}'"
-msgstr ""
+msgstr "Reba imeli y'ubwisanzure bwo kumenya amakuru ya '{{public_body_name}}'"
 
 msgid "View FOI email address for {{public_body_name}}"
-msgstr ""
+msgstr "Reba imeli y'ubwisanzure bwo kumenya amakuru ya '{{public_body_name}}'"
 
 msgid "View Freedom of Information requests made by {{user_name}}:"
-msgstr ""
+msgstr "Reba ibibazo by'ubwisanzure bwo kumenya amakuru byabajijwe na {{user_name}}:"
 
 msgid "View authorities"
-msgstr ""
+msgstr "Reba abayobozi"
 
 msgid "View email"
-msgstr ""
+msgstr "Reba imeli"
 
 msgid "Waiting clarification."
-msgstr ""
+msgstr "Gitegereje ibisobanuro."
 
 msgid "Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request."
-msgstr ""
+msgstr "Gitegereje <strong>gusuzumwa</strong> na {{public_body_link}} ku buryo bakemuye iki kibazo."
 
 msgid "Waiting for the public authority to complete an internal review of their handling of the request"
-msgstr ""
+msgstr "Gitegereje ko umuyobozi arangiza gukora isuzuma ry'uburyo bakemuye iki kibazo"
 
 msgid "Waiting for the public authority to reply"
-msgstr ""
+msgstr "Dutegereje ko umuyobozi asubiza"
 
 msgid "Was the response you got to your FOI request any good?"
-msgstr ""
+msgstr "Igisubizo wahawe ku kibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyari cyiza?"
 
 msgid "We consider it is not a valid FOI request, and have therefore hidden it from other users."
-msgstr ""
+msgstr "Twabonye iki kibazo kitujuje ibyangombwa byo kuba ikibazo cy'ubwisanzure bwo kumenya amakuru, niyo mpamvu cyahishwe abandi bakoresha urubuga."
 
 msgid "We consider it to be vexatious, and have therefore hidden it from other users."
-msgstr ""
+msgstr "Twabonye gikomeretsanya, niyo mpamvu cyahishwe abandi bakoresha uru rubuga."
 
 msgid "We do not have a working request email address for this authority."
-msgstr ""
+msgstr "Ntabwo dufite imeli ikora y'uyu muyobozi."
 
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
-msgstr ""
+msgstr "Ntabwo dufite {{law_used_full}} aderesi y'ukuri ya {{public_body_name}}."
 
 msgid "We don't know whether the most recent response to this request contains\\n    information or not\\n        &ndash;\\n\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr ""
+msgstr "Ntabwo tuzi niba ibisubizo bishya kuri iki kibazo bifite\\n    amakuru cyangwa ntayo\\n        &ndash;\\n\tniba uri {{user_link}} turagusaba <a href=\"{{url}}\">kwinjira</a> hanyuma ukamenyesha abantu bose."
 
 msgid "We will not reveal your email address to anybody unless you or\\n        the law tell us to (<a href=\"{{url}}\">details</a>). "
-msgstr ""
+msgstr "Nta muntu tuzereka imeli aderesi yawe keretse tubisabwe na we \\n        cyangwa itegeko (<a href=\"{{url}}\">details</a>). "
 
 msgid "We will not reveal your email address to anybody unless you\\nor the law tell us to."
-msgstr ""
+msgstr "Nta muntu tuzereka imeli aderesi yawe keretse tubibwiwe na we\\ncyangwa itegeko."
 
 msgid "We will not reveal your email addresses to anybody unless you\\nor the law tell us to."
-msgstr ""
+msgstr "Nta muntu tuzereka imeli aderesi yawe keretse tubibwiwe na we\\ncyangwa itegeko."
 
 msgid "We're waiting for"
-msgstr ""
+msgstr "Dutegereje"
 
 msgid "We're waiting for someone to read"
-msgstr ""
+msgstr "Dutegereje ko hari umuntu usoma"
 
 msgid "We've sent an email to your new email address. You'll need to click the link in\\nit before your email address will be changed."
-msgstr ""
+msgstr "Twakoherereje imeli kuri imeli aderesi yawe nshya. Ubanze ukande ihuza\\nriyirimo mbere y'uko imeli aderesi yawe ihindurwa."
 
 msgid "We've sent you an email, and you'll need to click the link in it before you can\\ncontinue."
-msgstr ""
+msgstr "Twakoherereje imeli, ubanze ukande ihuza riyirimo\\nkugirango ubashe gukomeza."
 
 msgid "We've sent you an email, click the link in it, then you can change your password."
-msgstr ""
+msgstr "Twakoherereje imeli, ukande ihuza riyirimo nibwo uri bubashe guhindura ijambobanga ryawe."
 
 msgid "What are you doing?"
-msgstr ""
+msgstr "Uri gukora iki?"
 
 msgid "What best describes the status of this request now?"
-msgstr ""
+msgstr "Ni irihe rangamimerere risobanura neza iki kibazo?"
 
 msgid "What information has been released?"
-msgstr ""
+msgstr "Ni ayahe makuru yatanzwe?"
 
 msgid "What information has been requested?"
-msgstr ""
+msgstr "Ni ayahe makuru yasabwe?"
 
 msgid "When you get there, please update the status to say if the response \\ncontains any useful information."
-msgstr ""
+msgstr "Ni uhagera, uvugurure irangamimerere uvuge niba igisubizo \\ngifite amakuru y'ingenzi."
 
 msgid "When you receive the paper response, please help\\n            others find out what it says:"
-msgstr ""
+msgstr "Ni uhabwa igisubizo mu mpapuro, turagusaba gufasha\\n            abandi kumenya ibirimo:"
 
 msgid "When you're done, <strong>come back here</strong>, <a href=\"{{url}}\">reload this page</a> and file your new request."
-msgstr ""
+msgstr "Ni urangiza, <strong>ugaruke hano</strong>, <a href=\"{{url}}\">wongere ufungure iyi paji</a> hanyuma ubike ikibazo cyawe gishya."
 
 msgid "Which of these is happening?"
-msgstr ""
+msgstr "Muri ibi ni ikihe kiri kuba?"
 
 msgid "Who can I request information from?"
-msgstr ""
+msgstr "Ni inde nasaba amakuru?"
 
 msgid "Why specifically do you consider this request unsuitable?"
-msgstr ""
+msgstr "Ni iyihe mpamvu ituma uvuga ko iki kibazo kidakwiye?"
 
 msgid "Withdrawn by the requester."
-msgstr ""
+msgstr "Byakuweho n'uwabajije"
 
 msgid "Wk"
-msgstr ""
+msgstr "Icyumweru"
 
 msgid "Would you like to see a website like this in your country?"
-msgstr ""
+msgstr "Urashaka kubona urubuga rwa interineti nk'uru mu gihugu cyawe?"
 
 msgid "Write a reply"
-msgstr ""
+msgstr "Andika igisubizo"
 
 msgid "Write a reply to "
-msgstr ""
+msgstr "Andikira igisubizo"
 
 msgid "Write your FOI follow up message to "
-msgstr ""
+msgstr "Andikira ubutumwa bwawe bwo gukurikirana "
 
 msgid "Write your request in <strong>simple, precise language</strong>."
-msgstr ""
+msgstr "Andika ikibazo cyawe <strong>mu magambo yoroshye kandi urasa ku ntego</strong>."
 
 msgid "You"
-msgstr ""
+msgstr "Wowe"
 
 msgid "You already created the same batch of requests on {{date}}.   You can either view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the details below to make a new but similar batch of requests."
-msgstr ""
+msgstr "Wamaze gutanga ibi bibazo kuwa {{date}}.   Ushobora kureba <a href=\"{{existing_batch}}\">ibibazo watanze mbere</a>, cyangwa se ugahindura ingingo zikurikira kugirango utange ibi bibazo bundi bushya ariko bisa na byabindi."
 
 msgid "You are already following new requests"
-msgstr ""
+msgstr "Wamaze gukurikira ibindi bibazo"
 
 msgid "You are already following requests to {{public_body_name}}"
-msgstr ""
+msgstr "Wamaze gukurikira ibibazo byabajijwe {{public_body_name}}"
 
 msgid "You are already following things matching this search"
-msgstr ""
+msgstr "Wamaze gukurikira ibintu bihuye n'ubu bushakashatsi"
 
 msgid "You are already following this person"
-msgstr ""
+msgstr "Wamaze gukurikira uyu muntu"
 
 msgid "You are already following this request"
-msgstr ""
+msgstr "Wamaze gukurikira iki kibazo"
 
 msgid "You are already subscribed to '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "Wamaze kwandikwa kuri '{{link_to_authority}}', umuyobozi."
 
 msgid "You are already subscribed to '{{link_to_request}}', a request."
-msgstr ""
+msgstr "Wamaze kwandikwa kuri '{{link_to_request}}', ikibazo."
 
 msgid "You are already subscribed to '{{link_to_user}}', a person."
-msgstr ""
+msgstr "Wamaze kwandikwa kuri '{{link_to_user}}', umuntu."
 
 msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "Wamaze kwandikwa kuri <a href=\"{{search_url}}\">ubu bushakashatsi</a>."
 
 msgid "You are already subscribed to any <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "Wamaze kwandikwa kuri buri <a href=\"{{new_requests_url}}\">bibazo bishya</a>."
 
 msgid "You are already subscribed to any <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "Wamaze kwandikwa kuri buri <a href=\"{{successful_requests_url}}\">bibazo byasubijwe</a>."
 
 msgid "You are currently receiving notification of new activity on your wall by email."
-msgstr ""
+msgstr "Ubu uri guhabwa imbuzi kuri imeli z'ibintu bishya biri gukorerwa ku rukuta rwawe."
 
 msgid "You are following all new successful responses"
-msgstr ""
+msgstr "Uri gukurikira ibibazo byose byasubijwe"
 
 msgid "You are no longer following '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "Ntabwo ugikurikira '{{link_to_authority}}', umuyobozi."
 
 msgid "You are no longer following '{{link_to_request}}', a request."
-msgstr ""
+msgstr "Ntabwo ugikurikira  '{{link_to_request}}', ikibazo."
 
 msgid "You are no longer following '{{link_to_user}}', a person."
-msgstr ""
+msgstr "Ntabwo ugikurikira '{{link_to_user}}', umuntu."
 
 msgid "You are no longer following <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "Ntabwo ugikurikira <a href=\"{{new_requests_url}}\">ibibazo bishya</a>."
 
 msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "Ntabwo ugikurikira <a href=\"{{search_url}}\">iri shakiro</a>."
 
 msgid "You are no longer following <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "Ntabwo ugikurikira <a href=\"{{successful_requests_url}}\">ibibazo byasubijwe</a>."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "Ubu uri <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura ya '{{link_to_authority}}', umuyobozi."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_request}}', a request."
-msgstr ""
+msgstr "Ubu uri  <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura kuri '{{link_to_request}}', ikibazo."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about '{{link_to_user}}', a person."
-msgstr ""
+msgstr "Ubu uri <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura kuri '{{link_to_user}}', umuntu."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "Ubu uri <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura ku <a href=\"{{new_requests_url}}\">bibazo bishya</a>."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "Ubu uri <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura kuri <a href=\"{{search_url}}\">iri shakiro</a>."
 
 msgid "You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "Ubu uri <a href=\"{{wall_url_user}}\">gukurikira</a> amavugurura ku <a href=\"{{successful_requests_url}}\">bibazo byasubijwe</a>."
 
 msgid "You can <strong>complain</strong> by"
-msgstr ""
+msgstr "Ushobora <strong>gutanga ikirego</strong> kuri"
 
 msgid "You can change the requests and users you are following on <a href=\"{{profile_url}}\">your profile page</a>."
-msgstr ""
+msgstr "Ushobora guhindura ibibazo n'abantu ukurikira ku <a href=\"{{profile_url}}\">ipaji ikuranga</a>."
 
 msgid "You can get this page in computer-readable format as part of the main JSON\\npage for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr ""
+msgstr "Ushobora kubona iyi paji mu nyandiko isomwa na mudasobwa nk'igice cya JSON\\npaji ibanza y'ikibazo.  Reba <a href=\"{{api_path}}\">ishyinguranyandiko rya API</a>."
 
 msgid "You can only request information about the environment from this authority."
-msgstr ""
+msgstr "Uyu muyobozi ushobora kumubaza amakuru ajyanye n'ibidukikije gusa."
 
 msgid "You have a new response to the {{law_used_full}} request "
-msgstr ""
+msgstr "Ufite igisubizo gishya ku kibazo cya {{law_used_full}} "
 
 msgid "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to tell us about the problem"
-msgstr ""
+msgstr "Wabonye virusi. Turagusaba <a href=\"{{contact_url}}\">kutwandikira</a> utubwira ikibazo cyabaye"
 
 msgid "You have hit the rate limit on new requests. Users are ordinarily limited to {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. You will be able to make another request in {{can_make_another_request}}."
-msgstr ""
+msgstr "Wagejeje umubare w'ibibazo ntarengwa. Abakoresha uru rubuga basanzwe bemerewe ibibazo {{max_requests_per_user_per_day}} mu gihe cy'amasaha 24. Ushobora kubaza ikindi kibazo mu {{can_make_another_request}}."
 
 msgid "You have made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "Nta bibazo by'ubwisanzure bwo kumenya amakuru watanze ukoresheje uru rubuga."
 
 msgid "You have now changed the text about you on your profile."
-msgstr ""
+msgstr "Ubu wahinduye amagambo avuga uwo uriwe mu mwirondoro."
 
 msgid "You have now changed your email address used on {{site_name}}"
-msgstr ""
+msgstr "Ubu wahinduye imeli yawe ukoresha kuri {{site_name}}"
 
 msgid "You just tried to sign up to {{site_name}}, when you\\nalready have an account. Your name and password have been\\nleft as they previously were.\\n\\nPlease click on the link below."
-msgstr ""
+msgstr "Umaze kugerageza kwiyandikisha kuri {{site_name}}, kandi\\nwari usanzwe uhafite konti. Amazina yawe n'ijambobanga byagumye\\nuko byari bimeze.\\n\\nKanda ku ihuza riri hasi."
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr ""
+msgstr "Uzi aho ikosa ryavuye kandi ushobora <strong>gutanga ibitekerezo ku gisubizo</strong>, nka imeli ikora."
 
 msgid "You may <strong>include attachments</strong>. If you would like to attach a\\n  file too large for email, use the form below."
-msgstr ""
+msgstr "Ushobora <strong>gushyiraho indi migereka</strong>. Niba wifuza gushyiraho umugereka \\n  munini utajya kuri imeli, koresha ifishi ikurikira."
 
 msgid "You may be able to find one on their website, or by phoning them up and asking. If you manage to find one, then please send it to us:"
-msgstr ""
+msgstr "Ushobora kugira iyo ubona ku rubuga rwabo cyangwa se ubahamagaye kuri telefoni ukababaza. Ni ushobora kuyibona, uyitwoherereze:"
 
 msgid "You may be able to find\\n    one on their website, or by phoning them up and asking. If you manage\\n    to find one, then please <a href=\"{{url}}\">send it to us</a>."
-msgstr ""
+msgstr "Ushobora kugira iyo ubona\\n    ku rubuga rwabo cyangwa se ubahamagaye kuri telefoni ukababaza. Ni ubasha\\n    kuyibona, turagusabye <a href=\"{{url}}\">uyitwoherereze</a>."
 
 msgid "You may be able to find\\none on their website, or by phoning them up and asking. If you manage\\nto find one, then please <a href=\"{{help_url}}\">send it to us</a>."
-msgstr ""
+msgstr "Ushobora kugira iyo ubona\\nku rubuga rwabo cyangwa se ubahamagaye kuri telefoni ukababaza. Ni ubasha\\nkuyibona, turagusabye <a href=\"{{help_url}}\">uyitwoherereze</a>."
 
 msgid "You need to be logged in to change the text about you on your profile."
-msgstr ""
+msgstr "Ugomba kuba winjiye kugirango ubashe guhindura amagambo ari mu mwirondoro wawe."
 
 msgid "You need to be logged in to change your profile photo."
-msgstr ""
+msgstr "Ugomba kuba winjiye kugirango ubashe gukindura ifoto ikuranga."
 
 msgid "You need to be logged in to clear your profile photo."
-msgstr ""
+msgstr "Ugomba kuba winjiye kugirango ubashe gukuraho ifoto ikuranga."
 
 msgid "You need to be logged in to edit your profile."
-msgstr ""
+msgstr "Ugomba kuba winjiye kugirango ubashe gukosora umwirondoro wawe."
 
 msgid "You need to be logged in to report a request for administrator attention"
-msgstr ""
+msgstr "Ugomba kuba winjiye kugirango ubashe kugaragariza abayobozi b'urubuga ikibazo runaka."
 
 msgid "You previously submitted that exact follow up message for this request."
-msgstr ""
+msgstr "Wigeze kwohereza ubutumwa bwo gukurikirana iki kibazo busa neza n'ubu."
 
 msgid "You should have received a copy of the request by email, and you can respond\\n  by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
-msgstr ""
+msgstr "Wakagombye kuba warahawe kopi y'ikibazo kuri imeli, kandi ushobora kugisubiza \\n  gusa <strong>usubiza </strong> iyo imeli. Kugirango bikworohere, hano hari aderesi:"
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."
-msgstr ""
+msgstr "Urashaka <strong>guha umuyobozi aderesi yawe</strong> mu ibanga."
 
 msgid "You will be unable to make new requests, send follow ups, add annotations or\\nsend messages to other users. You may continue to view other requests, and set\\nup\\nemail alerts."
-msgstr ""
+msgstr "Ntabwo uzashobora kubaza ibibazo bishya, kwohereza ubutumwa bwo gukurikirana, gutanga ibisobanuro cyangwa se\\nkwoherereza ubutumwa abandi bakoresha urubuga. Ushobora gukomeza kureba ibindi bibazo no gufungura\\n\\nimbuzi zo kuri imeli."
 
 msgid "You will no longer be emailed updates for those alerts"
-msgstr ""
+msgstr "Ntabwo uzongera kwohererezwa imeli z'amavugurura kuri izo mbuzi"
 
 msgid "You will now be emailed updates about '{{link_to_authority}}', a public authority."
-msgstr ""
+msgstr "Uzajya wohererezwa kuri imeli amavugurura kuri '{{link_to_authority}}', umuyobozi."
 
 msgid "You will now be emailed updates about '{{link_to_request}}', a request."
-msgstr ""
+msgstr "Uzajya wohererezwa imeli z'amavugurura kuri '{{link_to_request}}', ikibazo."
 
 msgid "You will now be emailed updates about '{{link_to_user}}', a person."
-msgstr ""
+msgstr "Uzajya wohererezwa imeli z'amavugurura kuri '{{link_to_user}}', umuntu."
 
 msgid "You will now be emailed updates about <a href=\"{{search_url}}\">this search</a>."
-msgstr ""
+msgstr "Uzajya wohererezwa imeli z'amavugurura kuri <a href=\"{{search_url}}\">iri shakiro</a>."
 
 msgid "You will now be emailed updates about <a href=\"{{successful_requests_url}}\">successful requests</a>."
-msgstr ""
+msgstr "Uzajya wohererezwwa imeli z'amavugurura ku <a href=\"{{successful_requests_url}}\">bibazo byasubijwe</a>."
 
 msgid "You will now be emailed updates about any <a href=\"{{new_requests_url}}\">new requests</a>."
-msgstr ""
+msgstr "Uzajya wohererezwa imeli z'amavugurura kuri buri <a href=\"{{new_requests_url}}\">bibazo bishya byose</a>."
 
 msgid "You will only get an answer to your request if you follow up\\nwith the clarification."
-msgstr ""
+msgstr "Uzahabwa igisubizo ku kibazo cyawe ni ugikurikirana\\nutanga ibisobanuro."
 
 msgid "You will still be able to view it while logged in to the site. Please reply to this email if you would like to discuss this decision further."
-msgstr ""
+msgstr "Ni uzajya uba winjiye ku rubuga uzakomeza ubashe kukibona. Subiza iyi imeli niba wifuza ko tuvugana ku bijyanye n'iki cyemezo."
 
 msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
-msgstr ""
+msgstr "Winjiye. <a href=\"#\" id=\"send-request\">Komeza wohereze ikibazo cyawe</a>"
 
 msgid "You're long overdue a response to your FOI request - "
-msgstr ""
+msgstr "Ikibazo cyawe cy'ubwisanzure bwo kumenya amakuru cyararengeranye -"
 
 msgid "You're not following anything."
-msgstr ""
+msgstr "Nta kintu uri gukurikira."
 
 msgid "You've now cleared your profile photo"
-msgstr ""
+msgstr "Ubu wakuyeho ifoto ikuranga"
 
 msgid "Your <strong>name will appear publicly</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        on this website and in search engines. If you\\n        are thinking of using a pseudonym, please\\n        <a href=\"{{help_url}}\">read this first</a>."
-msgstr ""
+msgstr "Izina <strong>ryawe rizajya ku mugaragaro</strong>\\n        (<a href=\"{{why_url}}\">why?</a>)\\n        kuri uru rubuga n'amashakiro. Niba \\n        utekereza gukoresha izina ry'irihimbano, turagusaba\\n        <a href=\"{{help_url}}\">kubanza gusoma ibi</a>."
 
 msgid "Your annotations"
-msgstr ""
+msgstr "insobanuro zawe"
 
 msgid "Your batch request \"{{title}}\" has been sent"
-msgstr ""
+msgstr "Ikibazo cyawe wabajije abayobozi benshi \"{{title}}\" cyoherejwe"
 
 msgid "Your details, including your email address, have not been given to anyone."
-msgstr ""
+msgstr "Ibikuranga, harimo imeli aderesi yawe, nta muntu twabihaye."
 
 msgid "Your e-mail:"
-msgstr ""
+msgstr "Imeli yawe:"
 
 msgid "Your email doesn't look like a valid address"
-msgstr ""
+msgstr "Imeli yawe isa nk'itabaho"
 
 msgid "Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want to send a follow up message."
-msgstr ""
+msgstr "Ubutumwa bwawe bwo gukurikirana iki kibazo bwahagaritswe mu rwego rwo kwirinda sipamu. Turagusaba <a href=\"{{url}}\">kutwandikita</a> niba koko wifuza kwohereza ubutumw bwo gukurikirana."
 
 msgid "Your follow up message has been sent on its way."
-msgstr ""
+msgstr "Ubutumwa bwawe bwo gukurikirana bwoherejwe."
 
 msgid "Your internal review request has been sent on its way."
-msgstr ""
+msgstr "Ubutumwa bwawe bwo gusaba isuzuma bwoherejwe."
 
 msgid "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
+msgstr "Ubutumwa bwawe bwoherejwe. Wakoze kutwandikira! Tuzagusubiza vuba."
 
 msgid "Your message to {{recipient_user_name}} has been sent"
-msgstr ""
+msgstr "Ubutumwa woherereje {{recipient_user_name}} bwagiye"
 
 msgid "Your message to {{recipient_user_name}} has been sent!"
-msgstr ""
+msgstr "Ubutumwa woherereje {{recipient_user_name}} bwagiye!"
 
 msgid "Your message will appear in <strong>search engines</strong>"
-msgstr ""
+msgstr "Ubutumwa bwawe buzajya bugaragara <strong>kuri za mushakisha</strong>"
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "Amazina yawe n'ibisobanuro watanze bizajya bigaragara <strong>kuri za mushakisha</strong>."
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong>\\n        (<a href=\"{{url}}\">details</a>)."
-msgstr ""
+msgstr "Amazina yawe, ikibazo n'ibisubizo wahawe bizajya bigaragara <strong>kuri za mushakisha</strong>\\n        (<a href=\"{{url}}\">details</a>)."
 
 msgid "Your name:"
-msgstr ""
+msgstr "Amazina yawe:"
 
 msgid "Your original message is attached."
-msgstr ""
+msgstr "Ubutumwa bwawe bw'umwimerere buri kumugereka."
 
 msgid "Your password has been changed."
-msgstr ""
+msgstr "Ijambobanga ryawe ryahinduwe."
 
 msgid "Your password:"
-msgstr ""
+msgstr "Ijambobanga ryawe:"
 
 msgid "Your photo will be shown in public <strong>on the Internet</strong>,\\n    wherever you do something on {{site_name}}."
-msgstr ""
+msgstr "Ifoto yawe izajya igaragara mu ruhame  <strong>kuri interineti</strong>,\\n    ni uzajya ugira icyo ukora kuri {{site_name}}."
 
 msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
-msgstr ""
+msgstr "Ikibazo cyawe '{{request}}' kuri {{url}} cyarebwe n'abahuza."
 
 msgid "Your request on {{site_name}} hidden"
-msgstr ""
+msgstr "Ikibazo cyawe kiri kuri {{site_name}} cyahishwe"
 
 msgid "Your request to add an authority has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
+msgstr "Icyifuzo cyawe cyo gushyiraho umuyobozi cyoherejwe. Wakoze kutwandikira! Tuzagusubiza vuba."
 
 msgid "Your request to add {{public_body_name}} to {{site_name}}"
-msgstr ""
+msgstr "Icyifuzo cyo gushyiraho {{public_body_name}} kuri {{site_name}}"
 
 msgid "Your request to update the address for {{public_body_name}} has been sent. Thank you for getting in touch! We'll get back to you soon."
-msgstr ""
+msgstr "Icyifuzo cyo kuvugurura aderesi ya {{public_body_name}} cyoherejwe. Wakoze kutwandikira! Tuzagusubiza vuba."
 
 msgid "Your request to update {{public_body_name}} on {{site_name}}"
-msgstr ""
+msgstr "Icyifuzo cyo kuvugurura  {{public_body_name}} kuri {{site_name}}"
 
 msgid "Your request was called {{info_request}}. Letting everyone know whether you got the information will help us keep tabs on"
-msgstr ""
+msgstr "Ikibazo cyawe cyahamagawe {{info_request}}. Kumenyesha bantu bose niba warahawe amakuru bizadufasha kubika amakuru yuzuye"
 
 msgid "Your request:"
-msgstr ""
+msgstr "Ikibazo cyawe:"
 
 msgid "Your response to an FOI request was not delivered"
-msgstr ""
+msgstr "Igisubizo cyawe ku kibazo cy'ubwisanzure bwo kumenya amakuru ntabwo cyagiye"
 
 msgid "Your response will <strong>appear on the Internet</strong>, <a href=\"{{url}}\">read why</a> and answers to other questions."
-msgstr ""
+msgstr "Igisubizo cyawe <strong>kizagaragara kuri interineti</strong>, <a href=\"{{url}}\">read why</a> n'ibisubizo ku bindi bibazo."
 
 msgid "Your selected authorities"
-msgstr ""
+msgstr "Abayobozi wahisemo"
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
-msgstr ""
+msgstr "Ibitekerezo byawe ku bintu abayobozi ba {{site_name}} <strong></strong> bagomba gukora kuri iki kibazo."
 
 msgid "Your {{count}} Freedom of Information request"
 msgid_plural "Your {{count}} Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ikibazo cyawe {{count}} cy'ubwosanzure bwo kumenya amakuru"
+msgstr[1] "Ibibazo byawe {{count}} by'ubwisanzure bwo kumenya amakuru"
 
 msgid "Your {{count}} annotation"
 msgid_plural "Your {{count}} annotations"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Insobanuro yawe {{count}} "
+msgstr[1] "Insobanuro zawe {{count}} "
 
 msgid "Your {{count}} batch requests"
 msgid_plural "Your {{count}} batch requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ibibazo byawe wabajije abayobozi benshi {{count}} "
+msgstr[1] "Ibibazo byawe wabajije abayobozi benshi {{count}} "
 
 msgid "Your {{site_name}} email alert"
-msgstr ""
+msgstr "Imbuzi za {{site_name}} kuri imeli"
 
 msgid "Yours faithfully,"
-msgstr ""
+msgstr "Mbaye mbashimiye,"
 
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "Mbaye mbashimiye,"
 
 msgid "Yours,"
-msgstr ""
+msgstr "Mbaye mbashimiye,"
 
 msgid "[Authority URL will be inserted here]"
-msgstr ""
+msgstr "[Authority URL will be inserted here]"
 
 msgid "[FOI #{{request}} email]"
-msgstr ""
+msgstr "[FOI #{{request}} email]"
 
 msgid "[{{public_body}} request email]"
-msgstr ""
+msgstr "[{{public_body}} request email]"
 
 msgid "[{{site_name}} contact email]"
-msgstr ""
+msgstr "[{{site_name}} contact email]"
 
 msgid "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
+msgstr "\\n\\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
 
 msgid "a one line summary of the information you are requesting, \\n\t\t\te.g."
-msgstr ""
+msgstr "Incamake y'umurongo umwe ivuga amakuru uri kubaza \\n\t\t\te.g."
 
 msgid "admin"
-msgstr ""
+msgstr "umuyobozi w'urbuga"
 
 msgid "alaveteli_foi:The software that runs {{site_name}}"
-msgstr ""
+msgstr "alaveteli_foi:Porogaramu ikoresha {{site_name}}"
 
 msgid "all requests"
-msgstr ""
+msgstr "ibibazo byose"
 
 msgid "all requests or comments"
-msgstr ""
+msgstr "ibibazo byose  n'ibitekerezo"
 
 msgid "all requests or comments matching text '{{query}}'"
-msgstr ""
+msgstr "ibibazo byose n'ibitekerezo bihuye na '{{query}}'"
 
 msgid "also called {{public_body_short_name}}"
-msgstr ""
+msgstr "uzwi no ku izina rya {{public_body_short_name}}"
 
 msgid "an anonymous user"
-msgstr ""
+msgstr "umuntu ukoresha urubuga utazwi"
 
 msgid "and"
-msgstr ""
+msgstr "na"
 
 msgid "and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?"
-msgstr ""
+msgstr "kandi uvugurure irangamimerere uko bikwiye. Ahari <strong>ushobora</strong> kuba wifuza gufasha ukora ibyo?"
 
 msgid "and update the status."
-msgstr ""
+msgstr "kandi uvugurure irangamimerere."
 
 msgid "and we'll suggest <strong>what to do next</strong>"
-msgstr ""
+msgstr "hanyuma tuzakugira inama <strong>y'icyo wakurikizaho</strong>"
 
 msgid "anything matching text '{{query}}'"
-msgstr ""
+msgstr "ikintu cyose gihuye na '{{query}}'"
 
 msgid "are long overdue."
-msgstr ""
+msgstr "byararengeranye cyane."
 
 msgid "at"
-msgstr ""
+msgstr "kuri"
 
 msgid "authorities"
-msgstr ""
+msgstr "abayobozi"
 
 msgid "beginning with ‘{{first_letter}}’"
-msgstr ""
+msgstr "uhereye kuri ‘{{first_letter}}’"
 
 msgid "but followupable"
-msgstr ""
+msgstr "ariko ishobora gukurikiranwa"
 
 msgid "by"
-msgstr ""
+msgstr "kuri"
 
 msgid "by <strong>{{date}}</strong>"
-msgstr ""
+msgstr "kuri <strong>{{date}}</strong>"
 
 msgid "by {{user_link_absolute}}"
-msgstr ""
+msgstr "kuri {{user_link_absolute}}"
 
 msgid "comments"
-msgstr ""
+msgstr "ibisobanuro"
 
 msgid "containing your postal address, and asking them to reply to this request.\\n            Or you could phone them."
-msgstr ""
+msgstr "irimo aho ubarizwa, ndetse ubasaba gusubiza iki kibazo. \\n            Cyangwa ushobora kubaterefona."
 
 msgid "details"
-msgstr ""
+msgstr "ibisobanuro"
 
 msgid "display_status only works for incoming and outgoing messages right now"
-msgstr ""
+msgstr "gushyiraho_irangamimerere ubu birakoreshwa gusa ku butumwa bwinjira n'ubusohoka"
 
 msgid "during term time"
-msgstr ""
+msgstr "mu gihembwe"
+
+msgid "e.g. Ministry of Defence"
+msgstr "Urugero: Minisiteri y'Ingabo"
 
 msgid "edit text about you"
-msgstr ""
+msgstr "hindura inyandko ikuvuga"
 
 msgid "even during holidays"
-msgstr ""
+msgstr "ndetse no mu biruhuko"
 
 msgid "everything"
-msgstr ""
+msgstr "ibintu byose"
 
 msgid "external"
-msgstr ""
+msgstr "byo hanze"
 
 msgid "has reported an"
-msgstr ""
+msgstr "yagaragaje"
 
 msgid "have delayed."
-msgstr ""
+msgstr "byatinze."
 
 msgid "hide quoted sections"
-msgstr ""
+msgstr "hisha ibice byavuzweho"
 
 msgid "in term time"
-msgstr ""
+msgstr "mu gihembwe"
 
 msgid "in the category ‘{{category_name}}’"
-msgstr ""
+msgstr "mu bwoko ‘{{category_name}}’"
 
 msgid "internal error"
-msgstr ""
+msgstr "ikosa ry'imbere"
 
 msgid "internal reviews"
-msgstr ""
+msgstr "amagenzura"
 
 msgid "is <strong>waiting for your clarification</strong>."
-msgstr ""
+msgstr "itegereje<strong>igisobanuro cyawe</strong>."
 
 msgid "just to see how it works"
-msgstr ""
+msgstr "kureba gusa uko ikora "
 
 msgid "left an annotation"
-msgstr ""
+msgstr "yasize igisobanuro"
 
 msgid "made."
-msgstr ""
+msgstr "byatanzwe"
 
 msgid "matching the tag ‘{{tag_name}}’"
-msgstr ""
+msgstr "bihuye n'ikimenyetso ‘{{tag_name}}’"
 
 msgid "messages from authorities"
-msgstr ""
+msgstr "ubutumwa bwoherejwe n'abayobozi"
 
 msgid "messages from users"
-msgstr ""
+msgstr "ubutumwa bwoherejwe n'abakoresha urubuga"
 
 msgid "move..."
-msgstr ""
+msgstr "imuka..."
 
 msgid "new requests"
-msgstr ""
+msgstr "ibibazo bishya"
 
 msgid "no later than"
-msgstr ""
+msgstr "bitarenze"
 
 msgid "no longer exists. If you are trying to make\\n    From the request page, try replying to a particular message, rather than sending\\n    a general followup. If you need to make a general followup, and know\\n    an email which will go to the right place, please <a href=\"{{url}}\">send it to us</a>."
-msgstr ""
+msgstr "ntikikibaho. Niba uri kugeragea gukorera\\n    Kuri paji y'ikibazo, gerageza gusubiza ubutumwa bwihariye, aho kwohereza\\n    ubutumwa rusange bwo gukurikirana. Niba ukeneye gutanga ubutumwa rusange bwo gukurikirana, kandi uzi\\n    imeli izajya aho iikwiye kujya, turagusaba <a href=\"{{url}}\">kuyitwoherereza</a>."
 
 msgid "normally"
-msgstr ""
+msgstr "mu bisanzwe"
 
 msgid "not requestable due to: {{reason}}"
-msgstr ""
+msgstr "ntigishobora kubazwa kubera ko: {{reason}}"
 
 msgid "please sign in as "
-msgstr ""
+msgstr "injira nka"
 
 msgid "requesting an internal review"
-msgstr ""
+msgstr "gusaba isuzuma"
 
 msgid "requests"
-msgstr ""
+msgstr "ibibazo"
 
 msgid "requests which are successful"
-msgstr ""
+msgstr "ibibazo byasubijwe"
 
 msgid "requests which are successful matching text '{{query}}'"
-msgstr ""
+msgstr "ibibazo byasubijwe bihuye na '{{query}}'"
 
 msgid "response as needing administrator attention. Take a look, and reply to this\\nemail to let them know what you are going to do about it."
-msgstr ""
+msgstr "subiza ko gikenewe kurebwa n'abayobozi b'urubuga. Gisome, hanyuma usubize iyi\\nimeli ubabwire icyo ugiye kubikoraho."
 
 msgid "send a follow up message"
-msgstr ""
+msgstr "ohereza ubutumwa bwo gukurikirana"
 
 msgid "set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA"
-msgstr ""
+msgstr "ishyizweho ku buryo <strong>iba iriho ubusa</strong> (empty string) niba idashobora kubona aderesi, izi imeli ni <strong>rusange </strong> kuko uwo ariwe wese ashobora kuzireba akoresheje CAPTCHA"
 
 msgid "show quoted sections"
-msgstr ""
+msgstr "erekena ibice byavuzweho"
 
 msgid "sign in"
-msgstr ""
+msgstr "injira"
 
 msgid "simple_date_format"
-msgstr ""
+msgstr "simple_date_format"
 
 msgid "successful requests"
-msgstr ""
+msgstr "ibibazo byasubijwe"
 
 msgid "that you made to"
-msgstr ""
+msgstr "wabajije kuri"
 
 msgid "the main FOI contact address for {{public_body}}"
-msgstr ""
+msgstr "aderesi y'ibanze y'ubwisanzure bwo kumenya amakuru ya {{public_body}}"
 
 #. This phrase completes the following sentences:
 #. Request an internal review from...
@@ -3695,171 +3755,174 @@ msgstr ""
 #. Send a public reply to...
 #. Don't want to address your message to... ?
 msgid "the main FOI contact at {{public_body}}"
-msgstr ""
+msgstr "aderesi y'ibanze y'ubwisanzure bwo kumenya amakuru ya {{public_body}}"
 
 msgid "the requester"
-msgstr ""
+msgstr "uwabajije"
 
 msgid "the {{site_name}} team"
-msgstr ""
+msgstr "itsinda rya {{site_name}} "
 
 msgid "to read"
-msgstr ""
+msgstr "gusoma"
 
 msgid "to send a follow up message."
-msgstr ""
+msgstr "kwohereza ubutumwa bwo gukurikirana."
 
 msgid "to {{public_body}}"
-msgstr ""
+msgstr "kuri {{public_body}}"
+
+msgid "type your search term here"
+msgstr "andika ijambo ushaka hano"
 
 msgid "unknown reason "
-msgstr ""
+msgstr "impamvu itazwi"
 
 msgid "unknown status "
-msgstr ""
+msgstr "irangamimerere itazwi"
 
 msgid "unresolved requests"
-msgstr ""
+msgstr "ibibazo bitasubijwe"
 
 msgid "unsubscribe"
-msgstr ""
+msgstr "iyandukuze"
 
 msgid "unsubscribe all"
-msgstr ""
+msgstr "iyandukuze hose"
 
 msgid "unsuccessful requests"
-msgstr ""
+msgstr "ibibazo bitasubijwe"
 
 msgid "useful information."
-msgstr ""
+msgstr "amakuru y'ingirakamaro"
 
 msgid "users"
-msgstr ""
+msgstr "abakoresha urubuga"
 
 msgid "what's that?"
-msgstr ""
+msgstr "icyo ni iki?"
 
 msgid "{{count}} FOI requests found"
-msgstr ""
+msgstr "ibibazo {{count}} by'ubwisanzure bwo kumenya amakuru byabonetse "
 
 msgid "{{count}} Freedom of Information request to {{public_body_name}}"
 msgid_plural "{{count}} Freedom of Information requests to {{public_body_name}}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ikibazo {{count}} cy'ubwisanzure bwo kumenya cyabajijwe {{public_body_name}}"
+msgstr[1] "ibibazo {{count}} by'ubwisanzure bwo kumenya byabajijwe {{public_body_name}}"
 
 msgid "{{count}} person is following this authority"
 msgid_plural "{{count}} people are following this authority"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "umuntu {{count}} ari gukurikira uyu muyobozi"
+msgstr[1] "abantu {{count}} bari gukurikira uyu muyobozi"
 
 msgid "{{count}} request"
 msgid_plural "{{count}} requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ikibazo {{count}}"
+msgstr[1] "ibibazo {{count}}"
 
 msgid "{{count}} request made."
 msgid_plural "{{count}} requests made."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ikibazo {{count}} cyabajijwe."
+msgstr[1] "ibibazo {{count}} byabajijwe."
 
 msgid "{{existing_request_user}} already\\n      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\\n      or edit the details below to make a new but similar request."
-msgstr ""
+msgstr "{{existing_request_user}} wamaze\\n      gutanga icyo kibazo kuwa {{date}}. Ushobora kureba <a href=\"{{existing_request}}\">ikibazo gisanzwe</a>,\\n      cyangwa se ugahindura ibisobanuro bikurikira ugatanga ikindi ikibazo gisa na cyakindi."
 
 msgid "{{foi_law}} requests to '{{public_body_name}}'"
-msgstr ""
+msgstr "{{foi_law}} ibibazo byabajijwe '{{public_body_name}}'"
 
 msgid "{{info_request_user_name}} only:"
-msgstr ""
+msgstr "{{info_request_user_name}} gusa:"
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr ""
+msgstr "{{law_used_full}} ikibazo - {{title}}"
 
 msgid "{{law_used}} requests at {{public_body}}"
-msgstr ""
+msgstr "{{law_used}} ibibazo byabajijwe {{public_body}}"
 
 msgid "{{length_of_time}} ago"
-msgstr ""
+msgstr "{{length_of_time}} ishize"
 
 msgid "{{number_of_comments}} comments"
-msgstr ""
+msgstr "ibisobanuro {{number_of_comments}} "
 
 msgid "{{public_body_link}} answered a request about"
-msgstr ""
+msgstr "{{public_body_link}} yasubije ikibazo kuri"
 
 msgid "{{public_body_link}} was sent a request about"
-msgstr ""
+msgstr "{{public_body_link}} yohererejwe ikibazo kuri"
 
 msgid "{{public_body_name}} only:"
-msgstr ""
+msgstr "{{public_body_name}} gusa:"
 
 msgid "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr ""
+msgstr "{{public_body}} yagusabye gusobanura igice {{law_used}} cy'ikibazo cyawe."
 
 msgid "{{public_body}} sent a response to {{user_name}}"
-msgstr ""
+msgstr "{{public_body}} yoherereje igisubizo {{user_name}}"
 
 msgid "{{reason}}, please sign in or make a new account."
-msgstr ""
+msgstr "{{reason}}, injira cyangwa ufungure indi konti."
 
 msgid "{{search_results}} matching '{{query}}'"
-msgstr ""
+msgstr "{{search_results}} bihuye na '{{query}}'"
 
 msgid "{{site_name}} blog and tweets"
-msgstr ""
+msgstr "{{site_name}} urubuga rw'amakuru agezweho n'ubutumwa bwo kuri Twitter"
 
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
-msgstr ""
+msgstr "{{site_name}} iriho ibibazo byabajijwe abayobozi {{number_of_authorities}} harimo:"
 
 msgid "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for this authority."
-msgstr ""
+msgstr "{{site_name}} Yohereza ibibazo bishya kuri <strong>{{request_email}}</strong> y'uyu muyobozi."
 
 msgid "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr ""
+msgstr "abakoresha uru rubuga {{site_name}} batanze ibibazo {{number_of_requests}} harimo:"
 
 msgid "{{thing_changed}} was changed from <code>{{from_value}}</code> to <code>{{to_value}}</code>"
-msgstr ""
+msgstr "{{thing_changed}} byahinduwe biva kuri <code>{{from_value}}</code> biba <code>{{to_value}}</code>"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
-msgstr ""
+msgstr "{{title}} - ikibazo cy'ubwisanzure bwo kumenya amakuru cyabajijwe {{public_body}}"
 
 msgid "{{title}} - a batch request"
-msgstr ""
+msgstr "{{title}} - ikibazo kimwe ku bantu benshi"
 
 msgid "{{user_name}} (Account suspended)"
-msgstr ""
+msgstr "{{user_name}} (Konti yabaye ihagaritswe)"
 
 msgid "{{user_name}} - Freedom of Information requests"
-msgstr ""
+msgstr "{{user_name}} - Ibibazo by'ubwisanzure bwo kumenya amakuru"
 
 msgid "{{user_name}} - user profile"
-msgstr ""
+msgstr "{{user_name}} - ibiranga ukoresha urubuga"
 
 msgid "{{user_name}} added an annotation"
-msgstr ""
+msgstr "{{user_name}} yongeyeho ibisobanuro"
 
 msgid "{{user_name}} has annotated your {{law_used_short}} \\nrequest. Follow this link to see what they wrote."
-msgstr ""
+msgstr "{{user_name}} yatanze ibisobanuro {{law_used_short}} \\nku kibazo cyawe. Kurikira aka kayoboro urebe ibyo banditse."
 
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
-msgstr ""
+msgstr "{{user_name}} yakoresheje {{site_name}} akwoherereza ubutumwa buri hepfo."
 
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
-msgstr ""
+msgstr "{{user_name}} yoherereje {{public_body}} ubutumwa bwo gukurikirana"
 
 msgid "{{user_name}} sent a request to {{public_body}}"
-msgstr ""
+msgstr "{{user_name}} yoherereje ikibazo {{public_body}}"
 
 msgid "{{user_name}} would like a new authority added to {{site_name}}"
-msgstr ""
+msgstr "{{user_name}} arifuza ko hari undi muyobozi wongerwa kuri {{site_name}}"
 
 msgid "{{user_name}} would like the email address for {{public_body_name}} to be updated"
-msgstr ""
+msgstr "{{user_name}} arifuza ko imeli ya {{public_body_name}} yavugururwa"
 
 msgid "{{username}} left an annotation:"
-msgstr ""
+msgstr "{{username}} yasize igisobanuro:"
 
 msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} ({{user_admin_link}}) yabajije iki {{law_used_full}} kibazo (<a href=\"{{request_admin_url}}\">admin</a>) kuri {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
-msgstr ""
+msgstr "{{user}} yatanze iki {{law_used_full}} kibazo"

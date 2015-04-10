@@ -1,0 +1,204 @@
+rw:
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Mutarama
+    - Gashyantare
+    - Werurwe
+    - Mata
+    - Gicurasi
+    - Kamena
+    - Nyakanga
+    - Kanama
+    - Nzeri
+    - Ukwakira
+    - Ugushyingo
+    - Ukuboza
+    day_names:
+    - Ku cyumweru
+    - Kuwa mbere
+    - Kuwa kabiri
+    - Kuwa gatatu
+    - Kuwa kane
+    - Kuwa gatanu
+    - Kuwa gatandatu
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
+    month_names:
+    -
+    - Mutarama
+    - Gashyantare
+    - Werurwe
+    - Mata
+    - Gicurasi
+    - Kamena
+    - Nyakanga
+    - Kanama
+    - Nzeri
+    - Ukwakira
+    - Ugushyingo
+    - Ukuboza
+    order:
+    - :umwaka
+    - :ukwezi
+    - :umunsi
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: isaha ugereranyije
+        other: amasaha %{count}
+      about_x_months:
+        one: ukwezi ugereranyije
+        other: amezi %{count}
+      about_x_years:
+        one: umwaka ugereranyije
+        other: imyaka %{count}
+      almost_x_years:
+        one: umwaka ugereranyije
+        other: hafi y'imyaka %{count}
+      half_a_minute: igice cy'umunota
+      less_than_x_minutes:
+        one: munsi y'umunota
+        other: munsi y'iminota %{count}
+      less_than_x_seconds:
+        one: munsi y'isegonda
+        other: munsi y'amasegonda %{count}
+      over_x_years:
+        one: hafi umwaka
+        other: imyaka %{count}
+      x_days:
+        one: umunsi umwe
+        other: ! 'iminsi %{count}'
+      x_minutes:
+        one: umunota umwe
+        other: ! 'iminote %{count}'
+      x_months:
+        one: ukwezi kumwe
+        other: ! 'amazi %{count}'
+      x_seconds:
+        one: isegonda rimwe
+        other: ! 'amasegonda %{count}'
+    prompts:
+      day: Umunsi
+      hour: Isaha
+      minute: Umunota
+      month: Ukwezi
+      second: Isegonda
+      year: Umwaka
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: bigomba kwemerwa
+      blank: hagomba kuzuzwa
+      present: ntuhuzuze
+      confirmation: ! "ntibihura na %{attribute}"
+      empty: hagomba kuzuzwa
+      equal_to: bigomba kungana na%{count}
+      even: umubare ugomba kugabanyika na kabiri
+      exclusion: is reserved
+      greater_than: bigomba kurenga %{count}
+      greater_than_or_equal_to: bigomba kurenga cyangwa kungana na %{count}
+      inclusion: ntibiri ku rutonde
+      invalid: sibyo
+      less_than: ntibirenge %{count}
+      less_than_or_equal_to: munsi cyangwa bingana na %{count}
+      not_a_number: si umubare
+      not_an_integer: hagomba kuba umubare
+      odd: hagomba kuba igiharwe
+      record_invalid: ! 'Kwemezwa byanze: %{errors}'
+      restrict_dependent_destroy:
+        one: "Ntibyasibama kubera hari %{record} uwabyanditse"
+        many: "Ntibyasibama kubera hari %{record} uwabyanditse"
+      taken: byamaze gufatwa
+      too_long:
+        one: Nturenze inyuguti imwe
+        other: Nturenze %{count} inyuguti
+      too_short:
+        one: Byibura inyuguti imwe
+        other: Byibura %{count} inyuguti
+      wrong_length:
+        one: warengeje, inyuguti imwe gusa
+        other: warengeje, inyuguti %{count} gusa
+      other_than: "bitandukane na %{count}"
+    template:
+      body: ! 'Havutse ibibazo kuri ibi bice:'
+      header:
+        one: ikibazo kimwe cyatumye %{model} itinjizwa
+        other: ! 'ibibazo %{count} byatumye %{model} itinjizwa'
+  helpers:
+    select:
+      prompt: Hitamo
+    submit:
+      create: Rema %{model}
+      submit: Bika %{model}
+      update: Hindura %{model}
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u%n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: $
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Tiriyari
+          million: Miriyoni
+          quadrillion: Quadrillion
+          thousand: ibihumbi
+          trillion: Trillion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+      precision:
+        format:
+          delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ', na '
+      two_words_connector: ! ' na '
+      words_connector: ! ', '
+  time:
+    am: am
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+    pm: nyuma ya saa sita

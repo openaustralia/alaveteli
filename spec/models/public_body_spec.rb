@@ -28,6 +28,108 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe PublicBody do
+
+    describe :translations_attributes= do
+
+        context 'translation_attrs is a Hash' do
+
+            it 'takes the correct code path for a Hash' do
+                attrs = {}
+                attrs.should_receive(:each_value)
+                PublicBody.new().translations_attributes = attrs
+            end
+
+            it 'updates an existing translation' do
+                body = public_bodies(:geraldine_public_body)
+                translation = body.translation_for(:es)
+                params = { 'es' => { :locale => 'es',
+                                     :name => 'Renamed' } }
+
+                body.translations_attributes = params
+                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+            end
+
+            it 'updates an existing translation and creates a new translation' do
+                body = public_bodies(:geraldine_public_body)
+                translation = body.translation_for(:es)
+
+                expect(body.translations.size).to eq(2)
+
+                body.translations_attributes = {
+                    'es' => { :locale => 'es',
+                              :name => 'Renamed' },
+                    'fr' => { :locale => 'fr',
+                              :name => 'Le Geraldine Quango' }
+                }
+
+                expect(body.translations.size).to eq(3)
+                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+                I18n.with_locale(:fr) { expect(body.name).to eq('Le Geraldine Quango') }
+            end
+
+            it 'skips empty translations' do
+                body = public_bodies(:geraldine_public_body)
+                translation = body.translation_for(:es)
+
+                expect(body.translations.size).to eq(2)
+
+                body.translations_attributes = {
+                    'es' => { :locale => 'es',
+                              :name => 'Renamed' },
+                    'fr' => { :locale => 'fr' }
+                }
+
+                expect(body.translations.size).to eq(2)
+            end
+
+        end
+
+        context 'translation_attrs is an Array' do
+
+            it 'takes the correct code path for an Array' do
+                attrs = []
+                attrs.should_receive(:each)
+                PublicBody.new().translations_attributes = attrs
+            end
+
+            it 'creates a new translation' do
+                body = public_bodies(:geraldine_public_body)
+                body.translation_for(:es).destroy
+                body.reload
+
+                expect(body.translations.size).to eq(1)
+
+                body.translations_attributes = [ {
+                        :locale => 'es',
+                        :name => 'Renamed'
+                    }
+                ]
+
+                expect(body.translations.size).to eq(2)
+                I18n.with_locale(:es) { expect(body.name).to eq('Renamed') }
+            end
+
+            it 'skips empty translations' do
+                body = public_bodies(:geraldine_public_body)
+                body.translation_for(:es).destroy
+                body.reload
+
+                expect(body.translations.size).to eq(1)
+
+                body.translations_attributes = [
+                    { :locale => 'empty' }
+                ]
+
+                expect(body.translations.size).to eq(1)
+            end
+
+        end
+
+    end
+
+end
+
 describe PublicBody, " using tags" do
     before do
         @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
@@ -544,6 +646,58 @@ CSV
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
 
         errors.should include("error: line 3: Url name URL name is already taken for authority 'Foobar Test'")
+    end
+
+    it 'has a default list of fields to import' do
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+        ]
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+    end
+
+    it 'allows you to override the default list of fields to import' do
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+        ]
+
+        PublicBody.csv_import_fields = expected_fields
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+
+        # Reset our change so that we don't affect other specs
+        PublicBody.csv_import_fields = old_csv_import_fields
+    end
+
+    it 'allows you to append to the default list of fields to import' do
+        old_csv_import_fields = PublicBody.csv_import_fields.clone
+        expected_fields = [
+            ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+            ['short_name', '(i18n)'],
+            ['request_email', '(i18n)'],
+            ['notes', '(i18n)'],
+            ['publication_scheme', '(i18n)'],
+            ['disclosure_log', '(i18n)'],
+            ['home_page', ''],
+            ['tag_string', '(tags separated by spaces)'],
+            ['a_new_field', ''],
+        ]
+
+        PublicBody.csv_import_fields << ['a_new_field', '']
+
+        expect(PublicBody.csv_import_fields).to eq(expected_fields)
+
+        # Reset our change so that we don't affect other specs
+        PublicBody.csv_import_fields = old_csv_import_fields
     end
 
 end
