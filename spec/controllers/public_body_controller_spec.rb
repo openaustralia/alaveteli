@@ -70,6 +70,25 @@ describe PublicBodyController, "when showing a body" do
         get :show, :url_name => "dFh", :view => 'all'
         response.should redirect_to(:controller => 'public_body', :action => 'show', :url_name => "dfh")
     end
+
+    it 'keeps the search_params flash' do
+        # Make two get requests to simulate the flash getting swept after the
+        # first response.
+        search_params = { 'query' => 'Quango' }
+        get :show, { :url_name => 'dfh', :view => 'all' },
+                   nil,
+                   { :search_params => search_params }
+        get :show, :url_name => 'dfh', :view => 'all'
+        expect(flash[:search_params]).to eq(search_params)
+    end
+
+
+    it 'should not show high page offsets as these are extremely slow to generate' do
+        lambda {
+            get :show, { :url_name => 'dfh', :view => 'all', :page => 25 }
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
 end
 
 describe PublicBodyController, "when listing bodies" do
@@ -479,4 +498,15 @@ describe PublicBodyController, "when doing type ahead searches" do
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end
+
+    it 'remembers the search params' do
+        search_params = {
+            'query'  => 'Quango',
+            'page'   => '1',
+            'bodies' => '1'
+        }
+        get :search_typeahead, search_params
+        expect(flash[:search_params]).to eq(search_params)
+    end
+
 end
