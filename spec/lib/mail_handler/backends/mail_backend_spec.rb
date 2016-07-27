@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '../../../../spec_helper')
 
 describe MailHandler::Backends::MailBackend do
@@ -35,6 +35,15 @@ describe MailHandler::Backends::MailBackend do
             mail = get_fixture_mail('document-pdf.email')
             part = mail.parts.first
             get_part_file_name(part).should be_nil
+        end
+
+        it 'turns an invalid UTF-8 name into a valid one' do
+            mail = get_fixture_mail('non-utf8-filename.email')
+            part = mail.attachments.first
+            filename = get_part_file_name(part)
+            if filename.respond_to?(:valid_encoding)
+               filename.valid_encoding?.should == true
+            end
         end
 
     end
@@ -141,5 +150,22 @@ DOC
         end
 
     end
+
+    describe :address_from_name_and_email do
+
+        it 'returns an address string' do
+            expected = 'Test User <test@example.com>'
+            address_from_name_and_email('Test User', 'test@example.com').should == expected
+        end
+
+        it 'does not change the name passed to it' do
+            original = "brønn"
+            name = original.dup
+            address_from_name_and_email(name, 'test@example.com')
+            name.should == original
+        end
+
+    end
+
 
 end

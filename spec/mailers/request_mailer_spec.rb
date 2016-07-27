@@ -1,5 +1,7 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+
+# TODO: Combine all these separate "describe" blocks to tidy things up
 
 describe RequestMailer, " when receiving incoming mail" do
     before(:each) do
@@ -36,6 +38,12 @@ describe RequestMailer, " when receiving incoming mail" do
         mail = deliveries[0]
         mail.to.should == [ AlaveteliConfiguration::contact_email ]
         deliveries.clear
+    end
+
+    it "puts messages with a malformed To: in the holding pen" do
+        request = FactoryGirl.create(:info_request)
+        receive_incoming_mail('incoming-request-plain.email', 'asdfg')
+        expect(InfoRequest.holding_pen_request.incoming_messages).to have(1).item
     end
 
     it "should parse attachments from mails sent with apple mail" do
@@ -178,6 +186,21 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
+    it "discards rejected responses with a malformed From: when set to bounce" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'nobody'
+        ir.handle_rejected_responses = 'bounce'
+        ir.save!
+        ir.incoming_messages.size.should == 1
+
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
+        ir.incoming_messages.size.should == 1
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
+        deliveries.clear
+    end
+
     it "should send all new responses to holding pen if a request is marked to do so" do
         # mark request as anti-spam
         ir = info_requests(:fancy_dog_request)
@@ -278,7 +301,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
                                       ORDER BY created_at desc LIMIT 1) < ?
                                  AND url_title != 'holding_pen'
                                  AND user_id IS NOT NULL".split(' ').join(' '),
-                                 true, Time.now() - 7.days ]
+                                 true, Time.now - 7.days ]
 
         # compare the query string ignoring any spacing differences
         InfoRequest.should_receive(:find) do |all, query_params|
@@ -411,6 +434,10 @@ describe RequestMailer, 'when sending a new response email' do
     @mail = RequestMailer.new_response(@info_request, @incoming_message)
   end
 
+  it 'should not create HTML entities in the subject line' do
+    mail = RequestMailer.new_response(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:incoming_message))
+    expect(mail.subject).to eq "New response to your FOI request - Here's a request"
+  end
 end
 
 describe RequestMailer, 'requires_admin' do
@@ -419,7 +446,7 @@ describe RequestMailer, 'requires_admin' do
                                 :name => 'Bruce Jones')
         @info_request = mock_model(InfoRequest, :user => user,
                                                 :described_state => 'error_message',
-                                                :title => 'Test request',
+                                                :title => "It's a Test request",
                                                 :url_title => 'test_request',
                                                 :law_used_short => 'FOI',
                                                 :id => 123)
@@ -435,4 +462,42 @@ describe RequestMailer, 'requires_admin' do
         mail.body.should include 'Something has gone wrong'
     end
 
+    it 'should not create HTML entities in the subject line' do
+        expect(RequestMailer.requires_admin(@info_request).subject).to eq "FOI response requires admin (error_message) - It's a Test request"
+    end
+end
+
+describe RequestMailer, "overdue_alert" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.overdue_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:user))
+        expect(mail.subject).to eq "Delayed response to your FOI request - Here's a request"
+    end
+end
+
+describe RequestMailer, "very_overdue_alert" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.very_overdue_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:user))
+        expect(mail.subject).to eq "You're long overdue a response to your FOI request - Here's a request"
+    end
+end
+
+describe RequestMailer, "not_clarified_alert" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.not_clarified_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:incoming_message))
+        expect(mail.subject).to eq "Clarify your FOI request - Here's a request"
+    end
+end
+
+describe RequestMailer, "comment_on_alert" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.comment_on_alert(FactoryGirl.create(:info_request, :title => "Here's a request"), FactoryGirl.create(:comment))
+        expect(mail.subject).to eq "Somebody added a note to your FOI request - Here's a request"
+    end
+end
+
+describe RequestMailer, "comment_on_alert_plural" do
+    it 'should not create HTML entities in the subject line' do
+        mail = RequestMailer.comment_on_alert_plural(FactoryGirl.create(:info_request, :title => "Here's a request"), 2, FactoryGirl.create(:comment))
+        expect(mail.subject).to eq "Some notes have been added to your FOI request - Here's a request"
+    end
 end
