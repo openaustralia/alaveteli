@@ -1,5 +1,57 @@
 # develop
 
+## Highlighted Features
+
+# Version 0.22.4.0
+
+## Highlighted Features
+
+* Set the return-path for the contact form mail (Louise Crow).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+
+# Version 0.22.3.0
+
+## Highlighted Features
+
+* Added additional transaction stats to /version.json endpoint (Gareth Rees).
+* Added additional transaction stats to stats:show rake task (Gareth Rees).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+
+# Version 0.22.2.0
+
+## Highlighted Features
+
+* Adds filtering of incoming mail based on a spam score from SpamAssassin.
+  Requests over a threshold can be discarded or sent to the holding pen.
+  See http://alaveteli.org/docs/customising/config#incoming_email_spam_action
+  for configuration instructions (Gareth Rees).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+
+# Version 0.22.1.0
+
+## Highlighted Features
+
+* The source code now uses two-space indentation (Gareth Rees).
+* A `FACEBOOK_USERNAME` configuration option is now available (Gareth Rees).
+* The [`json` API for public bodies](http://alaveteli.org/docs/developers/api/#json-structured-data)
+  now includes statistics on the number of requests, number of visible successful classified requests,
+  and number of successful, overdue, not held requests (Ross Jones).
+
+## Upgrade Notes
+
+* There should be no action necessary.
+* Most templates have changed to two-space indentation. For ease of future
+  upgrades you _should_ update your overrides to match.
+
 # Version 0.22
 
 ## Highlighted Features

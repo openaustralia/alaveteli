@@ -8,46 +8,92 @@ namespace :stats do
     start_month = (ENV['START_MONTH'] || 1).to_i
     end_year = (ENV['END_YEAR'] || Time.now.year).to_i
     end_month = (ENV['END_MONTH'] || Time.now.month).to_i
+
     month_starts = (Date.new(start_year, start_month)..Date.new(end_year, end_month)).select { |d| d.day == 1 }
+
     headers = ['Period',
                'Requests sent',
-               'Annotations added',
+               'Visible comments',
                'Track this request email signups',
                'Comments on own requests',
-               'Follow up messages sent']
+               'Follow up messages sent',
+               'Confirmed users',
+               'Request classifications',
+               'Public body change requests',
+               'Widget votes',
+               'Total tracks']
     puts headers.join("\t")
+
     month_starts.each do |month_start|
       month_end = month_start.end_of_month
       period = "#{month_start}-#{month_end}"
+
       date_conditions = ['created_at >= ?
                           AND created_at < ?',
-                          month_start, month_end+1]
-      request_count = InfoRequest.count(:conditions => date_conditions)
-      comment_count = Comment.count(:conditions => date_conditions)
+                         month_start, month_end+1]
+
+      request_count = InfoRequest.where(date_conditions).count
+      visible_comments_count = Comment.visible.where(date_conditions).count
+
       track_conditions = ['track_type = ?
                            AND track_medium = ?
                            AND created_at >= ?
                            AND created_at < ?',
-                          'request_updates', 'email_daily', month_start, month_end+1]
-      email_request_track_count = TrackThing.count(:conditions => track_conditions)
+                          'request_updates',
+                          'email_daily',
+                          month_start,
+                          month_end + 1]
+      email_request_track_count = TrackThing.where(track_conditions).count
+
       comment_on_own_request_conditions = ['comments.user_id = info_requests.user_id
                                             AND comments.created_at >= ?
                                             AND comments.created_at < ?',
-                                            month_start, month_end+1]
-      comment_on_own_request_count = Comment.count(:conditions => comment_on_own_request_conditions,
-                                                   :include => :info_request)
+                                           month_start, month_end+1]
+
+      comment_on_own_request_count =
+        Comment.
+          includes(:info_request).
+            where(comment_on_own_request_conditions).
+              count
 
       followup_conditions = ['message_type = ?
+                               AND prominence = ?
                                AND created_at >= ?
                                AND created_at < ?',
-                              'followup', month_start, month_end+1]
-      follow_up_count = OutgoingMessage.count(:conditions => followup_conditions)
+                             'followup',
+                             'normal',
+                             month_start,
+                             month_end + 1]
+      follow_up_count = OutgoingMessage.where(followup_conditions).count
+
+      confirmed_users_count =
+        User.
+          where(:email_confirmed => true).
+            where(date_conditions).
+              count
+
+      request_classifications_count =
+        RequestClassification.where(date_conditions).count
+
+      public_body_change_requests_count =
+        PublicBodyChangeRequest.where(date_conditions).count
+
+      widget_votes_count = WidgetVote.where(date_conditions).count
+
+      total_tracks_count = TrackThing.where(date_conditions).count
+
+
       puts [period,
             request_count,
-            comment_count,
+            visible_comments_count,
             email_request_track_count,
             comment_on_own_request_count,
-            follow_up_count].join("\t")
+            follow_up_count,
+            confirmed_users_count,
+            request_classifications_count,
+            public_body_change_requests_count,
+            widget_votes_count,
+            total_tracks_count].join("\t")
     end
   end
 
@@ -98,9 +144,9 @@ namespace :stats do
   end
 
   desc <<-DESC
-Prints the per-quarter number of created FOI Requests made to each Public Body found by the query.
-Specify the search query as QUERY='london school'
-DESC
+  Prints the per-quarter number of created FOI Requests made to each Public Body found by the query.
+    Specify the search query as QUERY='london school'
+  DESC
   task :number_of_requests_created => :environment do
     query = ENV['QUERY']
     start_at = PublicBody.minimum(:created_at)
@@ -113,11 +159,11 @@ DESC
     puts headers.join(",")
 
     public_bodies.each do |body|
-        stats = quarters.map do |quarter|
-                    conditions = ['created_at >= ? AND created_at < ?', quarter[0], quarter[1]]
-                    count = body.info_requests.count(:conditions => conditions)
-                    count ? count : 0
-                end
+      stats = quarters.map do |quarter|
+        conditions = ['created_at >= ? AND created_at < ?', quarter[0], quarter[1]]
+        count = body.info_requests.count(:conditions => conditions)
+        count ? count : 0
+      end
 
       row = [%Q("#{ body.name }")] + stats
       puts row.join(",")
@@ -125,9 +171,9 @@ DESC
   end
 
   desc <<-DESC
-Prints the per-quarter number of successful FOI Requests made to each Public Body found by the query.
-Specify the search query as QUERY='london school'
-DESC
+  Prints the per-quarter number of successful FOI Requests made to each Public Body found by the query.
+    Specify the search query as QUERY='london school'
+  DESC
   task :number_of_requests_successful => :environment do
     query = ENV['QUERY']
     start_at = PublicBody.minimum(:created_at)
@@ -141,11 +187,11 @@ DESC
 
     public_bodies.each do |body|
       stats = quarters.map do |quarter|
-                  conditions = ['created_at >= ? AND created_at < ? AND described_state = ?',
-                                quarter[0], quarter[1], 'successful']
-                  count = body.info_requests.count(:conditions => conditions)
-                  count ? count : 0
-              end
+        conditions = ['created_at >= ? AND created_at < ? AND described_state = ?',
+                      quarter[0], quarter[1], 'successful']
+        count = body.info_requests.count(:conditions => conditions)
+        count ? count : 0
+      end
 
       row = [%Q("#{ body.name }")] + stats
       puts row.join(",")
@@ -165,10 +211,10 @@ DESC
       very_overdue_count = 0
       InfoRequest.find_each(:batch_size => 200,
                             :conditions => {
-                                :public_body_id => public_body.id,
-                                :awaiting_description => false,
-                                :prominence => 'normal'
-                            }) do |ir|
+                              :public_body_id => public_body.id,
+                              :awaiting_description => false,
+                              :prominence => 'normal'
+      }) do |ir|
         case ir.calculate_status
         when 'waiting_response_very_overdue'
           very_overdue_count += 1
@@ -179,7 +225,7 @@ DESC
       public_body.info_requests_overdue_count = overdue_count + very_overdue_count
       public_body.no_xapian_reindex = true
       public_body.without_revision do
-          public_body.save!
+        public_body.save!
       end
     end
   end
