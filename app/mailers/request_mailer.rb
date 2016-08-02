@@ -63,6 +63,10 @@ class RequestMailer < ApplicationMailer
     @info_request = info_request
     @message = message
 
+    # Return path is an address we control so that SPF checks are done on it.
+    headers('Return-Path' => blackhole_email,
+            'Reply-To' => user.name_and_email)
+
     mail(:from => user.name_and_email,
          :to => contact_from_name_and_email,
          :subject => _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title.html_safe))
@@ -314,7 +318,7 @@ class RequestMailer < ApplicationMailer
                                                       :include => [:user],
                                                       :age_in_days => days_since)
 
-    for info_request in info_requests
+    info_requests.each do |info_request|
       alert_event_id = info_request.get_last_public_response_event_id
       last_response_message = info_request.get_last_public_response
       if alert_event_id.nil?

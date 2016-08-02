@@ -30,7 +30,7 @@
                   <b><%= name %>:</b>
                 </td>
                 <td>
-                  <% if type == 'datetime' %>
+                  <% if type == 'datetime' && value %>
                     <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
                     (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
                   <% else %>
@@ -207,7 +207,7 @@
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>
-                    <%= info_request_event.params_yaml_as_html.html_safe %>
+                    <%= render :partial => 'params', :locals => { :params => info_request_event.params_diff } %>
                   <% elsif value.nil? %>
                     nil
                   <% elsif %w(text string).include?(type) %>
