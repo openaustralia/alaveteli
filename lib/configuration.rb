@@ -24,6 +24,7 @@ module AlaveteliConfiguration
       :AVAILABLE_LOCALES => '',
       :BLACKHOLE_PREFIX => 'do-not-reply-to-this-address',
       :BLOG_FEED => '',
+      :BLOG_TIMEOUT => 60,
       :CACHE_FRAGMENTS => true,
       :CONTACT_EMAIL => 'contact@localhost',
       :CONTACT_NAME => 'Alaveteli',
@@ -78,7 +79,6 @@ module AlaveteliConfiguration
       :SMTP_MAILER_PASSWORD => '',
       :SMTP_MAILER_AUTHENTICATION => 'plain',
       :SMTP_MAILER_ENABLE_STARTTLS_AUTO => true,
-      :SPECIAL_REPLY_VERY_LATE_AFTER_DAYS => 60,
       :RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS => 6,
       :THEME_BRANCH => false,
       :THEME_URL => "",
@@ -95,7 +95,8 @@ module AlaveteliConfiguration
       :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
       :VARNISH_HOST => '',
       :WORKING_OR_CALENDAR_DAYS => 'working',
-      :USE_BULLET_IN_DEVELOPMENT => false
+      :USE_BULLET_IN_DEVELOPMENT => false,
+      :EXTERNAL_REVIEWERS => ''
     }
   end
 

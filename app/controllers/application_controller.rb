@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
   # is not replayable forever
   SESSION_TTL = 3.hours
   def validate_session_timestamp
-    if session[:user_id] && session.key?(:ttl) && session[:ttl] < SESSION_TTL.ago
+    if session[:user_id] && session[:ttl] && session[:ttl] < SESSION_TTL.ago
       clear_session_credentials
     end
   end
@@ -147,6 +147,7 @@ class ApplicationController < ActionController::Base
     session[:admin_name] = nil
     session[:change_password_post_redirect_id] = nil
     session[:post_redirect_token] = nil
+    session[:ttl] = nil
   end
 
   def render_exception(exception)
@@ -181,29 +182,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def show_rails_exceptions?
+  def render_hidden(template='request/hidden')
+    respond_to do |format|
+      response_code = 403 # forbidden
+      format.html{ render :template => template, :status => response_code }
+      format.any{ render :nothing => true, :status => response_code }
+    end
     false
   end
 
-  # Called from test code, is a mimic of UserController.confirm, for use in following email
-  # links when in controller tests (though we also have full integration tests that
-  # can work over multiple controllers)
-  # TODO: Move this to the tests. It shouldn't be here
-  def test_code_redirect_by_email_token(token, controller_example_group)
-    warn %q([DEPRECATION]
-            ApplicationController#test_code_redirect_by_email_token has not been
-            in sync with UserController#confirm for some time. Updating it to
-            match causes spec failures. The specs that currently use it should
-            not be doing so.).squish
-    post_redirect = PostRedirect.find_by_email_token(token)
-    if post_redirect.nil?
-      raise "bad token in test code email"
-    end
-    session[:user_id] = post_redirect.user.id
-    session[:user_circumstance] = post_redirect.circumstance
-    params = Rails.application.routes.recognize_path(post_redirect.local_part_uri)
-    params.merge(post_redirect.post_params)
-    controller_example_group.get params[:action], params
+  def show_rails_exceptions?
+    false
   end
 
   # Used to work out where to cache fragments. We add an extra path to the
@@ -239,17 +228,6 @@ class ApplicationController < ActionController::Base
     logger.info "Writing to fragment cache #{key_path}"
     File.atomic_write(key_path) do |f|
       f.write(content)
-    end
-  end
-
-  # get the local locale
-  def locale_from_params(*args)
-    warn %q([DEPRECATION] locale_from_params will be removed in Alaveteli
-               release 0.24).squish
-    if params[:show_locale]
-      params[:show_locale]
-    else
-      I18n.locale.to_s
     end
   end
 
@@ -450,7 +428,7 @@ class ApplicationController < ActionController::Base
       rescue RuntimeError => e
         if e.message =~ /^QueryParserError: Wildcard/
           # Wildcard expands to too many terms
-          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
+          logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message.force_encoding('UTF-8')}"
 
           user_query =  ActsAsXapian.query_parser.parse_query(
             query,

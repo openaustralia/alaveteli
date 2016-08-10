@@ -9,7 +9,7 @@ require 'zip/zip'
 require 'open-uri'
 
 class RequestController < ApplicationController
-  before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
+  before_filter :check_read_only, :only => [ :new, :describe_state, :upload_response ]
   before_filter :check_batch_requests_and_user_allowed, :only => [ :select_authorities, :new_batch ]
   MAX_RESULTS = 500
   PER_PAGE = 25
@@ -107,11 +107,16 @@ class RequestController < ApplicationController
       assign_variables_for_show_template(@info_request)
 
       if @update_status
-        return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
-                                                              :web => _("To update the status of this FOI request"),
-                                                              :email => _("Then you can update the status of your request to ") + @info_request.public_body.name + ".",
-                                                              :email_subject => _("Update the status of your request to ") + @info_request.public_body.name
-                                                              )
+        return if !@is_owning_user && !authenticated_as_user?(
+          @info_request.user,
+          :web => _("To update the status of this FOI request"),
+          :email => _("Then you can update the status of your request to " \
+                        "{{authority_name}}.",
+                      :authority_name => @info_request.public_body.name),
+          :email_subject => _("Update the status of your request to " \
+                                "{{authority_name}}",
+                              :authority_name => @info_request.public_body.name)
+        )
       end
 
       # Sidebar stuff
@@ -178,9 +183,13 @@ class RequestController < ApplicationController
     end
 
     @filters = params.merge(:latest_status => @view)
-    @title = _('Browse and search requests')
 
-    @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
+    if (@page > 1)
+      @title = _("Browse and search requests (page {{count}})", :count => @page)
+    else
+      @title = _('Browse and search requests')
+    end
+
     @track_thing = TrackThing.create_track_for_search_query(InfoRequestEvent.make_query_from_params(@filters))
     @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
@@ -260,7 +269,7 @@ class RequestController < ApplicationController
     # margin of 1 undescribed so it isn't too annoying - the function
     # get_undescribed_requests also allows one day since the response
     # arrived.
-    if !@user.nil? && params[:submitted_new_request].nil? && !@user.can_leave_requests_undescribed?
+    if !@user.nil? && params[:submitted_new_request].nil?
       @undescribed_requests = @user.get_undescribed_requests
       if @undescribed_requests.size > 1
         render :action => 'new_please_describe'
@@ -313,13 +322,13 @@ class RequestController < ApplicationController
     @outgoing_message = @info_request.outgoing_messages.first
 
     # Maybe we lost the address while they're writing it
-    if !@info_request.public_body.is_requestable?
+    unless @info_request.public_body.is_requestable?
       render :action => 'new_' + @info_request.public_body.not_requestable_reason
       return
     end
 
     # See if values were valid or not
-    if !@existing_request.nil? || !@info_request.valid?
+    if @existing_request || !@info_request.valid?
       # We don't want the error "Outgoing messages is invalid", as in this
       # case the list of errors will also contain a more specific error
       # describing the reason it is invalid.
@@ -390,10 +399,14 @@ class RequestController < ApplicationController
 
     # Check authenticated, and parameters set.
     unless Ability::can_update_request_state?(authenticated_user, info_request)
-      authenticated_as_user?(info_request.user,
-                             :web => _("To classify the response to this FOI request"),
-                             :email => _("Then you can classify the FOI response you have got from ") + info_request.public_body.name + ".",
-                             :email_subject => _("Classify an FOI response from ") + info_request.public_body.name)
+      authenticated_as_user?(
+        info_request.user,
+        :web => _("To classify the response to this FOI request"),
+        :email => _("Then you can classify the FOI response you have got " \
+                      "from {{authority_name}}.",
+                    :authority_name => info_request.public_body.name),
+        :email_subject => _("Classify an FOI response from {{authority_name}}",
+                            :authority_name => info_request.public_body.name))
       # do nothing - as "authenticated?" has done the redirect to signin page for us
       return
     end
@@ -506,156 +519,6 @@ class RequestController < ApplicationController
     end
   end
 
-  # Show an individual incoming message, and allow followup
-  def show_response
-    # Banned from making new requests?
-    if !authenticated_user.nil? && !authenticated_user.can_make_followup?
-      @details = authenticated_user.can_fail_html
-      render :template => 'user/banned'
-      return
-    end
-
-    if params[:incoming_message_id].nil?
-      @incoming_message = nil
-    else
-      @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-    end
-
-    @info_request = InfoRequest.find(params[:id].to_i)
-    set_last_request(@info_request)
-
-    @collapse_quotes = !params[:unfold]
-    @is_owning_user = @info_request.is_owning_user?(authenticated_user)
-    @gone_postal = params[:gone_postal]
-    if !@is_owning_user
-      @gone_postal = false
-    end
-
-    if @gone_postal
-      who_can_followup_to = @info_request.who_can_followup_to
-      if who_can_followup_to.size == 0
-        @postal_email = @info_request.request_email
-        @postal_email_name = @info_request.name
-      else
-        @postal_email = who_can_followup_to[-1][1]
-        @postal_email_name = who_can_followup_to[-1][0]
-      end
-    end
-
-
-    params_outgoing_message = params[:outgoing_message] ? params[:outgoing_message].clone : {}
-    params_outgoing_message.merge!({
-                                     :status => 'ready',
-                                     :message_type => 'followup',
-                                     :incoming_message_followup => @incoming_message,
-                                     :info_request_id => @info_request.id
-    })
-    @internal_review = false
-    @internal_review_pass_on = false
-    if !params[:internal_review].nil?
-      params_outgoing_message[:what_doing] = 'internal_review'
-      @internal_review = true
-      @internal_review_pass_on = true
-    end
-    @outgoing_message = OutgoingMessage.new(params_outgoing_message)
-    @outgoing_message.set_signature_name(@user.name) if !@user.nil?
-
-    if (not @incoming_message.nil?) and @info_request != @incoming_message.info_request
-      raise ActiveRecord::RecordNotFound.new("Incoming message #{@incoming_message.id} does not belong to request #{@info_request.id}")
-    end
-
-    # Test for hidden requests
-    if !authenticated_user.nil? && !@info_request.user_can_view?(authenticated_user)
-      return render_hidden
-    end
-
-    # Check address is good
-    if !OutgoingMailer.is_followupable?(@info_request, @incoming_message)
-      raise "unexpected followupable inconsistency" if @info_request.public_body.is_requestable?
-      @reason = @info_request.public_body.not_requestable_reason
-      render :action => 'followup_bad'
-      return
-    end
-
-    # Test for external request
-    if @info_request.is_external?
-      @reason = 'external'
-      render :action => 'followup_bad'
-      return
-    end
-
-    # Force login early - this is really the "send followup" form. We want
-    # to make sure they're the right user first, before they start writing a
-    # message and wasting their time if they are not the requester.
-    if !authenticated_as_user?(@info_request.user,
-                               :web => @incoming_message.nil? ?
-                               _("To send a follow up message to ") + @info_request.public_body.name :
-                               _("To reply to ") + @info_request.public_body.name,
-                               :email => @incoming_message.nil? ?
-                               _("Then you can write follow up message to ") + @info_request.public_body.name + "." :
-                               _("Then you can write your reply to ") + @info_request.public_body.name + ".",
-                               :email_subject => @incoming_message.nil? ?
-                               _("Write your FOI follow up message to ") + @info_request.public_body.name :
-                               _("Write a reply to ") + @info_request.public_body.name
-                               )
-      return
-    end
-
-    if !params[:submitted_followup].nil? && !params[:reedit]
-      if @info_request.allow_new_responses_from == 'nobody'
-        flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="{{url}}">contact us</a> if you really want to send a follow up message.', :url => help_contact_path.html_safe)
-      else
-        if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
-          flash[:error] = _('You previously submitted that exact follow up message for this request.')
-          render :action => 'show_response'
-          return
-        end
-
-        # See if values were valid or not
-        @outgoing_message.info_request = @info_request
-        if !@outgoing_message.valid?
-          render :action => 'show_response'
-          return
-        end
-        if params[:preview].to_i == 1
-          if @outgoing_message.what_doing == 'internal_review'
-            @internal_review = true
-          end
-          render :action => 'followup_preview'
-          return
-        end
-
-        # Send a follow up message
-        @outgoing_message.sendable?
-
-        mail_message = OutgoingMailer.followup(
-          @outgoing_message.info_request,
-          @outgoing_message,
-          @outgoing_message.incoming_message_followup
-        ).deliver
-
-        @outgoing_message.record_email_delivery(
-          mail_message.to_addrs.join(', '),
-          mail_message.message_id
-        )
-
-        @outgoing_message.save!
-
-        if @outgoing_message.what_doing == 'internal_review'
-          flash[:notice] = _("Your internal review request has been sent on its way.")
-        else
-          flash[:notice] = _("Your follow up message has been sent on its way.")
-        end
-
-        redirect_to request_url(@info_request)
-      end
-    else
-      # render default show_response template
-    end
-  end
-
-  # Download an attachment
-
   before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
   def authenticate_attachment
     # Test for hidden
@@ -721,11 +584,13 @@ class RequestController < ApplicationController
 
     # Prevent spam to magic request address. Note that the binary
     # subsitution method used depends on the content type
-    body = @attachment.default_body
-    @incoming_message.apply_masks!(body, @attachment.content_type)
+    body = @incoming_message.
+            apply_masks(@attachment.default_body, @attachment.content_type)
+
     if response.content_type == 'text/html'
       body = ActionController::Base.helpers.sanitize(body)
     end
+
     render :text => body
   end
 
@@ -751,10 +616,11 @@ class RequestController < ApplicationController
                                     :content_for => {
                                       :head_suffix => render_to_string(:partial => "request/view_html_stylesheet"),
                                       :body_prefix => render_to_string(:partial => "request/view_html_prefix")
-                                    }
-                                    )
+                                    })
+
     response.content_type = 'text/html'
-    @incoming_message.apply_masks!(html, response.content_type)
+
+    html = @incoming_message.apply_masks(html, response.content_type)
 
     render :text => html
   end
@@ -811,9 +677,12 @@ class RequestController < ApplicationController
       @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
       @reason_params = {
-        :web => _("To upload a response, you must be logged in using an email address from ") +  CGI.escapeHTML(@info_request.public_body.name),
+        :web => _("To upload a response, you must be logged in using an " \
+                    "email address from {{authority_name}}",
+                  :authority_name => CGI.escapeHTML(@info_request.public_body.name)),
         :email => _("Then you can upload an FOI response. "),
-        :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
+        :email_subject => _("Confirm your account on {{site_name}}",
+                            :site_name => site_name)
       }
 
       if !authenticated?(@reason_params)
@@ -841,14 +710,18 @@ class RequestController < ApplicationController
       body = params[:body] || ""
 
       if file_name.nil? && body.empty?
-        flash[:error] = _("Please type a message and/or choose a file containing your response.")
+        flash[:error] = _("Please type a message and/or choose a file " \
+                            "containing your response.")
         return
       end
 
       mail = RequestMailer.fake_response(@info_request, @user, body, file_name, file_content)
 
       @info_request.receive(mail, mail.encoded, true)
-      flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
+      flash[:notice] = _("Thank you for responding to this FOI request! " \
+                           "Your response has been published below, and a " \
+                           "link to your response has been emailed to {{user_name}}.",
+                         :user_name => CGI.escapeHTML(@info_request.user.name))
       redirect_to request_url(@info_request)
       return
     end
@@ -898,15 +771,6 @@ class RequestController < ApplicationController
   end
 
   private
-
-  def render_hidden(template='request/hidden')
-    respond_to do |format|
-      response_code = 403 # forbidden
-      format.html{ render :template => template, :status => response_code }
-      format.any{ render :nothing => true, :status => response_code }
-    end
-    false
-  end
 
   def assign_variables_for_show_template(info_request)
     @info_request = info_request
