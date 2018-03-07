@@ -2,17 +2,21 @@ language: ruby
 branches:
   only:
     - master
-    - rails-3-develop
+    - develop
 rvm:
-  - 1.8.7-p374
   - 1.9.3
   - 2.0.0
+  - 2.1.5
+  - 2.3.0
 env:
   global:
     - S3_REGION=us-east-1
     - S3_BUCKET_NAME=alaveteli-bundle-cache
     - secure: "cbZMhxbih4k2syqykwVprnBBTyD9Rk9pVhwM2W1Oa3Y9QIn79giL2yTUrJi3+bapHHFedWstG1wkLxEalc/Ei1G4vWYDqXiOtdzYR/WMqqCyd8royrkusist+rVcolvZ2dTCu8uvmteQ6sE3/FsoayTlYJmWCNFWhAiWayaai8Q="
 before_install:
+  - sudo locale-gen --no-archive en_GB
+  - sudo locale-gen --no-archive en_GB.UTF-8
+  - sudo update-locale
   - gem update --system 2.1.11
   - gem install rake --version=0.9.2.2
   - git submodule update --init --recursive
@@ -25,8 +29,11 @@ before_install:
   - sudo apt-get update
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light
-  - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.8$|^rubygems$|^rake)"`
+  - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby$|^ruby1.9.1$|^rubygems$|^rake)"`
   - RAILS_ENV=test ./script/rails-post-deploy
+  - psql -c 'CREATE COLLATION "en_GB" (LOCALE = "en_GB.utf8");' -U postgres foi_test
+  - psql -c 'CREATE COLLATION "en_GB.utf8" (LOCALE = "en_GB.utf8");' -U postgres foi_test
+  - psql -c 'CREATE COLLATION "en" (LOCALE = "en_GB.utf8");' -U postgres foi_test
   - RAILS_ENV=test ./script/update-xapian-index
 install: echo 'Bundle installed through script/rails-post-deploy'
 notifications:
@@ -34,3 +41,6 @@ notifications:
   email:
     recipients:
       - cron-whatdotheyknow@mysociety.org
+addons:
+  code_climate:
+    repo_token: ee19b27266ded8ab2d2c4e65c66a79fc58b11ff9c4bd84673ae21b1a565f3e6d

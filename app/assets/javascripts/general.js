@@ -34,12 +34,12 @@ $(document).ready(function() {
     box.width(location.length + " em");
     box.find('input').val(location).attr('size', location.length + " em");
     box.show();
-    box.find('input').select();
     box.position({
       my: "right center",
       at: "left bottom",
       of:  this,
       collision: "fit" });
+    box.find('input').select();
     return false;
   });
 
@@ -57,4 +57,59 @@ $(document).ready(function() {
      $('#everypage').hide();
    }
 
+  // "Create widget" page
+  $("#widgetbox").select()
+  // Chrome workaround
+  $("widgetbox").mouseup(function() {
+    // Prevent further mouseup intervention
+    $this.unbind("mouseup");
+    return false;
+  });
+
+  $('.js-toggle-delivery-log').on('click', function(e){
+    e.preventDefault();
+
+    var $correspondence = $(this).parents('.correspondence');
+    var url = $(this).attr('href');
+    var $correspondence_delivery = $correspondence.find('.correspondence_delivery');
+
+    if( $correspondence_delivery.length ){
+      removeCorrespondenceDeliveryBox($correspondence_delivery);
+    } else {
+      loadCorrespondenceDeliveryBox($correspondence, url);
+    }
+  });
+
+  var loadCorrespondenceDeliveryBox = function loadCorrespondenceDeliveryBox($correspondence, url){
+    var $toggle = $correspondence.find('.js-toggle-delivery-log');
+    var $correspondence_delivery = $('<div>')
+      .addClass('correspondence_delivery')
+      .addClass('correspondence_delivery--' + $toggle.attr('data-delivery-status'))
+      .hide()
+      .insertBefore( $correspondence.find('.correspondence_text') );
+
+    $toggle.addClass('toggle-delivery-log--loading');
+
+    $.ajax({
+      url: url,
+      dataType: "html"
+    }).done(function(html){
+      var $deliveryDiv = $(html).find('.controller_delivery_statuses');
+      $correspondence_delivery.html( $deliveryDiv.html() );
+      $correspondence_delivery.slideDown(200);
+    }).fail(function(){
+      var msgHtml = $('.js-delivery-log-ajax-error').html();
+      $correspondence_delivery.html( msgHtml );
+      $correspondence_delivery.slideDown(200);
+
+    }).always(function(){
+      $toggle.removeClass('toggle-delivery-log--loading');
+    });
+  }
+
+  var removeCorrespondenceDeliveryBox = function removeCorrespondenceDeliveryBox($correspondence_delivery){
+    $correspondence_delivery.slideUp(200, function(){
+      $correspondence_delivery.remove();
+    });
+  }
 })

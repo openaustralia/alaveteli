@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: mail_server_log_dones
@@ -15,8 +16,5 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLogDone < ActiveRecord::Base
-    has_many :mail_server_logs
+  has_many :mail_server_logs
 end
-
-
-

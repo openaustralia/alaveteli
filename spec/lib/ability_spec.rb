@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Ability do
@@ -7,15 +8,15 @@ describe Ability do
 
       context "logged out" do
         let(:user) { nil }
-        before(:each) { request.stub!(:is_owning_user?).and_return(false) }
-        it { Ability::can_update_request_state?(user, request).should be_false }
+        before(:each) { allow(request).to receive(:is_owning_user?).and_return(false) }
+        it { expect(Ability::can_update_request_state?(user, request)).to be false }
       end
 
       context "logged in but not owner of request" do
         let(:user) { mock_model(User) }
-        before(:each) { request.stub!(:is_owning_user?).and_return(false) }
+        before(:each) { allow(request).to receive(:is_owning_user?).and_return(false) }
 
-        it { Ability::can_update_request_state?(user, request).should be_true }
+        it { expect(Ability::can_update_request_state?(user, request)).to be true }
       end
     end
 
@@ -24,9 +25,9 @@ describe Ability do
 
       context "logged out" do
         let(:user) { nil }
-        before(:each) { request.stub!(:is_owning_user?).and_return(false) }
+        before(:each) { allow(request).to receive(:is_owning_user?).and_return(false) }
 
-        it { Ability::can_update_request_state?(user, request).should be_false }
+        it { expect(Ability::can_update_request_state?(user, request)).to be false }
       end
 
       context "logged in" do
@@ -34,18 +35,17 @@ describe Ability do
 
         # An owner of a request can also be someone with admin powers
         context "as owner of request" do
-          before(:each) { request.stub!(:is_owning_user?).and_return(true) }
+          before(:each) { allow(request).to receive(:is_owning_user?).and_return(true) }
 
-          it { Ability::can_update_request_state?(user, request).should be_true }
+          it { expect(Ability::can_update_request_state?(user, request)).to be true }
         end
 
         context "but not owner of request" do
-          before(:each) { request.stub!(:is_owning_user?).and_return(false) }
+          before(:each) { allow(request).to receive(:is_owning_user?).and_return(false) }
 
-          it { Ability::can_update_request_state?(user, request).should be_false }
+          it { expect(Ability::can_update_request_state?(user, request)).to be false }
         end
       end
     end
   end
 end
-

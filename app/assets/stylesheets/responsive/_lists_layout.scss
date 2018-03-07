@@ -70,7 +70,7 @@
     }
   }
 
-   .desc {
+  .desc {
     width:100%;
     @include respond-min( $main_menu-mobile_menu_cutoff ){
       padding:0 0 0 2em;
@@ -81,4 +81,8 @@
   }
 }
 
-
+/* .make-request-quick-button displays in the typeahead search results in the 'make request' process */
+.make-request-quick-button {
+  margin-bottom: 1em;
+  margin-top: -0.5em;
+}

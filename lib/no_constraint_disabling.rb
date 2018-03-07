@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # In order to work around the problem of the database use not having
 # the permission to disable referential integrity when loading fixtures,
 # we redefine disable_referential_integrity so that it doesn't try to
@@ -12,8 +13,8 @@ module ActiveRecord
   module ConnectionAdapters
     class PostgreSQLAdapter < AbstractAdapter
       def disable_referential_integrity(&block)
-       transaction {
-       yield
+        transaction {
+          yield
         }
       end
     end
@@ -47,7 +48,7 @@ module ActiveRecord
               connection,
               table_name,
               class_names[table_name.to_sym] || table_name.classify,
-              ::File.join(fixtures_directory, path))
+            ::File.join(fixtures_directory, path))
           end
 
           all_loaded_fixtures.update(fixtures_map)

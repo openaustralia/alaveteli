@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 
 # A simple script to swap around your Alaveteli themes when you're
 # hacking on Alaveteli.  By default this assumes that you have an
@@ -46,6 +46,12 @@ unless File.exists? theme_directory
   exit 1
 end
 
+def show_themes
+  $available_themes.each do |theme_name|
+    STDERR.puts "  #{theme_name}"
+  end
+end
+
 # Assume that any directory directly under theme_directory is a theme:
 $available_themes = Dir.entries(theme_directory).find_all do |local_theme_name|
   next if [".", ".."].index local_theme_name
@@ -63,17 +69,20 @@ if $available_themes.empty?
   exit
 end
 
-def usage_and_exit
+if ARGV.length == 1
+  requested_theme = ARGV[0]
+else
   STDERR.puts "Usage: #{$0} <THEME-NAME>"
-  $available_themes.each do |theme_name|
-    STDERR.puts "  #{theme_name}"
-  end
+  show_themes
   exit 1
 end
 
-usage_and_exit unless ARGV.length == 1
-requested_theme = ARGV[0]
-usage_and_exit unless $available_themes.include? requested_theme
+unless $available_themes.include? requested_theme
+  STDERR.puts "Theme '#{requested_theme}' not found in '#{theme_directory}'"
+  STDERR.puts "Available themes:"
+  show_themes
+  exit 1
+end
 
 full_theme_path = File.join theme_directory, requested_theme
 
@@ -114,20 +123,20 @@ symlink(File.basename(theme_filename),
 public_directory = File.join(alaveteli_directory, 'public')
 
 if requested_theme == $no_theme_name
-    File.unlink File.join(public_directory, 'alavetelitheme')
+  File.unlink File.join(public_directory, 'alavetelitheme')
 else
-    symlink(File.join(full_theme_path, 'public'),
-            public_directory,
-            'alavetelitheme')
+  symlink(File.join(full_theme_path, 'public'),
+          public_directory,
+          'alavetelitheme')
 
-    symlink(full_theme_path,
-            File.join(alaveteli_directory, 'lib', 'themes'),
-            requested_theme)
+  symlink(full_theme_path,
+          File.join(alaveteli_directory, 'lib', 'themes'),
+          requested_theme)
 end
 
 STDERR.puts """Switched to #{requested_theme}!
 You will need to:
   1. restart any development server you have running.
   2. run: bundle exec rake assets:clean
-  3. run: bundle exec rake assets:precompile
+  3. run: bundle exec rake assets:precompile (if running in production mode)
 """

@@ -2,11 +2,16 @@
 
 <h1><%=@title%></h1>
 
-<%= form_tag admin_request_move_request_path, { :class => "form form-horizontal" } do %>
-  <%= hidden_field_tag 'info_request_id', @info_request.id %>
+<%= form_tag move_admin_request_path(@info_request), { :class => "form form-horizontal" } do %>
   <div class="accordion" id="info_request">
     <div class="accordion-group">
       <div class="accordion-heading">
+
+        <% if @info_request.reject_incoming_at_mta? %>
+          <div class="alert alert-warning" role="alert">
+            Mail for this request is automatically being rejected at the mail server due to spam.
+          </div>
+        <% end %>
         <span class="item-title">
           <a href="#metadata_<%=@info_request.id%>" data-toggle="collapse" data-parent="#info_request"><%= chevron_down %></a>Request metadata
         </span>
@@ -16,7 +21,7 @@
           <thead>
             <tr>
               <td colspan="2">
-                 <%= link_to 'Edit metadata', admin_request_edit_path(@info_request), :class => "btn" %>
+                <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
               </td>
             </tr>
           </thead>
@@ -31,7 +36,7 @@
                   <b><%= name %>:</b>
                 </td>
                 <td>
-                  <% if type == 'datetime' %>
+                  <% if type == 'datetime' && value %>
                     <%= I18n.l(value, :format => "%e %B %Y %H:%M:%S") %>
                     (<%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value)) %>)
                   <% else %>
@@ -47,7 +52,7 @@
                   <% end %>
                 </td>
               </tr>
-        <% end %>
+            <% end %>
             <tr>
               <td>
                 <b>Created by</b>
@@ -101,7 +106,7 @@
           <tfoot>
             <tr>
               <td colspan="2">
-                 <%= link_to 'Edit metadata', admin_request_edit_path(@info_request), :class => "btn" %>
+                <%= link_to 'Edit metadata', edit_admin_request_path(@info_request), :class => "btn" %>
               </td>
             </tr>
           </tfoot>
@@ -117,11 +122,13 @@
       FOI officer upload URL
     </label>
     <div class="controls">
-      <%= link_to 'Generate URL', admin_request_generate_upload_url_path(@info_request), :class => "btn" %>
+      <%= form_tag generate_upload_url_admin_request_path(@info_request), :class => "form form-inline" do %>
+        <%= submit_tag "Generate URL", :class => "btn"  %>
+      <% end %>
       <p class="help-block">(see also option to generate URLs for individual incoming messages below)</p>
     </div>
   </div>
-  <%= form_tag admin_request_hide_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
+  <%= form_tag hide_admin_request_path(@info_request), :class => "form form-inline", :id => "hide_request_form", 'data-info-request-id' => @info_request.id.to_s do %>
     <div class="control-group">
       <% if  @info_request.is_external? %>
         <label class="control-label">Hide the request:</label>
@@ -171,11 +178,11 @@
 <hr>
 <h2>Events</h2>
 <div class="accordion" id="events">
-  <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
+  <% @info_request.info_request_events.each do |info_request_event| %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <span class="item-title">
-        <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
+          <a href="#event_<%=info_request_event.id%>" data-toggle="collapse" data-parent="#events"><%= chevron_right %></a>
           <%= _("Event {{id}}", :id => info_request_event.id) %>:
           <strong>
             <%=h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state: <%= info_request_event.calculated_state %><% end %>
@@ -191,8 +198,7 @@
             <tr>
               <td>
                 <% if info_request_event.described_state != 'waiting_clarification' and info_request_event.event_type == 'response' %>
-                  <%= form_tag admin_request_clarification_path, :class => "form form-inline admin-table-form admin-inline-form" do %>
-                    <%= hidden_field_tag 'info_request_event_id', info_request_event.id, :id => nil %>
+                  <%= form_tag admin_info_request_event_path(info_request_event), :method => 'put', :class => "form form-inline admin-table-form admin-inline-form" do %>
                     <%= submit_tag "Was clarification request", :class => "btn btn-mini btn-primary" %>
                   <% end %>
                 <% end %>
@@ -207,7 +213,7 @@
                 </td>
                 <td>
                   <% if column_name == 'params_yaml' %>
-                    <%= info_request_event.params_yaml_as_html.html_safe %>
+                    <%= render :partial => 'params', :locals => { :params => info_request_event.params_diff } %>
                   <% elsif value.nil? %>
                     nil
                   <% elsif %w(text string).include?(type) %>
@@ -229,24 +235,23 @@
 <hr>
 <h2>Outgoing messages</h2>
 <div class="accordion" id="outgoing_messages">
-  <% for outgoing_message in @info_request.outgoing_messages.find(:all, :order => 'created_at') %>
+  <% @info_request.outgoing_messages.each do |outgoing_message| %>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%=outgoing_message.id%>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
-        <%= link_to admin_outgoing_edit_path(outgoing_message) do %>
+        <%= link_to edit_admin_outgoing_message_path(outgoing_message) do %>
           #<%= outgoing_message.id %> -- <%= outgoing_message.status.humanize %> <%= outgoing_message.message_type.humanize %>
-        <% end %>
-        <blockquote>
-          <%= truncate(outgoing_message.body, :length => 400) %>
-        </blockquote>
+      <% end %>
+      <blockquote>
+        <%= truncate(outgoing_message.body, :length => 400) %>
+      </blockquote>
       </div>
       <div id="outgoing_<%=outgoing_message.id%>" class="accordion-body collapse">
         <table class="table table-striped table-condensed">
           <tbody>
             <tr>
               <td colspan="2">
-                <%= form_tag admin_request_resend_path, :class => "admin-table-form" do %>
-                  <%= hidden_field_tag 'outgoing_message_id', outgoing_message.id %>
+                <%= form_tag resend_admin_outgoing_message_path(outgoing_message), :class => "admin-table-form" do %>
                   <%= submit_tag "Resend", :class => "btn" %>
                 <% end %>
               </td>
@@ -279,7 +284,8 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#incoming_<%=incoming_message.id%>" data-toggle="collapse" data-parent="#incoming_messages"><%= chevron_right %></a>
-        <%= link_to admin_incoming_edit_path(incoming_message) do %>
+        <%= check_box_tag "message_id_#{incoming_message.id}", incoming_message.id, false, :class => "delete-checkbox" %>
+        <%= link_to edit_admin_incoming_message_path(incoming_message) do %>
           <%=incoming_message.id%>
           --
           <%= h(incoming_message.mail_from) %>
@@ -296,7 +302,7 @@
           <thead>
             <tr>
               <td colspan="2" class="well">
-                <%= render :partial => 'incoming_message_actions', :locals => { :incoming_message => incoming_message } %>
+                <%= render :partial => 'admin_incoming_message/actions', :locals => { :incoming_message => incoming_message } %>
               </td>
             </tr>
           </thead>
@@ -320,6 +326,15 @@
         </table>
       </div>
     </div>
+  <% end %>
+  <% if @info_request.incoming_messages.count > 0 %>
+    <%= form_tag bulk_destroy_admin_incoming_messages_path do %>
+      <%= hidden_field_tag(:ids) %>
+      <%= hidden_field_tag(:request_id, @info_request.id) %>
+      <%= submit_tag("Delete selected messages",
+                     { :class => "btn btn-danger",
+                       :disabled => true }) %>
+    <% end %>
   <% end %>
 </div>
 <hr>

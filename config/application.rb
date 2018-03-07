@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -36,6 +37,9 @@ module Alaveteli
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
+    # Allow some extra tags to be whitelisted in the 'sanitize' helper method
+    config.action_view.sanitized_allowed_tags = 'html', 'head', 'body', 'table', 'tr', 'td', 'style'
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -57,26 +61,32 @@ module Alaveteli
     config.time_zone = ::AlaveteliConfiguration::time_zone
 
     # Set the cache to use a memcached backend
-    config.cache_store = :mem_cache_store, { :namespace => AlaveteliConfiguration::domain }
+    config.cache_store = :mem_cache_store,
+      { :namespace => "#{AlaveteliConfiguration::domain}_#{RUBY_VERSION}" }
     config.action_dispatch.rack_cache = nil
 
     config.after_initialize do |app|
-       require 'routing_filters.rb'
-       # Add a catch-all route to force routing errors to be handled by the application,
-       # rather than by middleware.
-       app.routes.append{ match '*path', :to => 'general#not_found' }
+      # Add a catch-all route to force routing errors to be handled by the application,
+      # rather than by middleware.
+      app.routes.append{ match '*path', :to => 'general#not_found' }
     end
 
+    config.autoload_paths << "#{Rails.root.to_s}/app/controllers/concerns"
+    config.autoload_paths << "#{Rails.root.to_s}/app/models/concerns"
     config.autoload_paths << "#{Rails.root.to_s}/lib/mail_handler"
     config.autoload_paths << "#{Rails.root.to_s}/lib/attachment_to_html"
+    config.autoload_paths << "#{Rails.root.to_s}/lib/health_checks"
 
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_PUBLIC_KEY'] = ::AlaveteliConfiguration::recaptcha_public_key
     ENV['RECAPTCHA_PRIVATE_KEY'] = ::AlaveteliConfiguration::recaptcha_private_key
 
     # Insert a bit of middleware code to prevent uneeded cookie setting.
-    require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
-    config.middleware.insert_before ::ActionDispatch::Cookies, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+    require "#{Rails.root}/lib/strip_empty_sessions"
+    config.middleware.insert_before ::ActionDispatch::Cookies, StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
+
+    # Strip non-UTF-8 request parameters
+    config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { :host => AlaveteliConfiguration::domain }
@@ -102,24 +112,25 @@ module Alaveteli
                                  'fancybox.js']
     # ... while these are individual files that can't easily be
     # grouped:
-    config.assets.precompile += ['jquery.Jcrop.css',
+    config.assets.precompile += ['jquery.Jcrop.min.css',
                                  'excanvas.min.js',
                                  'select-authorities.js',
-                                 'jquery_ujs.js',
                                  'new-request.js',
                                  'fonts.css',
                                  'print.css',
                                  'admin.css',
                                  'ie6.css',
                                  'ie7.css',
+                                 'bootstrap-dropdown.js',
+                                 'widget.css',
                                  'responsive/print.css',
                                  'responsive/application-lte-ie7.css',
                                  'responsive/application-ie8.css']
 
-     config.sass.load_paths += [
-       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
-       "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
-     ]
+    config.sass.load_paths += [
+      "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/components",
+      "#{Gem.loaded_specs['foundation-rails'].full_gem_path}/vendor/assets/stylesheets/foundation/"
+    ]
 
   end
 end

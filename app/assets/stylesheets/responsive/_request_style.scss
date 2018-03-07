@@ -1,20 +1,37 @@
 /* Style for request page */
 
-div.correspondence {
+$color-delivery-sent: #2688dc !default; // blue
+$color-delivery-delivered: #69952F !default; // green
+$color-delivery-failed: #D83838 !default; // red
+
+.correspondence {
   border: 1px solid #ccc;
   margin: 0 0 1em;
-  padding: 0.5em 1em 0 0.5em;
 
   h2 {
+    margin-top: 0;
     text-align:right;
     font-size:1em;
   }
 }
 
+.preview_subject,
+.preview_to {
+  font-weight: bold;
+  strong {
+    font-weight: normal;
+    display: block;
+    color: #777;
+  }
+}
+
+.preview_subject {
+  margin-bottom: 1.5em;
+}
+
 div.comment_in_request {
   border: 1px dotted #ccc;
   margin:0 0 1em 3em;
-  padding:0 0.5em;
 
   h2 {
     font-size:1em;
@@ -25,13 +42,9 @@ div.comment_in_request {
 }
 
 .event_actions {
+  margin-bottom: 0;
   text-align:right;
   line-height: 1em;
-  margin-bottom: 1em;
-}
-
-.correspondence_text,.comment_in_request_text {
-  margin:0 1.2em 0 0.9em;
 }
 
 .user_photo_on_request img {
@@ -47,7 +60,6 @@ div.comment_in_request {
   height:36px;
   float:left;
   vertical-align:middle;
-  margin-top: 0.5em;
   margin-right:0.5em;
 }
 
@@ -69,11 +81,9 @@ a img.attachment_image {
 }
 
 .describe_state_form,#other_recipients {
-
   border-radius:3px;
   -moz-border-radius:3px;
   margin:1em 0;
-  padding:0.5em 1em;
 }
 
 .describe_state_form {
@@ -85,8 +95,115 @@ a img.attachment_image {
   }
 }
 
-#follow_box .feed_link {
- text-align: center;
+#track-request .feed_link {
+  text-align: center;
+}
+
+.correspondence_delivery {
+  background-color: #eee;
+
+  // Cruft that comes from the page we ajax in
+  h1 {
+    display: none;
+  }
+
+  // "This message has been delivered" etc
+  h2 {
+    text-align: inherit;
+    font-size: 1.2em;
+  }
+
+  pre {
+    font-size: 0.8em;
+    padding: 0.5em 1em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+}
+
+.correspondence_delivery--sent {
+  background-color: mix(#fff, $color-delivery-sent, 85%);
+}
+
+.correspondence_delivery--delivered {
+  background-color: mix(#fff, $color-delivery-delivered, 85%);
+}
+
+.correspondence_delivery--failed {
+  background-color: mix(#fff, $color-delivery-failed, 85%);
+}
+
+.toggle-delivery-log {
+  padding-right: 8px + 16px;
+  margin-right: 4px; // remember also ~4px from whitespace character after inline element
+  background: transparent none 100% 50% no-repeat;
+  background-size: 16px 16px;
+
+  // Preload the spinner image, because the ajax request
+  // will likely block it from loading when we actually need it.
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent image-url('loader-000-on-fff-16px.gif') 0 0 no-repeat;
+    background-size: 16px 16px;
+  }
+}
+
+.toggle-delivery-log--sent {
+  background-image: image-url('delivery-status/sent.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('delivery-status/sent@2x.png');
+  }
+
+  &, &:link, &:visited {
+    color: $color-delivery-sent;
+  }
+
+  &:hover, &:focus {
+    color: darken($color-delivery-sent, 10%);
+  }
+}
+
+.toggle-delivery-log--delivered {
+  background-image: image-url('delivery-status/delivered.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('delivery-status/delivered@2x.png');
+  }
+
+  &, &:link, &:visited {
+    color: $color-delivery-delivered;
+  }
+
+  &:hover, &:focus {
+    color: darken($color-delivery-delivered, 10%);
+  }
+}
+
+.toggle-delivery-log--failed {
+  background-image: image-url('delivery-status/failed.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    background-image: image-url('delivery-status/failed@2x.png');
+  }
+
+  &, &:link, &:visited {
+    color: $color-delivery-failed;
+  }
+
+  &:hover, &:focus {
+    color: darken($color-delivery-failed, 10%);
+  }
+}
+
+.toggle-delivery-log--loading {
+  background-image: image-url('loader-000-on-fff-16px.gif');
 }
 
 
@@ -94,7 +211,7 @@ a img.attachment_image {
 
 #request_details {
 
- table {
+  table {
     border-collapse: collapse;
   }
 

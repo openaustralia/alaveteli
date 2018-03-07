@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20131024114346
 #
 # Table name: public_bodies
 #
@@ -25,6 +24,7 @@
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
+#  info_requests_visible_count            :integer          default(0), not null
 #
 
 require 'csv'
@@ -32,671 +32,584 @@ require 'securerandom'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
-    strip_attributes!
+  include AdminColumn
 
-    validates_presence_of :name, :message => N_("Name can't be blank")
-    validates_presence_of :url_name, :message => N_("URL name can't be blank")
+  class ImportCSVDryRun < StandardError ; end
 
-    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
-    validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
-    validates_uniqueness_of :name, :message => N_("Name is already taken")
+  @non_admin_columns = %w(name last_edit_comment)
 
-    validate :request_email_if_requestable
+  attr_accessor :no_xapian_reindex
 
-    has_many :info_requests, :order => 'created_at desc'
-    has_many :track_things, :order => 'created_at desc'
-    has_many :censor_rules, :order => 'created_at desc'
-    attr_accessor :no_xapian_reindex
+  # Default fields available for importing from CSV, in the format
+  # [field_name, 'short description of field (basic html allowed)']
+  cattr_accessor :csv_import_fields do
+    [
+      ['name', '(i18n)<strong>Existing records cannot be renamed</strong>'],
+      ['short_name', '(i18n)'],
+      ['request_email', '(i18n)'],
+      ['notes', '(i18n)'],
+      ['publication_scheme', '(i18n)'],
+      ['disclosure_log', '(i18n)'],
+      ['home_page', ''],
+      ['tag_string', '(tags separated by spaces)'],
+    ]
+  end
 
-    has_tag_string
-    before_save :set_api_key, :set_default_publication_scheme
+  has_many :info_requests, :order => 'created_at desc'
+  has_many :track_things, :order => 'created_at desc', :dependent => :destroy
+  has_many :censor_rules, :order => 'created_at desc', :dependent => :destroy
 
-    # Every public body except for the internal admin one is visible
-    scope :visible, lambda {
-        {
-            :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
-        }
+  validates_presence_of :name, :message => N_("Name can't be blank")
+  validates_presence_of :url_name, :message => N_("URL name can't be blank")
+
+  validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :allow_blank => true
+  validates_uniqueness_of :url_name, :message => N_("URL name is already taken")
+  validates_uniqueness_of :name, :message => N_("Name is already taken")
+
+  validate :request_email_if_requestable
+
+  before_save :set_api_key!, :unless => :api_key
+  before_save :set_default_publication_scheme
+  after_save :purge_in_cache
+  after_update :reindex_requested_from
+
+
+  # Every public body except for the internal admin one is visible
+  scope :visible, lambda {
+    {
+      :conditions => "public_bodies.id <> #{PublicBody.internal_admin_body.id}"
     }
+  }
 
-    translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
+  acts_as_versioned
+  acts_as_xapian :texts => [:name, :short_name, :notes],
+  :values => [
+    # for sorting
+    [:created_at_numeric, 1, "created_at", :number]
+  ],
+  :terms => [
+    [:variety, 'V', "variety"],
+    [:tag_array_for_search, 'U', "tag"]
+  ]
+  has_tag_string
+  strip_attributes :allow_empty => true
+  translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
-    # Public: Search for Public Bodies whose name, short_name, request_email or
-    # tags contain the given query
-    #
-    # query  - String to query the searchable fields
-    # locale - String to specify the language of the seach query
-    #          (default: I18n.locale)
-    #
-    # Returns an ActiveRecord::Relation
-    def self.search(query, locale = I18n.locale)
-        locale = locale.to_s.gsub('-', '_') # Clean the locale string
+  # Cannot be grouped at top as it depends on the `translates` macro
+  include Translatable
 
-        sql = <<-SQL
-            (
-              lower(public_body_translations.name) like lower('%'||?||'%')
-              OR lower(public_body_translations.short_name) like lower('%'||?||'%')
-              OR lower(public_body_translations.request_email) like lower('%'||?||'%' )
-              OR lower(has_tag_string_tags.name) like lower('%'||?||'%' )
-            )
-            AND has_tag_string_tags.model_id = public_bodies.id
-            AND has_tag_string_tags.model = 'PublicBody'
-            AND (public_body_translations.locale = ?)
-        SQL
+  # Cannot be grouped at top as it depends on the `translates` macro
+  include PublicBodyDerivedFields
 
-        PublicBody.joins(:translations, :tags).
-                     where([sql, query, query, query, query, locale]).
-                       uniq
+  # Cannot be grouped at top as it depends on the `translates` macro
+  class Translation
+    include PublicBodyDerivedFields
+    strip_attributes :allow_empty => true
+  end
+
+  self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
+  self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
+  self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
+  self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
+  self.non_versioned_columns << 'info_requests_overdue_count' << 'info_requests_visible_count'
+
+  # Cannot be defined directly under `include` statements as this is opening
+  # the PublicBody::Version class dynamically defined by  the
+  # `acts_as_versioned` macro.
+  #
+  # TODO: acts_as_versioned accepts an extend parameter [1] so these methods
+  # could be extracted to a module:
+  #
+  #    acts_as_versioned :extend => PublicBodyVersionExtensions
+  #
+  # This includes the module in both the parent class (PublicBody) and the
+  # Version class (PublicBody::Version), so the behaviour is slightly
+  # different to opening up PublicBody::Version.
+  #
+  # We could add an `extend_version_class` option pretty trivially by
+  # following the pattern for the existing `extend` option.
+  #
+  # [1] http://git.io/vIetK
+  class Version
+    def last_edit_comment_for_html_display
+      text = self.last_edit_comment.strip
+      text = CGI.escapeHTML(text)
+      text = MySociety::Format.make_clickable(text)
+      text = text.gsub(/\n/, '<br>')
+      return text
     end
 
-    # Convenience methods for creating/editing translations via forms
-    def find_translation_by_locale(locale)
-        self.translations.find_by_locale(locale)
-    end
-
-    # TODO: - Don't like repeating this!
-    def calculate_cached_fields(t)
-        PublicBody.set_first_letter(t)
-        short_long_name = t.name
-        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
-        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
-    end
-
-    # Set the first letter on a public body or translation
-    def PublicBody.set_first_letter(instance)
-        unless instance.name.nil? or instance.name.empty?
-            # we use a regex to ensure it works with utf-8/multi-byte
-            first_letter = Unicode.upcase instance.name.scan(/^./mu)[0]
-            if first_letter != instance.first_letter
-                instance.first_letter = first_letter
-            end
+    def compare(previous = nil)
+      if previous.nil?
+        yield([])
+      else
+        v = self
+        changes = self.class.content_columns.inject([]) {|memo, c|
+          unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
+            from = previous.send(c.name)
+            to = self.send(c.name)
+            memo << { :name => c.name.humanize, :from => from, :to => to } if from != to
+          end
+          memo
+        }
+        changes.each do |change|
+          yield(change)
         end
+      end
     end
+  end
 
-    def translated_versions
-        translations
+  # Public: Search for Public Bodies whose name, short_name, request_email or
+  # tags contain the given query
+  #
+  # query  - String to query the searchable fields
+  # locale - String to specify the language of the seach query
+  #          (default: I18n.locale)
+  #
+  # Returns an ActiveRecord::Relation
+  def self.search(query, locale = I18n.locale)
+    locale = locale.to_s.gsub('-', '_') # Clean the locale string
+
+    sql = <<-SQL
+    (
+      lower(public_body_translations.name) like lower('%'||?||'%')
+      OR lower(public_body_translations.short_name) like lower('%'||?||'%')
+      OR lower(public_body_translations.request_email) like lower('%'||?||'%' )
+      OR lower(has_tag_string_tags.name) like lower('%'||?||'%' )
+    )
+    AND has_tag_string_tags.model_id = public_bodies.id
+    AND has_tag_string_tags.model = 'PublicBody'
+    AND (public_body_translations.locale = ?)
+    SQL
+
+    PublicBody.joins(:translations, :tags).
+      where([sql, query, query, query, query, locale]).
+      uniq
+  end
+
+  def set_api_key
+    set_api_key! if api_key.nil?
+  end
+
+  def set_api_key!
+    self.api_key = SecureRandom.base64(33)
+  end
+
+  # like find_by_url_name but also search historic url_name if none found
+  def self.find_by_url_name_with_historic(name)
+    # If many bodies are found (usually because the url_name is the same
+    # across locales) return any of them.
+    found = joins(:translations).
+      where("public_body_translations.url_name = ?", name).
+      readonly(false).
+      first
+
+    return found if found
+
+    # If none found, then search the history of short names and find unique
+    # public bodies in it
+    old = PublicBody::Version.
+      where(:url_name => name).
+      pluck('DISTINCT public_body_id')
+
+    # Maybe return the first one, so we show something relevant,
+    # rather than throwing an error?
+    raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
+    return unless old.size == 1
+    # does acts_as_versioned provide a method that returns the current version?
+    PublicBody.find(old.first)
+  end
+
+  # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
+  def not_apply?
+    has_tag?('not_apply')
+  end
+
+  # If tagged "defunct", then the authority no longer exists at all
+  def defunct?
+    has_tag?('defunct')
+  end
+
+  # Are all requests to this body under the Environmental Information
+  # Regulations?
+  def eir_only?
+    has_tag?('eir_only')
+  end
+
+  def site_administration?
+    has_tag?('site_administration')
+  end
+
+  # Can an FOI (etc.) request be made to this body?
+  def is_requestable?
+    has_request_email? && !defunct? && !not_apply?
+  end
+
+  # Strict superset of is_requestable?
+  def is_followupable?
+    has_request_email?
+  end
+
+  def has_request_email?
+    !request_email.blank? && request_email != 'blank'
+  end
+
+  # Also used as not_followable_reason
+  def not_requestable_reason
+    if defunct?
+      'defunct'
+    elsif not_apply?
+      'not_apply'
+    elsif !has_request_email?
+      'bad_contact'
+    else
+      raise "not_requestable_reason called with type that has no reason"
     end
+  end
 
-    def translated_versions=(translation_attrs)
-        def skip?(attrs)
-            valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
-            return valueless.length == 0
-        end
+  def special_not_requestable_reason?
+    defunct? || not_apply?
+  end
 
-        if translation_attrs.respond_to? :each_value    # Hash => updating
-            translation_attrs.each_value do |attrs|
-                next if skip?(attrs)
-                t = translation_for(attrs[:locale]) || PublicBody::Translation.new
-                t.attributes = attrs
-                calculate_cached_fields(t)
-                t.save!
-            end
-        else                                            # Array => creating
-            translation_attrs.each do |attrs|
-                next if skip?(attrs)
-                new_translation = PublicBody::Translation.new(attrs)
-                calculate_cached_fields(new_translation)
-                translations << new_translation
-            end
-        end
+  def created_at_numeric
+    # format it here as no datetime support in Xapian's value ranges
+    created_at.strftime("%Y%m%d%H%M%S")
+  end
+
+  def variety
+    "authority"
+  end
+
+  def law_only_short
+    eir_only? ? 'EIR' : 'FOI'
+  end
+
+  # Guess home page from the request email, or use explicit override, or nil
+  # if not known.
+  #
+  # TODO: PublicBody#calculated_home_page would be a good candidate to cache
+  # in an instance variable
+  def calculated_home_page
+    if home_page && !home_page.empty?
+      home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
+    elsif request_email_domain
+      "http://www.#{request_email_domain}"
     end
+  end
 
-    def set_default_publication_scheme
-      # Make sure publication_scheme gets the correct default value.
-      # (This would work automatically, were publication_scheme not a translated attribute)
-      self.publication_scheme = "" if self.publication_scheme.nil?
+  # The "internal admin" is a special body for internal use.
+  def self.internal_admin_body
+    # Use find_by_sql to avoid the search being specific to a
+    # locale, since url_name is a translated field:
+    sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
+    matching_pbs = PublicBody.find_by_sql sql
+    case
+    when matching_pbs.empty? then
+      I18n.with_locale(I18n.default_locale) do
+        PublicBody.create!(:name => 'Internal admin authority',
+                           :short_name => "",
+                           :request_email => AlaveteliConfiguration::contact_email,
+                           :home_page => "",
+                           :notes => "",
+                           :publication_scheme => "",
+                           :last_edit_editor => "internal_admin",
+                           :last_edit_comment => "Made by PublicBody.internal_admin_body")
+      end
+    when matching_pbs.length == 1 then
+      matching_pbs[0]
+    else
+      raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
     end
+  end
 
-    def set_api_key
-      self.api_key = SecureRandom.base64(33) if self.api_key.nil?
+  # Import from a string in CSV format.
+  # Just tests things and returns messages if dry_run is true.
+  # Returns an array of [array of errors, array of notes]. If there
+  # are errors, always rolls back (as with dry_run).
+  def self.import_csv(csv, tag, tag_behaviour, dry_run, editor, available_locales = [])
+    tmp_csv = nil
+    Tempfile.open('alaveteli') do |f|
+      f.write csv
+      tmp_csv = f
     end
+    PublicBody.import_csv_from_file(tmp_csv.path, tag, tag_behaviour, dry_run, editor, available_locales)
+  end
 
-    # like find_by_url_name but also search historic url_name if none found
-    def self.find_by_url_name_with_historic(name)
-        found = PublicBody.find(:all,
-                                :conditions => ["public_body_translations.url_name=?", name],
-                                :joins => :translations,
-                                :readonly => false)
-        # If many bodies are found (usually because the url_name is the same across
-        # locales) return any of them
-        return found.first if found.size >= 1
+  # Import from a CSV file.
+  # Just tests things and returns messages if dry_run is true.
+  # Returns an array of [array of errors, array of notes]. If there
+  # are errors, always rolls back (as with dry_run).
+  def self.import_csv_from_file(csv_filename, tag, tag_behaviour, dry_run, editor, available_locales = [])
+    errors = []
+    notes = []
+    begin
+      ActiveRecord::Base.transaction do
+        # Use the default locale when retrieving existing bodies; otherwise
+        # matching names won't work afterwards, and we'll create new bodies instead
+        # of updating them
+        bodies_by_name = {}
+        set_of_existing = Set.new
+        internal_admin_body_id = PublicBody.internal_admin_body.id
+        I18n.with_locale(I18n.default_locale) do
+          bodies = (tag.nil? || tag.empty?) ? PublicBody.includes(:translations) : PublicBody.find_by_tag(tag)
+          for existing_body in bodies
+            # Hide InternalAdminBody from import notes
+            next if existing_body.id == internal_admin_body_id
 
-        # If none found, then search the history of short names
-        old = PublicBody::Version.find_all_by_url_name(name)
-        # Find unique public bodies in it
-        old = old.map { |x| x.public_body_id }
-        old = old.uniq
-        # Maybe return the first one, so we show something relevant,
-        # rather than throwing an error?
-        raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
-        return unless old.size == 1
-        # does acts_as_versioned provide a method that returns the current version?
-        return PublicBody.find(old.first)
-    end
-
-    # Set the first letter, which is used for faster queries
-    before_save(:set_first_letter)
-    def set_first_letter
-        PublicBody.set_first_letter(self)
-    end
-
-    # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
-    def not_apply?
-        return self.has_tag?('not_apply')
-    end
-    # If tagged "defunct", then the authority no longer exists at all
-    def defunct?
-        return self.has_tag?('defunct')
-    end
-
-    # Can an FOI (etc.) request be made to this body, and if not why not?
-    def is_requestable?
-        if self.defunct?
-            return false
-        end
-        if self.not_apply?
-            return false
-        end
-        if self.request_email.nil?
-            return false
-        end
-        return !self.request_email.empty? && self.request_email != 'blank'
-    end
-    # Strict superset of is_requestable?
-    def is_followupable?
-        if self.request_email.nil?
-            return false
-        end
-        return !self.request_email.empty? && self.request_email != 'blank'
-    end
-    # Also used as not_followable_reason
-    def not_requestable_reason
-        if self.defunct?
-            return 'defunct'
-        elsif self.not_apply?
-            return 'not_apply'
-        elsif self.request_email.nil? or self.request_email.empty? or self.request_email == 'blank'
-            return 'bad_contact'
-        else
-            raise "requestable_failure_reason called with type that has no reason"
-        end
-    end
-
-    acts_as_versioned
-    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
-    self.non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
-    self.non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
-    self.non_versioned_columns << 'info_requests_not_held_count' << 'info_requests_overdue'
-    self.non_versioned_columns << 'info_requests_overdue_count'
-
-    class Version
-
-        def last_edit_comment_for_html_display
-            text = self.last_edit_comment.strip
-            text = CGI.escapeHTML(text)
-            text = MySociety::Format.make_clickable(text)
-            text = text.gsub(/\n/, '<br>')
-            return text
-        end
-
-        def compare(previous = nil)
-          if previous.nil?
-            yield([])
-          else
-            v = self
-            changes = self.class.content_columns.inject([]) {|memo, c|
-              unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
-                from = previous.send(c.name)
-                to = self.send(c.name)
-                memo << { :name => c.human_name, :from => from, :to => to } if from != to
-              end
-              memo
-            }
-            changes.each do |change|
-              yield(change)
-            end
+            bodies_by_name[existing_body.name] = existing_body
+            set_of_existing.add(existing_body.name)
           end
         end
-    end
 
-    acts_as_xapian :texts => [ :name, :short_name, :notes ],
-        :values => [
-             [ :created_at_numeric, 1, "created_at", :number ] # for sorting
-        ],
-        :terms => [ [ :variety, 'V', "variety" ],
-                [ :tag_array_for_search, 'U', "tag" ]
-        ]
-    def created_at_numeric
-        # format it here as no datetime support in Xapian's value ranges
-        return self.created_at.strftime("%Y%m%d%H%M%S")
-    end
-    def variety
-        return "authority"
-    end
+        set_of_importing = Set.new
+        # Default values in case no field list is given
+        field_names = { 'name' => 1, 'request_email' => 2 }
+        line = 0
 
-    # if the URL name has changed, then all requested_from: queries
-    # will break unless we update index for every event for every
-    # request linked to it
-    after_update :reindex_requested_from
-    def reindex_requested_from
-        if self.changes.include?('url_name')
-            for info_request in self.info_requests
+        import_options = {:field_names => field_names,
+                          :available_locales => available_locales,
+                          :tag => tag,
+                          :tag_behaviour => tag_behaviour,
+                          :editor => editor,
+                          :notes => notes,
+                          :errors => errors }
 
-                for info_request_event in info_request.info_request_events
-                    info_request_event.xapian_mark_needs_index
-                end
-            end
+        CSV.foreach(csv_filename) do |row|
+          line = line + 1
+
+          # Parse the first line as a field list if it starts with '#'
+          if line==1 and row.first.to_s =~ /^#(.*)$/
+            row[0] = row[0][1..-1]  # Remove the # sign on first field
+            row.each_with_index {|field, i| field_names[field] = i}
+            next
+          end
+
+          fields = {}
+          field_names.each{ |name, i| fields[name] = row[i] }
+
+          yield line, fields if block_given?
+
+          name = row[field_names['name']]
+          email = row[field_names['request_email']]
+          next if name.nil?
+
+          name.strip!
+          email.strip! unless email.nil?
+
+          if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
+            errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
+            next
+          end
+
+          public_body = bodies_by_name[name] || PublicBody.new(:name => "",
+                                                               :short_name => "",
+                                                               :request_email => "")
+
+          public_body.import_values_from_csv_row(row, line, name, import_options)
+          set_of_importing.add(name)
         end
+
+        # Give an error listing ones that are to be deleted
+        deleted_ones = set_of_existing - set_of_importing
+        if deleted_ones.size > 0
+          notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).sort.join("\n    ") + "\nYou may want to delete them manually.\n"
+        end
+
+        # Rollback if a dry run, or we had errors
+        if dry_run or errors.size > 0
+          raise ImportCSVDryRun
+        end
+      end
+    rescue ImportCSVDryRun
+      # Ignore
     end
 
-    # When name or short name is changed, also change the url name
-    def short_name=(short_name)
-        globalize.write(Globalize.locale, :short_name, short_name)
-        self[:short_name] = short_name
-        self.update_url_name
-    end
+    return [errors, notes]
+  end
 
-    def name=(name)
-        globalize.write(Globalize.locale, :name, name)
-        self[:name] = name
-        self.update_url_name
-    end
+  def self.localized_csv_field_name(locale, field_name)
+    (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
+  end
 
-    def update_url_name
-        self.url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
-    end
 
-    # Return the short name if present, or else long name
-    def short_or_long_name
-        if self.short_name.nil? || self.short_name.empty?   # 'nil' can happen during construction
-            self.name.nil? ? "" : self.name
+  # import values from a csv row (that may include localized columns)
+  def import_values_from_csv_row(row, line, name, options)
+    is_new = new_record?
+    edit_info = if is_new
+      { :action => "creating new authority",
+        :comment => 'Created from spreadsheet' }
+    else
+      { :action => "updating authority",
+        :comment => 'Updated from spreadsheet' }
+    end
+    locales = options[:available_locales]
+    locales = [I18n.default_locale] if locales.empty?
+    locales.each do |locale|
+      I18n.with_locale(locale) do
+        changed = set_locale_fields_from_csv_row(is_new, locale, row, options)
+        unless changed.empty?
+          options[:notes].push "line #{ line }: #{ edit_info[:action] } '#{ name }' (locale: #{ locale }):\n\t#{ changed.to_json }"
+          self.last_edit_comment = edit_info[:comment]
+          self.publication_scheme = publication_scheme || ""
+          self.last_edit_editor = options[:editor]
+
+          begin
+            save!
+          rescue ActiveRecord::RecordInvalid
+            errors.full_messages.each do |msg|
+              options[:errors].push "error: line #{ line }: #{ msg } for authority '#{ name }'"
+            end
+            next
+          end
+        end
+      end
+    end
+  end
+
+  # Sets attribute values for a locale from a csv row
+  def set_locale_fields_from_csv_row(is_new, locale, row, options)
+    changed = ActiveSupport::OrderedHash.new
+    csv_field_names = options[:field_names]
+    csv_import_fields.each do |field_name, field_notes|
+      localized_field_name = self.class.localized_csv_field_name(locale, field_name)
+      column = csv_field_names[localized_field_name]
+      value = column && row[column]
+      # Tags are a special case, as we support adding to the field, not just setting a new value
+      if field_name == 'tag_string'
+        new_tags = [value, options[:tag]].select{ |new_tag| !new_tag.blank? }
+        if new_tags.empty?
+          value = nil
         else
-            self.short_name
-        end
-    end
+          value = new_tags.join(" ")
+          value = "#{value} #{tag_string}"if options[:tag_behaviour] == 'add'
+          end
 
-
-    # Use tags to describe what type of thing this is
-    def type_of_authority(html = false)
-        types = []
-        first = true
-        for tag in self.tags
-            if PublicBodyCategories::get().by_tag().include?(tag.name)
-                desc = PublicBodyCategories::get().singular_by_tag()[tag.name]
-                if first
-                    # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
-                    # (capitalize shockingly converts later characters to lowercase)
-                    desc = desc[0,1].capitalize + desc[1,desc.size]
-                    first = false
-                end
-                if html
-                    # TODO: this should call proper route helpers, but is in model sigh
-                    desc = '<a href="/body/list/' + tag.name + '">' + desc + '</a>'
-                end
-                types.push(desc)
-            end
-        end
-        if types.size > 0
-            ret = types[0, types.size - 1].join(", ")
-            if types.size > 1
-                ret = ret + " and "
-            end
-            ret = ret + types[-1]
-            return ret.html_safe
-        else
-            return _("A public authority")
-        end
-    end
-
-    # Guess home page from the request email, or use explicit override, or nil
-    # if not known.
-    def calculated_home_page
-        if home_page && !home_page.empty?
-            home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
-        elsif request_email_domain
-            "http://www.#{request_email_domain}"
-        end
-    end
-
-    # Are all requests to this body under the Environmental Information Regulations?
-    def eir_only?
-        return self.has_tag?('eir_only')
-    end
-    def law_only_short
-        if self.eir_only?
-            return "EIR"
-        else
-            return "FOI"
-        end
-    end
-
-    # Schools are allowed more time in holidays, so we change some wordings
-    def is_school?
-        return self.has_tag?('school')
-    end
-
-    # The "internal admin" is a special body for internal use.
-    def PublicBody.internal_admin_body
-        # Use find_by_sql to avoid the search being specific to a
-        # locale, since url_name is a translated field:
-        sql = "SELECT * FROM public_bodies WHERE url_name = 'internal_admin_authority'"
-        matching_pbs = PublicBody.find_by_sql sql
-        case
-        when matching_pbs.empty? then
-            I18n.with_locale(I18n.default_locale) do
-                PublicBody.create!(:name => 'Internal admin authority',
-                                   :short_name => "",
-                                   :request_email => AlaveteliConfiguration::contact_email,
-                                   :home_page => "",
-                                   :notes => "",
-                                   :publication_scheme => "",
-                                   :last_edit_editor => "internal_admin",
-                                   :last_edit_comment => "Made by PublicBody.internal_admin_body")
-            end
-        when matching_pbs.length == 1 then
-            matching_pbs[0]
-        else
-            raise "Multiple public bodies (#{matching_pbs.length}) found with url_name 'internal_admin_authority'"
-        end
-    end
-
-    def site_administration?
-        has_tag?('site_administration')
-    end
-
-    class ImportCSVDryRun < StandardError
-    end
-
-    # Import from a string in CSV format.
-    # Just tests things and returns messages if dry_run is true.
-    # Returns an array of [array of errors, array of notes]. If there
-    # are errors, always rolls back (as with dry_run).
-    def self.import_csv(csv, tag, tag_behaviour, dry_run, editor, available_locales = [])
-        tmp_csv = nil
-        Tempfile.open('alaveteli') do |f|
-            f.write csv
-            tmp_csv = f
-        end
-        PublicBody.import_csv_from_file(tmp_csv.path, tag, tag_behaviour, dry_run, editor, available_locales)
-    end
-
-    # Import from a CSV file.
-    # Just tests things and returns messages if dry_run is true.
-    # Returns an array of [array of errors, array of notes]. If there
-    # are errors, always rolls back (as with dry_run).
-    def self.import_csv_from_file(csv_filename, tag, tag_behaviour, dry_run, editor, available_locales = [])
-        errors = []
-        notes = []
-        available_locales = [I18n.default_locale] if available_locales.empty?
-
-        begin
-            ActiveRecord::Base.transaction do
-                # Use the default locale when retrieving existing bodies; otherwise
-                # matching names won't work afterwards, and we'll create new bodies instead
-                # of updating them
-                bodies_by_name = {}
-                set_of_existing = Set.new()
-                I18n.with_locale(I18n.default_locale) do
-                    bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all) : PublicBody.find_by_tag(tag)
-                    for existing_body in bodies
-                        # Hide InternalAdminBody from import notes
-                        next if existing_body.id == PublicBody.internal_admin_body.id
-
-                        bodies_by_name[existing_body.name] = existing_body
-                        set_of_existing.add(existing_body.name)
-                    end
-                end
-
-                set_of_importing = Set.new()
-                field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
-                line = 0
-
-                CSV.foreach(csv_filename) do |row|
-                    line = line + 1
-
-                    # Parse the first line as a field list if it starts with '#'
-                    if line==1 and row.first.to_s =~ /^#(.*)$/
-                        row[0] = row[0][1..-1]  # Remove the # sign on first field
-                        row.each_with_index {|field, i| field_names[field] = i}
-                        next
-                    end
-
-                    fields = {}
-                    field_names.each{|name, i| fields[name] = row[i]}
-
-                    yield line, fields if block_given?
-
-                    name = row[field_names['name']]
-                    email = row[field_names['request_email']]
-                    next if name.nil?
-
-                    name.strip!
-                    email.strip! unless email.nil?
-
-                    if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
-                        errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
-                        next
-                    end
-
-                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'disclosure_log', 'home_page', 'tag_string']
-
-                    if public_body = bodies_by_name[name]   # Existing public body
-                        available_locales.each do |locale|
-                            I18n.with_locale(locale) do
-                                changed = ActiveSupport::OrderedHash.new
-                                field_list.each do |field_name|
-                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
-                                    localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
-
-                                    # Tags are a special case, as we support adding to the field, not just setting a new value
-                                    if localized_field_name == 'tag_string'
-                                        if localized_value.nil?
-                                            localized_value = tag unless tag.empty?
-                                        else
-                                            if tag_behaviour == 'add'
-                                                localized_value = "#{localized_value} #{tag}" unless tag.empty?
-                                                localized_value = "#{localized_value} #{public_body.tag_string}"
-                                            end
-                                        end
-                                    end
-
-                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
-                                        changed[field_name] = "#{public_body.send(field_name)}: #{localized_value}"
-                                        public_body.send("#{field_name}=", localized_value)
-                                    end
-                                end
-
-                                unless changed.empty?
-                                    notes.push "line #{line.to_s}: updating authority '#{name}' (locale: #{locale}):\n\t#{changed.to_json}"
-                                    public_body.last_edit_editor = editor
-                                    public_body.last_edit_comment = 'Updated from spreadsheet'
-                                    public_body.save!
-                                end
-                            end
-                        end
-                    else # New public body
-                        public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
-                        available_locales.each do |locale|
-                            I18n.with_locale(locale) do
-                                changed = ActiveSupport::OrderedHash.new
-                                field_list.each do |field_name|
-                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
-                                    localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
-
-                                    if localized_field_name == 'tag_string' and tag_behaviour == 'add'
-                                        localized_value = "#{localized_value} #{tag}" unless tag.empty?
-                                    end
-
-                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
-                                        changed[field_name] = localized_value
-                                        public_body.send("#{field_name}=", localized_value)
-                                    end
-                                end
-
-                                unless changed.empty?
-                                    notes.push "line #{line.to_s}: creating new authority '#{name}' (locale: #{locale}):\n\t#{changed.to_json}"
-                                    public_body.publication_scheme = public_body.publication_scheme || ""
-                                    public_body.last_edit_editor = editor
-                                    public_body.last_edit_comment = 'Created from spreadsheet'
-
-                                    begin
-                                        public_body.save!
-                                    rescue ActiveRecord::RecordInvalid
-                                        public_body.errors.full_messages.each do |msg|
-                                            errors.push "error: line #{ line }: #{ msg } for authority '#{ name }'"
-                                        end
-                                        next
-                                    end
-                                end
-                            end
-                        end
-                    end
-
-                    set_of_importing.add(name)
-                end
-
-                # Give an error listing ones that are to be deleted
-                deleted_ones = set_of_existing - set_of_importing
-                if deleted_ones.size > 0
-                    notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).sort.join("\n    ") + "\nYou may want to delete them manually.\n"
-                end
-
-                # Rollback if a dry run, or we had errors
-                if dry_run or errors.size > 0
-                    raise ImportCSVDryRun
-                end
-            end
-        rescue ImportCSVDryRun
-            # Ignore
         end
 
-        return [errors, notes]
+        if value and read_attribute_value(field_name, locale) != value
+          if is_new
+            changed[field_name] = value
+          else
+            changed[field_name] = "#{read_attribute_value(field_name, locale)}: #{value}"
+          end
+          assign_attributes({ field_name => value })
+        end
+      end
+      changed
     end
 
     # Does this user have the power of FOI officer for this body?
     def is_foi_officer?(user)
-        user_domain = user.email_domain
-        our_domain = self.request_email_domain
+      user_domain = user.email_domain
+      our_domain = request_email_domain
 
-        if user_domain.nil? or our_domain.nil?
-            return false
-        end
-
-        return our_domain == user_domain
-    end
-    def foi_officer_domain_required
-        return self.request_email_domain
-    end
-
-    # Returns nil if configuration variable not set
-    def override_request_email
-        e = AlaveteliConfiguration::override_all_public_body_request_emails
-        e if e != ""
+      return false if user_domain.nil? or our_domain.nil?
+      our_domain == user_domain
     end
 
     def request_email
-        if override_request_email
-            override_request_email
-        else
-            read_attribute(:request_email)
-        end
+      if AlaveteliConfiguration::override_all_public_body_request_emails.blank? || read_attribute(:request_email).blank?
+        read_attribute(:request_email)
+      else
+        AlaveteliConfiguration::override_all_public_body_request_emails
+      end
     end
 
     # Domain name of the request email
     def request_email_domain
-        return PublicBody.extract_domain_from_email(self.request_email)
+      PublicBody.extract_domain_from_email(request_email)
     end
 
-    # Return the domain part of an email address, canonicalised and with common
-    # extra UK Government server name parts removed.
-    def PublicBody.extract_domain_from_email(email)
-        email =~ /@(.*)/
-        if $1.nil?
-            return nil
-        end
+    alias_method :foi_officer_domain_required, :request_email_domain
 
-        # take lower case
-        ret = $1.downcase
-
-        # remove special email domains for UK Government addresses
-        ret.sub!(".gsi.", ".")
-        ret.sub!(".x.", ".")
-        ret.sub!(".pnn.", ".")
-
-        return ret
+    # Return the canonicalised domain part of an email address
+    #
+    # TODO: Extract to library class
+    def self.extract_domain_from_email(email)
+      email =~ /@(.*)/
+      $1.nil? ? nil : $1.downcase
     end
 
+    # TODO: Could this be defined as `sorted_versions.reverse`?
     def reverse_sorted_versions
-        self.versions.sort { |a,b| b.version <=> a.version }
+      versions.sort { |a,b| b.version <=> a.version }
     end
+
     def sorted_versions
-        self.versions.sort { |a,b| a.version <=> b.version }
+      versions.sort { |a,b| a.version <=> b.version }
     end
 
     def has_notes?
-        return !self.notes.nil? && self.notes != ""
+      !notes.nil? && notes != ""
     end
+
+    # TODO: Deprecate this method. Its only used in a couple of views so easy to
+    # update to just call PublicBody#notes
     def notes_as_html
-        self.notes
+      notes
     end
 
     def notes_without_html
-        # assume notes are reasonably behaved HTML, so just use simple regexp on this
-        @notes_without_html ||= (self.notes.nil? ? '' : self.notes.gsub(/<\/?[^>]*>/, ""))
+      # assume notes are reasonably behaved HTML, so just use simple regexp
+      # on this
+      @notes_without_html ||= (notes.nil? ? '' : notes.gsub(/<\/?[^>]*>/, ""))
     end
 
     def json_for_api
-        return {
-            :id => self.id,
-            :url_name => self.url_name,
-            :name => self.name,
-            :short_name => self.short_name,
-            # :request_email  # we hide this behind a captcha, to stop people doing bulk requests easily
-            :created_at => self.created_at,
-            :updated_at => self.updated_at,
-            # don't add the history as some edit comments contain sensitive information
-            # :version, :last_edit_editor, :last_edit_comment
-            :home_page => self.calculated_home_page,
-            :notes => self.notes,
-            :publication_scheme => self.publication_scheme,
-            :tags => self.tag_array,
-        }
+      {
+        :id => id,
+        :url_name => url_name,
+        :name => name,
+        :short_name => short_name,
+        # :request_email  # we hide this behind a captcha, to stop people
+        # doing bulk requests easily
+        :created_at => created_at,
+        :updated_at => updated_at,
+        # don't add the history as some edit comments contain sensitive
+        # information
+        # :version, :last_edit_editor, :last_edit_comment
+        :home_page => calculated_home_page,
+        :notes => notes,
+        :publication_scheme => publication_scheme,
+        :tags => tag_array,
+        :info => {
+          :requests_count => info_requests_count,
+          :requests_successful_count => info_requests_successful_count,
+          :requests_not_held_count   => info_requests_not_held_count,
+          :requests_overdue_count    => info_requests_overdue_count,
+          :requests_visible_classified_count => info_requests_visible_classified_count
+        },
+      }
     end
 
-    after_save(:purge_in_cache)
     def purge_in_cache
-        self.info_requests.each {|x| x.purge_in_cache}
-    end
-
-    def for_admin_column
-        self.class.content_columns.map{|c| c unless %w(name last_edit_comment).include?(c.name)}.compact.each do |column|
-            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
-        end
+      info_requests.each { |x| x.purge_in_cache }
     end
 
     def self.where_clause_for_stats(minimum_requests, total_column)
-        # When producing statistics for public bodies, we want to
-        # exclude any that are tagged with 'test' - we use a
-        # sub-select to find the IDs of those public bodies.
-        test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
-            " WHERE model = 'PublicBody' AND name = 'test'"
-        "#{total_column} >= #{minimum_requests} AND id NOT IN (#{test_tagged_query})"
+      # When producing statistics for public bodies, we want to
+      # exclude any that are tagged with 'test' - we use a
+      # sub-select to find the IDs of those public bodies.
+      test_tagged_query = "SELECT model_id FROM has_tag_string_tags" \
+        " WHERE model = 'PublicBody' AND name = 'test'"
+      "#{total_column} >= #{minimum_requests} AND id NOT IN (#{test_tagged_query})"
     end
 
     # Return data for the 'n' public bodies with the highest (or
     # lowest) number of requests, but only returning data for those
     # with at least 'minimum_requests' requests.
     def self.get_request_totals(n, highest, minimum_requests)
-        ordering = "info_requests_count"
-        ordering += " DESC" if highest
-        where_clause = where_clause_for_stats minimum_requests, 'info_requests_count'
-        public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
-        public_bodies.reverse! if highest
-        y_values = public_bodies.map { |pb| pb.info_requests_count }
-        return {
-            'public_bodies' => public_bodies,
-            'y_values' => y_values,
-            'y_max' => y_values.max,
-            'totals' => y_values}
+      ordering = "info_requests_count"
+      ordering += " DESC" if highest
+      where_clause = where_clause_for_stats minimum_requests, 'info_requests_count'
+      public_bodies = PublicBody.order(ordering).where(where_clause).limit(n)
+      public_bodies.reverse! if highest
+      y_values = public_bodies.map { |pb| pb.info_requests_count }
+      return {
+        'public_bodies' => public_bodies,
+        'y_values' => y_values,
+        'y_max' => y_values.max,
+      'totals' => y_values}
     end
 
     # Return data for the 'n' public bodies with the highest (or
@@ -705,78 +618,116 @@ class PublicBody < ActiveRecord::Base
     # percentage.  This only returns data for those public bodies with
     # at least 'minimum_requests' requests.
     def self.get_request_percentages(column, n, highest, minimum_requests)
-        total_column = "info_requests_visible_classified_count"
-        ordering = "y_value"
-        ordering += " DESC" if highest
-        y_value_column = "(cast(#{column} as float) / #{total_column})"
-        where_clause = where_clause_for_stats minimum_requests, total_column
-        where_clause += " AND #{column} IS NOT NULL"
-        public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").order(ordering).where(where_clause).limit(n)
-        public_bodies.reverse! if highest
-        y_values = public_bodies.map { |pb| pb.y_value.to_f }
+      total_column = "info_requests_visible_classified_count"
+      ordering = "y_value"
+      ordering += " DESC" if highest
+      y_value_column = "(cast(#{column} as float) / #{total_column})"
+      where_clause = where_clause_for_stats minimum_requests, total_column
+      where_clause += " AND #{column} IS NOT NULL"
+      public_bodies = PublicBody.select("*, #{y_value_column} AS y_value").
+                                  order(ordering).
+                                    where(where_clause).
+                                      limit(n)
+      public_bodies.reverse! if highest
+      y_values = public_bodies.map { |pb| pb.y_value.to_f }
 
-        original_values = public_bodies.map { |pb| pb.send(column) }
-        # If these are all nil, then probably the values have never
-        # been set; some have to be set by a rake task.  In that case,
-        # just return nil:
-        return nil unless original_values.any? { |ov| !ov.nil? }
+      original_values = public_bodies.map { |pb| pb.send(column) }
+      # If these are all nil, then probably the values have never
+      # been set; some have to be set by a rake task.  In that case,
+      # just return nil:
+      return nil unless original_values.any? { |ov| !ov.nil? }
 
-        original_totals = public_bodies.map { |pb| pb.send(total_column) }
-        # Calculate confidence intervals, as offsets from the proportion:
-        cis_below = []
-        cis_above = []
-        original_totals.each_with_index.map { |total, i|
-            lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
-            cis_below.push(y_values[i] - lower_ci)
-            cis_above.push(higher_ci - y_values[i])
-        }
-        # Turn the y values and confidence interval offsets into
-        # percentages:
-        [y_values, cis_below, cis_above].each { |l|
-            l.map! { |v| 100 * v }
-        }
-        return {
-            'public_bodies' => public_bodies,
-            'y_values' => y_values,
-            'cis_below' => cis_below,
-            'cis_above' => cis_above,
-            'y_max' => 100,
-            'totals' => original_totals}
+      original_totals = public_bodies.map { |pb| pb.send(total_column) }
+      # Calculate confidence intervals, as offsets from the proportion:
+      cis_below = []
+      cis_above = []
+      original_totals.each_with_index.map { |total, i|
+        lower_ci, higher_ci = ci_bounds original_values[i], total, 0.05
+        cis_below.push(y_values[i] - lower_ci)
+        cis_above.push(higher_ci - y_values[i])
+      }
+      # Turn the y values and confidence interval offsets into
+      # percentages:
+      [y_values, cis_below, cis_above].each { |l|
+        l.map! { |v| 100 * v }
+      }
+      return {
+        'public_bodies' => public_bodies,
+        'y_values' => y_values,
+        'cis_below' => cis_below,
+        'cis_above' => cis_above,
+        'y_max' => 100,
+      'totals' => original_totals}
     end
+
     def self.popular_bodies(locale)
-        # get some example searches and public bodies to display
-        # either from config, or based on a (slow!) query if not set
-        body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/)
-        locale_condition = 'public_body_translations.locale = ?'
-        underscore_locale = locale.gsub '-', '_'
-        conditions = [locale_condition, underscore_locale]
-        bodies = []
-        I18n.with_locale(locale) do
-            if body_short_names.empty?
-                # This is too slow
-                bodies = visible.find(:all,
-                    :order => "info_requests_count desc",
-                    :limit => 32,
-                    :conditions => conditions,
-                    :joins => :translations
-                )
-            else
-                conditions[0] += " and public_bodies.url_name in (?)"
-                conditions << body_short_names
-                bodies = find(:all, :conditions => conditions, :joins => :translations)
-            end
+      # get some example searches and public bodies to display
+      # either from config, or based on a (slow!) query if not set
+      body_short_names = AlaveteliConfiguration::frontpage_publicbody_examples.split(/\s*;\s*/)
+      underscore_locale = locale.gsub '-', '_'
+      bodies = []
+      I18n.with_locale(locale) do
+        if body_short_names.empty?
+          # This is too slow
+          bodies = visible.
+                    where('public_body_translations.locale = ?',
+                           underscore_locale).
+                      order("info_requests_visible_count desc").
+                        limit(32).
+                          joins(:translations)
+        else
+          bodies = where("public_body_translations.locale = ?
+                          AND public_bodies.url_name in (?)",
+                          underscore_locale, body_short_names).
+                    joins(:translations)
         end
-        return bodies
+      end
+      return bodies
     end
 
     private
 
-    def request_email_if_requestable
-        # Request_email can be blank, meaning we don't have details
-        if self.is_requestable?
-            unless MySociety::Validate.is_valid_email(self.request_email)
-                errors.add(:request_email, "Request email doesn't look like a valid email address")
-            end
-        end
+    # TODO: This could be removed by updating the default value (to '') of the
+    # `publication_scheme` column in the `public_body_translations` table.
+    def set_default_publication_scheme
+      # Make sure publication_scheme gets the correct default value.
+      # (This would work automatically, were publication_scheme not a
+      # translated attribute)
+      self.publication_scheme = "" if publication_scheme.nil?
     end
-end
+
+    # if the URL name has changed, then all requested_from: queries
+    # will break unless we update index for every event for every
+    # request linked to it
+    def reindex_requested_from
+      if changes.include?('url_name')
+        info_requests.each do |info_request|
+          info_request.info_request_events.each do |info_request_event|
+            info_request_event.xapian_mark_needs_index
+          end
+        end
+      end
+    end
+
+    # Read an attribute value (without using locale fallbacks if the attribute is translated)
+    def read_attribute_value(name, locale)
+      if self.class.translates.include?(name.to_sym)
+        if globalize.stash.contains?(locale, name)
+          globalize.stash.read(locale, name)
+        else
+          translation_for(locale).send(name)
+        end
+      else
+        send(name)
+      end
+    end
+
+    def request_email_if_requestable
+      # Request_email can be blank, meaning we don't have details
+      if self.is_requestable?
+        unless MySociety::Validate.is_valid_email(self.request_email)
+          errors.add(:request_email, "Request email doesn't look like a valid email address")
+        end
+      end
+    end
+  end

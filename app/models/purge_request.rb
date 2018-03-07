@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: purge_requests
@@ -17,35 +18,32 @@
 #
 
 class PurgeRequest < ActiveRecord::Base
-    def self.purge_all
-        done_something = false
-        for item in PurgeRequest.all()
-            item.purge
-            done_something = true
-        end
-        return done_something
+  def self.purge_all
+    done_something = false
+
+    PurgeRequest.all.each do |item|
+      item.purge
+      done_something = true
     end
 
-    def self.purge_all_loop
-        # Run purge_all in an endless loop, sleeping when there is nothing to do
-        while true
-            sleep_seconds = 1
-            while !purge_all
-                sleep sleep_seconds
-                sleep_seconds *= 2
-                sleep_seconds = 30 if sleep_seconds > 30
-            end
-        end
-    end
+    done_something
+  end
 
-    def purge
-        config = MySociety::Config.load_default()
-        varnish_url = config['VARNISH_HOST']
-        result = quietly_try_to_purge(varnish_url, self.url)
-        self.delete()
+  # Run purge_all in an endless loop, sleeping when there is nothing to do
+  def self.purge_all_loop
+    while true
+      sleep_seconds = 1
+      while !purge_all
+        sleep sleep_seconds
+        sleep_seconds *= 2
+        sleep_seconds = 30 if sleep_seconds > 30
+      end
     end
+  end
+
+  def purge
+    config = MySociety::Config.load_default
+    result = quietly_try_to_purge(config['VARNISH_HOST'], url)
+    delete
+  end
 end
-
-
-
-

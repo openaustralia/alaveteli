@@ -30,7 +30,7 @@
   }
 
   #requests-subfilters div {
-  margin-top:10px;
+    margin-top:10px;
   }
 
   .list-filter-item{
@@ -56,4 +56,12 @@
 
 #advanced-search-tips{
   @include grid-column(12);
+}
+
+.list-filter-item {
+  .title {
+    display: inline;
+    font-size: 1em;
+    font-weight: normal;
+  }
 }

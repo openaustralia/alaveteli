@@ -1,11 +1,11 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
 describe 'request_game/play' do 
     
     before do 
         @mock_body = mock_model(PublicBody, :name => 'test body',
-                                            :url_name => 'test_body',
-                                            :is_school? => false)
+                                            :url_name => 'test_body')
         @mock_user = mock_model(User, :name => 'test user',
                                       :url_name => 'test_user',
                                       :profile_photo => nil)
@@ -30,7 +30,7 @@ describe 'request_game/play' do
     
     it 'should show the correct url for a request' do
         render
-        response.should include("/categorise/request/a_test_request")
+        expect(response).to include("/categorise/request/a_test_request")
     end
 
 

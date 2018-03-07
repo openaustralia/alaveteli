@@ -1,6 +1,7 @@
 build-essential
 catdoc
 elinks
+geoip-database
 gettext
 ghostscript
 gnuplot-nox
@@ -10,10 +11,12 @@ libmagickwand-dev
 libpq-dev
 libsqlite3-dev
 libxml2-dev
-libxslt1-dev
+libxslt-dev
 links
+lockfile-progs
 mutt
 pdftk
+php5-cli
 poppler-utils
 postgresql
 postgresql-client
@@ -22,8 +25,6 @@ rake
 ruby-bundler
 ruby1.9.1
 ruby1.9.1-dev
-rubygems
-sharutils
 sqlite3
 tnef
 ttf-bitstream-vera
@@ -33,4 +34,3 @@ uuid-dev
 wkhtmltopdf-static
 wv
 xapian-tools
-xlhtml

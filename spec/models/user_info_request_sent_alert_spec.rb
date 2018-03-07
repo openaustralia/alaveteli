@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: user_info_request_sent_alerts
@@ -12,8 +13,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserInfoRequestSentAlert, " when blah" do
-    before do
-    end
+  before do
+  end
 end
-
-

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddCreatedUpdatedFields < ActiveRecord::Migration
   def self.up
     # InfoRequest
@@ -5,7 +6,7 @@ class AddCreatedUpdatedFields < ActiveRecord::Migration
     add_column :info_requests, :updated_at, :datetime
 
     # Outgoing Message already has it
-    
+
     # PublicBody
     add_column :public_bodies, :created_at, :datetime
     add_column :public_bodies, :updated_at, :datetime
@@ -32,5 +33,5 @@ class AddCreatedUpdatedFields < ActiveRecord::Migration
 
     remove_column :users, :created_at
     remove_column :users, :updated_at
-   end
+  end
 end

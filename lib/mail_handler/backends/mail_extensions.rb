@@ -1,106 +1,61 @@
+# -*- encoding : utf-8 -*-
 require 'mail/message'
 require 'mail/part'
 require 'mail/fields/common/parameter_hash'
 module Mail
-    class Message
-        attr_accessor :url_part_number
-        attr_accessor :rfc822_attachment # when a whole email message is attached as text
-        attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
-        attr_accessor :count_parts_count
-        attr_accessor :count_first_uudecode_count
+  class Message
+    attr_accessor :url_part_number
+    attr_accessor :rfc822_attachment # when a whole email message is attached as text
+    attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
+    attr_accessor :count_parts_count
+    attr_accessor :count_first_uudecode_count
+  end
+
+  class Part < Message
+    def inline?
+      header[:content_disposition].disposition_type == 'inline' if header[:content_disposition] rescue false
+    end
+  end
+
+  # A patched version of the parameter hash that handles nil values without throwing
+  # an error.
+  class ParameterHash < IndifferentHash
+
+    def encoded
+      map.sort { |a,b| a.first.to_s <=> b.first.to_s }.map do |key_name, value|
+        # The replacement of this commented out line is the change
+        # unless value.ascii_only?
+        unless value.nil? || value.ascii_only?
+          value = Mail::Encodings.param_encode(value)
+          key_name = "#{key_name}*"
+        end
+        %Q{#{key_name}=#{quote_token(value)}}
+      end.join(";\r\n\s")
+    end
+  end
+
+  # Monkeypatch of method from mail gem to rescue from an unknown encoding
+  class Ruby19
+
+    def self.b_value_decode(str)
+      match = str.match(/\=\?(.+)?\?[Bb]\?(.*)\?\=/m)
+      if match
+        charset = match[1]
+        str = Ruby19.decode_base64(match[2])
+        # The commented line below is the actual implementation in a217776
+        # (https://git.io/vozPG) but we don't have a `charset_encoder` object
+        # available, so revert to the behaviour of the default
+        # Mail::Ruby19::StrictCharsetEncoder#encode (https://git.io/vozXb).
+        # str = charset_encoder.encode(str, charset)
+        str.force_encoding(Mail::Ruby19.pick_encoding(charset))
+      end
+      decoded = str.encode(Encoding::UTF_8, :undef => :replace, :invalid => :replace, :replace => "")
+      decoded.valid_encoding? ? decoded : decoded.encode(Encoding::UTF_16LE, :invalid => :replace, :replace => "").encode(Encoding::UTF_8)
+    rescue Encoding::UndefinedConversionError, ArgumentError, Encoding::ConverterNotFoundError
+      warn "Encoding conversion failed #{$!}"
+      str.dup.force_encoding(Encoding::UTF_8)
     end
 
-    class Part < Message
-        def inline?
-          header[:content_disposition].disposition_type == 'inline' if header[:content_disposition] rescue false
-        end
-    end
-
-    # A patched version of the parameter hash that handles nil values without throwing
-    # an error.
-    class ParameterHash < IndifferentHash
-
-        def encoded
-          map.sort { |a,b| a.first.to_s <=> b.first.to_s }.map do |key_name, value|
-            # The replacement of this commented out line is the change
-            # unless value.ascii_only?
-            unless value.nil? || value.ascii_only?
-              value = Mail::Encodings.param_encode(value)
-              key_name = "#{key_name}*"
-            end
-            %Q{#{key_name}=#{quote_token(value)}}
-          end.join(";\r\n\s")
-        end
-    end
-
-    # HACK: Backport encoding fixes for Ruby 1.8 from Mail 2.5
-    # Can be removed when we no longer support Ruby 1.8
-    class Ruby18
-
-        def Ruby18.b_value_decode(str)
-            match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
-            if match
-                encoding = match[1]
-                str = Ruby18.decode_base64(match[2])
-                # Adding and removing trailing spaces is a workaround
-                # for Iconv.conv throwing an exception if it finds an
-                # invalid character at the end of the string, even
-                # with UTF-8//IGNORE:
-                # http://po-ru.com/diary/fixing-invalid-utf-8-in-ruby-revisited/
-                begin
-                    str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str + "    ")[0...-4]
-                rescue Iconv::InvalidEncoding
-                end
-            end
-            str
-        end
-
-        def Ruby18.q_value_decode(str)
-          match = str.match(/\=\?(.+)?\?[Qq]\?(.+)?\?\=/m)
-          if match
-              encoding = match[1]
-              string = match[2].gsub(/_/, '=20')
-              # Remove trailing = if it exists in a Q encoding
-              string = string.sub(/\=$/, '')
-              str = Encodings::QuotedPrintable.decode(string)
-              # Adding and removing trailing spaces is a workaround
-              # for Iconv.conv throwing an exception if it finds an
-              # invalid character at the end of the string, even
-              # with UTF-8//IGNORE:
-              # http://po-ru.com/diary/fixing-invalid-utf-8-in-ruby-revisited/
-              str = Iconv.conv('UTF-8//IGNORE', fix_encoding(encoding), str + "    ")[0...-4]
-          end
-          str
-        end
-
-        private
-
-        def Ruby18.fix_encoding(encoding)
-            case encoding.upcase
-            when 'UTF8'
-                'UTF-8'
-            else
-                encoding
-            end
-        end
-    end
-    class Ruby19
-
-        def Ruby19.b_value_decode(str)
-          match = str.match(/\=\?(.+)?\?[Bb]\?(.+)?\?\=/m)
-          if match
-            charset = match[1]
-            str = Ruby19.decode_base64(match[2])
-            # Rescue an ArgumentError arising from an unknown encoding.
-            begin
-                str.force_encoding(pick_encoding(charset))
-            rescue ArgumentError
-            end
-          end
-          decoded = str.encode("utf-8", :invalid => :replace, :replace => "")
-          decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
-        end
-
-    end
+  end
 
 end

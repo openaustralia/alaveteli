@@ -1,35 +1,51 @@
+<div class="row">
+  <% if censor_rules.size > 0 %>
+    <table class="table table-condensed table-hover span12 censor-rule-list">
+      <tr>
+        <th>Id</th>
+        <% CensorRule.content_columns.each do |column| %>
+          <th><%= column.name.humanize %></th>
+        <% end %>
+        <th>Actions</th>
+      </tr>
 
-<% if censor_rules.size > 0 %>
-  <table class="table table-condensed">
-    <tr>
-      <th>Id</th>
-      <% for column in CensorRule.content_columns %>
-        <th><%= column.human_name %></th>
+      <% censor_rules.each do |censor_rule| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td class="id"><%=h censor_rule.id %></td>
+          <% CensorRule.content_columns.map { |c| c.name }.each do |column| %>
+            <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
+          <% end %>
+          <td>
+            <%= link_to "Edit", edit_admin_censor_rule_path(censor_rule) %>
+          </td>
+        </tr>
       <% end %>
-      <th>Actions</th>
-    </tr>
-
-  <% for censor_rule in censor_rules %>
-    <tr class="<%= cycle('odd', 'even') %>">
-      <td><%=h censor_rule.id %></td>
-      <% for column in CensorRule.content_columns.map { |c| c.name } %>
-        <td><%=h censor_rule.send(column) %></td>
-      <% end %>
-      <td>
-        <%= link_to "Edit", admin_rule_edit_path(censor_rule) %>
-      </td>
-    </tr>
+    </table>
+  <% else %>
+    <p class="span12">None yet.</p>
   <% end %>
-  </table>
-<% else %>
-  <p>None yet.</p>
-<% end %>
+</div>
 
-<% if defined? info_request %>
-  <%= link_to "New censor rule (for this request only)", admin_rule_new_path(:info_request_id => info_request.id), :class => "btn btn-info" %> 
-<% end %>
+<div class="row">
+  <p class="span12">
+    <% if defined? info_request %>
+      <%= link_to "New censor rule", new_admin_request_censor_rule_path(info_request), :class => "btn btn-info" %>
+      <span class="help-inline">for this request only</span>
+    <% end %>
 
-<% if defined? user %>
-  <%= link_to "New censor rule", admin_rule_new_path(:user_id => user.id), :class => "btn btn-info" %> <span class="label label-info">for all requests by this user</span>
-<% end %>
+    <% if defined? user %>
+      <%= link_to "New censor rule", new_admin_user_censor_rule_path(user), :class => "btn btn-info" %>
+      <span class="help-inline">for all requests by this user</span>
+    <% end %>
 
+    <% if defined? public_body %>
+      <%= link_to "New censor rule", new_admin_body_censor_rule_path(public_body), :class => "btn btn-info" %>
+      <span class="help-inline">for all requests to this body</span>
+    <% end %>
+
+    <% unless defined?(info_request) || defined?(user) || defined?(public_body) %>
+      <%= link_to "New global censor rule", new_admin_censor_rule_path, :class => "btn btn-warning" %>
+      <span class="help-inline">for all requests, users and bodies</span>
+    <% end %>
+  </p>
+</div>

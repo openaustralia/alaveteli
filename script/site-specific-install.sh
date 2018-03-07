@@ -32,6 +32,41 @@ misuse() {
 
 update_mysociety_apt_sources
 
+# Ubuntu Precise Fixes
+if [ x"$DISTRIBUTION" = x"ubuntu" ] && [ x"$DISTVERSION" = x"precise" ]
+then
+  cat > /etc/apt/sources.list.d/ubuntu-trusty.list <<EOF
+deb http://archive.ubuntu.com/ubuntu/ trusty universe
+deb-src http://archive.ubuntu.com/ubuntu/ trusty universe
+EOF
+
+  cat > /etc/apt/sources.list.d/mysociety-launchpad.list <<EOF
+deb http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+deb-src http://ppa.launchpad.net/mysociety/alaveteli/ubuntu precise main
+EOF
+
+  # Get bundler from trusty and de-prioritise all other
+  # trusty packages
+  cat >> /etc/apt/preferences <<EOF
+
+Package: ruby-bundler
+Pin: release n=trusty
+Pin-Priority: 990
+
+Package: *
+Pin: release n=trusty
+Pin-Priority: 50
+EOF
+
+# Get the key for the mysociety ubuntu alaveteli repo
+apt-get install -y python-software-properties
+add-apt-repository -y ppa:mysociety/alaveteli
+
+apt-get -qq update
+fi
+
+apt-get -y update
+
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
     install_nginx
     add_website_to_nginx
@@ -81,7 +116,7 @@ ensure_line_present \
     /etc/rsyslog.d/50-default.conf 644
 
 cat > /etc/postfix/transports <<EOF
-/^foi.*/                alaveteli
+/^foi\+.*@$HOST$/                alaveteli
 EOF
 
 cat > /etc/postfix/recipients <<EOF
@@ -121,11 +156,37 @@ postfix reload
 
 install_website_packages
 
+# use ruby 2.1.5 if it's already the default (i.e. 'jessie')
+if ruby --version | grep -q 'ruby 2.1.5' > /dev/null
+then
+  echo 'using ruby 2.1.5'
+else
+  # Set ruby version to 1.9.1
+  update-alternatives --set ruby /usr/bin/ruby1.9.1
+  update-alternatives --set gem /usr/bin/gem1.9.1
+fi
+
+# Give the unix user membership of the adm group so that they can read the mail log files
+usermod -a -G adm "$UNIX_USER"
+
 # Make the PostgreSQL user a superuser to avoid the irritating error:
 #   PG::Error: ERROR:  permission denied: "RI_ConstraintTrigger_16564" is a system trigger
 # This is only needed for loading the sample data, so the superuser
 # permissions are dropped below.
 add_postgresql_user --superuser
+
+# create the template_utf8 template we'll use for our databases
+echo -n "Checking for postgres template_utf8 database... "
+if ! sudo -u postgres psql --list | grep template_utf8 > /dev/null; then
+  sudo -u postgres createdb -T template0 -E UTF-8 template_utf8
+  echo -n "Created."
+fi
+
+sudo -u postgres psql -q <<EOF
+update pg_database set datistemplate=true, datallowconn=false where datname='template_utf8';
+EOF
+
+echo $DONE_MSG
 
 export DEVELOPMENT_INSTALL
 su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY'" "$UNIX_USER"
@@ -142,21 +203,23 @@ echo -n "Creating /etc/cron.d/alaveteli... "
 (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_crontab DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' CRONTAB=config/crontab-example" "$UNIX_USER") > /etc/cron.d/alaveteli
 # There are some other parts to rewrite, so just do them with sed:
 sed -r \
-    -e "/foi-purge-varnish/d" \
+    -e "/$SITE-purge-varnish/d" \
     -e "s,^(MAILTO=).*,\1root@$HOST," \
     -i /etc/cron.d/alaveteli
 echo $DONE_MSG
 
 if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
   echo -n "Creating /etc/init.d/$SITE... "
-  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' SCRIPT_FILE=config/sysvinit-thin.ugly" "$UNIX_USER") > /etc/init.d/"$SITE"
-  chmod a+rx /etc/init.d/"$SITE"
+  (su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' VCSPATH='$SITE' SITE='$SITE' SCRIPT_FILE=config/sysvinit-thin.example" "$UNIX_USER") > /etc/init.d/"$SITE"
+  chgrp "$UNIX_USER" /etc/init.d/"$SITE"
+  chmod 754 /etc/init.d/"$SITE"
   echo $DONE_MSG
 fi
 
-echo -n "Creating /etc/init.d/foi-alert-tracks... "
-(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.ugly" "$UNIX_USER") > /etc/init.d/foi-alert-tracks
-chmod a+rx /etc/init.d/foi-alert-tracks
+echo -n "Creating /etc/init.d/$SITE-alert-tracks... "
+(su -l -c "cd '$REPOSITORY' && bundle exec rake config_files:convert_init_script DEPLOY_USER='$UNIX_USER' VHOST_DIR='$DIRECTORY' SCRIPT_FILE=config/alert-tracks-debian.example" "$UNIX_USER") > /etc/init.d/"$SITE-alert-tracks"
+chgrp "$UNIX_USER" /etc/init.d/"$SITE-alert-tracks"
+chmod 754 /etc/init.d/"$SITE-alert-tracks"
 echo $DONE_MSG
 
 if [ $DEFAULT_SERVER = true ] && [ x != x$EC2_HOSTNAME ]

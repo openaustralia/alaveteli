@@ -1,29 +1,72 @@
+# -*- encoding : utf-8 -*-
+# == Schema Information
+#
+# Table name: outgoing_messages
+#
+#  id                           :integer          not null, primary key
+#  info_request_id              :integer          not null
+#  body                         :text             not null
+#  status                       :string(255)      not null
+#  message_type                 :string(255)      not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  last_sent_at                 :datetime
+#  incoming_message_followup_id :integer
+#  what_doing                   :string(255)      not null
+#  prominence                   :string(255)      default("normal"), not null
+#  prominence_reason            :text
+#
+
 FactoryGirl.define do
 
-    factory :outgoing_message do
-        factory :initial_request do
-            ignore do
-                status 'ready'
-                message_type 'initial_request'
-                body 'Some information please'
-                what_doing 'normal_sort'
-            end
-        end
-        factory :internal_review_request do
-            ignore do
-                status 'ready'
-                message_type 'followup'
-                body 'I want a review'
-                what_doing 'internal_review'
-            end
-        end
-        initialize_with { OutgoingMessage.new({ :status => status,
-                                                :message_type => message_type,
-                                                :body => body,
-                                                :what_doing => what_doing }) }
-        after_create do |outgoing_message|
-            outgoing_message.send_message
-        end
+  factory :outgoing_message do
+    info_request
+
+    factory :initial_request do
+      transient do
+        status 'ready'
+        message_type 'initial_request'
+        body 'Some information please'
+        what_doing 'normal_sort'
+      end
     end
-    
+
+    factory :new_information_followup do
+      transient do
+        status 'ready'
+        message_type 'followup'
+        body 'I clarify my request'
+        what_doing 'new_information'
+      end
+    end
+
+    factory :internal_review_request do
+      transient do
+        status 'ready'
+        message_type 'followup'
+        body 'I want a review'
+        what_doing 'internal_review'
+      end
+    end
+
+    # FIXME: This here because OutgoingMessage has an after_initialize,
+    # which seems to call everything in the app! FactoryGirl calls new with
+    # no parameters and then uses the assignment operator of each attribute
+    # to update it. Because after_initialize executes before assigning the
+    # attributes, loads of stuff fails because whatever after_initialize is
+    # doing expects some of the attributes to be there.
+    initialize_with { OutgoingMessage.new({ :status => status,
+                                            :message_type => message_type,
+                                            :body => body,
+                                            :what_doing => what_doing }) }
+
+    after(:create) do |outgoing_message|
+      outgoing_message.sendable?
+      outgoing_message.record_email_delivery(
+        'test@example.com',
+      'ogm-14+537f69734b97c-1ebd@localhost')
+    end
+
+  end
+
 end

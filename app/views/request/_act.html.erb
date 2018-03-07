@@ -1,15 +1,46 @@
 <h2><%= _("Act on what you've learnt") %></h2>
 
-<div class="act_link">
-    <% tweet_link = "https://twitter.com/share?" + {:url => request.url, :via => AlaveteliConfiguration::twitter_username, :text => "'#{@info_request.title}'", :related => _('alaveteli_foi:The software that runs {{site_name}}', :site_name => site_name)}.to_query %>
-    <% link_to tweet_link do %>
-      <%= image_tag "twitter-16.png", :alt => "twitter icon" %>
-    <% end %>
-    <%= link_to _("Tweet this request"), tweet_link %>
+<div class="act_link act_link--twitter">
+  <% tweet_link = "https://twitter.com/share?" << {
+    :url => request.url,
+    :via => AlaveteliConfiguration.twitter_username,
+    :text => "'#{ @info_request.title }'",
+    :related => _('mySociety:Helping people set up sites like {{site_name}} all over the world', :site_name => site_name)
+    }.to_query
+  %>
+
+  <%= link_to _("Tweet this request"),
+              tweet_link,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::TWITTER_EXIT,
+                :label => "Request sidebar") %>
 </div>
-<div class="act_link">
-    <%= link_to "http://wordpress.com/" do %>
-      <%= image_tag "wordpress.png", :class => "rss" %>
-    <% end %>
-    <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
+
+<div class="act_link act_link--facebook">
+  <% share_link = "https://www.facebook.com/sharer/sharer.php?" << {
+        :u => request.url
+      }.to_query %>
+
+  <%= link_to _("Share on Facebook"),
+              share_link,
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::FACEBOOK_EXIT,
+                :label => "Request sidebar") %>
 </div>
+
+<div class="act_link act_link--medium">
+  <%= link_to _("Write about this on Medium"),
+              "http://medium.com/",
+              :onclick => track_analytics_event(
+                AnalyticsEvent::Category::OUTBOUND,
+                AnalyticsEvent::Action::MEDIUM_EXIT,
+                :label => "Request sidebar") %>
+</div>
+
+<% if AlaveteliConfiguration::enable_widgets %>
+  <div class="act_link act_link--widget">
+    <%= link_to _("Create a widget for this request"), new_request_widget_path(@info_request) %>
+  </div>
+<% end %>

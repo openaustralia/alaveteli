@@ -1,74 +1,134 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
 describe "When administering the site" do
+  let(:admin_user) { FactoryGirl.create(:admin_user) }
+  let(:bob_smith_user) { FactoryGirl.create(:user, :name => 'Bob Smith') }
+  let(:robin_user) { FactoryGirl.create(:user, :name => 'Robin') }
 
-    before do
-        AlaveteliConfiguration.stub!(:skip_admin_auth).and_return(false)
+  before do
+    allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
+    confirm(:admin_user)
+    @admin = login(:admin_user)
+  end
+
+  it "allows an admin to log in as another user" do
+    using_session(@admin) do
+      visit admin_user_path bob_smith_user
+      find_button('Log in as Bob Smith (also confirms their email)').click
+      expect(page).to have_content 'Hello, Bob Smith!'
+    end
+  end
+
+  it 'does not allow a non-admin user to login as another user' do
+    robin = login(:robin_user)
+    using_session(robin) do
+      visit admin_user_path bob_smith_user
+      expect(page).to have_content \
+        'To log into the administrative interface, please sign in as a superuser'
+    end
+  end
+
+  it "allows redelivery of an incoming message to a closed request" do
+
+    # close request
+    info_request = FactoryGirl.create(:info_request_with_incoming)
+    close_request(info_request)
+
+    # check number of messages in holding pen and request
+    expect(holding_pen_messages.length).to eq(0)
+    expect(info_request.incoming_messages.length).to eq(1)
+
+    # deliver an incoming message to the closed request -
+    # it gets bounced to the holding pen
+    receive_incoming_mail('incoming-request-plain.email',
+                          info_request.incoming_email,
+                          "frob@nowhere.com")
+    expect(holding_pen_messages.length).to eq(1)
+    new_message = holding_pen_messages.first
+    expect(info_request.incoming_messages.length).to eq(1)
+
+    # redeliver the message
+    using_session(@admin) do
+      visit edit_admin_incoming_message_path(new_message)
+      fill_in('Redeliver message to one or more other requests',
+                :with => info_request.url_title)
+      find_button('Redeliver to another request').click
+      expect(current_path).to eq(admin_request_path(info_request))
     end
 
-    it "allows an admin to log in as another user" do
-        # First log in as Joe Admin
-        confirm(:admin_user)
-        admin = login(:admin_user)
+    # check number of messages in holding pen and request
+    expect(info_request.reload.incoming_messages.length).to eq(2)
+    expect(holding_pen_messages.length).to eq(0)
+  end
 
-        # Now fetch the "log in as" link to log in as Bob
-        admin.get_via_redirect "/en/admin/user/login_as/#{users(:bob_smith_user).id}"
-        admin.response.should be_success
-        admin.session[:user_id].should == users(:bob_smith_user).id
+  it "allows redelivery of an incoming message to more than one request" do
+    # close request
+    info_request = FactoryGirl.create(:info_request_with_incoming)
+    close_request(info_request)
+
+    # check number of messages in holding pen and requests
+    expect(holding_pen_messages.length).to eq(0)
+    expect(info_request.incoming_messages.length).to eq(1)
+
+    second_request = FactoryGirl.create(:info_request_with_incoming)
+    expect(second_request.incoming_messages.length).to eq(1)
+
+    # deliver an incoming message to the closed request -
+    # it gets bounced to the holding pen
+    receive_incoming_mail('incoming-request-plain.email',
+                          info_request.incoming_email,
+                          "frob@nowhere.com")
+    expect(holding_pen_messages.length).to eq(1)
+    new_message = holding_pen_messages.first
+
+    # redeliver the message to two requests
+    using_session(@admin) do
+      visit edit_admin_incoming_message_path(new_message)
+      fill_in('Redeliver message to one or more other requests',
+                 :with => "#{info_request.url_title},#{second_request.url_title}")
+      find_button('Redeliver to another request').click
+      expect(current_path).to eq(admin_request_path(second_request))
     end
 
-    it 'does not allow a non-admin user to login as another user' do
-        robin = login(:robin_user)
-        robin.get_via_redirect "/en/admin/user/login_as/#{users(:bob_smith_user).id}"
-        robin.response.should be_success
-        robin.session[:user_id].should_not == users(:bob_smith_user).id
+    # check number of messages in holding pen and requests
+    expect(info_request.reload.incoming_messages.length).to eq(2)
+    expect(second_request.reload.incoming_messages.length).to eq(2)
+    expect(holding_pen_messages.length).to eq(0)
+  end
+
+  describe 'when administering the holding pen' do
+
+    it "shows a rejection reason for an incoming message from an invalid address" do
+      info_request = FactoryGirl.create(:info_request,
+                                        :allow_new_responses_from => 'authority_only',
+                                        :handle_rejected_responses => 'holding_pen')
+      receive_incoming_mail('incoming-request-plain.email',
+                            info_request.incoming_email,
+                            "frob@nowhere.com")
+      using_session(@admin) do
+        visit admin_raw_email_path last_holding_pen_mail
+        expect(page).to have_content "Only the authority can reply to this request"
+      end
     end
 
-    it "allows redelivery of an incoming message to a closed request" do
-        confirm(:admin_user)
-        admin = login(:admin_user)
-        ir = info_requests(:fancy_dog_request)
-        close_request(ir)
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
-        ir.incoming_messages.length.should == 1
-        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
-        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
-        ir.incoming_messages.length.should == 1
-        post_params = {'redeliver_incoming_message_id' => new_im.id,
-                       'url_title' => ir.url_title}
-        admin.post '/en/admin/incoming/redeliver', post_params
-        admin.response.location.should == 'http://www.example.com/en/admin/request/show/101'
-        ir = InfoRequest.find_by_url_title(ir.url_title)
-        ir.incoming_messages.length.should == 2
+    it "guesses a misdirected request" do
+      info_request = FactoryGirl.create(:info_request,
+                                        :allow_new_responses_from => 'authority_only',
+                                        :handle_rejected_responses => 'holding_pen')
+      mail_to = "request-#{info_request.id}-asdfg@example.com"
+      receive_incoming_mail('incoming-request-plain.email', mail_to)
+      interesting_email = last_holding_pen_mail
 
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
+      # now we add another message to the queue, which we're not interested in
+      receive_incoming_mail('incoming-request-plain.email', info_request.incoming_email, "")
+      expect(holding_pen_messages.length).to eq(2)
+      using_session(@admin) do
+        visit admin_raw_email_path interesting_email
+        expect(page).to have_content "Could not identify the request"
+        expect(page).to have_content info_request.title
+      end
     end
-
-    it "allows redelivery of an incoming message to more than one request" do
-        confirm(:admin_user)
-        admin = login(:admin_user)
-
-        ir1 = info_requests(:fancy_dog_request)
-        close_request(ir1)
-        ir1.incoming_messages.length.should == 1
-        ir2 = info_requests(:another_boring_request)
-        ir2.incoming_messages.length.should == 1
-
-        receive_incoming_mail('incoming-request-plain.email', ir1.incoming_email, "frob@nowhere.com")
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
-
-        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
-        post_params = {'redeliver_incoming_message_id' => new_im.id,
-                       'url_title' => "#{ir1.url_title},#{ir2.url_title}"}
-        admin.post '/en/admin/incoming/redeliver', post_params
-        ir1.reload
-        ir1.incoming_messages.length.should == 2
-        ir2.reload
-        ir2.incoming_messages.length.should == 2
-        admin.response.location.should == 'http://www.example.com/en/admin/request/show/106'
-        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
-    end
-
+  end
 end

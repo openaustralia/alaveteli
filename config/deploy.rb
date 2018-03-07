@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'bundler/capistrano'
 require "capistrano-rbenv"
 
@@ -16,8 +17,23 @@ set :user, configuration['user']
 set :use_sudo, false
 set :rails_env, configuration['rails_env']
 set :rbenv_ruby_version, "2.0.0-p598"
+set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
 server configuration['server'], :app, :web, :db, :primary => true
+
+set(:rbenv_ruby_version) do
+  command = "cat #{shared_path}/rbenv-version 2>/dev/null || true"
+  result = capture(command).strip
+  result.empty? ? nil : result
+end
+
+if rbenv_ruby_version
+  set(:rbenv_path) { capture("echo $HOME/.rbenv").strip }
+  set(:rbenv_shims_path) { File.join(rbenv_path, 'shims') }
+  set :default_environment, {
+    'PATH' => [rbenv_shims_path, '$PATH'].join(':')
+  }
+end
 
 namespace :themes do
   task :install do
@@ -35,14 +51,12 @@ namespace :xapian do
 end
 
 namespace :deploy do
-  desc "Restarting mod_rails with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
-  end
 
-  [:start, :stop].each do |t|
-    desc "#{t} task is a no-op with mod_rails"
-    task t, :roles => :app do ; end
+  [:start, :stop, :restart].each do |t|
+    desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
+    task t, :roles => :app, :except => { :no_release => true } do
+      run "/etc/init.d/#{ daemon_name } #{ t }"
+    end
   end
 
   desc 'Link configuration after a code update'
@@ -61,7 +75,12 @@ namespace :deploy do
       "#{release_path}/log" => "#{shared_path}/log",
       "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
+      "#{release_path}/lib/themes" => "#{shared_path}/themes",
     }
+
+    if rbenv_ruby_version
+      links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
+    end
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
     run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
@@ -73,13 +92,14 @@ namespace :deploy do
     run "mkdir -p #{shared_path}/log"
     run "mkdir -p #{shared_path}/tmp/pids"
     run "mkdir -p #{shared_path}/xapiandbs"
+    run "mkdir -p #{shared_path}/themes"
   end
 end
 
-before 'deploy:assets:precompile', 'deploy:symlink_configuration'
+after 'deploy:assets:symlink', 'deploy:symlink_configuration'
+
 before 'deploy:assets:precompile', 'themes:install'
 
 # Put up a maintenance notice if doing a migration which could take a while
 before 'deploy:migrate', 'deploy:web:disable'
 after 'deploy:migrate', 'deploy:web:enable'
-

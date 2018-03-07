@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # acts_as_xapian/init.rb:
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
@@ -17,9 +18,9 @@ current_xapiandbs_path = Rails.root.join('lib',
                                          'xapiandbs')
 
 if File.exists? old_xapiandbs_path
-    unless File.exists? current_xapiandbs_path
-        File.rename old_xapiandbs_path, current_xapiandbs_path
-    end
+  unless File.exists? current_xapiandbs_path
+    File.rename old_xapiandbs_path, current_xapiandbs_path
+  end
 end
 
 require 'acts_as_xapian/acts_as_xapian'

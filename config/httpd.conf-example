@@ -25,6 +25,10 @@
         PassengerAppRoot /var/www/alaveteli
         PassengerResolveSymlinksInDocumentRoot on
 
+        # Uncomment the following line if you want to run Alaveteli
+        # with the ruby set by rbenv
+        # PassengerRuby /home/alaveteli/.rbenv/shims/ruby
+
         # See http://blog.phusion.nl/2013/03/12/tuning-phusion-passengers-concurrency-settings/
         # and http://blog.scoutapp.com/articles/2009/12/08/production-rails-tuning-with-passenger-passengermaxprocesses
         # for more information on tuning Passenger
@@ -34,7 +38,7 @@
         # Passenger's default MaxPoolSize is 6. At the time of writing
         # normal instances of Alaveteli seem to take 150-200MB per
         # process, so we've set this conservatively at 3. Read the guides
-        # above to tune this for your system 
+        # above to tune this for your system
         PassengerMaxPoolSize 3
 
         # The RAILS_ENV that the app is running in. This can be any of
@@ -97,11 +101,23 @@
     #
     # The condition means that the rule will fire only if the cached
     # file exists.
+    #
+    # The second condition-rule pair handles the same transformation for
+    # files served from a non-default locale, 'cy'. You will need one
+    # set of rules for each non-default locale.
+
     RewriteMap escape int:escape
     RewriteCond %{DOCUMENT_ROOT}/views_cache/request/$2/$1/${escape:$3} -f
     RewriteRule ^/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views_cache/request/$2/$1/${escape:$3} [L]
     RewriteCond %{DOCUMENT_ROOT}/views_cache/cy/request/$2/$1/${escape:$3} -f
     RewriteRule ^/cy/request/((\d{1,3})\d*)/(response/\d+/attach/(html/)?\d+/.+) /views_cache/cy/request/$2/$1/${escape:$3} [L]
+
+    # Don't allow anything to execute from the cache
+    <Directory "/var/www/alaveteli/public/views_cache">
+        Options -ExecCGI
+        SetHandler default-handler
+        AllowOverride None
+    </Directory>
 
     # Compress assets
     <Location />
@@ -129,7 +145,7 @@
     </IfModule>
 
     # Include optional configuration
-    Include vhost.d/alaveteli
+    Include vhost.d/alaveteli/*.conf
 
 </VirtualHost>
 

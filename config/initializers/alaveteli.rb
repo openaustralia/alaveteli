@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # MySociety specific helper functions
 $:.push(File.join(File.dirname(__FILE__), '../../commonlib/rblib'))
 # ... if these fail to include, you need the commonlib submodule from git
@@ -10,7 +11,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.18'
+ALAVETELI_VERSION = '0.25.0.3'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -35,16 +36,12 @@ end
 
 
 # Load monkey patches and other things from lib/
-require 'ruby19.rb'
-require 'activesupport_cache_extensions.rb'
 require 'use_spans_for_errors.rb'
-require 'activerecord_errors_extensions.rb'
 require 'i18n_fixes.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
 require 'quiet_opener.rb'
 require 'mail_handler'
-require 'public_body_categories'
 require 'ability'
 require 'normalize_string'
 require 'alaveteli_file_types'
@@ -54,6 +51,14 @@ require 'theme'
 require 'xapian_queries'
 require 'date_quarter'
 require 'public_body_csv'
+require 'routing_filters'
+require 'alaveteli_text_masker'
+require 'database_collation'
+require 'alaveteli_geoip'
+require 'default_late_calculator'
+require 'analytics_event'
+require 'alaveteli_gettext/fuzzy_cleaner'
+require 'user_spam_scorer'
 
 AlaveteliLocalization.set_locales(AlaveteliConfiguration::available_locales,
                                   AlaveteliConfiguration::default_locale)

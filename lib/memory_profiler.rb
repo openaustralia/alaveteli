@@ -1,9 +1,10 @@
+# -*- encoding : utf-8 -*-
 # Taken from
 # http://scottstuff.net/blog/2006/08/17/memory-leak-profiling-with-rails
 
 # This is useful for finding memory leaks of the sort where a reference has
 # been accidentally kept to an object when it wasn't intended to be. It
-# is particularly useful if the leaking objects contain strings. 
+# is particularly useful if the leaking objects contain strings.
 #
 # You can enable it in config/environments/development.rb It then writes
 # to log files in logs/memory_profiler*

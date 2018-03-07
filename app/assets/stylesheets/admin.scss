@@ -1,8 +1,8 @@
 /* As we're namespacing bootstrap to class admin, which is applied to the body
-   element in the admin interface (no id or class allowed on the HTML element
-   in HTML 4.01) and to the navbar also, so it can be styled with bootstrap
-   when showing for admin users on the front end, re-apply the bootstrap html
-   and body styles here.
+element in the admin interface (no id or class allowed on the HTML element
+in HTML 4.01) and to the navbar also, so it can be styled with bootstrap
+when showing for admin users on the front end, re-apply the bootstrap html
+and body styles here.
 */
 html {
   font-size: 100%;
@@ -27,13 +27,16 @@ body.admin {
 }
 
 .admin {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
 
   @import "compass/css3";
   @import "bootstrap";
 
   #main {
+    margin-bottom: 50px;
     padding-top: 50px;
-
   }
 
   .form-inline {
@@ -46,7 +49,10 @@ body.admin {
   }
 
   .accordion-group {
-   border: none;
+    border: none;
+    div {
+      clear: both;
+    }
   }
   .accordion-heading {
     .btn {
@@ -68,15 +74,19 @@ body.admin {
   }
 
   span.label.tag {
-   margin-right: 2px;
-   a {
-    color: white;
-   }
+    margin-right: 2px;
+    a {
+      color: white;
+    }
+  }
+
+  .fieldWithErrors input{
+    border: 1px solid #ff0c11;
   }
 
   body.admin blockquote p {
-   font-size: 13px;
-   display: inline;
+    font-size: 13px;
+    display: inline;
   }
 
   div#user_locale_switcher {
@@ -90,18 +100,70 @@ body.admin {
     width: 440px;
   }
   #request_hidden_user_explanation_field {
-   width: 100%;
-   height: 15em;
+    width: 100%;
+    height: 15em;
   }
   #request_hidden_user_subject,
   #request_hide_button,
   #request_hidden_user_explanation {
-   display: none;
+    display: none;
   }
 
   #outgoing_message_body,
   #comment_body {
     width: 750px;
+  }
+
+  .save-notice {
+    display: inline-block;
+    padding-left: 1em;
+  }
+
+  .category-list-item {
+    padding: 3px 0;
+  }
+
+  .fieldWithErrors {
+    display:block;
+    padding:0.2em;
+    textarea, input {
+      border:solid 1px Red !important;
+    }
+  }
+
+  /* Censor Rules */
+  .censor-rule-list td.text,
+  .censor-rule-list td.replacement {
+    max-width: 380px;
+  }
+
+  /* Holidays */
+  .day_select {
+    width: 75px;
+  }
+
+  .holiday-description, .holiday-day, .holiday-buttons, .holiday-destroy {
+    padding: 6px 4px;
+  }
+
+  .holiday-description, .holiday-day, .holiday-buttons{
+    display: inline-block;
+  }
+
+  .holiday-description {
+    width: 300px;
+  }
+  .holiday-day {
+    width: 240px;
+    text-align: center;
+  }
+  .holiday-buttons{
+    width: 200px;
+    text-align: right;
+  }
+
+  #import_start_year, #import_end_year {
+    width: 75px;
   }
 
 }

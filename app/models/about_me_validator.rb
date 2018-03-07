@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/about_me_validator.rb:
 # Validates editing about me text on user profile pages.
 #
@@ -5,24 +6,17 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AboutMeValidator
-    include ActiveModel::Validations
+  include ActiveModel::Validations
 
-    attr_accessor :about_me
+  attr_accessor :about_me
 
-    # TODO: Switch to built in validations
-    validate :length_of_about_me
+  validates_length_of :about_me, :maximum => 500, :message => _("Please keep it shorter than 500 characters")
 
-    def initialize(attributes = {})
-        attributes.each do |name, value|
-            send("#{name}=", value)
-        end
+  def initialize(attributes = {})
+    warn %q([DEPRECATION] AboutMeValidator has been deprecated and will be
+            removed in Alaveteli release 0.26).squish
+    attributes.each do |name, value|
+      send("#{name}=", value)
     end
-
-    private
-
-    def length_of_about_me
-        if !self.about_me.blank? && self.about_me.size > 500
-            errors.add(:about_me, _("Please keep it shorter than 500 characters"))
-        end
-    end
+  end
 end

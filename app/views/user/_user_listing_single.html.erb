@@ -1,24 +1,34 @@
-<% if @highlight_words.nil? 
-      @highlight_words = []
-end %>
+<% if @highlight_words.nil? %>
+  <% @highlight_words = [] %>
+<% end %>
 
 <div class="user_listing">
-    <% if display_user.profile_photo %>
-        <div class="user_photo_on_search">
-            <a href="<%=user_path(display_user)%>">
-            <img src="<%= get_profile_photo_url(:url_name => display_user.url_name) %>" alt="">
-            </a>
-        </div>
+  <% if display_user.profile_photo %>
+    <div class="user_photo_on_search">
+      <a href="<%=user_path(display_user)%>">
+        <img src="<%= get_profile_photo_url(:url_name => display_user.url_name) %>" alt="">
+      </a>
+    </div>
+  <% end %>
+
+  <span class="head <% if display_user.profile_photo %>no_icon<% end %>">
+    <%= link_to highlight_words(display_user.name, @highlight_words), user_path(display_user) %>
+  </span>
+
+  <span class="bottomline">
+    <% request_count = display_user.info_requests.size %>
+    <%= n_('{{count}} request made.',
+           '{{count}} requests made.',
+           request_count,
+           :count => request_count) %>
+    <% if AlaveteliConfiguration::enable_annotations %>
+      <% annotation_count = display_user.comments.visible.size %>
+      <%= n_('{{count}} annotation made.',
+             '{{count}} annotations made.',
+             annotation_count,
+             :count => annotation_count) %>
     <% end %>
 
-    <span class="head <% if display_user.profile_photo %>no_icon<% end %>">
-        <%= link_to highlight_words(display_user.name, @highlight_words), user_path(display_user) %>
-    </span>
-
-    <span class="bottomline">
-        <%= pluralize(display_user.info_requests.size, "request") %> <%= _('made.')%>
-        <%= pluralize(display_user.visible_comments.size, "annotation") %> <%= _('made.')%>
-        <%= _('Joined in')%> <%= display_user.created_at.year %>.
-    </span>
-
+    <%= _('Joined in {{year}}.', :year => display_user.created_at.year) %>
+  </span>
 </div>
