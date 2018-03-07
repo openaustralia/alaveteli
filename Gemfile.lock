@@ -101,7 +101,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    charlock_holmes (0.7.3)
+    charlock_holmes (0.7.5)
     chronic (0.10.2)
     chunky_png (1.3.5)
     coderay (1.1.1)
@@ -189,7 +189,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
-    libv8 (3.16.14.13)
+    libv8 (3.16.14.19)
     locale (2.0.8)
     mahoro (0.4)
     mail (2.5.4)
@@ -442,3 +442,6 @@ DEPENDENCIES
   xapian-full-alaveteli (~> 1.2.21.1)
   xml-simple (~> 1.1.2)
   zip (~> 2.0.2)
+
+BUNDLED WITH
+   1.16.1
