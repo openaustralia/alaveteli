@@ -74,8 +74,7 @@ namespace :deploy do
       "#{release_path}/cache" => "#{shared_path}/cache",
       "#{release_path}/log" => "#{shared_path}/log",
       "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
-      "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
-      "#{release_path}/lib/themes" => "#{shared_path}/themes",
+      "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs"
     }
 
     if rbenv_ruby_version
