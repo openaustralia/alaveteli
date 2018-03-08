@@ -16,7 +16,6 @@ set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
 set :use_sudo, false
 set :rails_env, configuration['rails_env']
-set :rbenv_ruby_version, "2.0.0-p598"
 set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
 server configuration['server'], :app, :web, :db, :primary => true
