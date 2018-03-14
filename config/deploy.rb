@@ -49,6 +49,12 @@ namespace :xapian do
   end
 end
 
+namespace :rbenv do
+  task :setup do
+    # Do nothing
+  end
+end
+
 namespace :deploy do
 
   [:start, :stop, :restart].each do |t|
