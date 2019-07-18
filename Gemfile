@@ -24,7 +24,6 @@ gem 'holidays', '~> 2.2.0'
 gem 'iso_country_codes', '~> 0.7.3'
 gem 'mahoro', '~> 0.4'
 gem 'memcache-client', '~> 1.8.5'
-gem 'newrelic_rpm'
 gem 'net-http-local', '~> 0.1.2', :platforms => [:ruby_19]
 gem 'net-purge', '~> 0.1.0'
 gem 'nokogiri', '~> 1.6'
