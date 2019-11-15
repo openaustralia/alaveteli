@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 TOP_DIR="$(dirname "$BASH_SOURCE")/.."
 pushd "$TOP_DIR"
 # Clear the cache of attachment and body text.
@@ -12,5 +12,5 @@ TOP_DIR="$(pwd)"
 rm -fr $TOP_DIR/old-cache
 mv $TOP_DIR/cache $TOP_DIR/old-cache
 mkdir $TOP_DIR/cache
-#rm -fr $TOP_DIR/old-cache
+rm -fr $TOP_DIR/old-cache
 popd
