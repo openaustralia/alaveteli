@@ -110,3 +110,6 @@ before 'deploy:assets:precompile', 'themes:install'
 # Put up a maintenance notice if doing a migration which could take a while
 before 'deploy:migrate', 'deploy:web:disable'
 after 'deploy:migrate', 'deploy:web:enable'
+
+# Clean up old releases so we don't fill up the disk
+after "deploy:restart", "deploy:cleanup"
