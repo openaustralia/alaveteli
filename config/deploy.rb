@@ -82,8 +82,11 @@ namespace :deploy do
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs"
     }
 
+    # TODO: Remove .rbenv-version in favour of .ruby-version
+    # For the time being we're using both to allow a smooth transition
     if rbenv_ruby_version
       links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
+      links["#{release_path}/.ruby-version"] = "#{shared_path}/rbenv-version"
     end
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
