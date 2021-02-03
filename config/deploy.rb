@@ -80,7 +80,7 @@ namespace :deploy do
       "#{release_path}/log" => "#{shared_path}/log",
       "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
       "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
-      "#{release_path}/vendor/data/GeoLite2-Country.mmdb" => "#{shared_path}/GeoLite2-Country.mmdb"
+      "#{release_path}/vendor/data" => "#{shared_path}/vendor_data"
     }
 
     # TODO: Remove .rbenv-version in favour of .ruby-version
@@ -101,6 +101,7 @@ namespace :deploy do
     run "mkdir -p #{shared_path}/tmp/pids"
     run "mkdir -p #{shared_path}/xapiandbs"
     run "mkdir -p #{shared_path}/themes"
+    run "mkdir -p #{shared_path}/vendor_data"
   end
 end
 
