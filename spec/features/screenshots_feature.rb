@@ -1,3 +1,6 @@
+# This tells config/initializers/theme_loader.rb to load the standard alavetelitheme
+ALAVETELI_TEST_THEME = 'alavetelitheme'
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe 'Take Pro marketing screenshots', js: true do
