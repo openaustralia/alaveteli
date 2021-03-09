@@ -177,6 +177,8 @@ group :test, :development do
   gem 'rspec-rails', '~> 4.0.1'
   gem 'pry', '~> 0.12.2'
   gem 'pry-byebug', '~> 3.7.0'
+  # For taking automated screenshots
+  gem 'selenium-webdriver'
 end
 
 group :development do
