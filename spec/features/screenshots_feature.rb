@@ -18,10 +18,13 @@ describe 'Take Pro marketing screenshots', js: true do
   let(:kent) { FactoryBot.create(:public_body, name: "Kent Police") }
   let(:defence) { FactoryBot.create(:public_body, name: "Ministry of Defence") }
   let(:stirling) { FactoryBot.create(:public_body, name: "Stirling Council") }
+  let(:southwark) { FactoryBot.create(:public_body, name: "Southwark Borough Council") }
 
-  it "Pro dashboard" do
+  it "Pro screenshots" do
     using_pro_session(pro_user_session) do
-      Timecop.freeze(5.days.ago) do
+      now = Time.new(2017, 5, 16, 15, 0, 0)
+
+      Timecop.freeze(now - 5.days) do
         1.times do
           FactoryBot.create(:info_request, :embargoed, :overdue, user: pro_user)
         end
@@ -52,23 +55,42 @@ describe 'Take Pro marketing screenshots', js: true do
         end
       end
 
-      Timecop.freeze(190.minutes.ago) do
+      Timecop.freeze(now - 190.minutes) do
         FactoryBot.create(:info_request, :embargoed, user: pro_user, title: "Refugee housing provision 2016", public_body: stirling)
       end
-      Timecop.freeze(130.minutes.ago) do
+      Timecop.freeze(now - 130.minutes) do
         FactoryBot.create(:info_request, :embargoed, user: pro_user, title: "Meeting details", public_body: defence)
       end
-      Timecop.freeze(70.minutes.ago) do
+      Timecop.freeze(now - 70.minutes) do
         FactoryBot.create(:info_request, :embargoed, user: pro_user, title: "Arrest and cautions 2016", public_body: kent)
+      end
+      Timecop.freeze(now - 69.minutes) do
         FactoryBot.create(:info_request, :embargoed, user: pro_user, title: "Bed provision", public_body: kingston)
       end
 
-      visit "/"
+      Timecop.freeze(now) do
+        visit "/"
+      end
 
       path = page.save_screenshot("screenshot.png")
       i = Magick::ImageList.new(path)
       cropped = i.crop(55, 155, 1159, 784)
       cropped.write(File.join(Rails.root, "app", "assets", "images", "alaveteli-pro", "screenshot-dashboard.jpg"))
+
+      # The user puts in another draft and another request
+      Timecop.freeze(now - 68.minutes) do
+        FactoryBot.create(:info_request, :embargoed, user: pro_user, title: "Section 106 housing provision", public_body: southwark)
+      end
+      FactoryBot.create(:draft_info_request, user: pro_user)
+
+      Timecop.freeze(now) do
+        visit alaveteli_pro_info_requests_path
+      end
+
+      path = page.save_screenshot("screenshot.png")
+      i = Magick::ImageList.new(path)
+      cropped = i.crop(55, 155, 1159, 784)
+      cropped.write(File.join(Rails.root, "app", "assets", "images", "alaveteli-pro", "screenshot-requests.jpg"))
     end
   end
 end
