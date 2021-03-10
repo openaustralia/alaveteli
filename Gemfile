@@ -179,6 +179,7 @@ group :test, :development do
   gem 'pry-byebug', '~> 3.7.0'
   # For taking automated screenshots
   gem 'selenium-webdriver'
+  gem "timecop"
 end
 
 group :development do
