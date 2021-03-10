@@ -18,25 +18,25 @@ describe 'Take Pro marketing screenshots', js: true do
   it "Pro dashboard" do
     using_pro_session(pro_user_session) do
       9.times do
-        FactoryBot.create(:embargoed_request, user: pro_user)
+        FactoryBot.create(:info_request, :embargoed, :with_incoming_with_attachments, user: pro_user)
       end
       1.times do
-        FactoryBot.create(:overdue_request, user: pro_user)
+        FactoryBot.create(:info_request, :overdue, user: pro_user)
       end
       45.times do
-        FactoryBot.create(:very_overdue_request, user: pro_user)
+        FactoryBot.create(:info_request, :very_overdue, user: pro_user)
       end
       6.times do
-        FactoryBot.create(:awaiting_description, user: pro_user)
+        FactoryBot.create(:info_request, :awaiting_description, user: pro_user)
       end
       4.times do
-        FactoryBot.create(:waiting_clarification_info_request, user: pro_user)
+        FactoryBot.create(:info_request, :with_incoming, :waiting_clarification, user: pro_user)
       end
       11.times do
-        FactoryBot.create(:successful_request, user: pro_user)
+        FactoryBot.create(:info_request, :with_incoming, :successful, user: pro_user)
       end
       5.times do
-        FactoryBot.create(:attention_requested_request, user: pro_user)
+        FactoryBot.create(:info_request, :with_incoming, :attention_requested, user: pro_user)
       end
       15.times do
         FactoryBot.create(:draft_info_request, user: pro_user)
