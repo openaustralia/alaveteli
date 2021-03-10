@@ -32,8 +32,11 @@ describe 'Take Pro marketing screenshots', js: true do
       4.times do
         FactoryBot.create(:info_request, :embargoed, :with_incoming, :waiting_clarification, user: pro_user)
       end
-      11.times do
+      5.times do
         FactoryBot.create(:info_request, :embargoed, :with_incoming, :successful, user: pro_user)
+      end
+      6.times do
+        FactoryBot.create(:info_request, :embargo_expiring, :with_incoming, :successful, user: pro_user)
       end
       5.times do
         FactoryBot.create(:info_request, :embargoed, :with_incoming, :attention_requested, user: pro_user)
