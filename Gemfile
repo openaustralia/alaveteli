@@ -180,6 +180,7 @@ group :test, :development do
   # For taking automated screenshots
   gem 'selenium-webdriver'
   gem "timecop"
+  gem "rmagick"
 end
 
 group :development do

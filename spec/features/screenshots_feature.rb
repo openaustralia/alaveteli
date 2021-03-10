@@ -64,7 +64,12 @@ describe 'Take Pro marketing screenshots', js: true do
       end
 
       visit "/"
-      page.save_screenshot(File.join(Rails.root, "dashboard.png"))
+      path = File.join(Rails.root, "dashboard.png")
+      page.save_screenshot(path)
+
+      i = Magick::ImageList.new(path)
+      cropped = i.crop(55, 155, 1159, 784)
+      cropped.write(path)
     end
   end
 end
