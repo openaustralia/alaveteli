@@ -93,4 +93,33 @@ describe 'Take Pro marketing screenshots', js: true do
       cropped.write(File.join(Rails.root, "app", "assets", "images", "alaveteli-pro", "screenshot-requests.jpg"))
     end
   end
+
+  it "Pro Batch screenshot" do
+    FactoryBot.create(:public_body, name: "Ministry of Defence")
+    FactoryBot.create(:public_body, name: "Ministry of Housing")
+    culture = FactoryBot.create(:public_body, name: "Ministry of Culture")
+    FactoryBot.create(:public_body, name: "Ministry of Transport")
+    FactoryBot.create(:public_body, name: "Ministry of Finance")
+    education = FactoryBot.create(:public_body, name: "Ministry of Education")
+    business = FactoryBot.create(:public_body, name: "Ministry of Business")
+    FactoryBot.create(:public_body, name: "Ministry of Health")
+
+    # Start a draft request
+    draft = FactoryBot.create(:draft_info_request_batch, user: pro_user,
+                              public_bodies: [business, culture, education])
+
+    update_xapian_index
+
+    using_pro_session(pro_user_session) do
+      visit alaveteli_pro_batch_request_authority_searches_path(draft_id: draft)
+
+      fill_in "Search for an authority by name", with: "ministry"
+      expect(page).to have_content("Ministry of Defence")
+
+      path = page.save_screenshot("screenshot.png")
+      i = Magick::ImageList.new(path)
+      cropped = i.crop(55, 155, 1159, 784)
+      cropped.write(File.join(Rails.root, "app", "assets", "images", "alaveteli-pro", "screenshot-batch-selection.jpg"))
+    end
+  end
 end
