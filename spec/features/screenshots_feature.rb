@@ -134,7 +134,7 @@ describe 'Take Pro marketing screenshots', js: true do
         FactoryBot.create(:info_request, :embargoed, :with_incoming, :successful, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Transport")),
         FactoryBot.create(:info_request, :embargoed, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Justice")),
         FactoryBot.create(:info_request, :embargoed, :with_incoming, :with_incoming, :awaiting_description, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Housing")),
-        FactoryBot.create(:info_request, :embargoed, :internal_review, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Business"))
+        FactoryBot.create(:info_request, :embargoed, :with_internal_review_request, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Business"))
       ]
       batch.info_requests.each do |request|
         request.info_request_events = [ FactoryBot.build(:sent_event, info_request: request) ]

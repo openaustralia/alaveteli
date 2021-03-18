@@ -227,12 +227,6 @@ FactoryBot.define do
       end
     end
 
-    trait :internal_review do
-      after(:create) do |info_request, evaluator|
-        info_request.set_described_state('internal_review')
-      end
-    end
-
     trait :not_held do
       after(:create) do |info_request, evaluator|
         info_request.set_described_state('not_held')
