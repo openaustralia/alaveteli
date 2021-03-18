@@ -128,13 +128,13 @@ describe 'Take Pro marketing screenshots', js: true do
       batch = FactoryBot.build(:info_request_batch, :embargoed, user: pro_user, title: "Organisation charts")
 
       batch.info_requests = [
-        FactoryBot.build(:info_request, :embargoed, :with_incoming, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Education")),
-        FactoryBot.build(:info_request, :embargoed, :with_incoming, :awaiting_description, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Finance")),
-        FactoryBot.build(:info_request, :embargoed, :with_incoming_with_attachments, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Culture")),
-        FactoryBot.build(:info_request, :embargoed, :with_incoming_with_attachments, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Transport")),
-        FactoryBot.build(:info_request, :embargoed, :with_incoming_with_attachments, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Justice")),
-        FactoryBot.build(:info_request, :embargoed, :with_incoming_with_attachments, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Housing")),
-        FactoryBot.build(:info_request, :embargoed, :with_incoming_with_attachments, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Business"))
+        FactoryBot.create(:info_request, :embargoed, :with_incoming, :refused, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Education")),
+        FactoryBot.create(:info_request, :embargoed, :with_incoming, :with_incoming, :awaiting_description, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Finance")),
+        FactoryBot.create(:info_request, :embargoed, :with_incoming, :partially_successful, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Culture")),
+        FactoryBot.create(:info_request, :embargoed, :with_incoming, :successful, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Transport")),
+        FactoryBot.create(:info_request, :embargoed, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Justice")),
+        FactoryBot.create(:info_request, :embargoed, :with_incoming, :with_incoming, :awaiting_description, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Housing")),
+        FactoryBot.create(:info_request, :embargoed, :internal_review, user: pro_user, public_body: FactoryBot.create(:public_body, name: "Ministry of Business"))
       ]
       batch.info_requests.each do |request|
         request.info_request_events = [ FactoryBot.build(:sent_event, info_request: request) ]
@@ -146,7 +146,10 @@ describe 'Take Pro marketing screenshots', js: true do
       visit alaveteli_pro_info_requests_path
       find(".batch-request label").click
 
-      page.save_screenshot(File.join(Rails.root, "batch.png"))
+      path = page.save_screenshot("screenshot.png")
+      i = Magick::ImageList.new(path)
+      cropped = i.crop(55, 155, 1159, 784)
+      cropped.write(File.join(Rails.root, "app", "assets", "images", "alaveteli-pro", "screenshot-batch-list.jpg"))
     end
   end
 end
