@@ -1,12 +1,14 @@
-FROM ruby:2.6-buster
+FROM ruby:2.6
 
 ENV DOCKER 1
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y && \
     apt-get install -y \
+    curl \
     elinks \
     ghostscript \
+    git \
     libmagic-dev \
     pdftk \
     poppler-utils \
