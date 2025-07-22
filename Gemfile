@@ -192,4 +192,10 @@ group :development do
   gem 'rubocop', '~> 0.81.0', require: false
   gem 'rubocop-performance', '~> 1.5.2', require: false
   gem 'rubocop-rails', require: false
+  
+  
+  # gem 'capistrano-rbenv', '~> 1.0'
+  # gem 'mailcatcher', '~> 0.5.12'
+  # gem 'quiet_assets', '~> 1.1.0'
+  # gem 'rdoc', '~> 3.12.2'
 end
