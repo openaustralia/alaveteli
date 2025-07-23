@@ -17,7 +17,8 @@ RUN apt-get update -y && \
     sendmail \
     tnef \
     unrtf \
-    mutt
+    mutt \
+    libxapian-dev
 
 # PyYAML
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /tmp/get-pip.py && \
