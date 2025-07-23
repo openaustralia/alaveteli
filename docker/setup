@@ -16,6 +16,7 @@ success_msg() { printf "\033[32m%s\033[0m\n" "$*"; }
 
 notice_msg 'Installing Ruby gems...'
 git config --global --add safe.directory /alaveteli
+bundle update --bundler
 bundle install >/dev/null
 success_msg 'done'
 
