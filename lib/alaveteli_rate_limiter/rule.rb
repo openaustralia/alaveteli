@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AlaveteliRateLimiter
   # Class to encapsulate how many times an event can happen in a given Window.
   class Rule

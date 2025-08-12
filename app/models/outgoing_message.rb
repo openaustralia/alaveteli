@@ -1,5 +1,5 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: outgoing_messages
 #
@@ -69,8 +69,10 @@ class OutgoingMessage < ApplicationRecord
 
   self.default_url_options[:host] = AlaveteliConfiguration.domain
 
-  scope :followup, -> { where(message_type: 'followup') }
-  scope :is_searchable, -> { where(prominence: 'normal') }
+  # https links in emails if forcing SSL
+  if AlaveteliConfiguration::force_ssl
+    self.default_url_options[:protocol] = "https"
+  end
 
   def self.expected_send_errors
     [ EOFError,

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddIncomingMessageIdIndexToFoiAttachments < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_index :foi_attachments, :incoming_message_id

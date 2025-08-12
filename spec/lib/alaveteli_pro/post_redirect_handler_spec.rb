@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::PostRedirectHandler, type: :controller do
+describe AlaveteliPro::PostRedirectHandler, type: :controller do
   controller do
     include AlaveteliPro::PostRedirectHandler
   end

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe 'admin_request/hidden_user_explanation.text.erb' do
+describe 'admin_request/hidden_user_explanation.text.erb' do
   let(:stub_locals) do
     { name_to: 'Bob Smith',
       info_request: double(title: 'Foo'),

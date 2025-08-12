@@ -22,7 +22,7 @@ RSpec.describe Projects::ProjectsController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
         ability.can :read, project
         get :show, params: { id: project.id }
       end
@@ -40,7 +40,7 @@ RSpec.describe Projects::ProjectsController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
         ability.cannot :read, project
       end
 

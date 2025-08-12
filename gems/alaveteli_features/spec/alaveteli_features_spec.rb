@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'flipper/adapters/memory'
 
-RSpec.describe AlaveteliFeatures do
+describe AlaveteliFeatures do
   it 'should have a version number' do
     expect(AlaveteliFeatures::VERSION).not_to be_nil
   end

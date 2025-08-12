@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/alaveteli_dsl'
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-RSpec.describe "Signing in" do
+describe "Signing in" do
   let(:user) { FactoryBot.create(:user) }
 
   def try_login(user, options = {})
@@ -18,7 +19,7 @@ RSpec.describe "Signing in" do
     end
   end
 
-  before { update_xapian_index }
+  before { get_fixtures_xapian_index }
 
   it "shows you an error if you get the password wrong" do
     try_login(user, { :password => 'badpassword' })

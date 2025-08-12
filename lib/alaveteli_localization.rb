@@ -1,6 +1,9 @@
-class AlaveteliLocalization
-  require_relative 'alaveteli_localization/railtie'
+# -*- encoding : utf-8 -*-
+require 'alaveteli_localization/locale'
+require 'alaveteli_localization/hyphenated_locale'
+require 'alaveteli_localization/underscorred_locale'
 
+class AlaveteliLocalization
   class << self
     def set_locales(available_locales, default_locale)
       available, default = parse_locales(available_locales, default_locale)
@@ -44,10 +47,6 @@ class AlaveteliLocalization
     def with_locale(tmp_locale = nil, &block)
       tmp_locale = Locale.parse(tmp_locale).hyphenate.to_sym if tmp_locale
       I18n.with_locale(tmp_locale, &block)
-    end
-
-    def with_default_locale(&block)
-      with_locale(default_locale, &block)
     end
 
     def available_locales

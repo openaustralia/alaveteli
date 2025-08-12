@@ -1,5 +1,5 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: raw_emails
 #
@@ -8,9 +8,9 @@
 #  updated_at :datetime
 #
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe RawEmail do
+describe RawEmail do
 
   def roundtrip_data(raw_email, data)
     raw_email.data = data
@@ -184,9 +184,11 @@ RSpec.describe RawEmail do
       raw_email = FactoryBot.create(:incoming_message).raw_email
       data = roundtrip_data(raw_email, "\xA0")
 
-      expect(data.encoding.to_s).to eq('ASCII-8BIT')
-      expect(data.valid_encoding?).to be true
-      data = data.force_encoding('UTF-8')
+      if data.respond_to?(:encoding)
+        expect(data.encoding.to_s).to eq('ASCII-8BIT')
+        expect(data.valid_encoding?).to be true
+        data = data.force_encoding('UTF-8')
+      end
       expect(data).to eq("\xA0")
     end
 
@@ -199,8 +201,10 @@ RSpec.describe RawEmail do
       roundtrip_data(raw_email, "\xA0ccc")
       data_as_text = raw_email.data_as_text
       expect(data_as_text).to eq("ccc")
-      expect(data_as_text.encoding.to_s).to eq('UTF-8')
-      expect(data_as_text.valid_encoding?).to be true
+      if data_as_text.respond_to?(:encoding)
+        expect(data_as_text.encoding.to_s).to eq('UTF-8')
+        expect(data_as_text.valid_encoding?).to be true
+      end
     end
 
   end

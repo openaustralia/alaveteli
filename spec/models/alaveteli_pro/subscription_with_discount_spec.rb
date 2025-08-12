@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::SubscriptionWithDiscount do
+describe AlaveteliPro::SubscriptionWithDiscount do
   let(:plan) { double(:plan, amount: 833) }
   let(:coupon) { nil }
   let(:trial) { nil }

@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe PublicBodyCSV do
+describe PublicBodyCSV do
 
   describe '.default_fields' do
 

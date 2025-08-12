@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliLocalization::UnderscorredLocale do
+describe AlaveteliLocalization::UnderscorredLocale do
   include AlaveteliLocalization::SpecHelpers
 
   let(:identifier) { 'en_GB' }

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AdminTrackController do
+describe AdminTrackController do
 
   describe 'GET index' do
 

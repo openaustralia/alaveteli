@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe NotificationMailer do
+describe NotificationMailer do
   describe '#daily_summary' do
     let(:user) { FactoryBot.build(:user) }
 

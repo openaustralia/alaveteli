@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::PublicBodiesHelper, type: :helper do
+describe AlaveteliPro::PublicBodiesHelper, type: :helper do
   let(:public_body) { FactoryBot.create(:public_body) }
 
   describe '#public_body_search_attributes' do

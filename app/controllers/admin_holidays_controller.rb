@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminHolidaysController < AdminController
 
   before_action :set_holiday, :only => [:edit, :update, :destroy]

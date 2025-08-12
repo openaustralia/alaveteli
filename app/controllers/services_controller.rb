@@ -1,8 +1,9 @@
+# -*- encoding : utf-8 -*-
 # controllers/services_controller.rb:
 
-class ServicesController < ApplicationController
+require 'open-uri'
 
-  skip_before_action :html_response
+class ServicesController < ApplicationController
 
   def other_country_message
     flash.keep

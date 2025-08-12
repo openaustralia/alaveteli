@@ -1,7 +1,8 @@
-require 'spec_helper'
-require 'integration/alaveteli_dsl'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-RSpec.describe 'when making a zipfile available' do
+describe 'when making a zipfile available' do
 
   after do
     FileUtils.rm_rf(InfoRequest.download_zip_dir)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe AnnouncementsController do
+describe AnnouncementsController do
 
   describe '#destroy' do
 
@@ -9,7 +9,7 @@ RSpec.describe AnnouncementsController do
 
       context 'logged in' do
         let(:user) { FactoryBot.create(:user) }
-        before { sign_in user }
+        before { session[:user_id] = user.id }
 
         it 'creates dismissal' do
           expect {

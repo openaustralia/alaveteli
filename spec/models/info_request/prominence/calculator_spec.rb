@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
-RSpec.describe InfoRequest::Prominence::Calculator do
+describe InfoRequest::Prominence::Calculator do
 
   let(:info_request) { FactoryBot.build(:info_request) }
   let(:embargoed_request) { FactoryBot.create(:embargoed_request) }

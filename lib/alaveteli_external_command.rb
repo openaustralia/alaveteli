@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'external_command'
 
 module AlaveteliExternalCommand
@@ -61,17 +62,16 @@ module AlaveteliExternalCommand
     end
 
     def find_program(program_name)
-      return program_name if program_name =~ %r(^/)
-
-      search_path = AlaveteliConfiguration.utility_search_path
-      search_path = ENV['PATH'].split(':') if search_path.empty?
-
-      search_path.each do |d|
-        path = File.join(d, program_name)
-        return path if File.file?(path) && File.executable?(path)
+      if program_name =~ %r(^/)
+        return program_name
+      else
+        search_path = AlaveteliConfiguration::utility_search_path
+        search_path.each do |d|
+          program_path = File.join(d, program_name)
+          return program_path if File.file? program_path and File.executable? program_path
+        end
+        raise "Could not find #{program_name} in any of #{search_path.join(', ')}"
       end
-
-      raise "Could not find #{program_name} in any of #{search_path.join(', ')}"
     end
   end
 end

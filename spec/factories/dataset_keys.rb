@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20200501183111
 #
 # Table name: dataset_keys
 #
-#  id                 :bigint           not null, primary key
-#  dataset_key_set_id :bigint
+#  id                 :integer          not null, primary key
+#  dataset_key_set_id :integer
 #  title              :string
 #  format             :string
 #  order              :integer

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 require File.join(File.dirname(__FILE__), '../graphs')
 
@@ -5,7 +6,11 @@ namespace :graphs do
   include Graphs
 
   task :generate_user_use_graph => :environment do
-    minimum_data_size = ENV.fetch('MINIMUM_DATA_SIZE', 1).to_i
+    minimum_data_size = if ENV["MINIMUM_DATA_SIZE"]
+      ENV["MINIMUM_DATA_SIZE"].to_i
+    else
+      1
+    end
 
     # set the local font path for the current task
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"
@@ -138,7 +143,11 @@ namespace :graphs do
   end
 
   task :generate_request_creation_graph => :environment do
-    minimum_data_size = ENV.fetch('MINIMUM_DATA_SIZE', 2).to_i
+    minimum_data_size = if ENV["MINIMUM_DATA_SIZE"]
+      ENV["MINIMUM_DATA_SIZE"].to_i
+    else
+      2
+    end
 
     # set the local font path for the current task
     ENV["GDFONTPATH"] = "/usr/share/fonts/truetype/ttf-bitstream-vera"

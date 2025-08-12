@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminOutgoingMessageController < AdminController
 
   before_action :set_outgoing_message, :only => [:edit, :destroy, :update, :resend]

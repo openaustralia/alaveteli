@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::ActivityList::FollowupSent do
+describe AlaveteliPro::ActivityList::FollowupSent do
   include Rails.application.routes.url_helpers
 
   let(:event) { FactoryBot.create(:followup_sent_event) }

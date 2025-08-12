@@ -1,7 +1,8 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 require 'stripe_mock'
 
-RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
+describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
   let(:stripe_helper) { StripeMock.create_test_helper }
   let(:user_token) { stripe_helper.generate_card_token }
   let(:new_token) { stripe_helper.generate_card_token }
@@ -49,7 +50,7 @@ RSpec.describe AlaveteliPro::PaymentMethodsController, feature: :pro_pricing do
       let!(:card_ids) { customer.sources.data.map(&:id) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it 'finds the card token' do

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliMailPoller do
+describe AlaveteliMailPoller do
   let(:mockpop3) { MockPOP3.new }
   let(:poller) { AlaveteliMailPoller.new(pop3: mockpop3) }
 

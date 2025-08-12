@@ -1,5 +1,5 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: public_bodies
 #
@@ -11,27 +11,18 @@
 #  updated_at                             :datetime         not null
 #  home_page                              :text
 #  api_key                                :string           not null
-#  info_requests_count                    :integer          default("0"), not null
+#  info_requests_count                    :integer          default(0), not null
 #  disclosure_log                         :text
 #  info_requests_successful_count         :integer
 #  info_requests_not_held_count           :integer
 #  info_requests_overdue_count            :integer
 #  info_requests_visible_classified_count :integer
-#  info_requests_visible_count            :integer          default("0"), not null
-#  public_body_id                         :integer          not null
-#  name                                   :text
-#  short_name                             :text
-#  request_email                          :text
-#  url_name                               :text
-#  notes                                  :text
-#  first_letter                           :string
-#  publication_scheme                     :text
-#  disclosure_log                         :text
+#  info_requests_visible_count            :integer          default(0), not null
 #
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe PublicBody do
+describe PublicBody do
 
   describe <<-EOF.squish do
     temporary tests for Globalize::ActiveRecord::InstanceMethods#read_attribute
@@ -61,7 +52,7 @@ RSpec.describe PublicBody do
 
     it 'update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save! }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
       expect(body.update('name' => nil)).to eq(false)
@@ -91,7 +82,7 @@ RSpec.describe PublicBody do
 
     it 'blank string update with translated name' do
       body = FactoryBot.create(:public_body)
-      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save! }
+      AlaveteliLocalization.with_locale(:es) { body.name = 'hola'; body.save }
       body.reload
 
       expect(body.update('name' => '')).to eq(false)
@@ -357,7 +348,7 @@ RSpec.describe PublicBody do
 
     it 'ignores manually set attributes' do
       subject = FactoryBot.build(:public_body, :version => 21)
-      subject.save!
+      subject.save
       expect(subject.version).to eq(1)
     end
 
@@ -485,7 +476,7 @@ RSpec.describe PublicBody do
 
     it 'gets set on save' do
       subject = FactoryBot.build(:public_body)
-      subject.save!
+      subject.save
       expect(subject.api_key).not_to be_blank
     end
 
@@ -662,7 +653,7 @@ RSpec.describe PublicBody do
         body = FactoryBot.create(:public_body)
         body.translations_attributes = { :es => { :locale => 'es',
                                                   :name => 'El Body' } }
-        body.save!
+        body.save
         body.reload
         expect(body.name(:es)).to eq('El Body')
       end
@@ -671,12 +662,12 @@ RSpec.describe PublicBody do
         body = FactoryBot.create(:public_body)
         body.translations_attributes = { 'es' => { :locale => 'es',
                                                    :name => 'El Body' } }
-        body.save!
+        body.save
 
         body.translations_attributes = { 'es' => { :id => body.translation_for(:es).id,
                                                    :locale => 'es',
                                                    :name => 'Renamed' } }
-        body.save!
+        body.save
         expect(body.name(:es)).to eq('Renamed')
       end
 
@@ -760,19 +751,19 @@ RSpec.describe PublicBody do
   end
 
   describe '#expire_requests' do
+
     it 'calls expire on all associated requests' do
       public_body = FactoryBot.build(:public_body)
+      requests = [double, double]
+      expect(public_body).to receive(:info_requests).and_return(requests)
 
-      request_1, request_2 = double(:info_request), double(:info_request)
-
-      allow(public_body).to receive_message_chain(:info_requests, :find_each).
-        and_yield(request_1).and_yield(request_2)
-
-      expect(request_1).to receive(:expire)
-      expect(request_2).to receive(:expire)
+      requests.each do |request|
+        expect(request).to receive(:expire)
+      end
 
       public_body.expire_requests
     end
+
   end
 
   describe '#short_or_long_name' do
@@ -933,7 +924,7 @@ RSpec.describe PublicBody do
     it 'includes bodies with a translation that has an empty request email' do
       AlaveteliLocalization.with_locale(:es) do
         public_body.request_email = ''
-        public_body.save!
+        public_body.save
       end
       is_expected.to include(blank_body)
     end
@@ -1000,7 +991,7 @@ RSpec.describe PublicBody do
 
 end
 
-RSpec.describe PublicBody, " using tags" do
+describe PublicBody, " using tags" do
   before do
     @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
                                   :short_name => 'AMS',
@@ -1056,7 +1047,7 @@ RSpec.describe PublicBody, " using tags" do
   end
 end
 
-RSpec.describe PublicBody, " using machine tags" do
+describe PublicBody, " using machine tags" do
   before do
     @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
                                   :short_name => 'AMS',
@@ -1094,7 +1085,7 @@ RSpec.describe PublicBody, " using machine tags" do
   end
 end
 
-RSpec.describe PublicBody, "when finding_by_tags" do
+describe PublicBody, "when finding_by_tags" do
 
   before do
     @geraldine = public_bodies(:geraldine_public_body)
@@ -1114,7 +1105,7 @@ RSpec.describe PublicBody, "when finding_by_tags" do
   end
 end
 
-RSpec.describe PublicBody, " when saving" do
+describe PublicBody, " when saving" do
   before do
     @public_body = PublicBody.new
   end
@@ -1188,40 +1179,9 @@ RSpec.describe PublicBody, " when saving" do
     expect(@public_body.versions.last.name).to eq('Test')
   end
 
-  it 'reindexes request events when url_name has changed' do
-    body = FactoryBot.create(:public_body, name: 'foo-bar-baz')
-    requests =
-      2.times.map { FactoryBot.create(:info_request, public_body: body) }
-    event_ids = InfoRequestEvent.where(info_request_id: requests.map(&:id))
-
-    ActsAsXapian::ActsAsXapianJob.destroy_all
-
-    body.update!(url_name: 'baz-bar-foo')
-
-    expected_events =
-      ActsAsXapian::ActsAsXapianJob.
-      where(action: 'update', model: 'InfoRequestEvent', model_id: event_ids)
-
-    expect(expected_events.size).to eq(event_ids.size)
-  end
-
-  it 'does not reindex request events when url_name has not changed' do
-    body = FactoryBot.create(:public_body, name: 'foo-bar-baz')
-    FactoryBot.create(:info_request, public_body: body)
-
-    ActsAsXapian::ActsAsXapianJob.destroy_all
-
-    body.update!(notes: 'test')
-
-    expected_events =
-      ActsAsXapian::ActsAsXapianJob.
-      where(action: 'update', model: 'InfoRequestEvent')
-
-    expect(expected_events.count).to eq(0)
-  end
 end
 
-RSpec.describe PublicBody, "when searching" do
+describe PublicBody, "when searching" do
 
   it "should find by existing url name" do
     body = PublicBody.find_by_url_name_with_historic('dfh')
@@ -1278,7 +1238,7 @@ RSpec.describe PublicBody, "when searching" do
   end
 end
 
-RSpec.describe PublicBody, "when destroying" do
+describe PublicBody, "when destroying" do
   let(:public_body) { FactoryBot.create(:public_body) }
 
   it 'should destroy the public_body' do
@@ -1304,7 +1264,7 @@ RSpec.describe PublicBody, "when destroying" do
   it 'destroys associated translations' do
     AlaveteliLocalization.with_locale(:es) do
       public_body.name = 'El Translation'
-      public_body.save!
+      public_body.save
     end
     expect(PublicBody::Translation.where(:public_body_id => public_body.id)).
       to_not be_empty
@@ -1321,7 +1281,7 @@ RSpec.describe PublicBody, "when destroying" do
 
 end
 
-RSpec.describe PublicBody, " when loading CSV files" do
+describe PublicBody, " when loading CSV files" do
   before(:each) do
     # InternalBody is created the first time it's accessed, which happens sometimes during imports,
     # depending on the tag used. By accessing it here before every test, it doesn't disturb our checks later on
@@ -1886,32 +1846,7 @@ CSV
   end
 end
 
-RSpec.describe PublicBody do
-  let(:public_body) { FactoryBot.build(:public_body) }
-  let(:legislation) { double(:legislation) }
-  let(:legislations) { [legislation] }
-
-  describe '#legislations' do
-    subject { public_body.legislations }
-
-    it 'pass self to Legislation.for_public_body' do
-      expect(Legislation).to receive(:for_public_body).with(public_body).
-        and_return(legislations)
-      is_expected.to eq legislations
-    end
-  end
-
-  describe '#legislation' do
-    subject { public_body.legislation }
-
-    it 'returns first legislations' do
-      allow(public_body).to receive(:legislations).and_return(legislations)
-      is_expected.to eq legislation
-    end
-  end
-end
-
-RSpec.describe PublicBody do
+describe PublicBody do
 
   describe "calculated home page" do
     it "should return the home page verbatim if it's present" do
@@ -2020,7 +1955,7 @@ RSpec.describe PublicBody do
 
 end
 
-RSpec.describe PublicBody, " when override all public body request emails set" do
+describe PublicBody, " when override all public body request emails set" do
   it "should return the overridden request email" do
     expect(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).twice.and_return("catch_all_test_email@foo.com")
     @geraldine = public_bodies(:geraldine_public_body)
@@ -2028,7 +1963,7 @@ RSpec.describe PublicBody, " when override all public body request emails set" d
   end
 end
 
-RSpec.describe PublicBody, "when calculating statistics" do
+describe PublicBody, "when calculating statistics" do
   it "should not include hidden requests in totals" do
     with_hidden_and_successful_requests do
       totals_data = PublicBody.get_request_totals(n=3,
@@ -2104,7 +2039,7 @@ RSpec.describe PublicBody, "when calculating statistics" do
 
 end
 
-RSpec.describe PublicBody, 'when asked for popular bodies' do
+describe PublicBody, 'when asked for popular bodies' do
 
   it 'should return bodies correctly when passed the hyphenated version of the locale' do
     allow(AlaveteliConfiguration).to receive(:frontpage_publicbody_examples).and_return('')
@@ -2118,7 +2053,7 @@ RSpec.describe PublicBody, 'when asked for popular bodies' do
 
 end
 
-RSpec.describe PublicBody do
+describe PublicBody do
 
   describe '.foi_applies' do
     subject { PublicBody.foi_applies }
@@ -2348,7 +2283,7 @@ RSpec.describe PublicBody do
   end
 end
 
-RSpec.describe PublicBody::Translation do
+describe PublicBody::Translation do
 
   it 'requires a locale' do
     translation = PublicBody::Translation.new
@@ -2365,7 +2300,7 @@ RSpec.describe PublicBody::Translation do
 
 end
 
-RSpec.describe PublicBody::Version do
+describe PublicBody::Version do
   let(:public_body) { FactoryBot.create(:public_body) }
 
   describe '#compare' do
@@ -2385,7 +2320,7 @@ RSpec.describe PublicBody::Version do
 
         it 'returns an empty list' do
           public_body.last_edit_comment = 'Just tinkering'
-          public_body.save!
+          public_body.save
           current = public_body.versions.latest
           expect(current.compare(current.previous)).to eq([])
         end
@@ -2397,7 +2332,7 @@ RSpec.describe PublicBody::Version do
         it 'returns a list of changes as hashes with keys :name, :from and
            :to' do
           public_body.request_email = 'new@example.com'
-          public_body.save!
+          public_body.save
           current = public_body.versions.latest
           expected = { :name => "Request email",
                        :from => "request@example.com",
@@ -2425,7 +2360,7 @@ RSpec.describe PublicBody::Version do
 
         it 'returns an empty list' do
           public_body.last_edit_comment = 'Just tinkering'
-          public_body.save!
+          public_body.save
           current = public_body.versions.latest
           expect { |b| current.compare(current.previous, &b) }.
             not_to yield_control
@@ -2438,7 +2373,7 @@ RSpec.describe PublicBody::Version do
         it 'returns a list of changes as hashes with keys :name, :from and
            :to' do
           public_body.request_email = 'new@example.com'
-          public_body.save!
+          public_body.save
           current = public_body.versions.latest
           expected = { :name => "Request email",
                        :from => "request@example.com",

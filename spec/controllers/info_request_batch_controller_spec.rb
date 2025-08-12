@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe InfoRequestBatchController do
+describe InfoRequestBatchController do
   describe "#show" do
     let(:first_public_body) { FactoryBot.create(:public_body) }
     let(:second_public_body) { FactoryBot.create(:public_body) }
@@ -66,7 +67,7 @@ RSpec.describe InfoRequestBatchController do
             info_request_batch.embargo_duration = '3_months'
             info_request_batch.user = pro_user
             info_request_batch.save!
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             params[:pro] = "1"
           end
           it 'should assign all info_requests to the view' do
@@ -83,7 +84,7 @@ RSpec.describe InfoRequestBatchController do
     describe 'when params[:pro] is true' do
       before do
         params[:pro] = "1"
-        sign_in pro_user
+        session[:user_id] = pro_user.id
       end
 
       it "should set @in_pro_area to true" do
@@ -104,7 +105,7 @@ RSpec.describe InfoRequestBatchController do
 
           it "should redirect to the pro version of the page" do
             with_feature_enabled(:alaveteli_pro) do
-              sign_in pro_user
+              session[:user_id] = pro_user.id
               get :show, params: { id: batch.id }
               expected_url = show_alaveteli_pro_batch_request_path(batch)
               expect(response).to redirect_to expected_url
@@ -120,7 +121,7 @@ RSpec.describe InfoRequestBatchController do
 
           it "should not redirect to the pro version of the page" do
             with_feature_enabled(:alaveteli_pro) do
-              sign_in pro_user
+              session[:user_id] = pro_user.id
               get :show, params: { id: batch.id }
               expect(response).to be_successful
             end
@@ -130,7 +131,7 @@ RSpec.describe InfoRequestBatchController do
 
       context "when showing pros someone else's request" do
         before do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
         end
 
         it "should not redirect to the pro version of the page" do
@@ -154,7 +155,7 @@ RSpec.describe InfoRequestBatchController do
 
       it "allows the owner to access it" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           get :show, params: { id: batch.id, pro: "1" }
           expect(response).to be_successful
         end
@@ -162,7 +163,7 @@ RSpec.describe InfoRequestBatchController do
 
       it "allows pro admins to access it" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_admin
+          session[:user_id] = pro_admin.id
           get :show, params: { id: batch.id }
           expect(response).to be_successful
         end
@@ -170,7 +171,7 @@ RSpec.describe InfoRequestBatchController do
 
       it "raises an ActiveRecord::RecordNotFound error for admins" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in admin
+          session[:user_id] = admin.id
           expect {
             get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
@@ -179,7 +180,7 @@ RSpec.describe InfoRequestBatchController do
 
       it "raises an ActiveRecord::RecordNotFound error for other pro users" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in other_pro_user
+          session[:user_id] = other_pro_user.id
           expect {
             get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
@@ -188,7 +189,7 @@ RSpec.describe InfoRequestBatchController do
 
       it "raises an ActiveRecord::RecordNotFound error for normal users" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in other_user
+          session[:user_id] = other_user.id
           expect {
             get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
@@ -197,9 +198,9 @@ RSpec.describe InfoRequestBatchController do
 
       it "raises an ActiveRecord::RecordNotFound error for anon users" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in nil
+          session[:user_id] = nil
           expect {
-            get :show, params: { id: batch }
+            get :show, params: { id: batch.id }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end

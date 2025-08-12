@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::EmbargoesController do
+describe AlaveteliPro::EmbargoesController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   let(:admin) do
@@ -19,7 +20,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       context 'because they are the owner' do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :create, params: {
                             alaveteli_pro_embargo: {
                               info_request_id: info_request,
@@ -42,7 +43,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       context 'because they are a pro admin' do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in admin
+            session[:user_id] = admin.id
             post :create, params: {
                             alaveteli_pro_embargo: {
                               info_request_id: info_request,
@@ -70,7 +71,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       it "raises a CanCan::AccessDenied error" do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in other_user
+            session[:user_id] = other_user.id
             post :create, params: {
                             alaveteli_pro_embargo: {
                               info_request_id: info_request,
@@ -94,7 +95,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       it "raises a CanCan::AccessDenied error" do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :create, params: {
                             alaveteli_pro_embargo: {
                               info_request_id: info_request,
@@ -114,7 +115,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       context "because they are the owner" do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             delete :destroy, params: { id: embargo.id }
           end
         end
@@ -147,7 +148,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       context "because they are an admin" do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in admin
+            session[:user_id] = admin.id
             delete :destroy, params: { id: embargo.id }
           end
         end
@@ -172,7 +173,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       it "raises a CanCan::AccessDenied error" do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in other_user
+            session[:user_id] = other_user.id
             delete :destroy, params: { id: embargo.id }
           end
         end.to raise_error(CanCan::AccessDenied)
@@ -190,7 +191,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       it "raises a PermissionDenied error" do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             delete :destroy, params: { id: embargo.id }
           end
         end.to raise_error(ApplicationController::PermissionDenied)
@@ -213,7 +214,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       context "because they are the owner" do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :destroy_batch, params: {
                                    info_request_batch_id: info_request_batch.id
                                  }
@@ -252,7 +253,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       context "because they are an admin" do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in admin
+            session[:user_id] = admin.id
             post :destroy_batch, params: {
                                    info_request_batch_id: info_request_batch.id
                                  }
@@ -295,7 +296,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
       it "raises a CanCan::AccessDenied error" do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in other_user
+            session[:user_id] = other_user.id
             post :destroy_batch, params: {
                                    info_request_batch_id: info_request_batch.id
                                  }
@@ -307,7 +308,7 @@ RSpec.describe AlaveteliPro::EmbargoesController do
     context "when an info_request_id is supplied" do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in admin
+          session[:user_id] = admin.id
           post :destroy_batch,
                params: {
                  info_request_batch_id: info_request_batch.id,

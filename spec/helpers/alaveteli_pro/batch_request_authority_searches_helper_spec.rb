@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesHelper do
+describe AlaveteliPro::BatchRequestAuthoritySearchesHelper do
 
   include AlaveteliPro::BatchRequestAuthoritySearchesHelper
 

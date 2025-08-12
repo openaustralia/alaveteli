@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-RSpec.describe "user_mailer/changeemail_confirm" do
+describe "user_mailer/changeemail_confirm" do
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).

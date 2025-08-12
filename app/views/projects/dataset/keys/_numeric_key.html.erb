@@ -1,4 +1,2 @@
-<div class="dataset-key">
-  <%= f.label :value, key.title %>
-  <%= f.number_field :value %>
-</div>
+<%= render partial: 'projects/dataset/keys/base_key',
+           locals: { f: f, key: key } %>

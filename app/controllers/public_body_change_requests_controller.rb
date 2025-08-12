@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PublicBodyChangeRequestsController < ApplicationController
   before_action :catch_spam, :only => [:create]
   before_action :set_render_recaptcha

@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/alaveteli_dsl'
+require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
-RSpec.describe 'Adding/removing embargoes from requests' do
+describe 'Adding/removing embargoes from requests' do
 
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:user) { FactoryBot.create(:user) }

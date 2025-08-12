@@ -1,5 +1,6 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/alaveteli_dsl'
+require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
 def start_batch_request
   visit(alaveteli_pro_batch_request_authority_searches_path)
@@ -40,16 +41,23 @@ def search_results
   page.find_all(".batch-builder__list__item__name").map(&:text)
 end
 
-RSpec.describe "creating batch requests in alaveteli_pro" do
+describe "creating batch requests in alaveteli_pro" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
 
   before do
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   before do
+    update_xapian_index
+  end
+
+  after do
+    authorities.each do |authority|
+      authority.destroy
+    end
     update_xapian_index
   end
 
@@ -157,7 +165,7 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
       drafts = AlaveteliPro::DraftInfoRequestBatch.where(title: "Does the pro batch request form work?")
       expect(drafts).to exist
       draft = drafts.first
-      expect(draft.embargo_duration).to be_nil
+      expect(draft.embargo_duration).to eq ""
 
       expect(page).to have_select("Privacy", selected: "Publish immediately")
 
@@ -313,7 +321,7 @@ RSpec.describe "creating batch requests in alaveteli_pro" do
   end
 end
 
-RSpec.describe "managing embargoed batch requests" do
+describe "managing embargoed batch requests" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:batch) do

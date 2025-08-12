@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe NotificationMailerHelper do
+describe NotificationMailerHelper do
   include NotificationMailerHelper
 
   describe "#notifications_by_event_type" do

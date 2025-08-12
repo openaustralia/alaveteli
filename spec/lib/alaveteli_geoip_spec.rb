@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe AlaveteliGeoIP do
+describe AlaveteliGeoIP do
   let(:ip_address) { '127.0.0.1' }
   let(:max_mind_config) { { mode: :MODE_MEMORY } }
 

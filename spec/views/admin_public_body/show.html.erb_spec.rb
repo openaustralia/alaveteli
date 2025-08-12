@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "admin_public_body/show.html.erb" do
+describe "admin_public_body/show.html.erb" do
   let(:public_body) { FactoryBot.create(:public_body) }
 
 

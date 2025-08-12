@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeClassificationSystem < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     remove_column :incoming_messages, :contains_information

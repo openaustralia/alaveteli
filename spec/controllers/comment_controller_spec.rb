@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe CommentController, "when commenting on a request" do
+describe CommentController, "when commenting on a request" do
   render_views
 
   describe 'dealing with embargoed requests' do
@@ -26,7 +27,7 @@ RSpec.describe CommentController, "when commenting on a request" do
 
     context "when the user is logged in but not the request owner" do
       before do
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it 'returns a 404 when the info request is embargoed' do
@@ -44,7 +45,7 @@ RSpec.describe CommentController, "when commenting on a request" do
 
     context "when the user is the request owner" do
       before do
-        sign_in pro_user
+        session[:user_id] = pro_user.id
       end
 
       it 'allows them to comment' do
@@ -101,7 +102,7 @@ RSpec.describe CommentController, "when commenting on a request" do
   end
 
   it "should create the comment, and redirect to request page when input is good and somebody is logged in" do
-    sign_in users(:bob_smith_user)
+    session[:user_id] = users(:bob_smith_user).id
 
     post :new,
          params: {
@@ -126,7 +127,7 @@ RSpec.describe CommentController, "when commenting on a request" do
   end
 
   it "should give an error if the same request is submitted twice" do
-    sign_in users(:silly_name_user)
+    session[:user_id] = users(:silly_name_user).id
 
     post :new, params: {
                  :url_title => info_requests(:fancy_dog_request).url_title,
@@ -140,7 +141,7 @@ RSpec.describe CommentController, "when commenting on a request" do
   end
 
   it "should not allow comments if comments are not allowed on the request" do
-    sign_in users(:silly_name_user)
+    session[:user_id] = users(:silly_name_user).id
     info_request = info_requests(:spam_1_request)
 
     post :new, params: {
@@ -157,7 +158,7 @@ RSpec.describe CommentController, "when commenting on a request" do
 
   it "should not allow comments if comments are not allowed globally" do
     allow(controller).to receive(:feature_enabled?).with(:annotations).and_return(false)
-    sign_in users(:silly_name_user)
+    session[:user_id] = users(:silly_name_user).id
     info_request = info_requests(:fancy_dog_request)
 
     post :new, params: {
@@ -190,7 +191,7 @@ RSpec.describe CommentController, "when commenting on a request" do
     allow_any_instance_of(User).to receive(:ban_text).and_return('Banned from commenting')
 
     user = users(:silly_name_user)
-    sign_in user
+    session[:user_id] = user.id
 
     post :new, params: {
                  :url_title => info_requests(:fancy_dog_request).url_title,
@@ -219,7 +220,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       end
 
       it 'sends an exception notification' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :url_title => request.url_title,
@@ -235,7 +236,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       end
 
       it 'shows an error message' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :url_title => request.url_title,
@@ -251,7 +252,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       end
 
       it 'renders the compose interface' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :url_title => request.url_title,
@@ -268,7 +269,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       it 'allows the comment if the user is confirmed not spam' do
         user.confirmed_not_spam = true
         user.save!
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :url_title => request.url_title,
@@ -291,7 +292,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       end
 
       it 'sends an exception notification' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :url_title => request.url_title,
@@ -307,7 +308,7 @@ RSpec.describe CommentController, "when commenting on a request" do
       end
 
       it 'allows the comment' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :url_title => request.url_title,
@@ -352,7 +353,7 @@ RSpec.describe CommentController, "when commenting on a request" do
     end
 
     it "sets @in_pro_area" do
-      sign_in pro_user
+      session[:user_id] = pro_user.id
       with_feature_enabled(:alaveteli_pro) do
         get :new, params: { :url_title => embargoed_request.url_title,
                             :type => 'request' }

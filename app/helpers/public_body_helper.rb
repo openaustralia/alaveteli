@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module PublicBodyHelper
 
   # Public: The reasons a request can't be made to a PublicBody
@@ -43,7 +44,11 @@ module PublicBodyHelper
 
     types = categories.each_with_index.map do |category, index|
       desc = category.description
-      desc = desc.sub(/\S/) { |m| m.upcase } if index.zero?
+      if index.zero?
+        desc = desc.sub(/\S/) do |m|
+          RUBY_VERSION < '2.4' ? Unicode.upcase(m) : m.upcase
+        end
+      end
       link_to(desc, list_public_bodies_by_tag_path(category.category_tag))
     end
 

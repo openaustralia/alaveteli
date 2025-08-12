@@ -1,4 +1,5 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require "external_command"
 
 def mailin_test(email_filename)
@@ -14,7 +15,7 @@ def mailin_test(email_filename)
   end
 end
 
-RSpec.describe "When importing mail into the application" do
+describe "When importing mail into the application" do
 
   # Turn off transactional fixtures for this suite - incoming message is imported
   # outside the transaction via ExternalCommand, so needs to be destroyed outside the

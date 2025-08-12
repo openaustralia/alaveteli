@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::BaseController
   include AlaveteliPro::BatchRequest
 

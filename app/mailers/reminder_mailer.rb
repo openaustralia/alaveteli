@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 class ReminderMailer < ApplicationMailer
   # Send reminder message to administrator

@@ -1,5 +1,5 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: incoming_messages
 #
@@ -21,10 +21,10 @@
 #  prominence_reason              :text
 #
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
-RSpec.describe IncomingMessage do
+describe IncomingMessage do
 
   describe '.unparsed' do
     subject { described_class.unparsed }
@@ -380,94 +380,28 @@ RSpec.describe IncomingMessage do
   describe '#_extract_text' do
 
     it 'does not generate incompatible character encodings' do
-      message = FactoryBot.create(:incoming_message)
-      FactoryBot.create(:body_text,
-                        :body => 'hí',
-                        :incoming_message => message,
-                        :url_part_number => 2)
-      FactoryBot.create(:pdf_attachment,
-                        :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
-                        :incoming_message => message,
-                        :url_part_number => 3)
-      message.reload
+      if String.respond_to?(:encode)
+        message = FactoryBot.create(:incoming_message)
+        FactoryBot.create(:body_text,
+                          :body => 'hí',
+                          :incoming_message => message,
+                          :url_part_number => 2)
+        FactoryBot.create(:pdf_attachment,
+                          :body => load_file_fixture('pdf-with-utf8-characters.pdf'),
+                          :incoming_message => message,
+                          :url_part_number => 3)
+        message.reload
 
-      expect { message._extract_text }.
-        to_not raise_error
+        expect { message._extract_text }.
+          to_not raise_error
+      end
     end
 
   end
 
-  describe '#legislation' do
-    let(:info_request) { FactoryBot.build(:info_request) }
-
-    let(:message) do
-      FactoryBot.build(:incoming_message, info_request: info_request)
-    end
-
-    it 'delegates to the info request' do
-      legislation = double(:legislation)
-      expect(info_request).to receive(:legislation).and_return(legislation)
-      expect(message.legislation).to eq legislation
-    end
-  end
-
-  describe '#refusals' do
-    let(:message) { FactoryBot.build(:incoming_message) }
-    let(:legislation) { double(:legislation) }
-
-    before do
-      allow(message).to receive(:get_main_body_text_folded).and_return('TEXT')
-      allow(message).to receive(:legislation).and_return(legislation)
-    end
-
-    it 'finds references' do
-      expect(legislation).to receive(:find_references).with('TEXT').
-        and_return([])
-      message.refusals
-    end
-
-    it 'returns references which are refusals' do
-      refusal_1 = double(:refusal_1, refusal?: true).as_null_object
-      refusal_2 = double(:refusal_2, refusal?: true).as_null_object
-      other = double(:not_refusal, refusal?: false)
-
-      allow(legislation).to receive(:find_references).and_return(
-        [refusal_1, refusal_2, other]
-      )
-      expect(message.refusals).to match_array([refusal_1, refusal_2])
-    end
-
-    it 'returns unique parent references based on the parent to_s' do
-      parent_1 = double(:parent_1, to_s: 'Section 1')
-      parent_2 = double(:parent_2, to_s: 'Section 1')
-      refusal_1 = double(:refusal_1, refusal?: true, parent: parent_1)
-      refusal_2 = double(:refusal_2, refusal?: true, parent: parent_2)
-
-      allow(legislation).to receive(:find_references).and_return(
-        [refusal_1, refusal_2]
-      )
-      expect(message.refusals).to match_array([parent_1])
-    end
-  end
-
-  describe '#refusals?' do
-    subject { message.refusals? }
-
-    let(:message) { FactoryBot.build(:incoming_message) }
-
-    context 'if there are refusals' do
-      before { allow(message).to receive(:refusals).and_return([double]) }
-      it { is_expected.to eq(true) }
-    end
-
-    context 'if there are no refusals' do
-      before { allow(message).to receive(:refusals).and_return([]) }
-      it { is_expected.to eq(false) }
-    end
-  end
 end
 
-RSpec.describe IncomingMessage, 'when validating' do
+describe IncomingMessage, 'when validating' do
 
   it 'should be valid with valid prominence values' do
     ['hidden', 'requester_only', 'normal'].each do |prominence|
@@ -487,7 +421,7 @@ RSpec.describe IncomingMessage, 'when validating' do
 
 end
 
-RSpec.describe IncomingMessage, 'when getting a response event' do
+describe IncomingMessage, 'when getting a response event' do
 
   it 'should return an event with event_type "response"' do
     incoming_message = IncomingMessage.new
@@ -499,7 +433,7 @@ RSpec.describe IncomingMessage, 'when getting a response event' do
 
 end
 
-RSpec.describe IncomingMessage, "when the prominence is changed" do
+describe IncomingMessage, "when the prominence is changed" do
   let(:request) { FactoryBot.create(:info_request) }
 
   it "updates the info_request's last_public_response_at to nil when hidden" do
@@ -509,7 +443,7 @@ RSpec.describe IncomingMessage, "when the prominence is changed" do
                                                   :info_request => request,
                                                   :incoming_message => im)
     im.prominence = 'hidden'
-    im.save!
+    im.save
     expect(request.last_public_response_at).to be_nil
   end
 
@@ -522,14 +456,14 @@ RSpec.describe IncomingMessage, "when the prominence is changed" do
                                                    :info_request => request,
                                                    :incoming_message => im)
     im.prominence = 'normal'
-    im.save!
+    im.save
     expect(request.last_public_response_at).to be_within(1.second).
       of(response_event.created_at)
   end
 
 end
 
-RSpec.describe 'when destroying a message' do
+describe 'when destroying a message' do
   let(:incoming_message) { FactoryBot.create(:plain_incoming_message) }
 
   it 'destroys the incoming message' do
@@ -594,7 +528,7 @@ RSpec.describe 'when destroying a message' do
 
 end
 
-RSpec.describe 'when asked if it is indexed by search' do
+describe 'when asked if it is indexed by search' do
 
   before do
     @incoming_message = IncomingMessage.new
@@ -617,7 +551,7 @@ RSpec.describe 'when asked if it is indexed by search' do
 
 end
 
-RSpec.describe IncomingMessage, " when dealing with incoming mail" do
+describe IncomingMessage, " when dealing with incoming mail" do
 
   before(:each) do
     @im = incoming_messages(:useless_incoming_message)
@@ -737,7 +671,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
-RSpec.describe IncomingMessage, " display attachments" do
+describe IncomingMessage, " display attachments" do
 
   it "should not show slashes in filenames" do
     foi_attachment = FoiAttachment.new
@@ -759,7 +693,7 @@ RSpec.describe IncomingMessage, " display attachments" do
 
 end
 
-RSpec.describe IncomingMessage, " folding quoted parts of emails" do
+describe IncomingMessage, " folding quoted parts of emails" do
 
   it 'should fold an example lotus notes quoted part converted from HTML correctly' do
     ir = info_requests(:fancy_dog_request)
@@ -809,7 +743,7 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
 
 end
 
-RSpec.describe IncomingMessage, " when uudecoding bad messages" do
+describe IncomingMessage, " when uudecoding bad messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -892,7 +826,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
 
 end
 
-RSpec.describe IncomingMessage, "when messages are attached to messages" do
+describe IncomingMessage, "when messages are attached to messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -951,7 +885,7 @@ RSpec.describe IncomingMessage, "when messages are attached to messages" do
 
 end
 
-RSpec.describe IncomingMessage, "when Outlook messages are attached to messages" do
+describe IncomingMessage, "when Outlook messages are attached to messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -977,7 +911,7 @@ RSpec.describe IncomingMessage, "when Outlook messages are attached to messages"
   end
 end
 
-RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages" do
+describe IncomingMessage, "when TNEF attachments are attached to messages" do
   let(:raw_email) { FactoryBot.create(:raw_email) }
 
   let(:im) do
@@ -1013,7 +947,7 @@ RSpec.describe IncomingMessage, "when TNEF attachments are attached to messages"
 
 end
 
-RSpec.describe IncomingMessage, "when extracting attachments" do
+describe IncomingMessage, "when extracting attachments" do
 
   before do
     load_raw_emails_data
@@ -1059,15 +993,17 @@ RSpec.describe IncomingMessage, "when extracting attachments" do
   end
 
   it 'makes invalid utf-8 encoded attachment text valid when string responds to encode' do
-    im = incoming_messages(:useless_incoming_message)
-    allow(im).to receive(:extract_text).and_return("\xBF")
+    if String.method_defined?(:encode)
+      im = incoming_messages(:useless_incoming_message)
+      allow(im).to receive(:extract_text).and_return("\xBF")
 
-    expect(im._get_attachment_text_internal.valid_encoding?).to be true
+      expect(im._get_attachment_text_internal.valid_encoding?).to be true
+    end
   end
 
 end
 
-RSpec.describe IncomingMessage, 'when getting the body of a message for html display' do
+describe IncomingMessage, 'when getting the body of a message for html display' do
   let(:incoming_message) { IncomingMessage.new }
 
   it 'should replace any masked email addresses with a link to the help page' do
@@ -1119,7 +1055,7 @@ RSpec.describe IncomingMessage, 'when getting the body of a message for html dis
 
 end
 
-RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
+describe IncomingMessage, 'when getting clipped attachment text' do
 
   it 'should clip to characters not bytes' do
     incoming_message = FactoryBot.build(:incoming_message)
@@ -1132,7 +1068,7 @@ RSpec.describe IncomingMessage, 'when getting clipped attachment text' do
 
 end
 
-RSpec.describe IncomingMessage, 'when getting the main body text' do
+describe IncomingMessage, 'when getting the main body text' do
 
   context 'when the main body text is more than 1MB' do
 

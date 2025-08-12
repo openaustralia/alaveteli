@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe OutgoingMailer, " when working out follow up names and addresses" do
+describe OutgoingMailer, " when working out follow up names and addresses" do
 
   before do
     @info_request = mock_model(InfoRequest,
@@ -57,7 +58,7 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
 
 end
 
-RSpec.describe OutgoingMailer, "when working out follow up subjects" do
+describe OutgoingMailer, "when working out follow up subjects" do
 
   before(:each) do
     load_raw_emails_data

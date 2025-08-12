@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: citations
 #
-#  id           :bigint           not null, primary key
-#  user_id      :bigint
+#  id           :integer          not null, primary key
+#  user_id      :integer
 #  citable_type :string
-#  citable_id   :bigint
+#  citable_id   :integer
 #  source_url   :string
 #  type         :string
 #  created_at   :datetime         not null
@@ -31,10 +30,6 @@ class Citation < ApplicationRecord
                                    message: _('Please enter a Source URL') }
   validates :type, inclusion: { in: %w(news_story academic_paper other),
                                 message: _('Please select a type') }
-
-  scope :newest, ->(limit = 1) do
-    order(created_at: :desc).limit(limit)
-  end
 
   scope :for_request, ->(info_request) do
     where(citable: info_request).

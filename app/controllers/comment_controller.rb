@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/comment_controller.rb:
 # Show annotations upon a request or other object.
 #
@@ -38,16 +39,12 @@ class CommentController < ApplicationController
       return
     end
 
-    if !authenticated?
-      ask_to_login(
-        web: _('To post your annotation'),
-        email: _('Then your annotation to {{info_request_title}} will be ' \
-                 'posted.',
-                 info_request_title: @info_request.title),
-        email_subject: _('Confirm your annotation to {{info_request_title}}',
-                         info_request_title: @info_request.title)
+    if authenticated?(
+        :web => _("To post your annotation"),
+        :email => _("Then your annotation to {{info_request_title}} will be posted.",:info_request_title=>@info_request.title),
+        :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
       )
-    else
+
       if spam_comment?(params[:comment][:body], @user)
         handle_spam_comment(@user) && return
       end
@@ -77,6 +74,8 @@ class CommentController < ApplicationController
 
       # we don't use comment_url here, as then you don't see the flash at top of page
       redirect_to request_url(@info_request)
+    else
+      # do nothing - as "authenticated?" has done the redirect to signin page for us
     end
   end
 
@@ -114,10 +113,10 @@ class CommentController < ApplicationController
 
   # Banned from adding comments?
   def reject_if_user_banned
-    return unless authenticated? && !authenticated_user.can_make_comments?
-
-    @details = authenticated_user.can_fail_html
-    render template: 'user/banned'
+    if authenticated_user && !authenticated_user.can_make_comments?
+      @details = authenticated_user.can_fail_html
+      render :template => 'user/banned'
+    end
   end
 
   # An override of ApplicationController#set_in_pro_area to set the flag

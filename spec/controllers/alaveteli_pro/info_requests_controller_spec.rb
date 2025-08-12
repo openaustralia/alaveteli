@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::InfoRequestsController do
+describe AlaveteliPro::InfoRequestsController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   describe "GET #index" do
@@ -13,7 +14,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
     end
 
     before do
-      sign_in info_request.user
+      session[:user_id] = info_request.user.id
     end
 
     it "exists" do
@@ -57,7 +58,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
 
     context "when there are errors on the outgoing message" do
       it "removes duplicate errors from the info_request" do
-        sign_in pro_user
+        session[:user_id] = pro_user.id
         with_feature_enabled(:alaveteli_pro) do
           post :preview, params: { draft_id: draft }
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
@@ -74,20 +75,10 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
       end
 
       it "renders a message to tell the user" do
-        sign_in pro_user
+        session[:user_id] = pro_user.id
         with_feature_enabled(:alaveteli_pro) do
           post :preview, params: { draft_id: draft }
           expect(response).to render_template('request/new_defunct.html.erb')
-        end
-      end
-    end
-
-    context 'without draft' do
-      it 'redirects to new info request action' do
-        sign_in pro_user
-        with_feature_enabled(:alaveteli_pro) do
-          post :preview
-          expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
         end
       end
     end
@@ -100,21 +91,11 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
 
     context "when there are errors on the outgoing message" do
       it "removes duplicate errors from the info_request" do
-        sign_in pro_user
+        session[:user_id] = pro_user.id
         with_feature_enabled(:alaveteli_pro) do
           post :create, params: { draft_id: draft }
           expect(assigns[:info_request].errors[:outgoing_messages]).to be_empty
           expect(assigns[:outgoing_message].errors).not_to be_empty
-        end
-      end
-    end
-
-    context 'without draft' do
-      it 'redirects to new info request action' do
-        sign_in pro_user
-        with_feature_enabled(:alaveteli_pro) do
-          post :preview
-          expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
         end
       end
     end

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe("notification_mailer/info_request_batches/messages/_embargo_expiring.text.erb") do
+describe("notification_mailer/info_request_batches/messages/_embargo_expiring.text.erb") do
   let!(:public_body_1) { FactoryBot.create(:public_body, name: "One & Two") }
   let!(:public_body_2) { FactoryBot.create(:public_body) }
   let(:public_bodies) { [public_body_1, public_body_2] }

@@ -1,8 +1,9 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 require 'support/shared_examples_for_viewing_requests'
 
-RSpec.describe 'viewing requests that are part of a batch in alaveteli_pro' do
+describe 'viewing requests that are part of a batch in alaveteli_pro' do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
 

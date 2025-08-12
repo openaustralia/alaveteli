@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe InfoRequestHelper do
+describe InfoRequestHelper do
 
   include InfoRequestHelper
 
@@ -157,7 +158,7 @@ RSpec.describe InfoRequestHelper do
                    "(<a href=\"/help/requesting#quickly_response\">details" \
                    "</a>). You can <strong>complain</strong> by " \
                    "<a href=\"/request/#{info_request.id}/followups/new?" \
-                   "internal_review=1\">requesting an internal " \
+                   "internal_review=1#followup\">requesting an internal " \
                    "review</a>."
 
         expect(status_text(info_request)).to eq(expected)
@@ -190,7 +191,7 @@ RSpec.describe InfoRequestHelper do
                      "(<a href=\"/help/requesting#authorities\">details" \
                      "</a>). You can <strong>complain</strong> by " \
                      "<a href=\"/request/#{info_request.id}/followups/new?" \
-                     "internal_review=1\">requesting an internal " \
+                     "internal_review=1#followup\">requesting an internal " \
                      "review</a>."
 
           expect(status_text(info_request)).to eq(expected)
@@ -285,9 +286,8 @@ RSpec.describe InfoRequestHelper do
         allow(info_request).to receive(:get_last_public_response).and_return(nil)
 
         expected = "#{ body.name } is <strong>waiting for your clarification" \
-                   "</strong>. Please " \
-                   "<a href=\"/request/#{info_request.id}/followups/new\">" \
-                   "send a follow up message</a>."
+                   "</strong>. Please <a href=\"/request/#{info_request.id}/followups/new" \
+                   "#followup\">send a follow up message</a>."
 
         actual = status_text(info_request, :is_owning_user => true)
 

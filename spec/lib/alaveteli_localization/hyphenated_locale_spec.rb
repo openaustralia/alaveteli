@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliLocalization::HyphenatedLocale do
+describe AlaveteliLocalization::HyphenatedLocale do
   include AlaveteliLocalization::SpecHelpers
 
   let(:identifier) { 'en-GB' }

@@ -3,10 +3,7 @@
       user_name: @change_request.get_user_name.html_safe,
       public_body_name: @change_request.get_public_body_name.html_safe) %>
 
-<%= _('Current Email:') %>
-<%= @change_request.current_public_body_email %>
-
-<%= _('Proposed Email:') %>
+<%= _('Email:') %>
 <%= @change_request.public_body_email %>
 
 <%= _('Source:') %>

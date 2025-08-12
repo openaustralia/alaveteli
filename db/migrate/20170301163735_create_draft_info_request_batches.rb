@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDraftInfoRequestBatches < ActiveRecord::Migration[4.2] # 4.0
   def change
     create_table :draft_info_request_batches do |t|

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class FactorOutRawEmail < ActiveRecord::Migration[4.2] # 2.1
   def self.up
     create_table :raw_emails do |t|

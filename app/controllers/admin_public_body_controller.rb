@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_public_body_controller.rb:
 # Controller for editing public bodies from the admin interface.
 #
@@ -284,13 +285,22 @@ class AdminPublicBodyController < AdminController
   end
 
   def public_body_params
-    translatable_params(
-      params[:public_body],
-      translated_keys: [:locale, :name, :short_name, :request_email,
-                        :publication_scheme, :notes],
-      general_keys: [:tag_string, :home_page, :disclosure_log,
-                     :last_edit_comment, :last_edit_editor]
-    )
+    if public_body_params = params[:public_body]
+      keys = { :translated_keys => [:locale,
+                                    :name,
+                                    :short_name,
+                                    :request_email,
+                                    :publication_scheme,
+                                    :notes],
+               :general_keys => [:tag_string,
+                                 :home_page,
+                                 :disclosure_log,
+                                 :last_edit_comment,
+                                 :last_edit_editor] }
+      translatable_params(keys, public_body_params)
+    else
+      {}
+    end
   end
 
   def set_public_body

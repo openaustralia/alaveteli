@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RoutingFilter
   class Conditionallyprependlocale < RoutingFilter::Locale
     # We need to be able to override this class attribute so from Rails 4.0
@@ -27,13 +28,7 @@ module RoutingFilter
       args << params
 
       yield.tap do |result|
-        next unless prepend_locale?(locale)
-
-        if rails_upgrade?
-          result.update prepend_segment(result.url, locale)
-        else
-          prepend_segment!(result, locale)
-        end
+        prepend_segment!(result, locale) if prepend_locale?(locale)
       end
     end
 

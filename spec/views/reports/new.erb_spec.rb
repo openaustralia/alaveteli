@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-RSpec.describe 'reports/new.html.erb' do
+describe 'reports/new.html.erb' do
   let(:info_request) { FactoryBot.build(:info_request) }
   before :each do
     assign(:info_request, info_request)

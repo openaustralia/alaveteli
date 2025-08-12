@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "followups/_followup.html.erb" do
+describe "followups/_followup.html.erb" do
 
   let(:info_request) { FactoryBot.create(:info_request) }
 
@@ -9,7 +10,6 @@ RSpec.describe "followups/_followup.html.erb" do
     assign :internal_review, false
     assign :outgoing_message, OutgoingMessage.new(info_request: info_request)
     assign :is_owning_user, true
-    assign :refusal_advice, RefusalAdvice.default(info_request)
   end
 
   it "renders the normal title partial when the request is not embargoed" do

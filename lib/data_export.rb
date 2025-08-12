@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #
 # Public: methods for exporting redacted data for research use
 

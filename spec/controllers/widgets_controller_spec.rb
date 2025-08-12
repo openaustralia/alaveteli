@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe WidgetsController do
+describe WidgetsController do
 
   include LinkToHelper
 
@@ -54,13 +55,13 @@ RSpec.describe WidgetsController do
     end
 
     it 'sets user_owns_request to true if the user owns the request' do
-      sign_in @info_request.user
+      session[:user_id] = @info_request.user.id
       get :show, params: { :request_id => @info_request.id }
       expect(assigns[:user_owns_request]).to be true
     end
 
     it 'sets user_owns_request to false if the user does not own the request' do
-      sign_in FactoryBot.create(:user)
+      session[:user_id] = FactoryBot.create(:user).id
       get :show, params: { :request_id => @info_request.id }
       expect(assigns[:user_owns_request]).to be false
     end
@@ -120,7 +121,7 @@ RSpec.describe WidgetsController do
         track.track_medium = 'email_daily'
         track.tracking_user = user
         track.save!
-        sign_in user
+        session[:user_id] = user.id
 
         get :show, params: { :request_id => @info_request.id }
 
@@ -134,7 +135,7 @@ RSpec.describe WidgetsController do
       it 'does not find existing track things' do
         TrackThing.delete_all
         user = FactoryBot.create(:user)
-        sign_in user
+        session[:user_id] = user.id
 
         get :show, params: { :request_id => @info_request.id }
 
@@ -146,7 +147,7 @@ RSpec.describe WidgetsController do
         vote = FactoryBot.create(:widget_vote,
                                  :info_request => @info_request,
                                  :cookie => mock_cookie)
-        sign_in @info_request.user
+        session[:user_id] = @info_request.user.id
         request.cookies['widget_vote'] = mock_cookie
 
         get :show, params: { :request_id => @info_request.id }
@@ -157,7 +158,7 @@ RSpec.describe WidgetsController do
       it 'will not find any existing votes if none exist' do
         TrackThing.delete_all
         WidgetVote.delete_all
-        sign_in @info_request.user
+        session[:user_id] = @info_request.user.id
         request.cookies['widget_vote'] = mock_cookie
 
         get :show, params: { :request_id => @info_request.id }
@@ -191,7 +192,7 @@ RSpec.describe WidgetsController do
         vote = FactoryBot.create(:widget_vote,
                                  :info_request => @info_request,
                                  :cookie => mock_cookie)
-        sign_in @info_request.user
+        session[:user_id] = @info_request.user.id
 
         get :show, params: { :request_id => @info_request.id }
 

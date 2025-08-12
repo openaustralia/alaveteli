@@ -1,11 +1,12 @@
-require 'spec_helper'
-require 'integration/alaveteli_dsl'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-RSpec.describe "When searching" do
+describe "When searching" do
 
   before(:each) do
     load_raw_emails_data
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   it "should not strip quotes from quoted query" do
@@ -90,7 +91,11 @@ RSpec.describe "When searching" do
       get '/feed/search/chicken.json'
       response_data = JSON.parse(response.body, :symbolize_names => true)
 
-      expect(response.media_type).to eq('application/json')
+      if rails_upgrade?
+        expect(response.media_type).to eq('application/json')
+      else
+        expect(response.content_type).to eq('application/json')
+      end
       expect(response_data.size).to eql(1)
       expect(response_data.first[:info_request][:title]).
         to eq('How much public money is wasted on breeding naughty chickens?')

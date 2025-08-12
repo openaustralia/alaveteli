@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Public: Validates that the specified attribute is not nil
 #
 # Examples

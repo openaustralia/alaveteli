@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/alaveteli_dsl'
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-RSpec.describe 'Adding a Public Body' do
+describe 'Adding a Public Body' do
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
 

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe LinkToHelper do
+describe LinkToHelper do
   include LinkToHelper
 
   describe 'when creating a url for a request' do
@@ -52,16 +53,6 @@ RSpec.describe LinkToHelper do
         expected = "/request/#{info_request.url_title}" \
                    "#incoming-#{incoming_message.id}"
         expect(path).to eq(expected)
-      end
-    end
-
-    context 'when anchor only' do
-      subject(:url) do
-        incoming_message_url(incoming_message, anchor_only: true)
-      end
-
-      it 'returns an anchor to the new message' do
-        expect(url).to eq("#incoming-#{incoming_message.id}")
       end
     end
   end
@@ -125,16 +116,6 @@ RSpec.describe LinkToHelper do
         expected = "/request/#{info_request.url_title}" \
                    "#outgoing-#{outgoing_message.id}"
         expect(outgoing_message_path(outgoing_message)).to eq(expected)
-      end
-    end
-
-    context 'when anchor only' do
-      subject(:url) do
-        outgoing_message_url(outgoing_message, anchor_only: true)
-      end
-
-      it 'returns an anchor to the new message' do
-        expect(url).to eq("#outgoing-#{outgoing_message.id}")
       end
     end
   end

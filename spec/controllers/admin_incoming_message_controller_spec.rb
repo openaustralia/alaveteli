@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe AdminIncomingMessageController, "when administering incoming messages" do
+describe AdminIncomingMessageController, "when administering incoming messages" do
 
   describe 'when destroying an incoming message' do
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/helpers/application_helper.rb:
 # Methods added to this helper will be available to all views (i.e. templates)
 # in the application.
@@ -51,14 +52,8 @@ module ApplicationHelper
     error_messages = "".html_safe
 
     objects.each do |object|
-      if rails_upgrade?
-        object.errors.each do |error|
-          error_messages << content_tag(:li, h(error.message))
-        end
-      else
-        object.errors.each do |attr, message|
-          error_messages << content_tag(:li, h(message))
-        end
+      object.errors.each do |attr, message|
+        error_messages << content_tag(:li, h(message))
       end
     end
 
@@ -72,21 +67,17 @@ module ApplicationHelper
   def admin_value(v)
     if v.nil?
       nil
-    elsif v.is_a?(Time)
+    elsif v.instance_of?(Time)
       admin_date(v)
     else
       h(v)
     end
   end
 
-  def admin_date(date, ago: true, ago_only: false)
+  def admin_date(date)
     ago_text = _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))
-    text = ago_text if ago_only
-
     exact_date = I18n.l(date, :format => "%e %B %Y %H:%M:%S")
-    text ||= "#{exact_date} (#{ago_text})" if ago
-
-    time_tag(date, text || exact_date, title: date)
+    return "#{exact_date} (#{ago_text})"
   end
 
   def read_asset_file(asset_name)
@@ -225,7 +216,7 @@ module ApplicationHelper
 
   def pro_upsell_text
     pro_link = link_to(account_request_index_path) do
-      pro_site_name
+      AlaveteliConfiguration.pro_site_name
     end
 
     pro_site_name_link = content_tag(:strong, pro_link)

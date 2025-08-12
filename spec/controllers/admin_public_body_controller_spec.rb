@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe AdminPublicBodyController do
+describe AdminPublicBodyController do
 
   describe 'GET #index' do
 
@@ -29,32 +30,32 @@ RSpec.describe AdminPublicBodyController do
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "returns successfully" do
-      sign_in admin_user
-      get :show, params: { :id => public_body.id }
+      get :show, params: { :id => public_body.id },
+                 session: { :user_id => admin_user.id }
       expect(response).to be_successful
     end
 
     it "sets a using_admin flag" do
-      sign_in admin_user
-      get :show, params: { :id => public_body.id}
+      get :show, params: { :id => public_body.id},
+                 session: { :user_id => admin_user.id }
       expect(session[:using_admin]).to eq(1)
     end
 
     it "shows a public body in another locale" do
       AlaveteliLocalization.with_locale('es') do
         public_body.name = 'El Public Body'
-        public_body.save!
+        public_body.save
       end
-      sign_in admin_user
-      get :show, params: { :id => public_body.id, :locale => "es" }
+      get :show, params: { :id => public_body.id, :locale => "es" },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:public_body].name).to eq 'El Public Body'
     end
 
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      sign_in admin_user
-      get :show, params: { :id => public_body.id }
+      get :show, params: { :id => public_body.id },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:info_requests].include?(info_request)).to be false
     end
 
@@ -64,8 +65,8 @@ RSpec.describe AdminPublicBodyController do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          sign_in admin_user
-          get :show, params: { :id => public_body.id }
+          get :show, params: { :id => public_body.id },
+                     session: { :user_id => admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be false
         end
       end
@@ -75,8 +76,8 @@ RSpec.describe AdminPublicBodyController do
           user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          sign_in pro_admin_user
-          get :show, params: { :id => public_body.id }
+          get :show, params: { :id => public_body.id },
+                     session: { :user_id => pro_admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
@@ -691,11 +692,7 @@ RSpec.describe AdminPublicBodyController do
 
       before do
         allow(PublicBody).to receive(:import_csv).and_return([[],[]])
-        if rails_upgrade?
-          @file_object = fixture_file_upload('fake-authority-type.csv')
-        else
-          @file_object = fixture_file_upload('/files/fake-authority-type.csv')
-        end
+        @file_object = fixture_file_upload('/files/fake-authority-type.csv')
       end
 
       it 'should handle a nil csv file param' do
@@ -843,7 +840,7 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "allows superusers to do stuff" do
-      sign_in users(:admin_user)
+      session[:user_id] = users(:admin_user).id
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
       post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
@@ -852,7 +849,7 @@ RSpec.describe AdminPublicBodyController do
     end
 
     it "doesn't allow non-superusers to do stuff" do
-      sign_in users(:robin_user)
+      session[:user_id] = users(:robin_user).id
       @request.env["HTTP_AUTHORIZATION"] = ""
       n = PublicBody.count
       post :destroy, params: { :id => public_bodies(:forlorn_public_body).id }
@@ -873,7 +870,7 @@ RSpec.describe AdminPublicBodyController do
       end
 
       it 'returns the current user url_name for a superuser' do
-        sign_in users(:admin_user)
+        session[:user_id] = users(:admin_user).id
         @request.env["HTTP_AUTHORIZATION"] = ""
         post :show, params: { :id => public_bodies(:humpadink_public_body).id }
         expect(controller.send(:admin_current_user)).to eq(users(:admin_user).url_name)

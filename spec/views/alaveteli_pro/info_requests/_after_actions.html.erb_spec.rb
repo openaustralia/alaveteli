@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe 'when displaying actions that can be taken with regard to a pro request' do
+describe 'when displaying actions that can be taken with regard to a pro request' do
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:pro_user) { info_request.pro_user }
   let(:admin_user) { FactoryBot.create('admin_user') }

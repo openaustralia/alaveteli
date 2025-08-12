@@ -1,12 +1,14 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+
 require 'nokogiri'
 
-RSpec.describe PublicBodyController, "when showing a body" do
+describe PublicBodyController, "when showing a body" do
   render_views
 
   before(:each) do
     load_raw_emails_data
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   it "should be successful" do
@@ -97,7 +99,7 @@ RSpec.describe PublicBodyController, "when showing a body" do
   end
 end
 
-RSpec.describe PublicBodyController, "when listing bodies" do
+describe PublicBodyController, "when listing bodies" do
   render_views
 
   it "should be successful" do
@@ -125,7 +127,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
         result.request_email = "#{locale}@example.org"
         result.last_edit_editor = 'test'
         result.last_edit_comment = ''
-        result.save!
+        result.save
       end
     end
     result
@@ -391,7 +393,7 @@ RSpec.describe PublicBodyController, "when listing bodies" do
 
 end
 
-RSpec.describe PublicBodyController, "when showing JSON version for API" do
+describe PublicBodyController, "when showing JSON version for API" do
 
   it "should be successful" do
     get :show, params: { :url_name => "dfh", :format => "json", :view => 'all' }
@@ -405,7 +407,7 @@ RSpec.describe PublicBodyController, "when showing JSON version for API" do
 
 end
 
-RSpec.describe PublicBodyController, "when asked to export public bodies as CSV" do
+describe PublicBodyController, "when asked to export public bodies as CSV" do
 
   it "should return a valid CSV file with the right number of rows" do
     get :list_all_csv
@@ -436,12 +438,12 @@ RSpec.describe PublicBodyController, "when asked to export public bodies as CSV"
 
 end
 
-RSpec.describe PublicBodyController, "when doing type ahead searches" do
+describe PublicBodyController, "when doing type ahead searches" do
   render_views
 
   before(:each) do
     load_raw_emails_data
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   it 'returns a 400 bad request status code without a query param' do

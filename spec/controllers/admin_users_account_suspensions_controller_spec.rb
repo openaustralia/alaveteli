@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AdminUsersAccountSuspensionsController do
+describe AdminUsersAccountSuspensionsController do
 
   describe 'POST #create' do
     let(:user) { FactoryBot.create(:user) }

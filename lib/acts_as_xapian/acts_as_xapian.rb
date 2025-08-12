@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # acts_as_xapian/lib/acts_as_xapian.rb:
 # Xapian full text search in Ruby on Rails.
 #
@@ -22,16 +23,14 @@ end
 
 module Xapian
   class QueryParser
-    unless method_defined?(:unstem)
-      def unstem(term)
-        words = []
+    def unstem(term)
+      words = []
 
-        Xapian._safelyIterate(unstem_begin(term), unstem_end(term)) do |item|
-          words << item.term
-        end
-
-        words
+      Xapian._safelyIterate(unstem_begin(term), unstem_end(term)) do |item|
+        words << item.term
       end
+
+      words
     end
   end
 end
@@ -43,8 +42,8 @@ module ActsAsXapian
   def self.bindings_available
     $acts_as_xapian_bindings_available
   end
-  NoXapianRubyBindingsError = Class.new(StandardError)
-  UnhandledRuntimeError = Class.new(StandardError)
+  class NoXapianRubyBindingsError < StandardError
+  end
 
   @@db = nil
   @@db_path = nil
@@ -89,12 +88,6 @@ module ActsAsXapian
   def self.config
     @@config
   end
-  def self.max_wildcard_expansion=(max_wildcard_expansion)
-    @@max_wildcard_expansion = max_wildcard_expansion
-  end
-  def self.max_wildcard_expansion
-    @@max_wildcard_expansion
-  end
 
   ######################################################################
   # Initialisation
@@ -115,8 +108,7 @@ module ActsAsXapian
 
     # check for a config file
     config_file = Rails.root.join("config","xapian.yml")
-    @@config = YAML.load_file(config_file)[environment] if config_file.exist?
-    @@config ||= {}
+    @@config = File.exist?(config_file) ? YAML.load_file(config_file)[environment] : {}
 
     # figure out where the DBs should go
     if config['base_db_path']
@@ -129,8 +121,6 @@ module ActsAsXapian
     Dir.mkdir(db_parent_path) unless File.exist?(db_parent_path)
 
     @@db_path = File.join(db_parent_path, environment)
-
-    @@max_wildcard_expansion = config.fetch('max_wildcard_expansion', 1000)
 
     # make some things that don't depend on the db
     # TODO: this gets made once for each acts_as_xapian. Oh well.
@@ -180,9 +170,7 @@ module ActsAsXapian
     # Large installations of Alaveteli should consider
     # upgrading, because uncontrolled wildcard expansion
     # can crash the whole server: see http://trac.xapian.org/ticket/350
-    if @@query_parser.respond_to? :set_max_wildcard_expansion
-      @@query_parser.set_max_wildcard_expansion(@@max_wildcard_expansion)
-    end
+    @@query_parser.set_max_wildcard_expansion(1000) if @@query_parser.respond_to? :set_max_wildcard_expansion
 
     @@stopper = Xapian::SimpleStopper.new
     @@stopper.add("and")
@@ -270,7 +258,7 @@ module ActsAsXapian
     full_path = @@db_path + suffix
 
     # for indexing
-    @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN | _xapian_backend_format(full_path))
+    @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN | Xapian::DB_BACKEND_CHERT)
     @@enquire = Xapian::Enquire.new(@@writable_db)
     @@term_generator = Xapian::TermGenerator.new
     @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
@@ -353,8 +341,6 @@ module ActsAsXapian
           else
             raise
           end
-        rescue RuntimeError => ex
-          raise UnhandledRuntimeError, ex.message
         end
         self.cached_results = nil
       }
@@ -393,7 +379,10 @@ module ActsAsXapian
       if correction.empty?
         return nil
       end
-      correction.force_encoding('UTF-8')
+      if correction.respond_to?(:force_encoding)
+        correction = correction.force_encoding('UTF-8')
+      end
+      correction
     end
 
     # Return array of models found
@@ -782,24 +771,9 @@ module ActsAsXapian
     job.destroy
   end
 
-  def self._is_xapian_chert_db(path)
-    File.exist?(File.join(path, "iamchert"))
-  end
-
-  def self._is_xapian_glass_db(path)
-    File.exist?(File.join(path, "iamglass"))
-  end
-
   def self._is_xapian_db(path)
-    _is_xapian_chert_db(path) || _is_xapian_glass_db(path)
-  end
-
-  def self._xapian_backend_format(path)
-    if _is_xapian_chert_db(path)
-      Xapian::DB_BACKEND_CHERT
-    else
-      Xapian::DB_BACKEND_GLASS
-    end
+    is_db = File.exist?(File.join(path, "iamchert"))
+    return is_db
   end
 
   # You must specify *all* the models here, this totally rebuilds the Xapian
@@ -817,7 +791,7 @@ module ActsAsXapian
     new_path = ActsAsXapian.db_path + ".new"
     old_path = ActsAsXapian.db_path
     if File.exist?(new_path)
-      raise "found existing " + new_path + " which is not Xapian chert or glass database, please delete for me" if not ActsAsXapian._is_xapian_db(new_path)
+      raise "found existing " + new_path + " which is not Xapian chert database, please delete for me" if not ActsAsXapian._is_xapian_db(new_path)
       FileUtils.rm_r(new_path)
     end
     if update_existing
@@ -847,7 +821,7 @@ module ActsAsXapian
     temp_path = old_path + ".tmp"
     if File.exist?(temp_path)
       @@db_path = old_path
-      raise "temporary database found " + temp_path + " which is not Xapian chert or glass database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
+      raise "temporary database found " + temp_path + " which is not Xapian chert database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
       FileUtils.rm_r(temp_path)
     end
     if File.exist?(old_path)
@@ -859,7 +833,7 @@ module ActsAsXapian
     if File.exist?(temp_path)
       if not ActsAsXapian._is_xapian_db(temp_path)
         @@db_path = old_path
-        raise "old database now at " + temp_path + " is not Xapian chert or glass database, please delete for me"
+        raise "old database now at " + temp_path + " is not Xapian chert database, please delete for me"
       end
       FileUtils.rm_r(temp_path)
     end

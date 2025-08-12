@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
-RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
+describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
 
   it 'inherits from Base' do
     expect(described_class.superclass).

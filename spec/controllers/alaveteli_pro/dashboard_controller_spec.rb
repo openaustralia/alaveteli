@@ -1,11 +1,12 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-RSpec.describe AlaveteliPro::DashboardController do
+describe AlaveteliPro::DashboardController do
   describe "#index" do
     let(:user) { FactoryBot.create(:pro_user) }
 
     before do
-      sign_in user
+      session[:user_id] = user.id
     end
 
     it "exists" do

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "notification_mailer/daily_summary" do
+describe "notification_mailer/daily_summary" do
   let(:notifications) { FactoryBot.create_list(:notification, 5) }
   let(:grouped_notifications) do
     notifications.group_by { |n| n.info_request_event.info_request }

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "admin_user/show.html.erb" do
+describe "admin_user/show.html.erb" do
 
   before do
     info_requests = []

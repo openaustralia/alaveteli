@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CacheOnlyClippedAttachmentText < ActiveRecord::Migration[4.2] # 2.1
   def self.up
     remove_column :incoming_messages, :cached_attachment_text

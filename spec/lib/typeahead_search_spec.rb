@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe TypeaheadSearch do
+describe TypeaheadSearch do
   let(:options) { { :model => InfoRequestEvent } }
 
   describe "#initialize" do
@@ -92,7 +93,7 @@ RSpec.describe TypeaheadSearch do
   describe "#xapian_search" do
 
     before do
-      update_xapian_index
+      get_fixtures_xapian_index
     end
 
     def search_info_requests(xapian_search)
@@ -224,25 +225,6 @@ RSpec.describe TypeaheadSearch do
                               :exclude_tags => [ 'lonely_agency' ])
         search = TypeaheadSearch.new("lonely", opts).xapian_search
         expect(search.results).to match_array([])
-      end
-
-    end
-
-    context 'when max wildcard limit is reached' do
-
-      around do |example|
-        ActsAsXapian.prepare_environment
-        limit = ActsAsXapian.max_wildcard_expansion
-        ActsAsXapian.max_wildcard_expansion = 1
-        example.run
-        ActsAsXapian.max_wildcard_expansion = limit
-      end
-
-      it 'fallbacks to an non-wildcard search' do
-        search = TypeaheadSearch.new('dog', options)
-        expect { search.xapian_search }.to(
-          change(search, :wildcard).from(true).to(false)
-        )
       end
 
     end

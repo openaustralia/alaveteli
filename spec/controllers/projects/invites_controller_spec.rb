@@ -17,7 +17,7 @@ RSpec.describe Projects::InvitesController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
         get :create, params: { token: project.invite_token }
       end
 
@@ -42,7 +42,7 @@ RSpec.describe Projects::InvitesController, spec_meta do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
         project.contributors << user
         get :create, params: { token: project.invite_token }
       end
@@ -61,7 +61,7 @@ RSpec.describe Projects::InvitesController, spec_meta do
       let(:user) { project.owner }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
         get :create, params: { token: project.invite_token }
       end
 
@@ -79,7 +79,7 @@ RSpec.describe Projects::InvitesController, spec_meta do
       let(:user) { project.owner }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it 'raises ActiveRecord::RecordNotFound with an invalid token param' do

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Users::SessionsController < UserController
   include UserSpamCheck
 
@@ -44,7 +45,10 @@ class Users::SessionsController < UserController
           end && return
         end
 
-        sign_in(@user_signin, remember_me: params[:remember_me].present?)
+        session[:user_id] = @user_signin.id
+        session[:ttl] = nil
+        session[:user_circumstance] = nil
+        session[:remember_me] = params[:remember_me] ? true : false
 
         if is_modal_dialog
           render :template => 'users/sessions/show'
@@ -55,9 +59,6 @@ class Users::SessionsController < UserController
         send_confirmation_mail @user_signin
       end
     end
-  rescue ActionController::ParameterMissing
-    flash[:error] = _('Invalid form submission')
-    render template: 'user/sign'
   end
 
   def destroy

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliLocalization do
+describe AlaveteliLocalization do
 
   describe '.set_locales' do
 
@@ -201,18 +202,6 @@ RSpec.describe AlaveteliLocalization do
       expect(result).to eq("es")
     end
 
-  end
-
-  describe '.with_default_locale' do
-    around { |example| AlaveteliLocalization.with_locale(:es, &example) }
-
-    it 'returns the same result as if we had called I18n.with_locale directly' do
-      result = AlaveteliLocalization.with_default_locale do
-        AlaveteliLocalization.locale
-      end
-
-      expect(result).to eq('en')
-    end
   end
 
   describe '.locale' do

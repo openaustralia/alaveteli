@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/password_changes_controller.rb:
 # Change a User's password
 #
@@ -85,7 +86,7 @@ class PasswordChangesController < ApplicationController
       end
 
       if @password_change_user.save
-        sign_in(@password_change_user)
+        session[:user_id] ||= @password_change_user.id
 
         if @pretoken_redirect
           if otp_enabled?(@password_change_user)

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_controller.rb:
 # Controller for main admin pages.
 #
@@ -17,10 +18,6 @@ class AdminGeneralController < AdminController
     @attention_requests = InfoRequest.
       find_in_state('attention_requested').
         not_embargoed
-
-    @old_unclassified_count =
-      InfoRequest.where_old_unclassified.is_searchable.count
-
     @old_unclassified = InfoRequest.where_old_unclassified.
                                       limit(20).
                                         is_searchable
@@ -160,7 +157,7 @@ class AdminGeneralController < AdminController
 
   def debug
     @admin_current_user = admin_current_user
-    @current_commit = Statistics::General.new.to_h[:alaveteli_git_commit]
+    @current_commit = alaveteli_git_commit
     @current_branch = `git branch | perl -ne 'print $1 if /^\\* (.*)/'`
     @current_version = ALAVETELI_VERSION
     repo = `git remote show origin -n | perl -ne 'print $1 if m{Fetch URL: .*github\\.com[:/](.*)\\.git}'`

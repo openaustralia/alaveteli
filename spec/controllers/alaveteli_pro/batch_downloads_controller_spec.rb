@@ -17,7 +17,7 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
 
     context 'with a signed-in non-pro user' do
       let(:user) { FactoryBot.create(:user) }
-      before { sign_in user }
+      before { session[:user_id] = user.id }
 
       it 'redirects to site root' do
         show
@@ -30,7 +30,7 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
       let(:ability) { Ability.new(pro_user) }
 
       before do
-        sign_in pro_user
+        session[:user_id] = pro_user.id
         allow(controller).to receive(:current_user).and_return(pro_user)
       end
 
@@ -69,10 +69,9 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
         it { is_expected.to be_able_to(:download, batch) }
 
         context 'when HTML format' do
-          it 'raise unknown format error' do
-            expect { show(format: 'html') }.to raise_error(
-              ActionController::UnknownFormat
-            )
+          it 'is a bad request' do
+            show(format: 'html')
+            expect(response).to have_http_status(:bad_request)
           end
         end
 
@@ -91,9 +90,15 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
           end
 
           it 'returns content disposition' do
-            expect(response.header['Content-Disposition']).to(
-              eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
-            )
+            if rails_upgrade?
+              expect(response.header['Content-Disposition']).to(
+                eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
+              )
+            else
+              expect(response.header['Content-Disposition']).to(
+                eq 'attachment; filename="NAME"'
+              )
+            end
           end
 
           it 'returns CSV content type' do
@@ -124,9 +129,15 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
           end
 
           it 'returns content disposition' do
-            expect(response.header['Content-Disposition']).to(
-              eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
-            )
+            if rails_upgrade?
+              expect(response.header['Content-Disposition']).to(
+                eq 'attachment; filename="NAME"; filename*=UTF-8\'\'NAME'
+              )
+            else
+              expect(response.header['Content-Disposition']).to(
+                eq 'attachment; filename="NAME"'
+              )
+            end
           end
 
           it 'returns CSV content type' do

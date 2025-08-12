@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe "Site statistics" do
+describe "Site statistics" do
   before :each do
     config = MySociety::Config.load_default
     config['MINIMUM_REQUESTS_FOR_STATISTICS'] = 1

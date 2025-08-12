@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/alaveteli_dsl'
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-RSpec.describe 'Sending a message to another user' do
+describe 'Sending a message to another user' do
 
   let(:sender) { FactoryBot.create(:user) }
   let(:recipient) { FactoryBot.create(:user, :name => "Awkward > Name") }

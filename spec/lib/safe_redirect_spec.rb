@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe SafeRedirect do
+describe SafeRedirect do
 
   describe '.new' do
 

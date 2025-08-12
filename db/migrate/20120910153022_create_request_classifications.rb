@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateRequestClassifications < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     create_table :request_classifications do |t|

@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-RSpec.describe "request_mailer/new_response" do
+describe "request_mailer/new_response" do
   let(:incoming_message) { FactoryBot.create(:incoming_message) }
   let(:request) { incoming_message.info_request }
 
@@ -10,9 +11,7 @@ RSpec.describe "request_mailer/new_response" do
   end
 
   it "does not add HTMLEntities to the FOI law title" do
-    allow(request).to receive(:legislation).and_return(
-      FactoryBot.build(:legislation, full: "Test's Law")
-    )
+    allow(request).to receive(:law_used_human).and_return("Test's Law")
     assign(:info_request, request)
     assign(:incoming_message, incoming_message)
     render

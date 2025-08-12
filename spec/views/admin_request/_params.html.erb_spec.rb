@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-RSpec.describe 'when showing diffs in info_request params' do
+describe 'when showing diffs in info_request params' do
   def do_render(params)
     render :partial => 'admin_request/params', :locals => {:params => params}
   end

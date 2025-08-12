@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliLocalization::Locale do
+describe AlaveteliLocalization::Locale do
   include AlaveteliLocalization::SpecHelpers
 
   describe '.parse' do

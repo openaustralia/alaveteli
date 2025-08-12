@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 shared_examples_for "an info_request_batch action" do
@@ -19,7 +20,7 @@ shared_examples_for "an info_request_batch action" do
 
   context "if the current_user doesn't own the specified draft" do
     before do
-      sign_in other_user
+      session[:user_id] = other_user.id
     end
 
     it "raises ActiveRecord::RecordNotFound" do
@@ -61,7 +62,7 @@ shared_examples_for "an info_request_batch action" do
   context "when an embargo_duration is set on the draft" do
     before do
       draft.embargo_duration = "12_months"
-      draft.save!
+      draft.save
     end
 
     it "sets @embargo to an embargo with the same emabrgo_duration" do
@@ -76,7 +77,7 @@ shared_examples_for "an info_request_batch action" do
   context "when the embargo_duration is set to publish immediately on the draft" do
     before do
       draft.embargo_duration = ""
-      draft.save!
+      draft.save
     end
 
     it "does not set @embargo" do
@@ -90,7 +91,7 @@ shared_examples_for "an info_request_batch action" do
   context "when no embargo_duration is set on the draft" do
     before do
       draft.embargo_duration = nil
-      draft.save!
+      draft.save
     end
 
     it "does not set @embargo" do
@@ -102,7 +103,7 @@ shared_examples_for "an info_request_batch action" do
   end
 end
 
-RSpec.describe AlaveteliPro::InfoRequestBatchesController do
+describe AlaveteliPro::InfoRequestBatchesController do
   let(:body_1) { FactoryBot.create(:public_body) }
   let(:body_2) { FactoryBot.create(:public_body) }
   let(:bodies) { [body_1, body_2] }
@@ -116,7 +117,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
   let(:params) { {draft_id: draft.id} }
 
   before do
-    sign_in user
+    session[:user_id] = user.id
   end
 
   describe "#new" do
@@ -150,7 +151,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
       before do
         draft.body = ""
         draft.title = ""
-        draft.save!
+        draft.save
       end
 
       it "removes duplicate errors" do
@@ -241,7 +242,7 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
       before do
         draft.body = ""
         draft.title = ""
-        draft.save!
+        draft.save
       end
 
       it "removes duplicate errors" do

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class WorldFOIWebsites
   EU_COUNTRIES = { 'BE' => 'Belgium',
                    'BG' => 'Bulgaria',
@@ -10,6 +11,7 @@ class WorldFOIWebsites
                    'ES' => 'Spain',
                    'FR' => 'France',
                    'HR' => 'Croatia',
+                   'IT' => 'Italy',
                    'CY' => 'Cyprus',
                    'LV' => 'Latvia',
                    'LT' => 'Lithuania',
@@ -93,6 +95,10 @@ class WorldFOIWebsites
         :country_name => "Republika Hrvatska",
         :country_iso_code => "HR",
         :url => "http://imamopravoznati.org/" },
+      { :name => "РосОтвет",
+        :country_name => "Россия",
+        :country_iso_code => "RU",
+        :url => "http://rosotvet.ru/" },
       { :name => 'Right2Know.my',
         :country_name => 'Malaysia',
         :country_iso_code => 'MY',
@@ -101,6 +107,10 @@ class WorldFOIWebsites
         :country_name => 'Rwanda',
         :country_iso_code => 'RW',
         :url => "https://sobanukirwa.rw/" },
+      { :name => 'Chiedi',
+        :country_name => 'Italia',
+        :country_iso_code => 'IT',
+        :url => "https://chiedi.dirittodisapere.it/" },
       { :name => 'AccessInfo.hk',
         :country_name => '香港',
         :country_iso_code => 'HK',
@@ -137,10 +147,6 @@ class WorldFOIWebsites
         :country_name => 'Moldova',
         :country_iso_code => 'MD',
         :url => "https://www.vreauinfo.md/" },
-      { :name => 'Derecho al Dato',
-        :country_name => 'Argentina',
-        :country_iso_code => 'AR',
-        :url => 'https://derechoaldato.com.ar/' },
     ]
     return world_foi_websites
   end

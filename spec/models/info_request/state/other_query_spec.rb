@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
-RSpec.describe InfoRequest::State::OtherQuery do
+describe InfoRequest::State::OtherQuery do
 
   describe '#call' do
     let(:info_request) { FactoryBot.create(:info_request_with_internal_review_request) }

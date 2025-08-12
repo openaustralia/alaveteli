@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AlaveteliPro::DraftInfoRequestBatchesController < ApplicationController
   include AlaveteliPro::BatchRequest
 

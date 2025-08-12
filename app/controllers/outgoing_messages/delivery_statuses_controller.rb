@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class OutgoingMessages::DeliveryStatusesController < ApplicationController
   before_action :set_outgoing_message, :check_prominence
 
@@ -14,6 +15,8 @@ class OutgoingMessages::DeliveryStatusesController < ApplicationController
         log.line(:redact => !@user.is_admin?)
       end
     end
+
+    respond_to :html
   end
 
   protected

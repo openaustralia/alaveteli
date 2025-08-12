@@ -1,4 +1,6 @@
 namespace :geoip do
+  require 'open-uri'
+
   def log(text)
     puts(text) unless Rake.application.options.silent
   end
@@ -39,7 +41,8 @@ namespace :geoip do
 
       File.open(downloaded_location, "wb") do |saved_file|
         begin
-          URI.open(link, "rb") do |read_file|
+          # the following "open" is provided by open-uri
+          open(link, "rb") do |read_file|
             saved_file.write(read_file.read)
           end
 

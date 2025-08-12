@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
+describe "alaveteli_pro/info_requests/dashboard/_projects.html.erb" do
   let(:pro_user) { FactoryBot.create(:pro_user) }
 
   before do

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::ActivityList::List do
+describe AlaveteliPro::ActivityList::List do
 
   describe '.new' do
     it 'requires a user, page and per_page arguments' do

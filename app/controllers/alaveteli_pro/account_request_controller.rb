@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController as is pre-login
 class AlaveteliPro::AccountRequestController < ApplicationController
   before_action :set_in_pro_area
@@ -44,16 +45,18 @@ class AlaveteliPro::AccountRequestController < ApplicationController
 
     flash[:new_pro_user] = true
     flash[:notice] = _('Welcome to {{pro_site_name}}!',
-                       pro_site_name: pro_site_name)
+                       pro_site_name: AlaveteliConfiguration.pro_site_name)
 
     redirect_to alaveteli_pro_dashboard_path
   end
 
   def authenticate
-    authenticated? || ask_to_login(
+    post_redirect_params = {
       web: _('To upgrade your account'),
       email: _('Then you can upgrade your account'),
       email_subject: _('To upgrade your account')
-    )
+    }
+
+    authenticated?(post_redirect_params)
   end
 end

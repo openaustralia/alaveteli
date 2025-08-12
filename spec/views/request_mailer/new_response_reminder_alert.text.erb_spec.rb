@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-RSpec.describe "request_mailer/new_response_reminder_alert" do
+describe "request_mailer/new_response_reminder_alert" do
   let(:request) { FactoryBot.create(:info_request, :title => "Apostrophe's") }
 
   before do

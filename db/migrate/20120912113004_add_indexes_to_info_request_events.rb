@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddIndexesToInfoRequestEvents < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_index :info_request_events, :incoming_message_id

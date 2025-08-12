@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe HelpController do
+describe HelpController do
   render_views
 
   describe 'GET #index' do
@@ -72,7 +73,7 @@ RSpec.describe HelpController do
       let(:pro_user) { FactoryBot.create(:pro_user) }
 
       before do
-        sign_in pro_user
+        session[:user_id] = pro_user.id
       end
 
       it 'sets @contact_email to the pro contact address' do
@@ -88,7 +89,7 @@ RSpec.describe HelpController do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it 'sets @contact_email to the normal contact address' do

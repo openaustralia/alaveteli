@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::EmbargoExtensionsController do
+describe AlaveteliPro::EmbargoExtensionsController do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:admin) { FactoryBot.create(:pro_admin_user, :pro) }
 
@@ -19,7 +20,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       context 'because they are the owner' do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
                                       embargo_id: embargo.id,
                                       extension_duration: '3_months'
@@ -51,7 +52,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       context 'because they are a pro admin' do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in admin
+            session[:user_id] = admin.id
             post :create, params: { alaveteli_pro_embargo_extension: {
                                       embargo_id: embargo.id,
                                       extension_duration: '3_months'
@@ -88,7 +89,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       it 'raises a CanCan::AccessDenied error' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in other_user
+            session[:user_id] = other_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
                                       embargo_id: embargo.id,
                                       extension_duration: '3_months'
@@ -103,7 +104,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
 
         it 'does not allow access to the controller action' do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
                                       embargo_id: embargo.id,
                                       extension_duration: '3_months'
@@ -124,7 +125,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       it 'raises a PermissionDenied error if the owner requests extension' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
                                       embargo_id: embargo.id,
                                       extension_duration: '3_months'
@@ -137,7 +138,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       it 'raises a PermissionDenied error if an admin requests extension' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in admin
+            session[:user_id] = admin.id
             post :create, params: { alaveteli_pro_embargo_extension: {
                                       embargo_id: embargo.id,
                                       extension_duration: '3_months'
@@ -160,7 +161,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       it 'raises a PermissionDenied error' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :create, params: { alaveteli_pro_embargo_extension: {
                                       embargo_id: embargo.id,
                                       extension_duration: '3_months'
@@ -174,7 +175,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
     context 'when the extension is invalid' do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           post :create, params: { alaveteli_pro_embargo_extension: {
                                     embargo_id: embargo.id
                                   }
@@ -206,7 +207,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       context 'because they are the owner' do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             post :create_batch, params: {
                                   info_request_batch_id: info_request_batch.id,
                                   extension_duration: '3_months'
@@ -239,7 +240,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       context 'because they are an admin' do
         before do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in admin
+            session[:user_id] = admin.id
             post :create_batch, params: {
                                   info_request_batch_id: info_request_batch.id,
                                   extension_duration: '3_months'
@@ -276,7 +277,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
       it 'raises a CanCan::AccessDenied error' do
         expect do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in other_user
+            session[:user_id] = other_user.id
             post :create_batch, params: {
                                   info_request_batch_id: info_request_batch.id,
                                   extension_duration: '3_months'
@@ -289,7 +290,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
     context 'when the extension is invalid' do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           post :create_batch, params: {
                                 info_request_batch_id: info_request_batch.id
                               }
@@ -306,7 +307,7 @@ RSpec.describe AlaveteliPro::EmbargoExtensionsController do
     context 'when an info_request_id is supplied' do
       before do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in admin
+          session[:user_id] = admin.id
           post :create_batch,
                params: {
                  info_request_batch_id: info_request_batch.id,

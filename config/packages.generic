@@ -21,6 +21,7 @@ pdftk
 poppler-utils
 postgresql
 postgresql-client
+python-yaml
 rake
 ruby
 ruby-dev
@@ -30,6 +31,6 @@ ttf-bitstream-vera
 unrtf
 unzip
 uuid-dev
-wkhtmltox
+wkhtmltopdf-static
 wv
 xapian-tools

@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
-RSpec.describe InfoRequest::State::ClarificationNeededQuery do
+describe InfoRequest::State::ClarificationNeededQuery do
 
   describe '#call' do
     let(:info_request) { FactoryBot.create(:waiting_clarification_info_request) }

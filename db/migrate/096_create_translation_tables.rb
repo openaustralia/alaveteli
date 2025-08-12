@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateTranslationTables < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     fields = { :name => :text,

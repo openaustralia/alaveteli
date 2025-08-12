@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe HashableParams do
+describe HashableParams do
   include HashableParams
 
   describe '#params_to_unsafe_hash' do

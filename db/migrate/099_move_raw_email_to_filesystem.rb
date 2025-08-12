@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MoveRawEmailToFilesystem < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     RawEmail.find_each(:batch_size => 10) do |raw_email|

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::WithTax do
+describe AlaveteliPro::WithTax do
   let(:plan) { double(:plan, amount: 833) }
   subject { described_class.new(plan) }
 

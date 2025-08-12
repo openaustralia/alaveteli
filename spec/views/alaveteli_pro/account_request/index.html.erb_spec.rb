@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe 'alaveteli_pro/account_request/index.html.erb' do
+describe 'alaveteli_pro/account_request/index.html.erb' do
 
   before { render }
 

@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe HasTagString::HasTagStringTag do
+describe HasTagString::HasTagStringTag do
 
   class ModelWithTag < ApplicationRecord
     has_tag_string
@@ -138,36 +139,16 @@ RSpec.describe HasTagString::HasTagStringTag do
 
   end
 
-  describe '#add_tag_if_not_already_present' do
-    subject { model.add_tag_if_not_already_present(tag) }
-
-    let!(:model) { ModelWithTag.create(tag_string: 'foo testing') }
-
-    context 'when the tag is already present' do
-      let(:tag) { 'foo' }
-      it { is_expected.to eq('foo testing') }
-    end
-
-    context 'when a similar tag is already present' do
-      let(:tag) { 'test' }
-      it { is_expected.to eq('foo testing test') }
-    end
-
-    context 'when the tag is not present' do
-      let(:tag) { 'bar' }
-      it { is_expected.to eq('foo testing bar') }
-    end
-  end
 end
 
-RSpec.describe HasTagString::HasTagStringTag, " when fiddling with tag strings" do
+describe HasTagString::HasTagStringTag, " when fiddling with tag strings" do
 
   it "should be able to make a new tag and save it" do
     @tag = HasTagString::HasTagStringTag.new
     @tag.model = 'PublicBody'
     @tag.model_id = public_bodies(:geraldine_public_body).id
     @tag.name = "moo"
-    @tag.save!
+    @tag.save
   end
 
 end

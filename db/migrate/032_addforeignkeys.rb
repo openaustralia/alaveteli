@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Addforeignkeys < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

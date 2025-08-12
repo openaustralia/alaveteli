@@ -4,15 +4,9 @@
 class AttachmentsController < ApplicationController
   include FragmentCachable
   include InfoRequestHelper
-  include PublicTokenable
-
-  skip_before_action :html_response
 
   before_action :find_info_request, :find_incoming_message, :find_attachment
   before_action :find_project
-
-  include ProminenceHeaders
-
   around_action :cache_attachments
 
   before_action :authenticate_attachment
@@ -58,7 +52,11 @@ class AttachmentsController < ApplicationController
       }
     )
 
-    html = @incoming_message.apply_masks(html, response.media_type)
+    html = if rails_upgrade?
+             @incoming_message.apply_masks(html, response.media_type)
+           else
+             @incoming_message.apply_masks(html, response.content_type)
+           end
 
     render html: html.html_safe
   end
@@ -66,12 +64,7 @@ class AttachmentsController < ApplicationController
   private
 
   def find_info_request
-    @info_request =
-      if public_token?
-        InfoRequest.find_by!(public_token: public_token)
-      else
-        InfoRequest.find(params[:id])
-      end
+    @info_request = InfoRequest.find(params[:id])
   end
 
   def find_incoming_message
@@ -148,7 +141,7 @@ class AttachmentsController < ApplicationController
         # various fragment cache functions using Ruby Marshall to write the file
         # which adds a header, so isn't compatible with images that have been
         # extracted elsewhere from PDFs)
-        if message_is_cacheable?
+        if message_is_public?
           logger.info("Writing cache for #{cache_key_path}")
           foi_fragment_cache_write(cache_key_path, response.body)
         end
@@ -177,15 +170,10 @@ class AttachmentsController < ApplicationController
   end
 
   def message_is_public?
-    # If this a request and message public then it can be served up without
-    # authentication
-    prominence.is_public? && @incoming_message.is_public?
-  end
-
-  def message_is_cacheable?
-    # If this a request searchable and message public then we can cache any
-    # attachments as there are no custom response headers (EG X-Robots-Tag)
-    prominence.is_searchable? && message_is_public?
+    # Is this a completely public request that we can cache attachments for
+    # to be served up without authentication?
+    @incoming_message.info_request.prominence(decorate: true).is_public? &&
+      @incoming_message.is_public?
   end
 
   def cache_key_path
@@ -199,16 +187,6 @@ class AttachmentsController < ApplicationController
   end
 
   def current_ability
-    @current_ability ||= Ability.new(
-      current_user, project: @project, public_token: public_token?
-    )
-  end
-
-  def prominence
-    @info_request.prominence(decorate: true)
-  end
-
-  def with_prominence
-    @info_request
+    @current_ability ||= Ability.new(current_user, project: @project)
   end
 end

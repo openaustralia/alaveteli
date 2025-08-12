@@ -1,11 +1,12 @@
+# -*- encoding : utf-8 -*-
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe 'highlighting search results' do
+describe 'highlighting search results' do
   include HighlightHelper
 
   before do
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   it 'ignores stopwords' do

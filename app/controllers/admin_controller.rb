@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # controllers/admin.rb:
 # All admin controllers are dervied from this.
 #
@@ -44,14 +45,11 @@ class AdminController < ApplicationController
     else
       if session[:using_admin].nil? || session[:admin_name].nil?
         if params[:emergency].nil? || AlaveteliConfiguration::disable_emergency_user
-          if !authenticated?
-            ask_to_login(
-              web: _('To log into the administrative interface'),
-              email: _('Then you can log into the administrative interface'),
-              email_subject: _('Log into the admin interface'),
-              user_name: 'a superuser'
-            )
-          else
+          if authenticated?(
+              :web => _("To log into the administrative interface"),
+              :email => _("Then you can log into the administrative interface"),
+              :email_subject => _("Log into the admin interface"),
+            :user_name => "a superuser")
             if !@user.nil? && @user.is_admin?
               session[:using_admin] = 1
               session[:admin_name] = @user.url_name

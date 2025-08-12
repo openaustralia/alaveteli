@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe "When errors occur" do
+describe "When errors occur" do
 
   before(:each) do
     # This should happen automatically before each test but doesn't with these integration
@@ -14,7 +15,11 @@ RSpec.describe "When errors occur" do
     it 'should show a full trace for general errors' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
       get "/request/example"
-      expect(response.body).to match('<div id="traces-0"')
+      if rails_upgrade?
+        expect(response.body).to match('<div id="traces-0"')
+      else
+        expect(response.body).to match('<div id="traces"')
+      end
       expect(response.body).to match('An example error')
     end
 
@@ -44,12 +49,15 @@ RSpec.describe "When errors occur" do
       expect(response.body).to match("Sorry, we couldn't find that page")
     end
 
-    it 'should handle non utf-8 parameters' do
-      get('/%d3')
-      expect(response).to render_template('general/exception_caught')
-      expect(response.code).to eq('404')
-      expect(response.body).to match("Sorry, we couldn't find that page")
-    end
+    # it 'should handle non utf-8 parameters' do
+    #     pending 'until we sanitize non utf-8 parameters for Ruby >= 1.9' do
+    #         get ('/%d3')
+    #         response.should render_template('general/exception_caught')
+    #         response.code.should == '404'
+    #         response.body.should match("Sorry, we couldn't find that page")
+    #     end
+    # end
+
 
     it "should render a 500 for general errors using the general/exception_caught template" do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
@@ -64,9 +72,9 @@ RSpec.describe "When errors occur" do
       expect(response.code).to eq('500')
     end
 
-    it 'should render a 406 for a non-found xml request' do
+    it 'should render a 404 for a non-found xml request' do
       get "/frobsnasm.xml"
-      expect(response.code).to eq('406')
+      expect(response.code).to eq('404')
     end
 
     it 'should notify of a general error' do

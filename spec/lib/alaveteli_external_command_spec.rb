@@ -1,11 +1,13 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+
 require 'alaveteli_external_command'
 
 script_dir = File.join(File.dirname(__FILE__), 'alaveteli_external_command_scripts')
 segfault_script = File.join(script_dir, 'segfault.sh')
 error_script = File.join(script_dir, 'error.sh')
 
-RSpec.describe "when running external commands" do
+describe "when running external commands" do
 
   it "should detect a non-zero exit status" do
     expect($stderr).to receive(:puts).with(/Error from/)

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 namespace :reminder do
   desc 'Send reminder email about public holiday data'

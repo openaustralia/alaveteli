@@ -26,7 +26,7 @@ class CitationsController < ApplicationController
   private
 
   def authenticate
-    authenticated? || ask_to_login(
+    authenticated?(
       web: _('To add a citation'),
       email: _('Then you can add citations'),
       email_subject: _('Confirm your account on {{site_name}}',

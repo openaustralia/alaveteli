@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #
 # Public: Class to handle getting an ISO 3166-1 alpha-2 country
 # code from an IP address.  Prefer the class method
@@ -10,7 +11,7 @@ class AlaveteliGeoIP
   attr_reader :geoip, :gaze_url, :current_code
 
   # Public: Get the country code for a given IP address
-  # Delegates to an instance configured with the geoip_database
+  # Delegates to an instance configured with the geoip_database
   # See AlaveteliGeoIP#country_code_from_ip for more documentation.
   def self.country_code_from_ip(ip)
     instance.country_code_from_ip(ip)

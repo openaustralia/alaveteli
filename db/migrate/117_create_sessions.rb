@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateSessions < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     create_table :sessions do |t|

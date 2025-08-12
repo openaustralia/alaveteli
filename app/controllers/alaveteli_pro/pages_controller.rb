@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/alaveteli_pro/pages_controller.rb
 # Controller for help_pages
 #

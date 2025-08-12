@@ -1,9 +1,8 @@
+# -*- encoding : utf-8 -*-
 # Does not inherit from AlaveteliPro::BaseController because it doesn't need to
 class AlaveteliPro::StripeWebhooksController < ApplicationController
   class MissingTypeStripeWebhookError < StandardError; end
   class UnknownPlanStripeWebhookError < StandardError; end
-
-  skip_before_action :html_response
 
   rescue_from JSON::ParserError, MissingTypeStripeWebhookError do |exception|
     # Invalid payload, reject the webhook
@@ -61,7 +60,7 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
       plan_name = subscription.plan.name
 
       charge.description =
-        "#{ pro_site_name }: #{ plan_name }"
+        "#{ AlaveteliConfiguration.pro_site_name }: #{ plan_name }"
 
       charge.save
     end

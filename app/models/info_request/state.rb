@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class InfoRequest
   module State
 
@@ -22,10 +23,6 @@ class InfoRequest
         states += InfoRequest.theme_extra_states
       end
       states
-    end
-
-    def self.unhappy
-      %w(partially_successful rejected waiting_response_very_overdue)
     end
 
     def self.valid?(state)

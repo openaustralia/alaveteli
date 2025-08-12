@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-RSpec.describe 'request_game/play' do
+describe 'request_game/play' do
 
     before do
         @mock_body = mock_model(PublicBody, :name => 'test body',

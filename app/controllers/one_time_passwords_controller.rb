@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/one_time_passwords_controller.rb:
 # View and update User one time passwords
 #
@@ -52,10 +53,11 @@ class OneTimePasswordsController < ApplicationController
   end
 
   def authenticate
-    authenticated? || ask_to_login(
-      web: _('To view your two factor authentication details'),
-      email: _('To view your two factor authentication details'),
-      email_subject: _('To view your two factor authentication details')
-    )
+    post_redirect_params = {
+      :web => _('To view your two factor authentication details'),
+      :email => _('To view your two factor authentication details'),
+      :email_subject => _('To view your two factor authentication details') }
+
+    authenticated?(post_redirect_params)
   end
 end

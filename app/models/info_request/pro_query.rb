@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class InfoRequest
   class ProQuery
     def initialize(relation = InfoRequest)

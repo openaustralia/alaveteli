@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Rack Middleware to prevent setting a session cookie when there's no data to
 # store in it.
 class StripEmptySessions

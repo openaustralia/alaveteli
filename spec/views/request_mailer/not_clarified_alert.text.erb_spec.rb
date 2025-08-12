@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.join('..', '..', '..', 'spec_helper'), __FILE__)
 
-RSpec.describe "request_mailer/not_clarified_alert" do
+describe "request_mailer/not_clarified_alert" do
   let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
   let(:request) { FactoryBot.create(:info_request, :public_body => body) }
 
@@ -10,9 +11,7 @@ RSpec.describe "request_mailer/not_clarified_alert" do
   end
 
   it "does not add HTMLEntities to the FOI law title" do
-    allow(request).to receive(:legislation).and_return(
-      FactoryBot.build(:legislation, short: "Test's Law")
-    )
+    allow(request).to receive(:law_used_human).and_return("Test's Law")
     assign(:info_request, request)
     render
     expect(response).to match("your Test's Law request")

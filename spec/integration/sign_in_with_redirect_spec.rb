@@ -1,7 +1,8 @@
-require 'spec_helper'
-require 'integration/alaveteli_dsl'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-RSpec.describe 'Signing in with a redirect parameter', local_requests: false do
+describe 'Signing in with a redirect parameter', local_requests: false do
 
   context 'when not logged in' do
     let(:user) { FactoryBot.create(:user) }

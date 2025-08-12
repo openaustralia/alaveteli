@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "notification_mailer/embargo_expiring_notification.text.erb" do
+describe "notification_mailer/embargo_expiring_notification.text.erb" do
   let!(:info_request) do
     FactoryBot.create(:embargo_expiring_request)
   end

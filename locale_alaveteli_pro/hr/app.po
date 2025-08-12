@@ -3,19 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Translators:
-# Žana Počuča <zana.fakin@gmail.com>, 2021
-# Josipa Sumpor <sumporjosipa@gmail.com>, 2021
-# Melisa <melisa@gong.hr>, 2021
-# Miroslav Schlossberg, 2021
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:12+0000\n"
+"POT-Creation-Date: 2020-07-16 16:34+0100\n"
 "PO-Revision-Date: 2017-04-03 11:57+0000\n"
-"Last-Translator: Miroslav Schlossberg, 2021\n"
 "Language-Team: Croatian (https://www.transifex.com/mysociety/teams/33529/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,1435 +18,1415 @@ msgstr ""
 " && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid " <strong>Summarising</strong> the content of any information returned. "
-msgstr " <strong>Sažimanje</strong> sadržaja svake vraćene informacije. "
+msgstr ""
 
 msgid " Say how you've <strong>used the information</strong>, with links if possible."
-msgstr "Recite kako ste <strong>iskoristili informacije</strong>, koristeći linkove ako je moguće. "
+msgstr ""
 
 msgid "'Crime statistics by ward level for Wales'"
-msgstr "'Statistika kaznenih djela prema vrsti za grad Zagreb'"
+msgstr ""
 
 msgid "(includes {{count}} returning subscriber)"
 msgid_plural "(includes {{count}} returning subscribers)"
-msgstr[0] "(uključuje {{count}} pretplatnika)"
-msgstr[1] "(uključuje {{count}} pretplatnika)"
-msgstr[2] "(uključuje {{count}} pretplatnika)"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(no title)"
-msgstr "(bez naslova)"
+msgstr ""
 
 msgid "(with <b>{{discount_name}}</b> discount applied)"
-msgstr "(uz <b>{{discount_name}}</b> popust)"
+msgstr ""
 
 msgid "12 Months"
-msgstr "12 mjeseci"
+msgstr ""
 
 msgid "29 April 2019"
-msgstr "29. travnja 2019."
+msgstr ""
 
 msgid "3 July 2017"
-msgstr "3. srpnja 2017."
+msgstr ""
 
 msgid "3 Months"
-msgstr "3 mjeseca"
+msgstr ""
 
 msgid "6 Months"
-msgstr "6 mjeseci"
+msgstr ""
 
 msgid "<a href=\"{{story_url}}\">Sold From Under You</a> — the Bureau of investigative Journalism used Pro to send requests to councils up and down the county to build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr "<a href=\"{{story_url}}\">Ispod vas je prodano </a> — Britanski neprofitni portal The Bureau of Investigetive Journalism koristio je PRO za slanje zahtjeva svim vijećima u Velikoj Britaniji, da bi dobili pregled javne imovine diljem zemlje koju vijeća rasprodaju zbog štednje."
+msgstr ""
 
 msgid "<span class=\"current-page\">{{current_page}}</span> of <span class=\"total-pages\">{{total_pages}}</span>"
-msgstr "<span class=\"current-page\">{{current_page}}</span> od <span class=\"total-pages\">{{total_pages}}</span>"
+msgstr ""
 
 msgid "<span class=\"price-label__amount\">{{monthly_price}}</span> per user, per month"
-msgstr "<span class=\"price-label__amount\">{{monthly_price}}</span> po korisniku, mjesečno"
+msgstr ""
 
 msgid "<span class=\"price-label__amount\">{{yearly_price}}</span> per user, per year"
-msgstr "<span class=\"price-label__amount\">{{yearly_price}}</span> po korisniku, godišnje"
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Action alerts</strong>: know when it’s time to take the next step"
-msgstr "<strong class=\"marketing-highlight\">Obavijest o rokovima</strong>: podsjetnik koji upozorava na rokove i sljedeće korake "
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Daily summary emails</strong> to keep your inbox clean"
-msgstr "<strong class=\"marketing-highlight\">Dnevna e-pošta sa sažetkom</strong> kako biste sačuvali vaš pretinac pristigle pošte čistim. "
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt"
-msgstr "<strong class=\"marketing-highlight\">Provjera isporuke</strong> za potvrdu primitka"
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Delivery verification</strong> for proof of receipt</strong>"
-msgstr "<strong class=\"marketing-highlight\">Provjera isporuke</strong> za potvrdu primitka</strong>"
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Get regular updates</strong> as the responses come in — without overwhelming your inbox"
-msgstr "<strong class=\"marketing-highlight\">Primajte redovne obavijesti</strong> kako odgovori dolaze — bez zatrpavanja vašeg pretinca pristigle pošte"
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Make a request to multiple authorities</strong>: select authorities at the click of a button"
-msgstr "<strong class=\"marketing-highlight\">Pošaljite zahtjev na više tijela javne vlasti</strong>: odaberite željeno tijelo klikom na gumb"
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Manage large volumes of responses</strong>: easily keep track of the status of each request"
-msgstr "<strong class=\"marketing-highlight\">Upravljajte velikom količinom odgovora</strong>: omogućuje istovremeno praćenje statusa svakog zahtjeva"
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Save as draft</strong> to get back to it later"
-msgstr "<strong class=\"marketing-highlight\">Spremite kao skicu</strong> da nastavite s uređivanjem tamo gdje ste stali"
+msgstr ""
 
 msgid "<strong class=\"marketing-highlight\">Streamlined process</strong> for requesting internal reviews"
-msgstr "<strong class=\"marketing-highlight\">Pojednostavljeni postupak</strong> traženja požurnica"
+msgstr ""
 
 msgid "<strong>Can I request information about myself?</strong> <a href=\"{{url}}\">No!</a>"
-msgstr "<strong>Mogu li zahtijevati informaciju o sebi?</strong> <a href=\"{{url}}\">Ne!</a>"
+msgstr ""
 
 msgid "<strong>Easy</strong> One fee covers all Pro features, with no complex tiers or options to worry about."
-msgstr "<strong>Lako</strong> Jedna naknada uključuje sve Pro značajke, bez složenih razina ili opcija o kojima biste trebali brinuti."
+msgstr ""
 
 msgid "<strong>Flexible</strong> You can cancel at any time, with no lengthy tie-ins and no notice required."
-msgstr "<strong>Fleksibilno</strong> Možete otkazati bilo kada, bez dugih procedura i bez potrebe za najavom."
+msgstr ""
 
 msgid "<strong>Reasonable</strong> We know that campaigners are likely to be on a limited budget, so we’ve kept the subscription affordable."
-msgstr "<strong>Pristupačno</strong> Znamo da aktivisti_ce raspolažu ograničenim sredstvima, pa smo tome prilagodili i cijenu."
+msgstr ""
 
 msgid "<strong>Reasonable</strong> We know that journalists can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr "<strong>Pristupačno</strong> Znamo da novinarke i novinari raspolažu ograničenim sredstvima pa smo tome prilagodili i cijenu."
+msgstr ""
 
 msgid "<strong>Reasonable</strong> We know that researchers can be on a limited budget, so we’ve kept the subscription affordable."
-msgstr "<strong>Pristupačno</strong> Znamo da istraživači_ce raspolažu ograničenim sredstvima pa smo tome prilagodili i pretplatu."
+msgstr ""
 
 msgid "<strong>Thank</strong> the public authority."
-msgstr "<strong>Zahvalite</strong> tijelu javne vlasti."
+msgstr ""
 
 msgid "<strong>{{brand}}</strong> ending in {{last4}}, expiry {{exp_month}}/{{exp_year}}"
-msgstr "<strong>{{brand}}</strong> završava u {{last4}}, istjek {{exp_month}}/{{exp_year}}"
+msgstr ""
 
 msgid "<strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr "<strong>{{filter_description}}</strong> poredano po <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">očisti</a>"
+msgstr ""
 
 msgid "<strong>{{pro_site_name}}</strong> runs on the UK’s best-known FOI service"
-msgstr "<strong>{{pro_site_name}}</strong> pokreće najpoznatiji servis za pristup infromacijama"
+msgstr ""
 
 msgid "A  powerful, fully-featured toolset that solves problems for campaigners managing multiple requests or in-depth FOI investigations"
-msgstr "Učinkovit set alata koji rješava probleme aktivistica i aktivista kad zahtjeve šalju na više adresa ili provode dubinska istraživanja temeljem informacija tijela javne vlasti"
+msgstr ""
 
 msgid "A <strong class=\"marketing-highlight\">searchable archive</strong> of Freedom of Information requests"
-msgstr "<strong class=\"marketing-highlight\">Pretraživa arhiva</strong> zahtjeva za pristup informacijama"
+msgstr ""
 
 msgid "A <strong>summary</strong> of the response if you have received it by postal mail. "
-msgstr "<strong>Sažetak</strong> odgovora ako ste ga primili običnom poštom."
+msgstr ""
 
 msgid "A one line summary of the information you are requesting, e.g."
-msgstr "Sažetak informacije koju tražite u jednoj rečenici, npr."
+msgstr ""
 
 msgid "A permanent, searchable, <strong class=\"marketing-highlight\">public record</strong> of your request and the responses"
-msgstr "Trajni, pretraživi <strong class=\"marketing-highlight\">javni zapis</strong> vašeg zahtjeva i odgovora"
+msgstr ""
 
 msgid "A powerful <strong class=\"marketing-highlight\">private dashboard</strong>: track and manage your FOI projects"
-msgstr "Moćna <strong class=\"marketing-highlight\">privatna nadzorna ploča</strong>: pratite i upravljajte svojim zahtjevima i projektima"
+msgstr ""
 
 msgid "A powerful, fully-featured toolset that solves problems for journalists managing multiple requests or in-depth FOI investigations"
-msgstr "Učinkovit set alata koji novinarima_kama rješava sve probleme upravljanja većim brojem zahtjeva i opsežnijim istragama na temelju pristupa podacima javnih tijela"
+msgstr ""
 
 msgid "A powerful, fully-featured toolset that solves problems for researchers and academics managing multiple requests or in-depth FOI investigations"
-msgstr "Učinkovit set alata koji rješava probleme istraživača i istraživačica te akademske zajednice kada trebaju informacije od više tijela javne vlasti"
+msgstr ""
 
 msgid "A super-smart <strong class=\"marketing-highlight\">to-do list</strong>: follow the progress of your requests"
-msgstr "Super-pametna <strong class=\"marketing-highlight\">lista zadataka</strong>: pratite napredak vaših zahtjeva"
+msgstr ""
 
 msgid "About {{public_body_name}}"
-msgstr "O {{public_body_name}}"
+msgstr ""
 
 msgid "Account"
-msgstr "Račun"
+msgstr ""
 
 msgid "Activist Doug Paulley uncovered councils across the UK who, through inaction, are allowing legal discrimination against wheelchair users. <a href=\"{{story_url}}\">See the whole story</a>"
-msgstr "Aktivist Doug Paulley razotkrio je vijeća diljem Velike Britanije, koja su svojim nedjelovanjem dopustila zakonsku diskriminaciju osoba u invalidskim kolicima. <a href=\"{{story_url}}\">Pogledaj cijelu priču</a>"
+msgstr ""
 
 msgid "Activity"
-msgstr "Aktivnost"
+msgstr ""
 
 msgid "Add"
-msgstr "Dodaj"
+msgstr ""
 
 msgid "Add Card Details"
-msgstr "Dodaj detalje kartice"
+msgstr ""
 
 msgid "Add all"
-msgstr "Dodaj sve"
+msgstr ""
 
 msgid "Add an annotation"
-msgstr "Dodajte bilješku"
+msgstr ""
 
 msgid "Add annotation"
-msgstr "Dodajte bilješku"
+msgstr ""
 
 msgid "Add authorities to your batch"
-msgstr "Dodajte tijela javne vlasti vašoj skupini"
+msgstr ""
 
 msgid "Add credibility"
-msgstr "Dodajte vjerodostojnost"
+msgstr ""
 
 msgid "Added"
-msgstr "Dodano"
+msgstr ""
 
 msgid "Adding your payment card requires your browser to have JavaScript enabled."
-msgstr "Dodavanje vaše kartice za plaćanje, zahtijeva omogućen JavaScript u vašem pregledniku."
+msgstr ""
 
 msgid "All requests"
-msgstr "Svi zahtjevi"
+msgstr ""
 
 msgid "All requests within this batch will remain private for the same duration. When an individual request is made public all other requests in this batch will also be published on {{site_name}}."
-msgstr "Svi zahtjevi unutar ove skupine ostat će privatni u istom razdoblju. Kada pojedini zahtjev postane javan, svi ostali zahtjevi iz ove skupine će također biti objavljeni na {{site_name}}."
+msgstr ""
 
 msgid "Also called {{other_name}}."
-msgstr "Također se zove {{other_name}}"
+msgstr ""
 
 msgid "An all-in-one FOI toolkit for journalists, activists and campaigners"
-msgstr "Sve potrebno za pristup informacijama na jednom mjestu, za novinare_ke, aktiviste_ce i istraživače_ice"
+msgstr ""
 
 msgid "Annotations allow you to add extra notes on a request, which will eventually be made public. For example:"
-msgstr "Bilješke omogućavaju dodavanje napomena o zahtjevu, koje će s vremenom postati javan. Na primjer:"
+msgstr ""
 
 msgid "Are you interested in free training, seminars and workshops about {{pro_site_name}}?"
-msgstr "Jeste li zainteresirani za besplatne treninge, seminare i radionice o {{pro_site_name}}?"
+msgstr ""
 
 msgid "Are you sure the information you’re after isn’t available elsewhere?"
-msgstr "Jeste li sigurni da informacije koje tražite nisu dostupne negdje drugdje?"
+msgstr ""
 
 msgid "Are you sure you want to publish this request?"
-msgstr "Jeste li sigurni da želite objaviti ovaj zahtjev?"
+msgstr ""
 
 msgid "Are you sure?"
-msgstr "Jeste li sigurni?"
+msgstr ""
 
 msgid "Automate FOI request management"
-msgstr "Automatizirajte upravljanje zahtjevom"
+msgstr ""
 
 msgid "Batch"
-msgstr "Skupina"
+msgstr ""
 
 msgid "Batch FOI requests"
-msgstr "Skupina zahtjeva"
+msgstr ""
 
 msgid "Batch request"
-msgstr "Skupni zahtjev"
+msgstr ""
 
 msgid "Batch requests"
-msgstr "Skupni zahtjevi"
+msgstr ""
 
 msgid "Batch requests allow multiple recipients of a single request"
-msgstr "Skupni zahtjevi omogućuju slanje istog zahtjeva većem broju primatelja"
+msgstr ""
 
 msgid "Batch requests are part of a new workflow"
-msgstr "Skupni zahtjevi su dio novog načina rada"
+msgstr ""
 
 msgid "Because we’ve streamlined the request-writing process, Pro saves you a lot of back and forth. Search our database of authorities, pick which one — or many — you want to contact, and compose your request right there."
-msgstr "S obzirom da smo pojednostavili postupak pisanja zahtjeva, Pro vam štedi mnogo lutanja uokolo. Pretražujte naše baze tijela javnih vlasti, odaberite jedno — ili više — koje želite kontaktirati i sastavite svoj zahtjev izravno ovdje. "
+msgstr ""
 
 msgid "Billed: Annually"
-msgstr "Naplata: godišnje"
+msgstr ""
 
 msgid "Billed: Daily"
-msgstr "Naplata: dnevno"
+msgstr ""
 
 msgid "Billed: Monthly"
-msgstr "Naplata: mjesečno"
+msgstr ""
 
 msgid "Billed: Weekly"
-msgstr "Naplata: tjedno"
+msgstr ""
 
 msgid "Billing"
-msgstr "Naplata"
+msgstr ""
 
 msgid "Bringing facts about campagin overspending to light with the privacy features"
-msgstr "Iznosi na vidjelo činjenice o prekomjernom trošenju imajući u vidu privatnost"
+msgstr ""
 
 msgid "Browse by category"
-msgstr "Pretraživanje prema kategoriji"
+msgstr ""
 
 msgid "Browse public requests"
-msgstr "Pretraživanje javnih zahtjeva"
+msgstr ""
 
 msgid "CSV"
-msgstr "CSV"
-
-msgid "Campaigners"
-msgstr "Aktivisti_ce"
+msgstr ""
 
 msgid "Campaigning for better wheelchair accessibility"
-msgstr "Kampanja za bolju pristupačnost invalidskim kolicima"
+msgstr ""
 
 msgid "Cancel"
-msgstr "Odustanite"
+msgstr ""
 
 msgid "Cancel subscription"
-msgstr "Otkažite pretplatu"
+msgstr ""
 
 msgid "Cancel your subscription"
-msgstr "Otkažite vašu pretplatu"
+msgstr ""
 
 msgid "Cancelled subscriptions:"
-msgstr "Otkazane pretplate:"
+msgstr ""
 
 msgid "Card details"
-msgstr "Detalji kartice"
+msgstr ""
 
 msgid "Change privacy"
-msgstr "Promijenite privatnost"
+msgstr ""
 
 msgid "Change status"
-msgstr "Promijenite status"
+msgstr ""
 
 msgid "Check the authority’s responses on {{site_name}} or conduct a quick Internet search."
-msgstr "Provjerite odgovore tijela javne vlasti na {{site_name}} ili napravite brzu pretragu interneta."
+msgstr ""
 
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr "Provjerite da niste uključili neku <strong>osobnu informaciju</strong>."
+msgstr ""
 
 msgid "Choose a duration"
-msgstr "Odaberite trajanje"
+msgstr ""
 
 msgid "Collapse all correspondence"
-msgstr "Sažmite svu korespodenciju"
+msgstr ""
 
 msgid "Confirm your account on {{site_name}}"
-msgstr "Potvrdite svoj račun na {{site_name}}"
+msgstr ""
 
 msgid "Continuing with checkout requires your browser to have JavaScript enabled."
-msgstr "Nastavak plaćanja zahtjeva omogućen JavaScript u vašem pregledniku."
+msgstr ""
 
 msgid "Coupon code has expired."
-msgstr "Kôd kupona je istekao."
+msgstr ""
 
 msgid "Coupon code is invalid."
-msgstr "Kôd kupona je nevažeći."
+msgstr ""
 
 msgid "Created"
-msgstr "Izrađen"
+msgstr ""
 
 msgid "Dashboard"
-msgstr "Nadzorna ploča"
+msgstr ""
 
 msgid "Dashboard and workflow features"
-msgstr "Nadzorna ploča i hodogram"
+msgstr ""
 
 msgid "Dear {{user_name}},"
-msgstr "Poštovani {{user_name}},"
+msgstr ""
 
 msgid "Debt Resistance UK uncovered <a href=\"{{story_url}}\">which councils are paying exorbitant LOBO loans</a>, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr "Debt Resistance UK otkrio je <a href=\"{{story_url}}\"> koja britanska vijeća plaćaju pretjerane LOBO zajmove</a>, što je u nekim slučajevima značilo da veliki dio prihoda od poreza odlazi izravno na plaćanje kamata."
+msgstr ""
 
 msgid "Debt Resistance UK uncovered which councils are paying exorbitant LOBO loans, in some cases meaning that a large proportion of council tax income is being channelled directly into interest payments."
-msgstr "Debt Resistance UK je otkrio koja britanska vijeća plaćaju pretjerane LOBO zajmove, što je u nekim slučajevima značilo da veliki dio prihoda od poreza odlazi izravno na plaćanje kamata. "
+msgstr ""
 
 msgid "Details"
-msgstr "Detalji"
+msgstr ""
 
 msgid "Disabled while sending remaining requests."
-msgstr "Onemogućeno tijekom slanja preostalih zahtjeva."
+msgstr ""
 
 msgid "Dismiss"
-msgstr "Odbacite"
+msgstr ""
 
 msgid "Do you have a coupon code?"
-msgstr "Imate li kupon s kôdom?"
+msgstr ""
 
 msgid "Don’t worry – <a href=\"{{signup_link}}\">our free accounts</a> are still available and always will be."
-msgstr "Ne brinite – <a href=\"{{signup_link}}\">naši besplatni računi</a> su još uvijek dostupni i uvijek će biti. "
+msgstr ""
 
 msgid "Download a zip file of all correspondence"
-msgstr "Preuzmite zip datoteku cjelokupne korespodencije"
+msgstr ""
 
 msgid "Draft"
-msgstr "Skica"
+msgstr ""
 
 msgid "Drafts"
-msgstr "Skice"
+msgstr ""
 
 msgid "Edit your request"
-msgstr "Uredite svoj zahtjev"
+msgstr ""
 
 msgid "Email address"
-msgstr "Adresa e-pošte"
+msgstr ""
 
 msgid "Email doesn't look like a valid address"
-msgstr "Adresa e-pošte ne čini se valjana"
+msgstr ""
 
 msgid "Estimated total number of Pro requests:"
-msgstr "Procijenjeni ukupni broj Pro zahtjeva: "
+msgstr ""
 
 msgid "Everything you need to keep on top of complex FOI-driven stories."
-msgstr "Sve što vam treba za uspješno istraživanje složenih priča temeljem pristupa informacijama  "
+msgstr ""
 
 msgid "Expand all correspondence"
-msgstr "Otvorite svu korespondenciju"
+msgstr ""
 
 msgid "Expires soon"
-msgstr "Uskoro istječe"
+msgstr ""
 
 msgid "FOI Management Tools for journalists, campaigners and researchers"
-msgstr "Alati za upravljanje zahtjevima za pristup informacijama, za novinare_ke, aktiviste_ice i istraživače_ice"
+msgstr ""
 
 msgid "FOI Management for Campaigners"
-msgstr "Upravljanje zahtjevima za aktiviste_ice"
+msgstr ""
 
 msgid "FOI Management for Journalists"
-msgstr "Upravljanje zahtjevima za novinare_ke"
+msgstr ""
 
 msgid "FOI Management for Researchers"
-msgstr "Upravljanje zahtjevima za istraživače_ice"
+msgstr ""
 
 msgid "FOI address book"
-msgstr "Adresar tijela javne vlasti"
+msgstr ""
 
 msgid "FOI for campaigners"
-msgstr "Zahtjevi za aktiviste_ice"
+msgstr ""
 
 msgid "FOI for journalists"
-msgstr "Zahtjevi za novinare_ke"
+msgstr ""
 
 msgid "FOI for researchers"
-msgstr "Zahtjevi za istraživače_ice"
+msgstr ""
 
 msgid "FOI is an invaluable tool for researchers, helping you collect information that hasn’t previously been available as a single dataset, and understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr "Pravo na pristup informacijama iznimno je važno istraživačima i istraživačicama jer pomaže prikupljanju informacija koje prethodno nisu bile dostupne kao jedinstveni skup podataka, a što doprinosi sagledavanju šire slike. Pro olakšava naporan posao slanja višestrukih zahtjeva kroz svoju značajku Skupni zahtjevi: jednostavno odaberite tijela javne vlasti koja želite i pošaljite zahtjev svima istovremeno."
+msgstr ""
 
 msgid "FOI is an invaluable tool in campaigns, helping you collect information that hasn’t previously been available as a single dataset so that you and your supporters can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr "Pravo na pristup informacijama iznimno je važno aktivistima i aktivisticama jer pomaže prikupljanju informacija koje prethodno nisu bile dostupne kao jedinstveni skup podataka, i tako omogućuje vama i vašim suradnicima da dobijete širu sliku. Pro olakšava naporan posao slanja višestrukih zahtjeva kroz svoju značajku Skupni zahtjevi: jednostavno odaberite tijela javne vlasti koja želite i pošaljite zahtjev svima istovremeno."
+msgstr ""
 
 msgid "FOI is an invaluable tool in investigations, helping you collect information that hasn’t previously been available as a single dataset so that you and your readers can understand the wider picture. Pro takes the slog out of sending multiple requests with the Batch feature: easily pick the authorities you want, then send one request to all of them."
-msgstr "Pravo na pristup informacijama iznimno je važno istraživačkim novinarima i novinarkama jer pomaže prikupljanju informacija koje prethodno nisu bile dostupne kao jedinstveni skup podataka, i tako omogućuje da vi i vaše publike sagledate širu sliku. Pro olakšava naporan posao slanja višestrukih zahtjeva kroz svoju značajku Skupni zahtjevi: jednostavno odaberite tijela javne vlasti koja želite i pošaljite zahtjev svima istovremeno."
+msgstr ""
 
 msgid "Featuring"
-msgstr "Predstavlja"
+msgstr ""
 
 msgid "Find out how {{pro_site_name}} can take the hard work out of FOI investigations"
-msgstr "Saznajte kako {{pro_site_name}} može olakšati prikupljanje podataka putem pristupa informacijama"
+msgstr ""
 
 msgid "Finding it hard to keep on top of your FOI requests?"
-msgstr "Imate problema s praćenjem svih zahtjeva koje ste poslali?"
+msgstr ""
 
 msgid "First created"
-msgstr "Prvo izrađeno"
+msgstr ""
 
 msgid "For journalists, academics and power users"
-msgstr "Za novinare_ke, znanstvenike_ce i napredne korisnike_ce"
+msgstr ""
 
 msgid "Friendly support"
-msgstr "Prijateljska podrška"
+msgstr ""
 
 msgid "From this screen you can get a helpful overview of your requests, and use quick actions to keep them up to date. Why not start your first one now?"
-msgstr "Na ovom zaslonu možete dobiti koristan pregled svojih zahtjeva i brzo ih i jednostavno ažurirati. Zašto svoj prvi zahtjev ne biste poslali već sada?"
+msgstr ""
 
 msgid "From this screen you can see what you need to do next to keep your requests moving forward. Why not start a new request now?"
-msgstr "Na ovom zaslonu možete vidjeti što sljedeće napraviti da bi vaši zahtjevi napredovali. Zašto odmah ne biste otvorili novi zahtjev?"
+msgstr ""
 
 msgid "Gavin Chait surveyed 350 local authorities to find out <a href=\"{{story_url}}\">which commercial premises were empty</a>, in order to give a helping hand to start-up businesses."
-msgstr "Gavin Chait ispitao je 350 lokalnih vlasti kako bi saznao <a href=\"{{story_url}}\">koji su komercijalni prostori prazni</a>, da bi pomogao start-up tvrtkama."
+msgstr ""
 
 msgid "Get email updates about {{pro_site_name}}?"
-msgstr "Želite li primati novosti o {{pro_site_name}} e-poštom?"
+msgstr ""
 
 msgid "Get in touch"
-msgstr "Javite se"
+msgstr ""
 
 msgid "Get started with your first request"
-msgstr "Započnite s vašim prvim zahtjevom"
+msgstr ""
 
 msgid "Got questions?"
-msgstr "Imate li pitanja?"
+msgstr ""
 
 msgid "Hard to keep track of your many requests?"
-msgstr "Je li vam teško pratiti vaše mnogobrojne zahtjeve?"
+msgstr ""
 
 msgid "Help"
-msgstr "Pomoć"
+msgstr ""
 
 msgid "Helping startups find the best location for their business"
-msgstr "Pomoć start-upovima u pronalasku najbolje lokacije za njihov posao"
+msgstr ""
 
 msgid "How campaigners are using Pro"
-msgstr "Kako aktivisti_ce koriste Pro"
+msgstr ""
 
 msgid "How it works"
-msgstr "Kako ovo radi"
+msgstr ""
 
 msgid "How journalists are using Pro"
-msgstr "Kako novinari_ke koriste Pro"
+msgstr ""
 
 msgid "How researchers are using Pro"
-msgstr "Kako istraživači-ce koriste Pro"
+msgstr ""
 
 msgid "I have read and accepted these terms and conditions"
-msgstr "Pročitao_la sam i prihvatio_la ove uvjete i odredbe"
+msgstr ""
 
 msgid "I understand and still want to cancel"
-msgstr "Razumijem i ipak želim otkazati"
+msgstr ""
 
 msgid "If payment continues to fail, unfortunately your account will revert back to a free account, and you’ll no longer have access to {{pro_site_name}}."
-msgstr "Nažalost, u slučaju da se nastave poteškoće s plaćanjem, vaš račun će biti vraćen na besplatni račun i više nećete imati pristup na {{pro_site_name}}."
+msgstr ""
 
 msgid "If you wish to preserve your access to {{pro_site_name}}, please could you check that your card has sufficient funds, and that the card details are correct on your subscriptions page: {{subscriptions_page_url}}"
-msgstr "Ako želite sačuvati pristup na {{pro_site_name}}, molimo provjerite imate li dovoljno sredstava na vašoj kartici i jesu li uneseni točni podaci o kartici na vašem računu pod pretplatama: {{subscriptions_page_url}}"
+msgstr ""
 
 msgid "If your request bounces back, we source the new address for that authority."
-msgstr "Ako se vaš zahtjev vrati, pronaći ćemo novu adresu za to tijelo javne vlasti. "
+msgstr ""
 
 msgid "Image credits:"
-msgstr "Izvor:"
+msgstr ""
 
 msgid "Important info about requests to this authority"
-msgstr "Važne informacije o zahtjevima prema ovom tijelu javne vlasti"
+msgstr ""
 
 msgid "Introductory Pricing"
-msgstr "Početne cijene"
+msgstr ""
 
-msgid "Investigating asbestos use in schools"
-msgstr "Istraživanje o azbestu u školama"
+msgid "Investigating asbestos use in shcools"
+msgstr ""
 
 msgid "Investigative journalist Jenna Corderoy has made good use of Pro’s privacy features, keeping her extensive Brexit-related investigations private until her stories broke, bringing facts about <a href=\"{{story_url_1}}\">campaign overspending</a> and <a href=\"{{story_url_2}}\">ERG</a> research to the public, among several other important stories."
-msgstr "Istraživačka novinarka Jenna Corderoy vrlo je dobro iskoristila Pro značajke privatnosti, čuvajući sve rezultate svojeg opsežnog istraživanja vezanog uz Brexit tajnima sve dok nije objavila svoje priče, otkrivajući, među ostalim, i činjenice o <a href=\"{{story_url_1}}\">prekomjernim troškovima kampanje</a> i European Research Group<a href=\"{{story_url_2}}\">ERG</a> analizama . "
+msgstr ""
 
 msgid "I’m a campaigner"
-msgstr "Ja sam aktivist_ica"
+msgstr ""
 
 msgid "I’m a journalist"
-msgstr "Ja sam novinar_ka"
+msgstr ""
 
 msgid "I’m a researcher"
-msgstr "Ja sam istraživač_ica"
+msgstr ""
 
 msgid "Join {{pro_site_name}}"
-msgstr "Pridružite se {{pro_site_name}}"
+msgstr ""
 
 msgid "Journalists"
-msgstr "Novinari_ke"
+msgstr ""
 
 msgid "Keep <strong class=\"marketing-highlight\">requests and responses private</strong> while you work on your story"
-msgstr "Zadržite <strong class=\"marketing-highlight\">zahtjeve i odgovore u tajnosti</strong> dok radite na svojoj priči"
+msgstr ""
 
 msgid "Keep private for a further:"
-msgstr "Zadržite tajnost za sljedeće:"
+msgstr ""
 
 msgid "Keep private for:"
-msgstr "Zadržite tajnost za: "
+msgstr ""
 
 msgid "Keep track of FOI requests"
-msgstr "Pratite zahtjeve za pristup informacijama"
+msgstr ""
 
 msgid "Last updated"
-msgstr "Zadnje ažuriranje"
+msgstr ""
 
 msgid "Learn more about {{pro_site_name}} for campaigners"
-msgstr "Saznajte više o {{pro_site_name}} za aktiviste_ice"
+msgstr ""
 
 msgid "Learn more about {{pro_site_name}} for journalists"
-msgstr "Saznajte više o {{pro_site_name}} za novinare_ke"
+msgstr ""
 
 msgid "Learn more about {{pro_site_name}} for researchers"
-msgstr "Saznajte više o {{pro_site_name}} za istraživače_ice"
+msgstr ""
 
 msgid "Lucie Stephens, prompted by the death of someone she cared about, requested information about asbestos in schools from more than 200 LEAs. <a href=\"{{story_url}}\">Read about her campaign</a>"
-msgstr "Lucie Stephens, potaknuta smrću bliske osobe, zahtijevala je informacije o azbestu u školama od preko 200 lokalnih tijela nadležnih za obrazovanje - LEA. <a href=\"{{story_url}}\">Pročitajte o njezinoj kampanji</a>"
+msgstr ""
 
 msgid "Make a batch request"
-msgstr "Izradite skupni zahtjev"
+msgstr ""
 
 msgid "Make a request"
-msgstr "Izradite zahtjev"
+msgstr ""
 
 msgid "Make a request to multiple authorities and manage the responses."
-msgstr "Izradite zahtjev za više tijela javnih vlasti i upravljajte odgovorima."
+msgstr ""
 
 msgid "Make an {{law_used_short}} request"
-msgstr "Izradite {{law_used_short}} zahtjev"
+msgstr ""
 
 msgid "My profile"
-msgstr "Moj profil"
+msgstr ""
 
 msgid "My subscription"
-msgstr "Moja pretplata"
+msgstr ""
 
 msgid "My wall"
-msgstr "Moj zid"
+msgstr ""
 
 msgid "Need a helping hand with your FOI requests?"
-msgstr "Trebate li pomoć s vašim zahtjevima?"
+msgstr ""
 
 msgid "Need to keep things under wraps?"
-msgstr "Trebate li podatke držati u tajnosti?"
+msgstr ""
 
 msgid "Need to keep your requests private?"
-msgstr "Trebate li vaše zahtjeve čuvati privatnima?"
+msgstr ""
 
 msgid "Need to protect your research?"
-msgstr "Trebate li zaštiti vaše istraživanje?"
+msgstr ""
 
 msgid "Need to protect your scoop?"
-msgstr "Trebate li zaštiti svoju ekskluzivnu vijest?"
+msgstr ""
 
 msgid "New Pro accounts this week:"
-msgstr "Novi Pro računi ovoga tjedna:"
+msgstr ""
 
 msgid "New Pro requests this week:"
-msgstr "Pro zahtjevi ovoga tjedna:"
+msgstr ""
 
 msgid "New Pro subscriptions this week:"
-msgstr "Nove Pro pretplate ovoga tjedna:"
+msgstr ""
 
 msgid "New batches made this week:"
-msgstr "Novi skupni zahtjevi izrađeni ovoga tjedna:"
+msgstr ""
 
 msgid "New to Professional – Batch"
-msgstr "Novo za profesionalce - skupni zahtjevi"
+msgstr ""
 
 msgid "Next payment"
-msgstr "Sljedeće plaćanje"
+msgstr ""
 
 msgid "No"
-msgstr "Ne"
+msgstr ""
 
 msgid "No bodies selected"
-msgstr "Nije odabrano niti jedno tijelo javne vlasti"
+msgstr ""
 
 msgid "No more authorities can be added to this batch request."
-msgstr "Ne može se više dodati niti jedno tijelo javne vlasti u ovaj skupni zahtjev."
+msgstr ""
 
 msgid "No more copy and paste emails: our Batch Request tool helps you create one request and send it to many authorities at once."
-msgstr "Ne morate više kopirati e-poštu i slati ju na svaku adresu posebno: kad kreirate Pro zahtjev možete ga istovremeno poslati svim tijelima od kojih tražite podatke"
+msgstr ""
 
 msgid "No need to check: we’ll send an email alert telling you when you need to take action."
-msgstr "Nema potrebe za provjeravanjem: mi ćemo poslati obavijest e-mailom kada budete trebali poduzeti sljedeću radnju."
+msgstr ""
 
 msgid "No results found"
-msgstr "Nema rezultata"
+msgstr ""
 
 msgid "No title"
-msgstr "Nema naslova"
+msgstr ""
 
 msgid "Not enough hours in the day?"
-msgstr "Dan nema dovoljno sati?"
+msgstr ""
 
 msgid "Note: When this request is made public on {{site_name}}, this message will also be made public."
-msgstr "Napomena: Kada ovaj zahtjev postane javan na {{site_name}}, ova će poruka također postati javna."
+msgstr ""
 
 msgid "Note: When this request is made public on {{site_name}}, your name and annotation will appear in <strong>search engines</strong>."
-msgstr "Napomena: Kada ovaj zahtjev postane javan na {{site_name}}, vaše ime i bilješka bit će pretraživi putem <strong>internetskih tražilica</strong>."
+msgstr ""
 
 msgid "Number of Pro accounts active this week:"
-msgstr "Broj Pro računa aktivnih u ovom tjednu: "
+msgstr ""
 
 msgid "Number of discounted users:"
-msgstr "Broj korisnika popusta: "
+msgstr ""
 
 msgid "Number of expired embargoes this week:"
-msgstr "Broj embarga isteklih ovog tjedna:"
+msgstr ""
 
 msgid "Number of free trial users:"
-msgstr "Broj korisnika besplatnog probnog razdoblja: "
+msgstr ""
 
 msgid "Number of paying users:"
-msgstr "Broj korisnika koji plaćaju:"
+msgstr ""
 
 msgid "Once the privacy period ends, everything that you enter on this page, including <strong>your name</strong>, will be <strong><a href=\"{{url}}\">displayed publicly</a></strong> on this website."
-msgstr "Po isteku razdoblja privatnosti, sve što unesete na ovoj stranici, uključujući <strong>vaše ime</strong>, bit će <strong><a href=\"{{url}}\">objavljeno javno</a></strong> na ovoj stranici."
+msgstr ""
 
 msgid "Once you launch your campaign, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your campaign, and make the data available for others who might want to research a different angle."
-msgstr "Jednom kad je vaša kampanja objavljena, više je razloga da objavite sve zahtjeve koje ste slali i odgovore koje ste dobili. To će dodati na vjerodostojnosti kampanje i omogućiti svima koji su za temu zainteresirani da podatke nastave koristiti za neka nova i drugačija istraživanja."
+msgstr ""
 
 msgid "Once your research is out there, it’s a great idea to put your requests and responses into the public domain. They’ll lend credence to your work, and make the data available for others who might want to research a different angle."
-msgstr "Jednom kada je vaše istraživanje vani,  dobra je ideja da objavite svoje zahtjeve i odgovore. Oni će dodati na vjerodostojnost vašem radu i učiniti podatke dostupnima drugima koji možda žele istražiti ih uz drugačiji pristup."
+msgstr ""
 
 msgid "Once your story’s been published, there’s every reason to put your requests and responses into the public domain. They’ll lend credence to your investigation, and make the data available for others who might want to research a different angle."
-msgstr "Jednom kad je vaša priča vani, nema razloga da ne objavite sve zahtjeve koje ste slali i odgovore koje ste dobili. To će poslužiti i kao dokaz kako ste do podataka došli i omogućiti svima koji su za temu zainteresirani da ih nastave koristiti za neka nova i drugačija istraživanja."
+msgstr ""
 
 msgid "Once you’re happy with your request, click preview and send."
-msgstr "Kada ste zadovoljni s vašim zahtjevom, odaberite predpregled i pošaljite."
+msgstr ""
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility, and opens it to a wider community."
-msgstr "Kad za to budete spremni, objavljivanje podataka na kojima se temelji vaše istraživanje dat će mu dodatnu vjerodostojnost i otvoriti ga za širu zajednicu."
+msgstr ""
 
 msgid "Once you’re ready, publishing the data behind your investigation lends it extra credibility."
-msgstr "Kad za to budete spremni, objavljivanje podataka na kojima se temelji vaše istraživanja dat će mu dodatnu vjerodostojnost."
+msgstr ""
 
 msgid "Overflowing inbox?"
-msgstr "Vaš pretinac e-pošte je prepun?"
+msgstr ""
 
 msgid "Payments past due:"
-msgstr "Uplate koje kasne:"
+msgstr ""
 
 msgid "Pending"
-msgstr "Na čekanju"
+msgstr ""
 
 msgid "Pending cancellations:"
-msgstr "Otkazivanja na čekanju:"
+msgstr ""
 
 msgid "Plans and pricing"
-msgstr "Planovi i cijene"
+msgstr ""
 
 msgid "Please enter the reason why you want access"
-msgstr "Molimo unesite razlog zbog kojeg želite pristup"
+msgstr ""
 
 msgid "Please enter your email address"
-msgstr "Molimo unesite adresu svoje e-pošte"
+msgstr ""
 
 msgid "Please include links to some examples of your journalism or blogging if you can."
-msgstr "Molimo unesite poveznice na neke primjere vašeg novinarskog ili blogerskog rada, ako možete."
+msgstr ""
 
 msgid "Please tell us if you want to get updates"
-msgstr "Molimo navedite ako želite primati novosti"
+msgstr ""
 
 msgid "Please tell us if you're interested in training and seminars"
-msgstr "Molimo javite nam jeste li zainteresirani za treninge i seminare"
+msgstr ""
 
 msgid "Plus, all the power of {{site_name}}"
-msgstr "Plus sva moć platforme {{site_name}}"
+msgstr ""
 
 msgid "Point to <strong>related information</strong>, campaigns or forums which may be useful."
-msgstr "Ukažite na <strong>vezane informacije</strong>, kampanje ili forume koji bi mogli biti korisni. "
+msgstr ""
 
 msgid "Preview and send request"
-msgstr "Pregledajte i pošaljite zahtjev"
+msgstr ""
 
 msgid "Preview new batch request"
-msgstr "Pregledajte novi skupni zahtjev"
+msgstr ""
 
 msgid "Preview new {{law_used_short}} request to '{{public_body_name}}'"
-msgstr "Pregledajte novi {{law_used_short}} zahtjev prema '{{public_body_name}}'"
+msgstr ""
 
 msgid "Pricing"
-msgstr "Cijene"
+msgstr ""
 
 msgid "Privacy"
-msgstr "Privatnost"
+msgstr ""
 
 msgid "Private"
-msgstr "Privatno"
+msgstr ""
 
 msgid "Private FOI requests"
-msgstr "Privatni zahtjevi"
+msgstr ""
 
 msgid "Private Requests"
-msgstr "Privatni zahtjevi"
+msgstr ""
 
 msgid "Private requests for information"
-msgstr "Privatni zahtjevi za informacijama"
+msgstr ""
 
 msgid "Private until {{date}}"
-msgstr "Privatno do {{date}}"
+msgstr ""
 
 msgid "Pro brings a new dashboard view"
-msgstr "Pro donosi novi izgled nadzorne ploče"
+msgstr ""
 
 msgid "Pro features a new request list view"
-msgstr "Pro ima novu značajku pregleda zahtjeva"
+msgstr ""
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of others snatching your scoop before it’s ready."
-msgstr "Pro omogućava sve prednosti {{site_name}}, bez brige da bi vam netko mogao oteti ekskluzivnu vijest prije nego je spremna."
+msgstr ""
 
 msgid "Pro gives you all of the ease of {{site_name}}, without the worry of releasing all your work before you’re ready for the world to see it."
-msgstr "Pro omogućava sve prednosti {{site_name}}, bez brige da će netko objaviti rezultate vašeg  rada prije nego ste spremni predstaviti ih svijetu."
+msgstr ""
 
 msgid "Professional"
-msgstr "Profesionalno"
+msgstr ""
 
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 msgid "Provide extra context on the request and your reasons for making it."
-msgstr "Dodajte kontekst vašem zahtjevu i razloge zašto ste ga sročili."
+msgstr ""
 
 msgid "Public requests for information"
-msgstr "Javni zahtjevi za informacijama"
+msgstr ""
 
 msgid "Publish immediately"
-msgstr "Objavite odmah"
+msgstr ""
 
 msgid "Publish request"
-msgstr "Objavite zahtjev"
+msgstr ""
 
 msgid "Publish requests"
-msgstr "Objavite zahtjeve"
+msgstr ""
 
 msgid "Publish this request or keep it private for longer."
 msgid_plural "Publish these requests or keep them private for longer."
-msgstr[0] "Objavi ovaj zahtjev ili ga duže zadrži privatnim."
-msgstr[1] "Objavi ove zahtjeve ili ih duže zadrži privatnima."
-msgstr[2] "Objavi ove zahtjeve ili ih duže zadrži privatnima."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Read blog"
-msgstr "Pročitajte blog"
+msgstr ""
 
 msgid "Ready to go public"
-msgstr "Spremno za objavu"
+msgstr ""
 
 msgid "Refer a friend"
-msgstr "Preporučite prijatelju"
+msgstr ""
 
 msgid "Remember, public authorities have {{late_number_of_days}} calendar days to respond to FOI requests."
-msgstr "Zapamtite, tijela javne vlasti imaju {{late_number_of_days}} kalendarskih dana da odgovore na vaš zahtjev."
+msgstr ""
 
 msgid "Remember, public authorities have {{late_number_of_days}} working days to respond to FOI requests."
-msgstr "Zapamtite, tijela javne vlasti imaju {{late_number_of_days}} radnih dana da odgovore na vaš zahtjev."
+msgstr ""
 
 msgid "Reminders"
-msgstr "Podsjetnici"
+msgstr ""
 
 msgid "Remove"
-msgstr "Uklonite"
+msgstr ""
 
 msgid "Replies"
-msgstr "Odgovori"
+msgstr ""
 
 msgid "Request access to {{pro_site_name}}"
-msgstr "Zatražite pristup na {{pro_site_name}}"
+msgstr ""
 
 msgid "Request an internal review"
-msgstr "Zatražite požurnicu"
+msgstr ""
 
 msgid "Request an internal review (or send another followup)."
 msgid_plural "Request internal reviews (or send other followups)."
-msgstr[0] "Zatražite požurnicu (ili pošaljllite drugu dodatnu poruku)."
-msgstr[1] "Zatražite požurnice (ili pošaljite druge dodatne poruke)."
-msgstr[2] "Zatražite požurnice (ili pošaljite druge dodatne poruke)."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Zatražite požurnicu od {{person_or_body}}"
+msgstr ""
 
 msgid "Request to"
-msgstr "Zahtjev prema"
+msgstr ""
 
 msgid "Requests"
-msgstr "Zahtjevi"
+msgstr ""
 
 msgid "Requests can stay completely private until you’re ready to go public with your story."
-msgstr "Zahtjevi mogu ostati potpuno privatni sve dok ne odlučite izaći u javnost sa svojom pričom."
+msgstr ""
 
 msgid "Requests can stay completely private until you’re ready to go public."
-msgstr "Zahtjevi mogu ostati potpuno privatni sve dok ne odlučite izaći u javnost."
+msgstr ""
 
 msgid "Requests can stay completely private until you’re ready to publish your research."
-msgstr "Zahtjevi mogu ostati potpuno privatni sve dok ne odlučite objaviti svoje istraživanje."
+msgstr ""
 
 msgid "Requests in this batch are private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr "Zahtjevi u ovoj skupini su privatni do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr ""
 
 msgid "Requests in this batch are public"
-msgstr "Zahtjevi u ovoj skupini su javni"
+msgstr ""
 
 msgid "Requests in this batch will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr "Zahtjevi u ovoj skupini bit će privatni do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr ""
 
 msgid "Requests that will be made public soon"
-msgstr "Zahtjevi koji će uskoro postati javni"
+msgstr ""
 
 msgid "Researchers"
-msgstr "Istraživači_ce"
+msgstr ""
 
 msgid "Response due"
-msgstr "Rok za odgovor"
+msgstr ""
 
 msgid "Save draft"
-msgstr "Spremite skicu"
+msgstr ""
 
 msgid "Save time managing FOI requests"
-msgstr "Uštedite vrijeme pri upravljanju zahtjevima za pristup informacijama"
+msgstr ""
 
 msgid "Search"
-msgstr "Pretražite"
+msgstr ""
 
 msgid "Search by name"
-msgstr "Pretražite po imenu"
+msgstr ""
 
 msgid "Search for an authority"
-msgstr "Pronađite tijelo javne vlasti"
+msgstr ""
 
 msgid "Search for an authority by name"
-msgstr "Pronađite tijelo javne vlasti prema nazivu"
+msgstr ""
 
 msgid "Searching for <strong>{{search_term}}</strong> in <strong>{{filter_description}}</strong> sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr "Pretraga <strong>'{{search_term}}'</strong> u <strong>{{filter_description}}</strong> poredano po <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">očisti</a>"
+msgstr ""
 
 msgid "Searching for the right email address for every FOI contact?"
-msgstr "Tražite li točnu adresu e-pošte svih službenika za informiranje?"
+msgstr ""
 
 msgid "Selected plan"
-msgstr "Odabrani plan"
+msgstr ""
 
 msgid "Send a follow up"
-msgstr "Pošaljite dodatnu poruku"
+msgstr ""
 
 msgid "Send a follow up (or request an internal review)."
 msgid_plural "Send follow ups (or request internal reviews)."
-msgstr[0] "Pošaljite dodatnu poruku (ili zahtjev za požurnicu)."
-msgstr[1] "Pošaljite dodatne poruke (ili zahtjev za požurnice)."
-msgstr[2] "Pošaljite dodatnu poruku (ili tražite požurnicu)."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Send a follow up message to {{person_or_body}}"
-msgstr "Pošaljite dodatnu poruku prema {{person_or_body}}"
+msgstr ""
 
 msgid "Send a followup"
-msgstr "Pošaljite dodatnu poruku"
+msgstr ""
 
 msgid "Send a reply to {{person_or_body}}"
-msgstr "Pošaljite odgovor prema {{person_or_body}}"
+msgstr ""
 
 msgid "Send message"
-msgstr "Pošaljite poruku"
+msgstr ""
 
 msgid "Send request"
-msgstr "Pošaljite zahtjev"
+msgstr ""
 
 msgid "Send {{count}} requests"
 msgid_plural "Send {{count}} requests"
-msgstr[0] "Pošaljite {{count}} zahtjev"
-msgstr[1] "Pošaljite {{count}} zahtjeva"
-msgstr[2] "Pošaljite {{count}} zahtjeva"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sending to multiple authorities at once?"
-msgstr "Šaljete li prema više tijela javne vlasti odjednom?"
+msgstr ""
 
 msgid "Sending..."
-msgstr "Slanje..."
+msgstr ""
 
 msgid "Sent"
-msgstr "Poslano"
+msgstr ""
 
 msgid "Settings"
-msgstr "Postavke"
+msgstr ""
 
 msgid "Share the code {{discount_code}} with a friend to give them {{discount_terms}} on signup."
-msgstr "Podijelite kôd {{discount_code}} s prijateljem i osigurajte mu, ili njoj, popust {{discount_terms}} prilikom registracije."
+msgstr ""
 
 msgid "Show {{count}} request in detail</span>"
 msgid_plural "Show {{count}} requests in detail</span>"
-msgstr[0] "Prikaži {{count}} zahtjev detaljno</span>"
-msgstr[1] "Prikaži {{count}} zahtjeva detaljno</span>"
-msgstr[2] "Prikažite {{count}} zahtjeva detaljno</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Sign up"
-msgstr "Registrirajte se"
+msgstr ""
 
 msgid "Simple, affordable pricing"
-msgstr "Jednostavno, prihvatljiva cijena"
+msgstr ""
 
 msgid "Sorry, no authorities matched that search"
-msgstr "Žao nam je, niti jedno tijelo javne vlasti ne odgovara ovom pretraživanju"
+msgstr ""
 
 msgid "Sorry, something went wrong getting your results, please try searching again."
-msgstr "Žao nam je, nešto je pošlo krivo prilikom traženja rezultata, molimo pokušajte pretraživati ponovo."
+msgstr ""
 
 msgid "Sorry, something went wrong publishing your request, please try again."
-msgstr "Žao nam je, nešto je pošlo krivo prilikom objave zahtjeva, molimo pokušajte ponovo."
+msgstr ""
 
 msgid "Sorry, something went wrong publishing your requests, please try again."
-msgstr "Žao nam je, nešto je pošlo krivo prilikom objave zahtjeva, molimo pokušajte ponovo."
+msgstr ""
 
 msgid "Sorry, something went wrong updating your batch request, please try again."
-msgstr "Žao nam je, nešto je pošlo krivo prilikom ažuriranja skupnog zahtjeva, molimo pokušajte ponovo."
+msgstr ""
 
 msgid "Sorry, something went wrong updating your request's privacy settings, please try again."
-msgstr "Žao nam je, nešto je pošlo krivo prilikom ažuriranja postavki privatnosti zahtjeva, molimo pokušajte ponovo."
+msgstr ""
 
 msgid "Sorry, something went wrong updating your requests' privacy settings, please try again."
-msgstr "Žao nam je, nešto je pošlo krivo prilikom ažuriranja postavki privatnosti zahtjeva, molimo pokušajte ponovo."
+msgstr ""
 
 msgid "Sort by"
-msgstr "Poredajte po"
+msgstr ""
 
 msgid "Sorted by <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">clear</a>"
-msgstr "Poredano po <strong>{{order_description}}</strong> <a href=\"{{reset_url}}\" class=\"clear-icon\">očisti</a>"
+msgstr ""
 
 msgid "Start new request"
-msgstr "Započnite novi zahtjev"
+msgstr ""
 
 msgid "Status"
-msgstr "Stanje"
+msgstr ""
 
 msgid "Subject"
-msgstr "Predmet"
+msgstr ""
 
 msgid "Submit Search"
-msgstr "Pretražite"
+msgstr ""
 
 msgid "Subscribe"
-msgstr "Pretplatite se"
+msgstr ""
 
 msgid "Subscription began"
-msgstr "Pretplata je započela"
+msgstr ""
 
 msgid "Subscription cancellations are applied at the end of the current billing period (<strong>{{date}}</strong>)."
-msgstr "Otkazivanja pretplate primjenjuju se na kraju trenutnog razdoblja naplate (<strong>{{date}}</strong>)."
+msgstr ""
 
 msgid "Subscription ends"
-msgstr "Pretplata završava"
+msgstr ""
 
 msgid "Terms and conditions"
-msgstr "Uvjeti korištenja"
+msgstr ""
 
 msgid "Thank you for your interest in {{pro_site_name}}."
-msgstr "Hvala na vašem interesu za {{pro_site_name}}."
+msgstr ""
 
 msgid "Thanks for logging in. We've saved your request as a draft, in case you wanted to add an embargo before sending it. You can set that (or just send it straight away) using the form below."
-msgstr "Zahvaljujemo na prijavi. Spremili smo vaš zahtjev kao skicu, u slučaju da želite postaviti ograničenja prije slanja (ili odmah poslati) koristeći obrazac ispod."
+msgstr ""
 
 msgid "Thanks for your interest in {{pro_site_name}}, we'll get back to you soon!"
-msgstr "Hvala na vašem ineresu za {{pro_site_name}}, javit ćemo vam se uskoro!"
+msgstr ""
 
 msgid "The Bureau of investigative Journalism used Pro to send requests to councils up and down the county, and build a nationwide picture of the public properties being sold off by councils in the face of austerity."
-msgstr "Britanski neprofitni portal The Bureau of Investigetive Journalism koristio je Pro za slanje zahtjeva svim vijećima u Velikoj Britaniji, kako bi napravili pregled javne imovine diljem zemlje koju vijeća rasprodaju zbog štednje."
+msgstr ""
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘<a href=\"{{story_url}}\">Sentencing and Imprisonment in Wales</a>’."
-msgstr "Wales Governance Centre poslao je zahtjeve za PPI kroz Pro da bi istražio zatvorsku populaciju diljem Walesa i Engleske za svoje izvješće ‘<a href=\"{{story_url}}\">Izricanje kazni i kazna zatvora u Walesu</a>’."
+msgstr ""
 
 msgid "The Wales Governance Centre sent FOI requests through Pro to discover the prison populations across Wales and England for their report ‘Sentencing and Imprisonment in Wales’."
-msgstr "Wales Governance Centre poslao je zahtjeve za PPI kroz Pro da bi istražio zatvorsku populaciju diljem Walesa i Engleske za svoje izvješće ‘Izricanje kazni i kazna zatvora u Walesu’."
+msgstr ""
 
 msgid "The following request has been made public on {{site_name}} this week."
 msgid_plural "The following requests have been made public on {{site_name}} this week."
-msgstr[0] "Sljedeći zahtjev je postao javan na {{site_name}} ovoga tjedna."
-msgstr[1] "Sljedeći zahtjevi su postali javni na {{site_name}} ovoga tjedna."
-msgstr[2] "Sljedeći zahtjevi su objavljeni na {{site_name}} ovoga tjedna."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "The following request will be made public on {{site_name}} in the next week. If you do not wish this request to go public at that time, please click on the link below to keep it private for longer."
 msgid_plural "The following requests will be made public on {{site_name}} in the next week. If you do not wish for any of these requests to go public, please click on the links below to extend them."
-msgstr[0] "Sljedeći zahtjev će biti objavljen na {{site_name}} u narednom tjednu. Ako ne želite da ovaj zahtjev tada postane javan, kliknite na poveznicu ispod kako biste ga duže zadržali privatnim."
-msgstr[1] "Sljedeći zahtjevi će biti objavljeni na {{site_name}} u narednom tjednu. Ako ne želite da ovi zahtjevi tada postanu javni, kliknite na poveznicu ispod kako biste ih duže zadržali privatnim."
-msgstr[2] "Sljedeći zahtjevi će biti objavljeni na {{site_name}} u narednom tjednu. Ako ne želite da ovi zahtjevi tada postanu javni, kliknite na poveznicu ispod kako biste ih duže zadržali privatnima."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "The ‘Data Scores as Governance’ project used Pro to help examine the <a href=\"{{story_url}}\">use of data-driven scores in categorising citizens</a>, allocating services, and predicting behaviour."
-msgstr "Projekt ‘Data Scores as Governance’ koristio je PRO za istraživanje <a href=\"{{story_url}}\">upotrebe podatkovnih rezultata za kategorizaciju građana</a>, raspodjelu usluga i predviđanje ponašanja."
+msgstr ""
 
 msgid "Then you can access {{pro_site_name}}"
-msgstr "Tada možete pristupiti {{pro_site_name}}"
+msgstr ""
 
 msgid "Then you can activate your {{site_name}} account"
-msgstr "Tada možete aktivirati vaš račun na {{site_name}}"
+msgstr ""
 
 msgid "Then you can update your payment details"
-msgstr "Tada možete ažurirati vaše podatke za plaćanje"
+msgstr ""
 
 msgid "Then you can upgrade your account"
-msgstr "Tada možete nadograditi vaš račun"
+msgstr ""
 
 msgid "There was a problem authorising your payment. You have not been charged. Please try again."
-msgstr "Došlo je do problema s autorizacijom vašeg plaćanja. Ništa nije naplaćeno. Molimo pokušajte ponovo. "
+msgstr ""
 
 msgid "There was a problem cancelling your account. Please try again later."
-msgstr "Došlo je do problema s otkazivanjem vašeg računa. Molimo pokušajte ponovo kasnije."
+msgstr ""
 
 msgid "There was a problem submitting your payment. You have not been charged. Please try again later."
-msgstr "Došlo je do problema s podnošenjem vašeg plaćanja. Ništa nije naplaćeno. Molimo pokušajte ponovo kasnije."
+msgstr ""
 
 msgid "There was a problem updating your payment details. Please try again later."
-msgstr "Došlo je do problema prilikom ažuriranja detalja plaćanja. Molimo pokušajte ponovo kasnije. "
+msgstr ""
 
 msgid "There's nothing to do right now. Great job!"
-msgstr "Trenutno nema novih zadataka. Odličan posao!"
+msgstr ""
 
 msgid "Things to do today"
-msgstr "Zadaci za danas"
+msgstr ""
 
 msgid "This page is only accessible to {{pro_site_name}} users"
-msgstr "Ovoj stranici mogu pristupiti samo {{pro_site_name}} korisnici"
+msgstr ""
 
 msgid "This request is part of <a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
-msgstr "Ovaj zahtjev je dio <a href=\"{{url}}\">skupnog zahtjeva poslanog na {{count}} tijela javne vlasti</a>"
+msgstr ""
 
 msgid "This request is private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr "Ovaj zahtjev je privatan do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr ""
 
 msgid "This request is public"
-msgstr "Ovaj zahtjev je javan"
+msgstr ""
 
 msgid "This request will be private until <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
-msgstr "Ovaj zahtjev će biti privatan do <strong class=\"js-embargo-expiry\">{{embargo_publish_at}}</strong>"
+msgstr ""
 
 msgid "This will publish all of the requests in this batch. Are you sure?"
-msgstr "Ovime ćete objaviti sve zahtjeve u ovoj skupini. Jeste li sigurni?"
+msgstr ""
 
 msgid "This will update the privacy for all of the requests in this batch. Are you sure?"
-msgstr "Ovime ćete ažurirati privatnost za sve zahtjeve u ovoj skupini. Jeste li sigurni?"
+msgstr ""
 
 msgid "Time is precious in newsrooms, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr "Vrijeme je dragocjeno, naročito u redakcijama, i zbog toga vaša nadzorna ploča sadrži samo ono što trebate znati: koji su zahtjevi odgovoreni; koji još nisu i treba ih utjerivati; koji čekaju na vašu akciju. Pretražujte, filtrirajte, sortirajte prema statusu zahtjeva kako bi najbrže našli one koje tražite."
+msgstr ""
 
 msgid "Time is precious, so your dashboard just presents the information you need to know: which requests have received responses; which haven’t and need chasing up; and which require input from you. Search, filter or sort by status to quickly find the request you’re looking for."
-msgstr "Vrijeme je dragocjeno, stoga vaša nadzorna ploča prikazuje informacije koje trebate znati: na koje je zahtjeve pristigao odgovor, na koje nije i potrebno ih je požuriti te koji zahtijevaju vaš doprinos. Pretražujte, filtrirajte ili poredajte po stanju, kako biste brzo pronašli zahtjev koji tražite. "
+msgstr ""
 
 msgid "Tired of the fiddly details that add time to your investigation?"
-msgstr "Dosadila vam je gnjavaža s tehničkim detaljima koji usporavaju vaše istraživanje?"
+msgstr ""
 
 msgid "Title (A-Z)"
-msgstr "Naziv (A-Z)"
+msgstr ""
 
 msgid "To"
-msgstr "Za"
+msgstr ""
 
 msgid "To access {{pro_site_name}}"
-msgstr "Za pristup na {{pro_site_name}}"
+msgstr ""
 
 msgid "To signup to {{site_name}}"
-msgstr "Za registraciju na {{site_name}}"
+msgstr ""
 
 msgid "To update your payment details"
-msgstr "Za ažuriranje podataka za plaćanje"
+msgstr ""
 
 msgid "To upgrade your account"
-msgstr "Za nadogradnju računa"
+msgstr ""
 
 msgid "Total number of Pro accounts:"
-msgstr "Ukupan broj Pro računa: "
+msgstr ""
 
 msgid "Uncovering which UK councils are paying exorbitant LOBO loans"
-msgstr "Otkrivanje koja vijeća u Velikoj Britaniji plaćaju prekomjerne LOBO zajmove"
+msgstr ""
 
 msgid "Unless you choose a privacy option, requests in this batch will be public on {{site_name}} immediately."
-msgstr "Ako ne odaberete opciju privatnosti, zahtjevi u ovoj skupini bit će odmah javni na stranici {{site_name}}."
+msgstr ""
 
 msgid "Unless you choose a privacy option, your request will be public on {{site_name}} immediately."
-msgstr "Ako ne odaberete opciju privatnosti, zahtjev će odmah biti javan na stranici {{site_name}}."
+msgstr ""
 
 msgid "Until that date you will continue to have full access to {{pro_site_name}}."
-msgstr "Do tog datuma, imat ćete puni pristup na {{pro_site_name}}."
+msgstr ""
 
 msgid "Up-to-date database of <strong class=\"marketing-highlight\">contact details</strong> for {{authority_count}} authorities"
-msgstr "Ažurna baza <strong class=\"marketing-highlight\">kontakata</strong> za {{authority_count}} tijela javne vlasti"
+msgstr ""
 
 msgid "Update"
-msgstr "Ažurirajte"
+msgstr ""
 
 msgid "Update Card Details"
-msgstr "Ažurirajte detalje kartice"
+msgstr ""
 
 msgid "Update its status."
 msgid_plural "Update statuses."
-msgstr[0] "Ažurirajte njegov status."
-msgstr[1] "Ažurirajte statuse. "
-msgstr[2] "Ažurirajte statuse."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Updated"
-msgstr "Ažurirano"
+msgstr ""
 
 msgid "Updating your payment card requires your browser to have JavaScript enabled."
-msgstr "Ažuriranje vaše kartice za plaćanje, zahtijeva omogućen JavaScript u vašem pregledniku."
+msgstr ""
 
 msgid "Upgrade account"
-msgstr "Nadogradite račun"
+msgstr ""
 
 msgid "Using Pro to build a nationwide picture of the public properties being sold off by councils"
-msgstr "Korištenje Pro značajki za stvaranje nacionalne slike javnih dobara koja su vijeća u Velikoj Britaniji rasprodala"
+msgstr ""
 
 msgid "View"
-msgstr "Pregledajte"
+msgstr ""
 
 msgid "View authorities"
-msgstr "Pregledajte tijela javne vlasti"
+msgstr ""
 
 msgid "Wall"
-msgstr "Zid"
+msgstr ""
 
 msgid "Want to add weight to your campaign?"
-msgstr "Želite li dati na težini svojoj kampanji?"
+msgstr ""
 
 msgid "Want to add weight to your research?"
-msgstr "Želite li dati na težini svojem istraživanju?"
+msgstr ""
 
 msgid "Want to add weight to your story?"
-msgstr "Želite li dati na težini svojoj priči?"
+msgstr ""
 
 msgid "Want to add weight to your work?"
-msgstr "Želite li dati na težini svojem radu?"
+msgstr ""
 
 msgid "We are processing your payment. You can access your subscription settings and account information from the \"My subscription\" link in your user menu (accessed from the dropdown next to your name, above)."
-msgstr "Obrađujemo vašu uplatu. Možete pristupiti postavkama pretplate i informacijama o računu putem poveznice \"Moja pretplata\" u vašem korisničkom izborniku (kojem se pristupa iz padajućeg izbornika pokraj vašeg imena, gore)."
+msgstr ""
 
 msgid "We will remind you by email and on the site when the request is going be made public, and you'll have the option to keep it private for longer if you want to. You can extend this time indefinitely, or make the request public at any time."
-msgstr "Obavijestit ćemo vas putem e-pošte i na stranici, kad će vaš zahtjev biti objavljen, a vi imate opciju produžiti njegovu privatnost ako želite. Vrijeme do objave možete produžavati neograničeno ili objaviti zahtjev kad god to poželite."
+msgstr ""
 
 msgid "Weekly Pro Metrics report for {{start_date}} - {{end_date}}"
-msgstr "Izvještaj tjednih Pro metrika za razdoblje {{start_date}} - {{end_date}}"
+msgstr ""
 
 msgid "Welcome to {{pro_site_name}}!"
-msgstr "Dobrodošli na {{pro_site_name}}!"
+msgstr ""
 
 msgid "We’ll attempt to bill your card again over the coming days."
-msgstr "Pokušat ćemo ponovo naplatiti iznos s vaše kartice tijekom sljedećih dana."
+msgstr ""
 
 msgid "We’ve tried to bill your card but the charge was unsuccessful."
-msgstr "Pokušali smo naplatiti račun s vaše kartice, ali je pokušaj bio neuspješan."
+msgstr ""
 
 msgid "When a request is private we guarantee that it will only be visible on {{site_name}} for the period you select. {{pro_site_name}} administrators will also be able to view your request, but will only do so in the event that they need to fix a problem with it (e.g. failed delivery to the authority). They will not reveal the contents of your request or any response you get to anyone else. The authority may still publish it in a disclosure log as usual."
-msgstr "Kada je zahtjev privatan, jamčimo da će biti vidljiv samo na {{site_name}} u razdoblju koje vi odredite. Administratori na {{pro_site_name}} će također moći vidjeti vaš zahtjev, ali će to činiti samo u slučaju da je potrebno riješiti problem (npr. neuspješna isporuka tijelu javne vlasti). Neće otkrivati sadržaj vašeg zahtjeva niti bilo kakve odgovore trećim osobama. Tijelo javne vlasti ga može prikazati u svojoj evidenciji upisnika, kao i obično."
+msgstr ""
 
 msgid "When the current billing period ends:"
-msgstr "Kada istječe trenutno razdoblje naplate:"
+msgstr ""
 
 msgid "When you cancel your account:"
-msgstr "Kad otkažete svoj račun:"
+msgstr ""
 
 msgid "When your request is made public on {{site_name}}, any annotations you add will also be public. However, they are <strong>not</strong> sent to {{public_body_name}}."
-msgstr "Kad se ovaj zahtjev objavi na {{site_name}}, napomene koje ste dodali također će postati javne. Međutim, one <strong>nisu</strong> poslane {{public_body_name}}."
+msgstr ""
 
 msgid "Why do you want access?"
-msgstr "Zašto želite pristupiti?"
+msgstr ""
 
 msgid "Write a reply"
-msgstr "Napišite odgovor"
+msgstr ""
 
 msgid "Write request"
-msgstr "Napišite zahtjev"
+msgstr ""
 
 msgid "Yes"
-msgstr "Da"
+msgstr ""
 
 msgid "You added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
-msgstr "Dodali ste novu bilješku vašem zahtjevu prema {{public_body_name}} \"{{info_request_title}}.\""
+msgstr ""
 
 msgid "You are already subscribed to this plan"
-msgstr "Već ste pretplaćeni na ovaj plan"
+msgstr ""
 
 msgid "You can choose to keep your requests private for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your campaign’s not live yet."
-msgstr "Možete odabrati da su vaši zahtjevi privatni do godinu dana i vidljivi samo vama. Javit ćemo vam na vrijeme kad ističe taj rok, a uvijek ga možete produžiti u slučaju da vaša kampanja još nije pokrenuta."
+msgstr ""
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your research hasn’t been published yet."
-msgstr "Možete odabrati da su vaši zahtjevi na stranici privatni do godinu dana i vidljivi samo vama. Javit ćemo vam na vrijeme kad ističe taj rok, a uvijek ga možete produžiti u slučaju da vaše istraživanje još nije objavljeno."
+msgstr ""
 
 msgid "You can choose to keep your requests private on the site for up to a year, not visible to anyone but you. We’ll make sure you know when that time’s about to run out, and you can always extend it further if your story’s not published yet."
-msgstr "Možete odabrati da su vaši zahtjevi na stranici privatni do godinu dana i vidljivi samo vama. Javit ćemo vam na vrijeme kad ističe taj rok, a uvijek ga možete produžiti u slučaju da vaša priča još nije objavljena."
+msgstr ""
 
 msgid "You can re-subscribe at any time and full access to these features will be restored."
-msgstr "Možete se ponovo pretplatiti kada želite i tako obnoviti puni pristup svim ovim značajkama."
+msgstr ""
 
 msgid "You don't currently have a Pro subscription"
-msgstr "Trenutno nemate Pro pretplatu"
+msgstr ""
 
 msgid "You have successfully cancelled your subscription to {{pro_site_name}}"
-msgstr "Uspješno ste otkazali svoju pretplatu na {{pro_site_name}}"
+msgstr ""
 
 msgid "You haven't added any authorities to your batch yet"
-msgstr "Još niste dodali niti jedno tijelo javne vlasti u skupni zahtjev"
+msgstr ""
 
 msgid "You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address."
-msgstr "Znate što je uzrok pogrešci i možete <strong>predložiti rješenje</strong>, poput ispravne adrese e-pošte."
+msgstr ""
 
 msgid "You sent a clarification to {{public_body_name}} for \"{{info_request_title}}\"."
-msgstr "Poslali ste pojašnjenje prema {{public_body_name}} za \"{{info_request_title}}\"."
+msgstr ""
 
 msgid "You sent a follow up to {{public_body_name}} on \"{{info_request_title}}\"."
-msgstr "Poslali ste dodatnu poruku prema {{public_body_name}} za \"{{info_request_title}}\"."
+msgstr ""
 
 msgid "You sent a request \"{{info_request_title}}\" to {{public_body_name}}."
-msgstr "Poslali ste zahtjev \"{{info_request_title}}\" prema {{public_body_name}}."
+msgstr ""
 
 msgid "You sent an internal review request to {{public_body_name}} for \"{{info_request_title}}\"."
-msgstr "Poslali ste požurnicu {{public_body_name}} vezano za \"{{info_request_title}}\"."
+msgstr ""
 
 msgid "You will be able to extend this privacy period from {{embargo_extend_from}}."
-msgstr "Moći ćete produžiti razdoblje privatnosti od {{embargo_extend_from}}."
+msgstr ""
 
 msgid "You will still be able to see any requests which are currently private, but you won't be able to make new private requests or extend privacy durations. These requests will be published when the current privacy period ends."
-msgstr "I dalje ćete moći vidjeti zahtjeve koji su trenutno privatni, ali nećete moći izraditi nove privatne zahtjeve niti produžiti trajanje privatnosti. Ti zahtjevi bit će objavljeni nakon isteka razdoblja privatnosti."
+msgstr ""
 
 msgid "You won't be able to access {{pro_site_name}} tools, including the dashboard and pro request management."
-msgstr "Nećete moći pristupiti alatima na {{pro_site_name}}, uključujući nadzornu ploču i napredno upravljanje zahtjevima."
+msgstr ""
 
 msgid "You'll lose access to any requests you still have in draft."
-msgstr "Izgubit ćete pristup svim zahtjevima koji su trenutno spremljeni kao skice."
+msgstr ""
 
 msgid "Your Batch Request has been saved!"
-msgstr "Vaš skupni zahtjev je spremljen!"
+msgstr ""
 
 msgid "Your clarification to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr "Vaše pojašnjenje prema {{public_body_name}} za \"{{info_request_title}}\" je ponovo poslano."
+msgstr ""
 
 msgid "Your current subscription"
-msgstr "Vaša trenutna pretplata"
+msgstr ""
 
 msgid "Your dashboard"
-msgstr "Vaša nadzorna ploča"
+msgstr ""
 
 msgid "Your draft has been saved!"
-msgstr "Vaša skica je spremljena!"
+msgstr ""
 
 msgid "Your follow up to {{public_body_name}} on \"{{info_request_title}}\" was resent."
-msgstr "Dodatna poruka za {{public_body_name}} o \"{{info_request_title}}\" je ponovo poslana."
+msgstr ""
 
 msgid "Your internal review request to {{public_body_name}} for \"{{info_request_title}}\" was resent."
-msgstr "Vaša požurnica prema {{public_body_name}} za \"{{info_request_title}}\" je ponovo poslana."
+msgstr ""
 
 msgid "Your message will be displayed publicly on this website once you publish your request."
-msgstr "Vaša poruka će biti javno objavljena na ovoj stranici kada objavite vaš zahtjev."
+msgstr ""
 
 msgid "Your payment details"
-msgstr "Vaši detalji za plaćanje"
+msgstr ""
 
 msgid "Your payment details have been updated"
-msgstr "Vaši detalji za plaćanje su ažurirani"
+msgstr ""
 
 msgid "Your request"
-msgstr "Vaš zahtjev"
+msgstr ""
 
 msgid "Your request \"{{info_request_title}}\" to {{public_body_name}} was resent."
-msgstr "Vaš zahtjev \"{{info_request_title}}\" za {{public_body_name}} je ponovo poslan."
+msgstr ""
 
 msgid "Your request has been updated!"
-msgstr "Vaš zahtjev je ažuriran!"
+msgstr ""
 
 msgid "Your request is now public!"
-msgstr "Vaš zahtjev sada je javno objavljen!"
+msgstr ""
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" is now public."
-msgstr "Vaš zahtjev za {{public_body_name}} \"{{info_request_title}}\" sada je javno objavljen."
+msgstr ""
 
 msgid "Your request to {{public_body_name}} \"{{info_request_title}}\" received a new response."
-msgstr "Vaš zahtjev za {{public_body_name}} \"{{info_request_title}}\" dobio je novi odgovor."
+msgstr ""
 
 msgid "Your request will now be private on {{site_name}} until {{expiry_date}}."
-msgstr "Vaš će zahtjev biti privatan na {{site_name}} do {{expiry_date}}."
+msgstr ""
 
 msgid "Your request will now be private until {{expiry_date}}."
-msgstr "Vaš će zahtjev biti privatan do {{expiry_date}}."
+msgstr ""
 
 msgid "Your requests are now public!"
-msgstr "Vaši zahtjevi sada su javno objavljeni!"
+msgstr ""
 
 msgid "Your requests will now be private until {{expiry_date}}."
-msgstr "Vaši će zahtjevi biti privatni do {{expiry_date}}."
+msgstr ""
 
 msgid "Your subscription has been cancelled, your access to {{pro_site_name}} will end on <strong>{{date}}</strong>."
-msgstr "Vaša pretplata je otkazana, pristup na {{pro_site_name}} završit će <strong>{{date}}</strong>."
+msgstr ""
 
 msgid "Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request."
-msgstr "Vaše mišljenje što bi <strong>administratori</strong> na {{site_name}} trebali poduzeti vezano uz zahtjev."
+msgstr ""
 
 msgid "You’ll have access to our address book of {{authority_count}} authorities that are subject to FOI."
-msgstr "Imat ćete pristup našem adresaru za {{authority_count}} tijela javne vlasti koja su obveznici Zakona o pravu na pristup informacijama."
+msgstr ""
 
 msgid "You’re busy fixing the world. Let us take care of your FOI requests."
-msgstr "Zauzeti ste spašavanjem svijeta. Dopustite da mi brinemo o vašim zahtjevima za pristup informacijama."
+msgstr ""
 
 msgid "You’ve got plenty of other things to think about, so you don’t want to be checking up on every single one of your requests to see if it needs attention. Instead, Pro keeps an eye on them for you, sending you a daily email digest."
-msgstr "Ima toliko drugih stvari o kojima morate voditi računa, i ne želite svako malo provjeravati u kojem je statusu koji od vaših zahtjeva da vam ne promakne kad na koji treba reagirati. Zato Pro pazi na sve vaše zahtjeve i šalje vam dnevno e-poštu sa sažecima statusa svih zahtjeva."
+msgstr ""
 
 msgid "ZIP"
-msgstr "ZIP"
+msgstr ""
 
 msgid "all requests"
-msgstr "svi zahtjevi"
+msgstr ""
 
 msgid "drafts"
-msgstr "skice"
+msgstr ""
 
 msgid "eg. Cabinet Office"
-msgstr "npr. Vlada RH"
+msgstr ""
 
 msgid "first created"
-msgstr "prvo izrađeno"
+msgstr ""
 
 msgid "last updated"
-msgstr "posljednje ažurirano"
+msgstr ""
 
 msgid "or start a batch request"
-msgstr "ili započnite skupni zahtjev"
+msgstr ""
 
 msgid "requests that will be made public soon"
-msgstr "zahtjevi koji će uskoro biti objavljeni"
+msgstr ""
 
 msgid "the {{pro_site_name}} team"
-msgstr "{{pro_site_name}} ekipa"
+msgstr ""
 
 msgid "the {{site_name}} team"
-msgstr "{{site_name}} ekipa"
+msgstr ""
 
 msgid "title (A-Z)"
-msgstr "naziv (A-Z)"
+msgstr ""
 
 msgid "{{commenter_name}} added a new annotation on your request to {{public_body_name}} \"{{info_request_title}}.\""
-msgstr "Dodana je nova bilješka na vaš zahtjev za {{public_body_name}} \"{{info_request_title}}\" od {{commenter_name}}."
+msgstr ""
 
 msgid "{{count}} Pending"
-msgstr "{{count}} Na čekanju"
+msgstr ""
 
 msgid "{{count}} recipient, <a href=\"{{url}}\">show</a>"
 msgid_plural "{{count}} recipients, <a href=\"{{url}}\">show all</a>"
-msgstr[0] "{{count}} primatelj, <a href=\"{{url}}\">prikaži</a>"
-msgstr[1] "{{count}} primatelja, <a href=\"{{url}}\">prikaži sve</a>"
-msgstr[2] "{{count}} primatelja, <a href=\"{{url}}\">prikaži sve</a>"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} recipient, {{first_public_body}}"
 msgid_plural "{{count}} recipients, including {{first_public_body}} and {{second_public_body}}"
-msgstr[0] "{{count}} primatelj, {{first_public_body}}"
-msgstr[1] "{{count}} primatelja, ukljućujući {{first_public_body}} i {{second_public_body}}"
-msgstr[2] "{{count}} primatelja, uključujući {{first_public_body}} i {{second_public_body}}"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} reply"
 msgid_plural "{{count}} replies"
-msgstr[0] "{{count}} odgovor"
-msgstr[1] "{{count}} odgovora"
-msgstr[2] "{{count}} odgovora"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request has received a response."
 msgid_plural "{{count}} requests have received a response."
-msgstr[0] "{{count}} zahtjev dobio je odgovor."
-msgstr[1] "{{count}} zahtjeva primila su odgovor. "
-msgstr[2] "{{count}} zahtjeva je primilo odgovor.  "
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request is delayed."
 msgid_plural "{{count}} requests are delayed."
-msgstr[0] "{{count}} zahtjev kasni."
-msgstr[1] "{{count}} zahtjeva kasni."
-msgstr[2] "{{count}} zahtjeva kasni."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request is long overdue."
 msgid_plural "{{count}} requests are long overdue."
-msgstr[0] "Za {{count}} zahtjev je jako prekoračen rok. "
-msgstr[1] "Za {{count}} zahtjeva je jako prekoračen rok. "
-msgstr[2] "{{count}} zahtjeva je u velikom kašnjenju. "
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request made"
 msgid_plural "{{count}} requests made"
-msgstr[0] "{{count}} zahtjev izrađen"
-msgstr[1] "{{count}} zahtjeva izrađeno "
-msgstr[2] "{{count}} zahtjeva izrađeno"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} request will be made public this week."
 msgid_plural "{{count}} requests will be made public this week."
-msgstr[0] "{{count}} zahtjev bit će objavljen ovaj tjedan."
-msgstr[1] "{{count}} zahtjeva bit će objavljena ovaj tjedan. "
-msgstr[2] "{{count}} zahtjeva bit će objavljeno ovaj tjedan."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "{{count}} {{phase}}"
-msgstr "{{count}} {{phase}}"
+msgstr ""
 
 msgid "{{date}}"
-msgstr "{{date}}"
+msgstr ""
 
 msgid "{{length_of_time}} ago"
-msgstr "Prije {{length_of_time}}"
+msgstr ""
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your campaigning."
-msgstr "{{pro_site_name}} obavlja sav težak posao, ostavljajući vam više vremena da se usredotočite na vašu kampanju."
+msgstr ""
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your investigation."
-msgstr "{{pro_site_name}} obavlja sav težak posao, ostavljajući vam više vremena da se usredotočite na vašu istragu."
+msgstr ""
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your research."
-msgstr "{{pro_site_name}} obavlja sav težak posao, ostavljajući vam više vremena da se usredotočite na vaše istraživanje."
+msgstr ""
 
 msgid "{{pro_site_name}} does all the heavy lifting, leaving you with more time to focus on your story."
-msgstr "{{pro_site_name}} obavlja sav težak posao, ostavljajući vam više vremena da se usredotočite na vašu priču."
+msgstr ""
 
 msgid "{{pro_site_name}} does the hard work for you"
-msgstr "{{pro_site_name}} obavlja sav težak posao za vas"
+msgstr ""
 
 msgid "{{pro_site_name}} is a powerful, fully-featured <strong class=\"marketing-highlight\">FOI toolkit</strong> for journalists, campaigners and researchers"
-msgstr "{{pro_site_name}} je moćan, potpuno opremljen alat za <strong class=\"marketing-highlight\">pristup informacijama</strong> namijenjen novinarima_kama, aktivistima_cama i istraživačima_cama."
+msgstr ""
 
 msgid "{{pro_site_name}} is here to help"
-msgstr "{{pro_site_name}} je ovdje da vam pomogne"
+msgstr ""
 
 msgid "{{pro_site_name}} moves request handling out of your email and onto a dedicated dashboard, keeping everything organised."
-msgstr "{{pro_site_name}} prebacuje upravljanje zahtjevima s vaše e-pošte na posebnu nadzornu ploču, kako bi imali brži i bolje organiziran pregled stanja."
+msgstr ""
 
 msgid "{{public_body_name}} are delayed in responding to your request \"{{info_request_title}}\"."
-msgstr "{{public_body_name}} kasne s odgovorom na vaš zahtjev \"{{info_request_title}}\"."
+msgstr ""
 
 msgid "{{public_body_name}} became long overdue in responding to your request \"{{info_request_title}}\"."
-msgstr "{{public_body_name}} puno kasne s odgovorom na vaš zahtjev \"{{info_request_title}}\"."
+msgstr ""

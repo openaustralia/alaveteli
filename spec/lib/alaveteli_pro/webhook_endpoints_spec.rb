@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'stripe_mock'
 
-RSpec.describe AlaveteliPro::WebhookEndpoints do
+describe AlaveteliPro::WebhookEndpoints do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }

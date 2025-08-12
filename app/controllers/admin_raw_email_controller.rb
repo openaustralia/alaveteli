@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_raw_email_controller.rb:
 # Controller for managing raw emails from the admin interface.
 #
@@ -5,8 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRawEmailController < AdminController
-  skip_before_action :html_response
-
   before_action :set_raw_email, only: [:show]
 
   def show

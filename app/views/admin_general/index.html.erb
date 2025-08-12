@@ -55,7 +55,6 @@
                locals: {
                  id: 'unclassified',
                  parent: 'public-request-things-to-do',
-                 count: @old_unclassified_count,
                  items: @old_unclassified,
                  label: to_do_list_label
                } %>
@@ -75,8 +74,8 @@
                          parent: 'authority-things-to-do',
                          items: @blank_contacts,
                          count: @blank_contact_count,
-                         label: 'Find missing FOI email for these public
-                                 authorities' } %>
+                         label: 'Find missing FOI email for these
+                                 public authorities (try phoning!)' } %>
 
     <% if @new_body_requests.size > 0 %>
       <div class="accordion-group">
@@ -97,15 +96,15 @@
               :method => 'put',
               :class => "form form-horizontal" do %>
 
-              <%= submit_tag 'Close', class: 'btn' %>
+              <%= submit_tag 'Close', :class => "btn btn-danger" %>
 
-              <%= link_to 'Close and respond',
-                          edit_admin_change_request_path(@change_request),
-                          class: 'btn btn-primary' %>
+              <%= link_to "Close and respond",
+                edit_admin_change_request_path(@change_request),
+                :class => 'btn' %>
 
-              <%= link_to 'Add authority',
-                new_admin_body_path(change_request_id: @change_request.id),
-                class: 'btn btn-success' %>
+              <%= link_to "Add authority",
+                new_admin_body_path(:change_request_id => @change_request.id),
+                :class => 'btn btn-primary' %>
             <% end %>
           <% end %>
         </div>
@@ -131,16 +130,16 @@
               :class => "form form-horizontal",
               :method => 'put' do %>
 
-              <%= submit_tag 'Close', class: 'btn' %>
+              <%= submit_tag 'Close', :class => "btn btn-danger" %>
 
-              <%= link_to 'Close and respond',
-                          edit_admin_change_request_path(@change_request),
-                          class: 'btn btn-primary' %>
+              <%= link_to "Close and respond",
+                edit_admin_change_request_path(@change_request),
+                :class => 'btn' %>
 
-              <%= link_to 'Make update',
+              <%= link_to "Make update",
                 edit_admin_body_path(@change_request.public_body,
-                                     change_request_id: @change_request.id),
-                                     class: 'btn btn-success' %>
+                                     :change_request_id => @change_request.id),
+                                     :class => 'btn btn-primary' %>
              <% end %>
            <% end %>
         </div>

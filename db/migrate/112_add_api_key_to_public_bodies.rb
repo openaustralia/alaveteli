@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "securerandom"
 
 class AddApiKeyToPublicBodies < ActiveRecord::Migration[4.2] # 2.3

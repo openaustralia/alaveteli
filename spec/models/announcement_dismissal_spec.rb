@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: announcement_dismissals
 #
@@ -12,7 +11,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AnnouncementDismissal do
+describe AnnouncementDismissal do
   it 'requires a announcement' do
     dismissal = FactoryBot.build(:announcement_dismissal, announcement: nil)
     expect(dismissal).not_to be_valid

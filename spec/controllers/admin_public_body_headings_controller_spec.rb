@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AdminPublicBodyHeadingsController do
+describe AdminPublicBodyHeadingsController do
 
   describe 'GET new' do
 

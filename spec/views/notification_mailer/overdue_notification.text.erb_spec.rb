@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "notification_mailer/overdue_notification.text.erb" do
+describe "notification_mailer/overdue_notification.text.erb" do
   let(:body) { FactoryBot.create(:public_body, :name => "Apostrophe's") }
   let(:request) do
     FactoryBot.create(:info_request,
@@ -14,9 +15,7 @@ RSpec.describe "notification_mailer/overdue_notification.text.erb" do
   end
 
   it "does not add HTMLEntities to the FOI law title" do
-    allow(request).to receive(:legislation).and_return(
-      FactoryBot.build(:legislation, short: "Test's Law")
-    )
+    allow(request).to receive(:law_used_human).and_return("Test's Law")
     assign(:info_request, request)
     render
     expect(response).to match("your Test's Law request")

@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-RSpec.describe InfoRequest::State do
+describe InfoRequest::State do
 
   describe :all do
 
@@ -9,16 +10,6 @@ RSpec.describe InfoRequest::State do
         .to be true
     end
 
-  end
-
-  describe '.unhappy' do
-    subject { described_class.unhappy }
-
-    let(:unhappy_states) do
-      %w(partially_successful rejected waiting_response_very_overdue)
-    end
-
-    it { is_expected.to match_array(unhappy_states) }
   end
 
   describe '.valid?' do
@@ -63,7 +54,7 @@ RSpec.describe InfoRequest::State do
     context 'when a theme is in use' do
 
       before do
-        InfoRequest.send(:require, 'models/customstates')
+        InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/../customstates'))
         InfoRequest.send(:include, InfoRequestCustomStates)
         InfoRequest.class_eval('@@custom_states_loaded = true')
       end

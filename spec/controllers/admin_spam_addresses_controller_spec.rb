@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AdminSpamAddressesController do
+describe AdminSpamAddressesController do
   render_views
   before { basic_auth_login @request }
 

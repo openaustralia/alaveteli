@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PublicBodyMachineTags < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     add_column :public_body_tags, :value, :text

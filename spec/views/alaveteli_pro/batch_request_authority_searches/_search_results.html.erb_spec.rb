@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe '_search_results.html.erb' do
+describe '_search_results.html.erb' do
   let(:draft_batch_request) { AlaveteliPro::DraftInfoRequestBatch.new }
 
   def render_view(locals)

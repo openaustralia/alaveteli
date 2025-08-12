@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe(
+describe(
   "notification_mailer/info_request_batches/_info_request_batch.text.erb") do
   let!(:public_body_1) { FactoryBot.create(:public_body) }
   let!(:public_body_2) { FactoryBot.create(:public_body) }

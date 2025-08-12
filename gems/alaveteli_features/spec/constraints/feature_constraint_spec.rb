@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe AlaveteliFeatures::Constraints::FeatureConstraint do
+describe AlaveteliFeatures::Constraints::FeatureConstraint do
   let(:test_backend) { Flipper.new(Flipper::Adapters::Memory.new) }
 
   around do |example|

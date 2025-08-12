@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe 'general/_responsive_topnav.html.erb' do
+describe 'general/_responsive_topnav.html.erb' do
   let(:user) { FactoryBot.create(:user) }
   let(:pro_user) { FactoryBot.create(:pro_user) }
 

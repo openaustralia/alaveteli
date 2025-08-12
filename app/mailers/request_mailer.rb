@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/request_mailer.rb:
 # Alerts relating to requests.
 #
@@ -66,6 +67,7 @@ class RequestMailer < ApplicationMailer
     user = set_by || info_request.user
     @reported_by = user
     @url = request_url(info_request)
+    @admin_url = admin_request_url(info_request)
     @info_request = info_request
     @message = message
 
@@ -101,7 +103,7 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that the public body is late in replying
   def overdue_alert(info_request, user)
-    @url = respond_to_last_url(info_request)
+    @url = respond_to_last_url(info_request, anchor: 'followup')
     @info_request = info_request
 
     set_reply_to_headers(user)
@@ -116,7 +118,7 @@ class RequestMailer < ApplicationMailer
 
   # Tell the requester that the public body is very late in replying
   def very_overdue_alert(info_request, user)
-    @url = respond_to_last_url(info_request)
+    @url = respond_to_last_url(info_request, anchor: 'followup')
     @info_request = info_request
 
     set_reply_to_headers(user)
@@ -141,11 +143,7 @@ class RequestMailer < ApplicationMailer
 
     set_reply_to_headers(info_request.user)
     set_auto_generated_headers
-    mail_user(
-      info_request.user,
-      _("Please update the status of your request - {{request_title}}",
-        request_title: info_request.title.html_safe)
-    )
+    mail_user(info_request.user, _("Please update the status of your request"))
   end
 
   # Tell the requester that someone updated their old unclassified request

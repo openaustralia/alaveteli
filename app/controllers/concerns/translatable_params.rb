@@ -1,8 +1,8 @@
+# -*- encoding : utf-8 -*-
 module TranslatableParams
 
-  def translatable_params(params, **keys)
-    return {} unless params
-    WhitelistedParams.new(**keys).whitelist(params)
+  def translatable_params(keys, params)
+    WhitelistedParams.new(keys).whitelist(params)
   end
 
   extend ActiveSupport::Concern
@@ -10,18 +10,17 @@ module TranslatableParams
   # Class to whitelist the parameters hash for a model that accepts
   # translation data via "accepts_nested_attributes_for :translations"
   #
-  # @param translated_keys [Array] a list of whitelisted keys for translation
-  #   models
-  # @param general_keys [Array] an optional list of whitelisted keys for the
-  #   base model
+  #
+  # keys - a hash with keys :general_keys and :translated_keys
+  #        containing the list of whitelisted keys for
+  #        the base model, and for translations, respectively.
   class WhitelistedParams
     include ::HashableParams
 
-    attr_reader :translated_keys, :general_keys
+    attr_reader :keys
 
-    def initialize(translated_keys:, general_keys: [])
-      @translated_keys = translated_keys
-      @general_keys = general_keys
+    def initialize(keys)
+      @keys = keys
     end
 
     # Return a whitelisted params hash given the raw params
@@ -36,11 +35,11 @@ module TranslatableParams
     private
 
     def model_keys
-      translated_keys + general_keys + [:translations_attributes]
+      keys[:translated_keys] + keys[:general_keys] + [:translations_attributes]
     end
 
     def translation_keys
-      translated_keys + [:id]
+      keys[:translated_keys] + [:id]
     end
 
     def slice_translations_params(sliced_params)

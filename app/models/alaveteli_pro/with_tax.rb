@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #
 # Calculate amount + tax for a Stripe::Plan or Stripe::Subscription.
 #

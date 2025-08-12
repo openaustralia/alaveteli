@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe StripEmptySessions do
+describe StripEmptySessions do
   def make_response(session_data, response_headers)
     app = lambda do |env|
       env['rack.session'] = session_data

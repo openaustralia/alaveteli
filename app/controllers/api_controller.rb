@@ -1,6 +1,5 @@
+# -*- encoding : utf-8 -*-
 class ApiController < ApplicationController
-  skip_before_action :html_response
-
   before_action :check_api_key
   before_action :check_external_request,
     :only => [:add_correspondence, :update_state]

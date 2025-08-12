@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminIncomingMessageController < AdminController
 
   before_action :set_incoming_message, :only => [:edit, :update, :destroy, :redeliver]

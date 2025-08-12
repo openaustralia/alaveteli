@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeSafeMailFromToMailFrom < ActiveRecord::Migration[4.2] # 2.3
   def self.up
     remove_column :incoming_messages, :safe_mail_from

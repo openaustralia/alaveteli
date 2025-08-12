@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::DashboardHelper do
+describe AlaveteliPro::DashboardHelper do
 
   include AlaveteliPro::DashboardHelper
 

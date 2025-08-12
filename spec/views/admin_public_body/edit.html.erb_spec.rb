@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'admin_public_body/edit.html.erb' do
+describe 'admin_public_body/edit.html.erb' do
   let(:public_body) { FactoryBot.create(:public_body) }
 
   before do

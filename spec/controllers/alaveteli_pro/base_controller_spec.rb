@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-RSpec.describe AlaveteliPro::BaseController do
+describe AlaveteliPro::BaseController do
   controller(AlaveteliPro::BaseController) do
     def index
       head :ok
@@ -26,7 +27,7 @@ RSpec.describe AlaveteliPro::BaseController do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it "redirects to the homepage" do
@@ -45,7 +46,7 @@ RSpec.describe AlaveteliPro::BaseController do
       let(:user) { FactoryBot.create(:pro_user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it "doesn't redirect anywhere" do

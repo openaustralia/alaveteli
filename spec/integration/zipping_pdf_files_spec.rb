@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'zip/filesystem'
 
-RSpec.describe 'zipping pdf files' do
+describe 'zipping pdf files' do
 
   it 'correctly records the size of the zipped file' do
     pdf_file = load_file_fixture('tfl.pdf')
@@ -10,7 +11,7 @@ RSpec.describe 'zipping pdf files' do
     tempfile = Tempfile.new('ziptest')
     tempfile.binmode
 
-    Zip::File.open(tempfile.path + '.zip', create: true) do |zipfile|
+    Zip::File.open(tempfile.path + '.zip', Zip::File::CREATE) do |zipfile|
       zipfile.get_output_stream('tfl.pdf') do |f|
         f.puts pdf_file
       end

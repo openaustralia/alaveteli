@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateIncomingMessageError < ActiveRecord::Migration[4.2] # 4.1
   def change
     create_table :incoming_message_errors do |t|

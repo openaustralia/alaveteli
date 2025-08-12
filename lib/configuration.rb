@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/../commonlib/rblib/config'
 
 # Load intial mySociety config
@@ -21,7 +22,7 @@ module AlaveteliConfiguration
       ADMIN_USERNAME: '',
       ALLOW_BATCH_REQUESTS: false,
       AUTHORITY_MUST_RESPOND: true,
-      AVAILABLE_LOCALES: 'en',
+      AVAILABLE_LOCALES: '',
       BLACKHOLE_PREFIX: 'do-not-reply-to-this-address',
       BLOCK_RATE_LIMITED_IPS: false,
       BLOCK_RESTRICTED_COUNTRY_IPS: false,
@@ -37,7 +38,7 @@ module AlaveteliConfiguration
       CONTACT_FORM_RECAPTCHA: false,
       CONTACT_NAME: 'Alaveteli',
       DEBUG_RECORD_MEMORY: false,
-      DEFAULT_LOCALE: 'en',
+      DEFAULT_LOCALE: '',
       DISABLE_EMERGENCY_USER: false,
       DOMAIN: 'localhost:3000',
       DONATION_URL: '',
@@ -116,7 +117,6 @@ module AlaveteliConfiguration
       STRIPE_SECRET_KEY: '',
       STRIPE_TAX_RATE: '0.20',
       STRIPE_WEBHOOK_SECRET: '',
-      SURVEY_URL: '',
       THEME_BRANCH: false,
       THEME_URL: '',
       THEME_URLS: [],
@@ -134,15 +134,6 @@ module AlaveteliConfiguration
       WORKING_OR_CALENDAR_DAYS: 'working'
     }
     # rubocop:enable Layout/LineLength
-  end
-
-  def self.html_to_pdf_command
-    warn <<~DEPRECATION.squish
-      [DEPRECATION] AlaveteliConfiguration.html_to_pdf_command will be removed
-      in 0.41. Please add the directory containing the wkhtmltopdf command to
-      AlaveteliConfiguration.utility_search_path
-    DEPRECATION
-    super
   end
 
   def self.method_missing(name)

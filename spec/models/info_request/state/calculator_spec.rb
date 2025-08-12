@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe InfoRequest::State::Calculator do
+describe InfoRequest::State::Calculator do
   let(:info_request) { FactoryBot.create(:info_request) }
   let(:calculator) { described_class.new(info_request) }
 
@@ -40,7 +41,7 @@ RSpec.describe InfoRequest::State::Calculator do
 
     it 'returns :response_received when the request is awaiting description' do
       info_request.awaiting_description = true
-      info_request.save!
+      info_request.save
       expect(calculator.phase).to eq(:response_received)
     end
 

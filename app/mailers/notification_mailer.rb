@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # models/notification_mailer.rb:
 # Emails relating to notifications from the site
 #
@@ -88,7 +89,7 @@ class NotificationMailer < ApplicationMailer
     mail_user(
       user,
       _("Your daily request summary from {{pro_site_name}}",
-        pro_site_name: pro_site_name)
+        pro_site_name: AlaveteliConfiguration.pro_site_name)
     )
   end
 
@@ -121,9 +122,8 @@ class NotificationMailer < ApplicationMailer
     subject = _(
       "Your FOI request - {{request_title}} will be made public on " \
       "{{site_name}} this week",
-      request_title: @info_request.title.html_safe,
-      site_name: site_name.html_safe
-    )
+      :request_title => @info_request.title.html_safe,
+      :site_name => AlaveteliConfiguration.site_name.html_safe)
 
     mail_user(@info_request.user,
               subject,
@@ -139,9 +139,8 @@ class NotificationMailer < ApplicationMailer
     subject = _(
       "Your FOI request - {{request_title}} has been made public on " \
       "{{site_name}}",
-      request_title: @info_request.title.html_safe,
-      site_name: site_name.html_safe
-    )
+      :request_title => @info_request.title.html_safe,
+      :site_name => AlaveteliConfiguration.site_name.html_safe)
 
     mail_user(@info_request.user,
               subject,
@@ -150,7 +149,8 @@ class NotificationMailer < ApplicationMailer
 
   def overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
-    @url = signin_url(r: respond_to_last_path(@info_request))
+    @url =
+      signin_url(r: respond_to_last_path(@info_request, anchor: 'followup'))
 
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers
@@ -165,7 +165,8 @@ class NotificationMailer < ApplicationMailer
 
   def very_overdue_notification(notification)
     @info_request = notification.info_request_event.info_request
-    @url = signin_url(r: respond_to_last_path(@info_request))
+    @url =
+      signin_url(r: respond_to_last_path(@info_request, anchor: 'followup'))
 
     set_reply_to_headers(@info_request.user)
     set_auto_generated_headers

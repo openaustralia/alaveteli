@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AdminPublicBodyChangeRequestsController do
+describe AdminPublicBodyChangeRequestsController do
   let(:add_request) { FactoryBot.create(:add_body_request) }
 
   describe 'GET #edit' do

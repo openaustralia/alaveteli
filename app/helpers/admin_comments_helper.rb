@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 module AdminCommentsHelper
   def comment_labels(comment)

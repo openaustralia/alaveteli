@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 namespace :gettext do
   def msgmerge(*files)
     destination = files.first
@@ -176,7 +177,7 @@ namespace :gettext do
 
   def theme_files_to_translate
     theme = find_theme(ENV['THEME'])
-    Dir.glob("{lib/themes/#{theme}/{app,config,lib}}/**/*.{rb,erb,yml.erb}")
+    Dir.glob("{lib/themes/#{theme}/lib}/**/*.{rb,erb}")
   end
 
   def theme_locale_path

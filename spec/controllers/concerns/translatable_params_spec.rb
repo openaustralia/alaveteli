@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-RSpec.describe TranslatableParams do
+describe TranslatableParams do
   include TranslatableParams
 
   describe '#translatable_params' do
@@ -25,23 +26,15 @@ RSpec.describe TranslatableParams do
                         :name => 'Other name' } } }
 
       params = ActionController::Parameters.new(params)
-      expect(translatable_params(params, keys)).
+      expect(translatable_params(keys, params)).
         to eq(ActionController::Parameters.new(expected).permit!)
-    end
-
-    context 'when there are no params' do
-
-      it 'returns an empty hash' do
-        expect(translatable_params(nil, keys)).to eq({})
-      end
-
     end
 
   end
 
 end
 
-RSpec.describe TranslatableParams::WhitelistedParams do
+describe TranslatableParams::WhitelistedParams do
 
   describe '#whitelist' do
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class TrackOverdueAlerts < ActiveRecord::Migration[4.2] # 2.0
   def self.up
     create_table :user_info_request_sent_alerts do |t|

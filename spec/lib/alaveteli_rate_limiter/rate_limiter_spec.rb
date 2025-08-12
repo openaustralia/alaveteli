@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-RSpec.describe AlaveteliRateLimiter::RateLimiter do
+describe AlaveteliRateLimiter::RateLimiter do
   let(:window) { AlaveteliRateLimiter::Window.new(1, :hour) }
   let(:rule) { AlaveteliRateLimiter::Rule.new(:test, 1, window) }
 

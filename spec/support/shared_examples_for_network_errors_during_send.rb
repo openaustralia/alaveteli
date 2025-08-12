@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 shared_examples_for 'NetworkSendErrors' do
 
   describe 'handles a network error during message sending' do
@@ -26,7 +27,7 @@ shared_examples_for 'NetworkSendErrors' do
 
     it 'stores the reason for the failure' do
       event = request.reload.info_request_events.last
-      expect(event.params[:reason]).to match(/timed out/)
+      expect(event.params[:reason]).to eq 'Connection timed out'
     end
 
     it 'ensures that the outgoing message is persisted' do

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AlaveteliPro::DashboardHelper
 
   def activity_item_description(activity_item)

@@ -1,7 +1,8 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 require 'stripe_mock'
 
-RSpec.describe AlaveteliPro::PlansController do
+describe AlaveteliPro::PlansController do
   before { StripeMock.start }
   after { StripeMock.stop }
   let(:stripe_helper) { StripeMock.create_test_helper }
@@ -38,7 +39,7 @@ RSpec.describe AlaveteliPro::PlansController do
     end
 
     it 'sets pro_site_name' do
-      expect(assigns(:pro_site_name)).to eq pro_site_name
+      expect(assigns(:pro_site_name)).to eq AlaveteliConfiguration.pro_site_name
     end
 
     it 'uses the default plan for pricing info' do
@@ -69,7 +70,7 @@ RSpec.describe AlaveteliPro::PlansController do
       let(:user) { FactoryBot.create(:user) }
 
       before do
-        sign_in user
+        session[:user_id] = user.id
       end
 
       context 'with a valid plan' do
@@ -117,7 +118,7 @@ RSpec.describe AlaveteliPro::PlansController do
       context 'with an existing subscription' do
 
         before do
-          sign_in user
+          session[:user_id] = user.id
           customer =
             Stripe::Customer.create(email: user.email,
                                     source: stripe_helper.generate_card_token)
@@ -140,7 +141,7 @@ RSpec.describe AlaveteliPro::PlansController do
       context 'with an existing customer id but no active subscriptions' do
 
         before do
-          sign_in user
+          session[:user_id] = user.id
           customer =
             Stripe::Customer.create(email: user.email,
                                     source: stripe_helper.generate_card_token)

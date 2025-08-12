@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper.rb'
 
-RSpec.describe InfoRequest::Prominence::EmbargoExpiringQuery do
+describe InfoRequest::Prominence::EmbargoExpiringQuery do
 
   describe '#call' do
 

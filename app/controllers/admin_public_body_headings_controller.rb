@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminPublicBodyHeadingsController < AdminController
 
   include TranslatableParams
@@ -109,10 +110,13 @@ class AdminPublicBodyHeadingsController < AdminController
   private
 
   def public_body_heading_params
-    translatable_params(
-      params[:public_body_heading],
-      translated_keys: [:locale, :name]
-    )
+    if public_body_heading_params = params[:public_body_heading]
+      keys = { :translated_keys => [:locale, :name],
+               :general_keys => [] }
+      translatable_params(keys, public_body_heading_params)
+    else
+      {}
+    end
   end
 
   def set_public_body_heading

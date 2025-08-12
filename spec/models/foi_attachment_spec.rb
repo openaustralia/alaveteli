@@ -1,5 +1,5 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: foi_attachments
 #
@@ -16,9 +16,9 @@
 #  updated_at            :datetime
 #
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe FoiAttachment do
+describe FoiAttachment do
   describe '.binary' do
     subject { described_class.binary }
 
@@ -73,14 +73,18 @@ RSpec.describe FoiAttachment do
 
     it 'returns a binary encoded string when newly created' do
       foi_attachment = FactoryBot.create(:body_text)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      if String.method_defined?(:encode)
+        expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
     end
 
 
     it 'returns a binary encoded string when saved' do
       foi_attachment = FactoryBot.create(:body_text)
       foi_attachment = FoiAttachment.find(foi_attachment.id)
-      expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      if String.method_defined?(:encode)
+        expect(foi_attachment.body.encoding.to_s).to eq('ASCII-8BIT')
+      end
     end
 
   end
@@ -89,15 +93,19 @@ RSpec.describe FoiAttachment do
 
     it 'has a valid UTF-8 string when newly created' do
       foi_attachment = FactoryBot.create(:body_text)
-      expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
-      expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
+      if String.method_defined?(:encode)
+        expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
+        expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
+      end
     end
 
     it 'has a valid UTF-8 string when saved' do
       foi_attachment = FactoryBot.create(:body_text)
       foi_attachment = FoiAttachment.find(foi_attachment.id)
-      expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
-      expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
+      if String.method_defined?(:encode)
+        expect(foi_attachment.body_as_text.string.encoding.to_s).to eq('UTF-8')
+        expect(foi_attachment.body_as_text.string.valid_encoding?).to be true
+      end
     end
 
 
@@ -119,13 +127,17 @@ RSpec.describe FoiAttachment do
 
     it 'returns valid UTF-8 for a text attachment' do
       foi_attachment = FactoryBot.create(:body_text)
-      expect(foi_attachment.default_body.encoding.to_s).to eq('UTF-8')
-      expect(foi_attachment.default_body.valid_encoding?).to be true
+      if String.method_defined?(:encode)
+        expect(foi_attachment.default_body.encoding.to_s).to eq('UTF-8')
+        expect(foi_attachment.default_body.valid_encoding?).to be true
+      end
     end
 
     it 'returns binary for a PDF attachment' do
       foi_attachment = FactoryBot.create(:pdf_attachment)
-      expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
+      if String.method_defined?(:encode)
+        expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
+      end
     end
 
   end

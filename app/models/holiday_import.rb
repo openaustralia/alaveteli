@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class HolidayImport
 
   include ActiveModel::Validations
@@ -43,10 +44,6 @@ class HolidayImport
 
   def save
     holidays.all?(&:save)
-  end
-
-  def save!
-    holidays.all?(&:save!)
   end
 
   def holidays_attributes=(incoming_data)

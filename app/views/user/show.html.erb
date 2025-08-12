@@ -6,7 +6,7 @@
                 :user_name => h(@display_user.name)) %>
 <% end %>
 
-<% unless @is_you || @same_name_users.none? %>
+<% if @same_name_users.size >= 1 %>
   <%= render partial: 'user/show/show_same_name_users' %>
 <% end %>
 

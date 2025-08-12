@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class InfoRequestBatchController < ApplicationController
   before_action :set_in_pro_area, :only => [:show]
   before_action :load_and_authorise_resource, :only => [:show]

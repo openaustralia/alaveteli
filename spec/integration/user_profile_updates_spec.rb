@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/alaveteli_dsl'
+require File.expand_path(File.dirname(__FILE__) + '/alaveteli_dsl')
 
-RSpec.describe 'Updating your user profile' do
+describe 'Updating your user profile' do
 
   let(:user) { FactoryBot.create(:user) }
 

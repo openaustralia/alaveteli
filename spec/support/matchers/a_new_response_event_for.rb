@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 RSpec::Matchers.define :a_new_response_event_for do |info_request|
   match do |actual|
     actual.event_type == 'response' \

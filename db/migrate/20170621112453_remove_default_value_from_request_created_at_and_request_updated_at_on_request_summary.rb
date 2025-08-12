@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RemoveDefaultValueFromRequestCreatedAtAndRequestUpdatedAtOnRequestSummary < ActiveRecord::Migration[4.2] # 4.1
   def up
     change_column_default :request_summaries, :request_created_at, nil

@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-RSpec.describe AlaveteliRateLimiter::IPRateLimiter do
+describe AlaveteliRateLimiter::IPRateLimiter do
 
   after(:each) do
     described_class.defaults!

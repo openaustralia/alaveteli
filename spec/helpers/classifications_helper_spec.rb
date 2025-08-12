@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe ClassificationsHelper do
+describe ClassificationsHelper do
   include ClassificationsHelper
 
   describe '#classification_radio_button' do

@@ -1,19 +1,19 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: profile_photos
 #
 #  id         :integer          not null, primary key
 #  data       :binary           not null
 #  user_id    :integer
-#  draft      :boolean          default("false"), not null
+#  draft      :boolean          default(FALSE), not null
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe ProfilePhoto, "when constructing a new photo" do
+describe ProfilePhoto, "when constructing a new photo" do
 
   before do
     @mock_user = mock_model(User)

@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe Users::SessionsController do
+describe Users::SessionsController do
 
   before do
     # Don't call out to external url during tests
@@ -31,7 +32,7 @@ RSpec.describe Users::SessionsController do
 
       before do
         ActionController::Base.allow_forgery_protection = true
-        sign_in user
+        session[:user_id] = user.id
       end
 
       after do
@@ -140,19 +141,6 @@ RSpec.describe Users::SessionsController do
                     }
       expect(response).to render_template('sign')
       expect(assigns[:post_redirect]).to eq(nil)
-    end
-
-    context 'when the user_signin param is empty' do
-      # Usually automated bots that submit the form without this param
-      before { post :create, params: { foo: {} } }
-
-      it 're-renders the form' do
-        expect(response).to render_template('user/sign')
-      end
-
-      it 'renders a simple error message' do
-        expect(flash[:error]).to eq('Invalid form submission')
-      end
     end
 
     context "checking 'remember_me'" do
@@ -406,7 +394,7 @@ RSpec.describe Users::SessionsController do
       expect(Rails.application.routes.recognize_path(mail_path)).to eq({ :controller => 'user', :action => 'confirm', :email_token => mail_token })
 
       # Log in as an admin
-      sign_in users(:admin_user)
+      session[:user_id] = users(:admin_user).id
 
       # Get the confirmation URL, and check we’re still Joe
       get :confirm, params: { :email_token => post_redirect.email_token }
@@ -422,15 +410,14 @@ RSpec.describe Users::SessionsController do
     let(:user) { FactoryBot.create(:user) }
 
     it "logs you out and redirect to the home page" do
-      sign_in user
-      get :destroy
+      get :destroy, session: { :user_id => user.id }
       expect(session[:user_id]).to be_nil
       expect(response).to redirect_to(frontpage_path)
     end
 
     it "logs you out and redirect you to where you were" do
-      sign_in user
-      get :destroy, params: { :r => '/list' }
+      get :destroy, params: { :r => '/list' },
+                    session: { :user_id => user.id }
       expect(session[:user_id]).to be_nil
       expect(response).
         to redirect_to(request_list_path)

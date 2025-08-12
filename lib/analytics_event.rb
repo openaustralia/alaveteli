@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AnalyticsEvent
 
   # modules for standardising Strings used for event categories and actions

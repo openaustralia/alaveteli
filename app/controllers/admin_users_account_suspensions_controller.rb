@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # app/controllers/admin_users_account_suspensions_controller.rb:
 # Controller for suspending user accounts
 #

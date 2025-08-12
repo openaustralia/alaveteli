@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe PublicBodyChangeRequestMailer do
+describe PublicBodyChangeRequestMailer do
   shared_examples_for 'PublicBodyChangeRequestMailer' do
     it 'sets the Reply-To header to the change request user' do
       expect(subject['Reply-To'].value).to include('Jim <jim@localhost>')

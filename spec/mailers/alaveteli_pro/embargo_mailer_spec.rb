@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe AlaveteliPro::EmbargoMailer do
+describe AlaveteliPro::EmbargoMailer do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:pro_user_2) { FactoryBot.create(:pro_user) }
   let(:embargo_extension) { FactoryBot.create(:embargo_extension) }

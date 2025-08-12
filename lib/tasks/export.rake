@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #rake tasks and supporting models and functions to do research export
 namespace :export do
 

@@ -1,21 +1,25 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe "quietly_try_to_open" do
+describe "quietly_try_to_open" do
 
   let(:controller) { double(ApplicationController) }
+  let(:empty_stream) { double(URI::HTTP) }
   let(:uri) { "http://example.com/feed" }
 
   before do
-    stub_request(:get, uri)
+    allow(empty_stream).to receive(:read).and_return("")
   end
 
   it "should send a default timeout of 60 seconds" do
-    expect(URI).to receive(:open).with(uri, read_timeout: 60).and_call_original
+    expect(controller).to receive(:open).with(uri, {:read_timeout=>60}).
+      and_return(empty_stream)
     controller.send(:quietly_try_to_open, uri)
   end
 
-  it "should allow the timeout out be overriden" do
-    expect(URI).to receive(:open).with(uri, read_timeout: 100).and_call_original
+  it "should allow the timeout out be overriden " do
+    expect(controller).to receive(:open).with(uri, {:read_timeout=>100}).
+      and_return(empty_stream)
     controller.send(:quietly_try_to_open, uri, 100)
   end
 

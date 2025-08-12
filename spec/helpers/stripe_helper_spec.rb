@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe StripeHelper do
+describe StripeHelper do
 
   describe '#stripe_locale' do
 

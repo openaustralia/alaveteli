@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ReportsController < ApplicationController
   before_action :set_info_request
   before_action :set_comment
@@ -12,7 +13,7 @@ class ReportsController < ApplicationController
       render "new"
       return
     end
-    if !authenticated?
+    if !authenticated_user
       flash[:notice] = _("You need to be logged in to report a request for administrator attention")
     elsif @info_request.attention_requested
       flash[:notice] = _("This request has already been reported for administrator attention")
@@ -35,15 +36,12 @@ class ReportsController < ApplicationController
       _("Report request: {{title}}", :title => @info_request.title)
     end
 
-    return if authenticated?
-
-    ask_to_login(
-      web: _('To report this request'),
-      email: _("Then you can report the request '{{title}}'",
-               title: @info_request.title),
-      email_subject: _('Report an offensive or unsuitable request'),
-      comment_id: params[:comment_id]
-    )
+    if authenticated?(
+      :web => _("To report this request"),
+      :email => _("Then you can report the request '{{title}}'", :title => @info_request.title),
+      :email_subject => _("Report an offensive or unsuitable request"),
+      :comment_id => params[:comment_id])
+    end
   end
 
   private

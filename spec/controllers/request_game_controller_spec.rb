@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe RequestGameController do
+describe RequestGameController do
 
   describe "GET play" do
 
@@ -49,6 +50,7 @@ RSpec.describe RequestGameController do
       render_views
 
       let(:test_url) { help_credits_path(:anchor => "helpus") }
+      let(:site_name) { AlaveteliConfiguration.site_name }
 
       it 'shows the game homepage' do
         get :play

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Beta: Add an 'activity' attribute to User to approximate how much the User is
 # interacting with the application.
 #

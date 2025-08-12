@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 namespace :assets do
   desc 'Symlink non-digest asset paths to the most recent digest versions'
   task :link_non_digest => :environment do

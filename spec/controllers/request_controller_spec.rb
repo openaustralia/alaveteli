@@ -1,9 +1,10 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe RequestController, "when listing recent requests" do
+describe RequestController, "when listing recent requests" do
   before(:each) do
     load_raw_emails_data
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   it "should be successful" do
@@ -25,10 +26,9 @@ RSpec.describe RequestController, "when listing recent requests" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  it "raise unknown format error" do
-    expect { get :list, params: { :view => "all", :format => :json } }.to(
-      raise_error ActionController::UnknownFormat
-    )
+  it "returns 404 for non html requests" do
+    get :list, params: { :view => "all", :format => :json }
+    expect(response.status).to eq(404)
   end
 
   it 'should not raise an error for a page param of less than zero, but should treat it as
@@ -41,7 +41,7 @@ RSpec.describe RequestController, "when listing recent requests" do
 
 end
 
-RSpec.describe RequestController, "when showing one request" do
+describe RequestController, "when showing one request" do
   render_views
 
   before(:each) do
@@ -101,12 +101,13 @@ RSpec.describe RequestController, "when showing one request" do
 
     let(:citations) do
       FactoryBot.create_list(:citation, 5, citable: info_request)
+      info_request.citations.limit(3)
     end
 
     before { get :show, params: { url_title: info_request.url_title } }
 
-    it 'assigns newest 3 citations' do
-      expect(assigns[:citations]).to match_array(citations.reverse.take(3))
+    it 'assigns 3 citations' do
+      expect(assigns[:citations]).to match_array(citations)
     end
   end
 
@@ -131,7 +132,7 @@ RSpec.describe RequestController, "when showing one request" do
 
         it "should always redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             get :show, params: { url_title: info_request.url_title }
             expect(response).to redirect_to show_alaveteli_pro_request_path(
               url_title: info_request.url_title)
@@ -146,7 +147,7 @@ RSpec.describe RequestController, "when showing one request" do
 
         it "should not redirect to the pro version of the page" do
           with_feature_enabled(:alaveteli_pro) do
-            sign_in pro_user
+            session[:user_id] = pro_user.id
             get :show, params: { url_title: info_request.url_title }
             expect(response).to be_successful
           end
@@ -166,7 +167,7 @@ RSpec.describe RequestController, "when showing one request" do
 
       it 'redirects to the pro version of the page' do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           get :show, params: { url_title: info_request.url_title }
           expect(response).to redirect_to show_alaveteli_pro_request_path(
             url_title: info_request.url_title)
@@ -175,7 +176,7 @@ RSpec.describe RequestController, "when showing one request" do
 
       it 'uses the pro livery' do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           get :show, params: { url_title: info_request.url_title, pro: '1' }
           expect(assigns[:in_pro_area]).to be true
         end
@@ -185,7 +186,7 @@ RSpec.describe RequestController, "when showing one request" do
     context "when showing pros a someone else's request" do
       it "should not redirect to the pro version of the page" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           get :show, params: { url_title: 'why_do_you_have_such_a_fancy_dog' }
           expect(response).to be_successful
         end
@@ -212,16 +213,16 @@ RSpec.describe RequestController, "when showing one request" do
   describe 'when showing an external request' do
     describe 'when viewing anonymously' do
       it 'should be successful' do
-        sign_in nil
-        get :show, params: { :url_title => 'balalas' }
+        get :show, params: { :url_title => 'balalas' },
+                   session: { :user_id => nil }
         expect(response).to be_successful
       end
     end
 
     describe 'when the request is being viewed by an admin' do
       def make_request
-        sign_in users(:admin_user)
-        get :show, params: { :url_title => 'balalas' }
+        get :show, params: { :url_title => 'balalas' },
+                   session: { :user_id => users(:admin_user).id }
       end
 
       it 'should be successful' do
@@ -261,7 +262,7 @@ RSpec.describe RequestController, "when showing one request" do
     end
 
     it 'should require login' do
-      sign_in nil
+      session[:user_id] = nil
       get :show, params: {
                    :url_title => 'why_do_you_have_such_a_fancy_dog',
                    :update_status => 1
@@ -271,7 +272,7 @@ RSpec.describe RequestController, "when showing one request" do
     end
 
     it 'should work if logged in as the requester' do
-      sign_in users(:bob_smith_user)
+      session[:user_id] = users(:bob_smith_user).id
       get :show, params: {
                    :url_title => 'why_do_you_have_such_a_fancy_dog',
                    :update_status => 1
@@ -280,7 +281,7 @@ RSpec.describe RequestController, "when showing one request" do
     end
 
     it 'should not work if logged in as not the requester' do
-      sign_in users(:silly_name_user)
+      session[:user_id] = users(:silly_name_user).id
       get :show, params: {
                    :url_title => 'why_do_you_have_such_a_fancy_dog',
                    :update_status => 1
@@ -289,7 +290,7 @@ RSpec.describe RequestController, "when showing one request" do
     end
 
     it 'should work if logged in as an admin user' do
-      sign_in users(:admin_user)
+      session[:user_id] = users(:admin_user).id
       get :show, params: {
                    :url_title => 'why_do_you_have_such_a_fancy_dog',
                    :update_status => 1
@@ -302,7 +303,7 @@ RSpec.describe RequestController, "when showing one request" do
     let(:pro_user) { FactoryBot.create(:pro_user) }
 
     before :each do
-      sign_in pro_user
+      session[:user_id] = pro_user.id
       get :show, params: {
                    :url_title => 'why_do_you_have_such_a_fancy_dog',
                    pro: "1"
@@ -340,7 +341,7 @@ RSpec.describe RequestController, "when showing one request" do
     context "when @in_pro_area is true" do
       it "is false" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           get :show, params: {
                        :url_title => pro_request.url_title,
                        :pro => "1",
@@ -372,7 +373,7 @@ RSpec.describe RequestController, "when showing one request" do
 
       context "and @update_status is true" do
         it "is true" do
-          sign_in users(:bob_smith_user)
+          session[:user_id] = users(:bob_smith_user).id
           info_request = info_requests(:naughty_chicken_request)
           expect(info_request.awaiting_description).to be false
           get :show, params: {
@@ -411,7 +412,7 @@ RSpec.describe RequestController, "when showing one request" do
     context "when @in_pro_area is true" do
       it "is false" do
         with_feature_enabled(:alaveteli_pro) do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
           get :show, params: {
                        :url_title => pro_request.url_title,
                        :pro => "1"
@@ -475,7 +476,7 @@ RSpec.describe RequestController, "when showing one request" do
     let(:user) { FactoryBot.create(:user) }
 
     before do
-      sign_in user
+      session[:user_id] = user.id
     end
 
     context "when the request is old and unclassified" do
@@ -538,83 +539,81 @@ RSpec.describe RequestController, "when showing one request" do
   end
 end
 
-RSpec.describe RequestController, 'when handling prominence' do
+describe RequestController, "when handling prominence" do
+
   def expect_hidden(hidden_template)
-    expect(response.media_type).to eq('text/html')
+    if rails_upgrade?
+      expect(response.media_type).to eq('text/html')
+    else
+      expect(response.content_type).to eq('text/html')
+    end
     expect(response).to render_template(hidden_template)
     expect(response.code).to eq('403')
   end
 
-  let(:info_request) do
-    FactoryBot.
-      create(:info_request_with_incoming_attachments, prominence: prominence)
-  end
-
   context 'when the request is hidden' do
-    let(:prominence) { 'hidden' }
 
-    it 'does not show the request if not logged in' do
-      get :show, params: { url_title: info_request.url_title }
+    before(:each) do
+      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
+                                        :prominence => 'hidden')
+    end
+
+    it "should not show request if you're not logged in" do
+      get :show, params: { :url_title => @info_request.url_title }
       expect_hidden('hidden')
     end
 
-    it 'does not show the request even if logged in as their owner' do
-      sign_in info_request.user
-      get :show, params: { url_title: info_request.url_title }
+    it "should not show request even if logged in as their owner" do
+      session[:user_id] = @info_request.user.id
+      get :show, params: { :url_title => @info_request.url_title }
       expect_hidden('hidden')
     end
 
-    it 'does not show the request if requested using json' do
-      sign_in info_request.user
-      get :show, params: { url_title: info_request.url_title, format: 'json' }
+    it 'should not show request if requested using json' do
+      session[:user_id] = @info_request.user.id
+      get :show, params: {
+                   :url_title => @info_request.url_title,
+                   :format => 'json'
+                 }
       expect(response.code).to eq('403')
     end
 
-    it 'shows the request if logged in as super user' do
-      sign_in FactoryBot.create(:admin_user)
-      get :show, params: { url_title: info_request.url_title }
+    it "should show request if logged in as super user" do
+      session[:user_id] = FactoryBot.create(:admin_user).id
+      get :show, params: { :url_title => @info_request.url_title }
       expect(response).to render_template('show')
     end
+
   end
 
   context 'when the request is requester_only' do
-    let(:prominence) { 'requester_only' }
 
-    it 'does not show the request if not logged in' do
-      get :show, params: { url_title: info_request.url_title }
+    before(:each) do
+      @info_request = FactoryBot.create(:info_request_with_incoming_attachments,
+                                        :prominence => 'requester_only')
+    end
+
+    it "should not show request if you're not logged in" do
+      get :show, params: { :url_title => @info_request.url_title }
       expect_hidden('hidden')
     end
 
-    it 'does not show the request if logged in but not the requester' do
-      sign_in FactoryBot.create(:user)
-      get :show, params: { url_title: info_request.url_title }
+    it "should not show request if logged in but not the requester" do
+      session[:user_id] = FactoryBot.create(:user).id
+      get :show, params: { :url_title => @info_request.url_title }
       expect_hidden('hidden')
     end
 
-    it 'shows the request to the requester' do
-      sign_in info_request.user
-      get :show, params: { url_title: info_request.url_title }
+    it "should show request to requester" do
+      session[:user_id] = @info_request.user.id
+      get :show, params: { :url_title => @info_request.url_title }
       expect(response).to render_template('show')
     end
 
-    it 'shows the request to an admin' do
-      sign_in FactoryBot.create(:admin_user)
-      get :show, params: { url_title: info_request.url_title }
+    it "shouild show request to admin" do
+      session[:user_id] = FactoryBot.create(:admin_user).id
+      get :show, params: { :url_title => @info_request.url_title }
       expect(response).to render_template('show')
-    end
-  end
-
-  context 'when the request is backpage' do
-    let(:prominence) { 'backpage' }
-
-    it 'shows the request if not logged in' do
-      get :show, params: { url_title: info_request.url_title }
-      expect(response).to render_template('show')
-    end
-
-    it 'sets a noindex header' do
-      get :show, params: { url_title: info_request.url_title }
-      expect(response.headers['X-Robots-Tag']).to eq 'noindex'
     end
   end
 end
@@ -625,16 +624,16 @@ end
 #    response.headers["Status"].should == "404 Not Found"
 #  end
 
-RSpec.describe RequestController, "when searching for an authority" do
+describe RequestController, "when searching for an authority" do
   # Whether or not sign-in is required for this step is configurable,
   # so we make sure we're logged in, just in case
   before do
     @user = users(:bob_smith_user)
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   it "should return matching bodies" do
-    sign_in @user
+    session[:user_id] = @user.id
     get :select_authority, params: { :query => "Quango" }
 
     expect(response).to render_template('select_authority')
@@ -643,7 +642,7 @@ RSpec.describe RequestController, "when searching for an authority" do
   end
 
   it "remembers the search params" do
-    sign_in @user
+    session[:user_id] = @user.id
     search_params = {
       'query'  => 'Quango',
       'page'   => '1',
@@ -661,7 +660,7 @@ RSpec.describe RequestController, "when searching for an authority" do
       let(:pro_user) { FactoryBot.create(:pro_user) }
 
       before do
-        sign_in pro_user
+        session[:user_id] = pro_user.id
       end
 
       it "should set @in_pro_area to true" do
@@ -680,7 +679,7 @@ RSpec.describe RequestController, "when searching for an authority" do
 
     context "and a pro user is not logged in" do
       before do
-        sign_in nil
+        session[:user_id] = nil
       end
 
       it "should set @in_pro_area to false" do
@@ -708,7 +707,7 @@ RSpec.describe RequestController, "when searching for an authority" do
       with_feature_enabled(:alaveteli_pro) do
         pro_user = FactoryBot.create(:pro_user)
         public_body = FactoryBot.create(:public_body)
-        sign_in pro_user
+        session[:user_id] = pro_user.id
         get :select_authority
         expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
       end
@@ -716,7 +715,7 @@ RSpec.describe RequestController, "when searching for an authority" do
   end
 end
 
-RSpec.describe RequestController, "when creating a new request" do
+describe RequestController, "when creating a new request" do
   render_views
 
   before do
@@ -730,7 +729,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   it "should redirect to front page if no public body specified, when logged in" do
-    sign_in @user
+    session[:user_id] = @user.id
     get :new
     expect(response).to redirect_to(:controller => 'general', :action => 'frontpage')
   end
@@ -768,7 +767,7 @@ RSpec.describe RequestController, "when creating a new request" do
     context "the user is logged in" do
 
       it "displays a flash error message without escaping the HTML" do
-        sign_in @user
+        session[:user_id] = @user.id
         post :new, params: {
                      :info_request => {
                        :public_body_id => @body.id,
@@ -809,7 +808,7 @@ RSpec.describe RequestController, "when creating a new request" do
   context 'a network error occurs while sending the initial request' do
 
     def send_request
-      sign_in @user
+      session[:user_id] = @user.id
       post :new, params: {
                  info_request: {
                    public_body_id: @body.id,
@@ -835,7 +834,7 @@ RSpec.describe RequestController, "when creating a new request" do
     with_feature_enabled(:alaveteli_pro) do
       pro_user = FactoryBot.create(:pro_user)
       public_body = FactoryBot.create(:public_body)
-      sign_in pro_user
+      session[:user_id] = pro_user.id
       get :new, params: { :url_name => public_body.url_name }
       expected_url = new_alaveteli_pro_info_request_url(
         public_body: public_body.url_name)
@@ -927,7 +926,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   it "should show preview when input is good" do
-    sign_in @user
+    session[:user_id] = @user.id
     post :new, params: {
                  :info_request => {
                    :public_body_id => @body.id,
@@ -979,7 +978,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
-    sign_in @user
+    session[:user_id] = @user.id
     post :new, params: {
                  :info_request => {
                    :public_body_id => @body.id,
@@ -1009,7 +1008,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   it "sets the request_sent flash to true if successful" do
-    sign_in @user
+    session[:user_id] = @user.id
     post :new, params: {
                  :info_request => {
                    :public_body_id => @body.id,
@@ -1027,7 +1026,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   it "should give an error if the same request is submitted twice" do
-    sign_in @user
+    session[:user_id] = @user.id
 
     # We use raw_body here, so white space is the same
     post :new,
@@ -1047,7 +1046,7 @@ RSpec.describe RequestController, "when creating a new request" do
   end
 
   it "should let you submit another request with the same title" do
-    sign_in @user
+    session[:user_id] = @user.id
 
     post :new,
          params: {
@@ -1093,7 +1092,7 @@ RSpec.describe RequestController, "when creating a new request" do
   it 'should respect the rate limit' do
     # Try to create three requests in succession.
     # (The limit set in config/test.yml is two.)
-    sign_in users(:robin_user)
+    session[:user_id] = users(:robin_user).id
 
     post :new, params: {
                  :info_request => {
@@ -1145,7 +1144,7 @@ RSpec.describe RequestController, "when creating a new request" do
   it 'should ignore the rate limit for specified users' do
     # Try to create three requests in succession.
     # (The limit set in config/test.yml is two.)
-    sign_in users(:robin_user)
+    session[:user_id] = users(:robin_user).id
     users(:robin_user).no_limit = true
     users(:robin_user).save!
 
@@ -1243,7 +1242,8 @@ RSpec.describe RequestController, "when creating a new request" do
 
       it 'sets render_recaptcha to true if there is a logged in user who is not
             confirmed as not spam' do
-        sign_in FactoryBot.create(:user, :confirmed_not_spam => false)
+        session[:user_id] =
+          FactoryBot.create(:user, :confirmed_not_spam => false).id
         post :new, params: {
                      :info_request => {
                        :public_body_id => @body.id,
@@ -1259,7 +1259,8 @@ RSpec.describe RequestController, "when creating a new request" do
 
       it 'sets render_recaptcha to false if there is a logged in user who is
             confirmed as not spam' do
-        sign_in FactoryBot.create(:user, :confirmed_not_spam => true)
+        session[:user_id] = FactoryBot.create(:user,
+                                              :confirmed_not_spam => true).id
         post :new, params: {
                      :info_request => {
                         :public_body_id => @body.id,
@@ -1284,7 +1285,7 @@ RSpec.describe RequestController, "when creating a new request" do
         let(:body) { FactoryBot.create(:public_body) }
 
         it 'shows an error message' do
-          sign_in user
+          session[:user_id] = user.id
           post :new, params: {
                        :info_request => {
                          :public_body_id => body.id,
@@ -1302,7 +1303,7 @@ RSpec.describe RequestController, "when creating a new request" do
         end
 
         it 'renders the compose interface' do
-          sign_in user
+          session[:user_id] = user.id
           post :new, params: {
                        :info_request => {
                          :public_body_id => body.id,
@@ -1321,7 +1322,7 @@ RSpec.describe RequestController, "when creating a new request" do
         it 'allows the request if the user is confirmed not spam' do
           user.confirmed_not_spam = true
           user.save!
-          sign_in user
+          session[:user_id] = user.id
           post :new, params: {
                        :info_request => {
                          :public_body_id => body.id,
@@ -1356,7 +1357,7 @@ RSpec.describe RequestController, "when creating a new request" do
       it 'converts the string to ASCII' do
         allow(AlaveteliConfiguration).to receive(:block_spam_requests).
           and_return(true)
-        sign_in user
+        session[:user_id] = user.id
         title = "▩█ -Free Ɓrazzers Password Hăck Premium Account List 2017 ᒬᒬ"
         post :new, params: {
                      :info_request => {
@@ -1386,7 +1387,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'sends an exception notification' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :info_request => {
@@ -1413,7 +1414,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'sends an exception notification' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :info_request => {
@@ -1432,7 +1433,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'shows an error message' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :info_request => {
@@ -1451,7 +1452,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'renders the compose interface' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
                params: {
                  :info_request => {
@@ -1471,7 +1472,7 @@ RSpec.describe RequestController, "when creating a new request" do
       it 'allows the request if the user is confirmed not spam' do
         user.confirmed_not_spam = true
         user.save!
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :info_request => {
@@ -1498,7 +1499,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'sends an exception notification' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :info_request => {
@@ -1517,7 +1518,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'allows the request' do
-        sign_in user
+        session[:user_id] = user.id
         post :new,
              params: {
                :info_request => {
@@ -1558,7 +1559,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'sends an exception notification' do
-        sign_in user
+        session[:user_id] = user.id
         post :new, params: {
                      :info_request => {
                        :public_body_id => body.id,
@@ -1576,7 +1577,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'shows an error message' do
-        sign_in user
+        session[:user_id] = user.id
         post :new, params: {
                      :info_request => {
                        :public_body_id => body.id,
@@ -1594,7 +1595,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'renders the compose interface' do
-        sign_in user
+        session[:user_id] = user.id
         post :new, params: {
                      :info_request => {
                        :public_body_id => body.id,
@@ -1613,7 +1614,7 @@ RSpec.describe RequestController, "when creating a new request" do
       it 'allows the request if the user is confirmed not spam' do
         user.confirmed_not_spam = true
         user.save!
-        sign_in user
+        session[:user_id] = user.id
         post :new, params: {
                      :info_request => {
                        :public_body_id => body.id,
@@ -1640,7 +1641,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'sends an exception notification' do
-        sign_in user
+        session[:user_id] = user.id
         post :new, params: {
                      :info_request => {
                        :public_body_id => body.id,
@@ -1658,7 +1659,7 @@ RSpec.describe RequestController, "when creating a new request" do
       end
 
       it 'allows the request' do
-        sign_in user
+        session[:user_id] = user.id
         post :new, params: {
                      :info_request => {
                        :public_body_id => body.id,
@@ -1683,29 +1684,27 @@ end
 
 # These go with the previous set, but use mocks instead of fixtures.
 # TODO harmonise these
-RSpec.describe RequestController, "when making a new request" do
+describe RequestController, "when making a new request" do
 
   before do
     @user = mock_model(User, id: 3481, name: 'Testy').as_null_object
     allow(@user).to receive(:get_undescribed_requests).and_return([])
     allow(@user).to receive(:can_file_requests?).and_return(true)
     allow(@user).to receive(:locale).and_return("en")
-    allow(@user).to receive(:login_token).and_return('abc')
-    allow(User).to receive(:find_by).with(id: @user.id, login_token: 'abc').
-      and_return(@user)
+    allow(User).to receive(:find).and_return(@user)
     @body = FactoryBot.create(:public_body, :name => 'Test Quango')
   end
 
   it "should allow you to have one undescribed request" do
     allow(@user).to receive(:get_undescribed_requests).and_return([ 1 ])
-    sign_in @user
+    session[:user_id] = @user.id
     get :new, params: { :public_body_id => @body.id }
     expect(response).to render_template('new')
   end
 
   it "should fail if more than one request undescribed" do
     allow(@user).to receive(:get_undescribed_requests).and_return([ 1, 2 ])
-    sign_in @user
+    session[:user_id] = @user.id
     get :new, params: { :public_body_id => @body.id }
     expect(response).to render_template('new_please_describe')
   end
@@ -1714,21 +1713,21 @@ RSpec.describe RequestController, "when making a new request" do
     allow(@user).to receive(:can_file_requests?).and_return(false)
     allow(@user).to receive(:exceeded_limit?).and_return(false)
     expect(@user).to receive(:can_fail_html).and_return('FAIL!')
-    sign_in @user
+    session[:user_id] = @user.id
     get :new, params: { :public_body_id => @body.id }
     expect(response).to render_template('user/banned')
   end
 
 end
 
-RSpec.describe RequestController, "when viewing comments" do
+describe RequestController, "when viewing comments" do
   render_views
   before(:each) do
     load_raw_emails_data
   end
 
   it "should link to the user who submitted it" do
-    sign_in users(:bob_smith_user)
+    session[:user_id] = users(:bob_smith_user).id
     get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
     expect(response.body).to have_css("div#comment-1 h2") do |s|
       expect(s).to contain /Silly.*left an annotation/m
@@ -1737,7 +1736,7 @@ RSpec.describe RequestController, "when viewing comments" do
   end
 
   it "should link to the user who submitted to it, even if it is you" do
-    sign_in users(:silly_name_user)
+    session[:user_id] = users(:silly_name_user).id
     get :show, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
     expect(response.body).to have_css("div#comment-1 h2") do |s|
       expect(s).to contain /Silly.*left an annotation/m
@@ -1748,7 +1747,7 @@ RSpec.describe RequestController, "when viewing comments" do
 end
 
 
-RSpec.describe RequestController, "authority uploads a response from the web interface" do
+describe RequestController, "authority uploads a response from the web interface" do
 
   before(:each) do
     # domain after the @ is used for authentication of FOI officers, so to test it
@@ -1770,22 +1769,13 @@ RSpec.describe RequestController, "authority uploads a response from the web int
         get :upload_response, params: { :url_title => embargoed_request.url_title }
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
-  end
 
-  context 'when user is signed out' do
-    it 'redirect to the login page' do
-      get :upload_response, params: {
-        url_title: 'why_do_you_have_such_a_fancy_dog'
-      }
-      expect(response).
-        to redirect_to(signin_path(token: get_last_post_redirect.token))
-    end
   end
 
   it "should require login to view the form to upload" do
     @ir = info_requests(:fancy_dog_request)
     expect(@ir.public_body.is_foi_officer?(@normal_user)).to eq(false)
-    sign_in @normal_user
+    session[:user_id] = @normal_user.id
 
     get :upload_response, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to render_template('user/wrong_user')
@@ -1794,7 +1784,7 @@ RSpec.describe RequestController, "authority uploads a response from the web int
   it "should let you view upload form if you are an FOI officer" do
     @ir = info_requests(:fancy_dog_request)
     expect(@ir.public_body.is_foi_officer?(@foi_officer_user)).to eq(true)
-    sign_in @foi_officer_user
+    session[:user_id] = @foi_officer_user.id
 
     get :upload_response, params: { :url_title => 'why_do_you_have_such_a_fancy_dog' }
     expect(response).to render_template('request/upload_response')
@@ -1803,14 +1793,10 @@ RSpec.describe RequestController, "authority uploads a response from the web int
   it "should prevent uploads if you are not a requester" do
     @ir = info_requests(:fancy_dog_request)
     incoming_before = @ir.incoming_messages.count
-    sign_in @normal_user
+    session[:user_id] = @normal_user.id
 
     # post up a photo of the parrot
-    if rails_upgrade?
-      parrot_upload = fixture_file_upload('parrot.png','image/png')
-    else
-      parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
-    end
+    parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
@@ -1821,7 +1807,7 @@ RSpec.describe RequestController, "authority uploads a response from the web int
   end
 
   it "should prevent entirely blank uploads" do
-    sign_in @foi_officer_user
+    session[:user_id] = @foi_officer_user.id
 
     post :upload_response, params: { :url_title => 'why_do_you_have_such_a_fancy_dog', :body => "", :submitted_upload_response => 1 }
     expect(response).to render_template('request/upload_response')
@@ -1839,14 +1825,10 @@ RSpec.describe RequestController, "authority uploads a response from the web int
   it "should let the authority upload a file" do
     @ir = info_requests(:fancy_dog_request)
     incoming_before = @ir.incoming_messages.count
-    sign_in @foi_officer_user
+    session[:user_id] = @foi_officer_user.id
 
     # post up a photo of the parrot
-    if rails_upgrade?
-      parrot_upload = fixture_file_upload('parrot.png', 'image/png')
-    else
-      parrot_upload = fixture_file_upload('/files/parrot.png', 'image/png')
-    end
+    parrot_upload = fixture_file_upload('/files/parrot.png','image/png')
     post :upload_response, params: {
                              :url_title => 'why_do_you_have_such_a_fancy_dog',
                              :body => "Find attached a picture of a parrot",
@@ -1872,7 +1854,7 @@ RSpec.describe RequestController, "authority uploads a response from the web int
   end
 end
 
-RSpec.describe RequestController, "when showing JSON version for API" do
+describe RequestController, "when showing JSON version for API" do
   before(:each) do
     load_raw_emails_data
   end
@@ -1890,10 +1872,10 @@ RSpec.describe RequestController, "when showing JSON version for API" do
 
 end
 
-RSpec.describe RequestController, "when doing type ahead searches" do
+describe RequestController, "when doing type ahead searches" do
 
   before :each do
-    update_xapian_index
+    get_fixtures_xapian_index
   end
 
   it 'can filter search results by public body' do
@@ -1914,10 +1896,10 @@ RSpec.describe RequestController, "when doing type ahead searches" do
 
 end
 
-RSpec.describe RequestController, "when showing similar requests" do
+describe RequestController, "when showing similar requests" do
 
   before do
-    update_xapian_index
+    get_fixtures_xapian_index
     load_raw_emails_data
   end
 
@@ -1974,7 +1956,7 @@ RSpec.describe RequestController, "when showing similar requests" do
 
 end
 
-RSpec.describe RequestController, "#new_batch" do
+describe RequestController, "#new_batch" do
 
   context "when batch requests is enabled" do
 
@@ -1998,48 +1980,47 @@ RSpec.describe RequestController, "#new_batch" do
       end
 
       it 'should be successful' do
-        sign_in @user
-        get :new_batch, params: { :public_body_ids => @public_body_ids }
+        get :new_batch, params: { :public_body_ids => @public_body_ids },
+                        session: { :user_id => @user.id }
         expect(response).to be_successful
       end
 
       it 'should render the "new" template' do
-        sign_in @user
-        get :new_batch, params: { :public_body_ids => @public_body_ids }
+        get :new_batch, params: { :public_body_ids => @public_body_ids },
+                        session: { :user_id => @user.id }
         expect(response).to render_template('request/new')
       end
 
       it 'should redirect to "select_authorities" if no public_body_ids param is passed' do
-        sign_in @user
-        get :new_batch
+        get :new_batch, session: { :user_id => @user.id }
         expect(response).to redirect_to select_authorities_path
       end
 
       it "should render 'preview' when given a good title and body" do
-        sign_in @user
-        post :new_batch, params: @default_post_params
+        post :new_batch, params: @default_post_params,
+                         session: { :user_id => @user.id }
         expect(response).to render_template('preview')
       end
 
       it "should give an error and render 'new' template when a summary isn't given" do
         @default_post_params[:info_request].delete(:title)
-        sign_in @user
-        post :new_batch, params: @default_post_params
+        post :new_batch, params: @default_post_params,
+                         session: { :user_id => @user.id }
         expect(assigns[:info_request].errors[:title]).to eq(['Please enter a summary of your request'])
         expect(response).to render_template('new')
       end
 
       it "should allow re-editing of a request" do
         params = @default_post_params.merge(:preview => 0, :reedit => 1)
-        sign_in @user
-        post :new_batch, params: params
+        post :new_batch, params: params,
+                         session: { :user_id => @user.id }
         expect(response).to render_template('new')
       end
 
       it "re-editing preserves the message body" do
         params = @default_post_params.merge(:preview => 0, :reedit => 1)
-        sign_in @user
-        post :new_batch, params: params
+        post :new_batch, params: params,
+                         session: { :user_id => @user.id }
         expect(assigns[:outgoing_message].body).
           to include('This is a silly letter.')
       end
@@ -2048,8 +2029,8 @@ RSpec.describe RequestController, "#new_batch" do
 
         def make_request
           @params = @default_post_params.merge(:preview => 0)
-          sign_in @user
-          post :new_batch, params: @params
+          post :new_batch, params: @params,
+                           session: { :user_id => @user.id }
         end
 
         it 'should create an info request batch and redirect to the new batch on success' do
@@ -2061,8 +2042,8 @@ RSpec.describe RequestController, "#new_batch" do
 
         it 'should prevent double submission of a batch request' do
           make_request
-          sign_in @user
-          post :new_batch, params: @params
+          post :new_batch, params: @params,
+                           session: { :user_id => @user.id }
           expect(response).to render_template('new')
           expect(assigns[:existing_batch]).not_to be_nil
         end
@@ -2082,8 +2063,8 @@ RSpec.describe RequestController, "#new_batch" do
         end
 
         it 'should show the "banned" template' do
-          sign_in @user
-          post :new_batch, params: @default_post_params
+          post :new_batch, params: @default_post_params,
+                           session: { :user_id => @user.id }
           expect(response).to render_template('user/banned')
           expect(assigns[:details]).to eq('bad behaviour')
         end
@@ -2101,8 +2082,7 @@ RSpec.describe RequestController, "#new_batch" do
       end
 
       it 'should return a 403 with an appropriate message' do
-        sign_in @user
-        get :new_batch
+        get :new_batch, session: { :user_id => @user.id }
         expect(response.code).to eq('403')
         expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
       end
@@ -2132,12 +2112,12 @@ RSpec.describe RequestController, "#new_batch" do
 
 end
 
-RSpec.describe RequestController, "#select_authorities" do
+describe RequestController, "#select_authorities" do
 
   context "when batch requests is enabled" do
 
     before do
-      update_xapian_index
+      get_fixtures_xapian_index
       load_raw_emails_data
       allow(AlaveteliConfiguration).to receive(:allow_batch_requests).and_return(true)
     end
@@ -2151,8 +2131,7 @@ RSpec.describe RequestController, "#select_authorities" do
       context 'when asked for HTML' do
 
         it 'should be successful' do
-          sign_in @user
-          get :select_authorities
+          get :select_authorities, session: { :user_id => @user.id }
           expect(response).to be_successful
         end
 
@@ -2167,31 +2146,29 @@ RSpec.describe RequestController, "#select_authorities" do
         end
 
         it 'should render the "select_authorities" template' do
-          sign_in @user
-          get :select_authorities
+          get :select_authorities, session: { :user_id => @user.id }
           expect(response).to render_template('request/select_authorities')
         end
 
         it 'should assign a list of search results to the view if passed a query' do
-          sign_in @user
-          get :select_authorities, params: { :public_body_query => "Quango" }
+          get :select_authorities, params: { :public_body_query => "Quango" },
+                                   session: { :user_id => @user.id }
           expect(assigns[:search_bodies].results.size).to eq(1)
           expect(assigns[:search_bodies].results[0][:model].name).to eq(public_bodies(:geraldine_public_body).name)
         end
 
         it 'should assign a list of public bodies to the view if passed a list of ids' do
-          sign_in @user
           get :select_authorities,
               params: {
                 :public_body_ids => [public_bodies(:humpadink_public_body).id]
-              }
+              },
+              session: { :user_id => @user.id }
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
 
         it 'should subtract a list of public bodies to remove from the list of bodies assigned to
                     the view' do
-          sign_in @user
           get :select_authorities,
               params: {
                 :public_body_ids => [
@@ -2201,7 +2178,8 @@ RSpec.describe RequestController, "#select_authorities" do
                 :remove_public_body_ids => [
                   public_bodies(:geraldine_public_body).id
                 ]
-              }
+              },
+              session: { :user_id => @user.id }
           expect(assigns[:public_bodies].size).to eq(1)
           expect(assigns[:public_bodies][0].name).to eq(public_bodies(:humpadink_public_body).name)
         end
@@ -2211,31 +2189,31 @@ RSpec.describe RequestController, "#select_authorities" do
       context 'when asked for JSON' do
 
         it 'should be successful' do
-          sign_in @user
           get :select_authorities, params: { :public_body_query => "Quan",
-                                             :format => 'json' }
+                                             :format => 'json' },
+                                   session: { :user_id => @user.id }
           expect(response).to be_successful
         end
 
         it 'should return a list of public body names and ids' do
-          sign_in @user
           get :select_authorities, params: { :public_body_query => "Quan",
-                                             :format => 'json' }
+                                             :format => 'json' },
+                                   session: { :user_id => @user.id }
 
           expect(JSON(response.body)).to eq([{ 'id' => public_bodies(:geraldine_public_body).id,
                                            'name' => public_bodies(:geraldine_public_body).name }])
         end
 
         it 'should return an empty list if no search is passed' do
-          sign_in @user
-          get :select_authorities, params: { :format => 'json' }
+          get :select_authorities, params: { :format => 'json' },
+                                   session: { :user_id => @user.id }
           expect(JSON(response.body)).to eq([])
         end
 
         it 'should return an empty list if there are no bodies' do
-          sign_in @user
           get :select_authorities, params: { :public_body_query => 'fknkskalnr',
-                                             :format => 'json' }
+                                             :format => 'json' },
+                                   session: { :user_id => @user.id }
           expect(JSON(response.body)).to eq([])
         end
 
@@ -2252,8 +2230,7 @@ RSpec.describe RequestController, "#select_authorities" do
       end
 
       it 'should return a 403 with an appropriate message' do
-        sign_in @user
-        get :select_authorities
+        get :select_authorities, session: { :user_id => @user.id }
         expect(response.code).to eq('403')
         expect(response.body).to match("Users cannot usually make batch requests to multiple authorities at once")
       end
@@ -2283,7 +2260,7 @@ RSpec.describe RequestController, "#select_authorities" do
 
 end
 
-RSpec.describe RequestController, "when the site is in read_only mode" do
+describe RequestController, "when the site is in read_only mode" do
   before do
     allow(AlaveteliConfiguration).to receive(:read_only).and_return("Down for maintenance")
   end
@@ -2311,7 +2288,7 @@ RSpec.describe RequestController, "when the site is in read_only mode" do
   end
 end
 
-RSpec.describe RequestController do
+describe RequestController do
 
   describe 'GET #details' do
 
@@ -2375,7 +2352,7 @@ RSpec.describe RequestController do
 
 end
 
-RSpec.describe RequestController do
+describe RequestController do
 
   describe 'GET #download_entire_request' do
     context 'when the request is embargoed' do
@@ -2396,7 +2373,7 @@ RSpec.describe RequestController do
 
       context 'and the user is logged in but not the owner' do
         before do
-          sign_in user
+          session[:user_id] = user.id
         end
 
         it 'raises ActiveRecord::RecordNotFound' do
@@ -2409,7 +2386,7 @@ RSpec.describe RequestController do
 
       context 'and the user is the owner' do
         before do
-          sign_in pro_user
+          session[:user_id] = pro_user.id
         end
 
         it 'allows the download' do
@@ -2426,7 +2403,7 @@ RSpec.describe RequestController do
         info_request = FactoryBot.create(:info_request)
         info_request.update(:awaiting_description => true)
         info_request.expire
-        sign_in info_request.user
+        session[:user_id] = info_request.user_id
         get :download_entire_request, params: { :url_title => info_request.url_title }
         expect(assigns[:show_top_describe_state_form]).to eq(false)
         expect(assigns[:show_bottom_describe_state_form]).to eq(false)
@@ -2439,7 +2416,7 @@ RSpec.describe RequestController do
   end
 end
 
-RSpec.describe RequestController do
+describe RequestController do
 
   describe 'GET #show_request_event' do
 

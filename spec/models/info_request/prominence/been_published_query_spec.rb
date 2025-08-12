@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe InfoRequest::Prominence::BeenPublishedQuery do
+describe InfoRequest::Prominence::BeenPublishedQuery do
 
   describe '#call' do
     subject { described_class.new.call }

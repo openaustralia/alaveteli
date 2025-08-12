@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'stripe_mock'
 
-RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_pricing] do
+describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro, :pro_pricing] do
 
   describe '#receive' do
 

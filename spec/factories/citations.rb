@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: citations
 #
-#  id           :bigint           not null, primary key
-#  user_id      :bigint
+#  id           :integer          not null, primary key
+#  user_id      :integer
 #  citable_type :string
-#  citable_id   :bigint
+#  citable_id   :integer
 #  source_url   :string
 #  type         :string
 #  created_at   :datetime         not null

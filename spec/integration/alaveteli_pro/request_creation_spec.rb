@@ -1,7 +1,8 @@
-require 'spec_helper'
-require 'integration/alaveteli_dsl'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../alaveteli_dsl')
 
-RSpec.describe "creating requests in alaveteli_pro" do
+describe "creating requests in alaveteli_pro" do
   context "when writing a new request from scratch" do
     let!(:public_body) { FactoryBot.create(:public_body, :name => 'example') }
     let!(:pro_user) { FactoryBot.create(:pro_user) }

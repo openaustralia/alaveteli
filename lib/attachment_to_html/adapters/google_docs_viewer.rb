@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AttachmentToHTML
   module Adapters
     # Renders the attachment in a Google Docs Viewer
@@ -23,7 +24,11 @@ module AttachmentToHTML
       private
 
       def parse_body
-        %Q(<iframe src="https://docs.google.com/viewer?url=#{ attachment_url }&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
+        %Q(<iframe src="#{ protocol }://docs.google.com/viewer?url=#{ attachment_url }&amp;embedded=true" width="100%" height="100%" style="border: none;"></iframe>)
+      end
+
+      def protocol
+        AlaveteliConfiguration.force_ssl ? 'https' : 'http'
       end
     end
   end

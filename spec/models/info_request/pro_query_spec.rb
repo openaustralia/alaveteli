@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe InfoRequest::ProQuery do
+describe InfoRequest::ProQuery do
 
   describe '#call' do
 

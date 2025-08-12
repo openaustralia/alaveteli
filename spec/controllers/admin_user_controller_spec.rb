@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe AdminUserController do
+describe AdminUserController do
 
   describe 'GET index' do
 
@@ -142,22 +143,22 @@ RSpec.describe AdminUserController do
     let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
     it "is successful" do
-      sign_in admin_user
-      get :show, params: { :id => FactoryBot.create(:user) }
+      get :show, params: { :id => FactoryBot.create(:user) },
+                 session: { :user_id => admin_user.id }
       expect(response).to be_successful
     end
 
     it "assigns the user's info requests to the view" do
-      sign_in admin_user
-      get :show, params: { :id => info_request.user }
+      get :show, params: { :id => info_request.user },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:info_requests]).to eq([info_request])
     end
 
     it 'does not include embargoed requests if the current user is
         not a pro admin user' do
       info_request.create_embargo
-      sign_in admin_user
-      get :show, params: { :id => info_request.user }
+      get :show, params: { :id => info_request.user },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:info_requests]).to eq([])
     end
 
@@ -167,8 +168,8 @@ RSpec.describe AdminUserController do
           not a pro admin user' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          sign_in admin_user
-          get :show, params: { :id => info_request.user }
+          get :show, params: { :id => info_request.user },
+                     session: { :user_id => admin_user.id }
           expect(assigns[:info_requests]).to eq([])
         end
       end
@@ -177,8 +178,8 @@ RSpec.describe AdminUserController do
           and pro is enabled' do
         with_feature_enabled(:alaveteli_pro) do
           info_request.create_embargo
-          sign_in pro_admin_user
-          get :show, params: { :id => info_request.user }
+          get :show, params: { :id => info_request.user },
+                     session: { :user_id => pro_admin_user.id }
           expect(assigns[:info_requests].include?(info_request)).to be true
         end
       end
@@ -188,8 +189,8 @@ RSpec.describe AdminUserController do
     it "assigns the user's comments to the view" do
       comment = FactoryBot.create(:comment, :info_request => info_request,
                                             :user => info_request.user)
-      sign_in admin_user
-      get :show, params: { :id => info_request.user }
+      get :show, params: { :id => info_request.user },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([comment])
     end
 
@@ -198,8 +199,8 @@ RSpec.describe AdminUserController do
       comment = FactoryBot.create(:comment, :info_request => info_request,
                                             :user => info_request.user)
       info_request.create_embargo
-      sign_in admin_user
-      get :show, params: { :id => info_request.user }
+      get :show, params: { :id => info_request.user },
+                 session: { :user_id => admin_user.id }
       expect(assigns[:comments]).to eq([])
     end
 
@@ -211,8 +212,8 @@ RSpec.describe AdminUserController do
           comment = FactoryBot.create(:comment, :info_request => info_request,
                                                 :user => info_request.user)
           info_request.create_embargo
-          sign_in admin_user
-          get :show, params: { :id => info_request.user }
+          get :show, params: { :id => info_request.user },
+                     session: { :user_id => admin_user.id }
           expect(assigns[:comments]).to eq([])
         end
       end
@@ -223,8 +224,8 @@ RSpec.describe AdminUserController do
           comment = FactoryBot.create(:comment, :info_request => info_request,
                                                 :user => info_request.user)
           info_request.create_embargo
-          sign_in pro_admin_user
-          get :show, params: { :id => info_request.user }
+          get :show, params: { :id => info_request.user },
+                     session: { :user_id => pro_admin_user.id }
           expect(assigns[:comments]).to eq([comment])
         end
       end
@@ -244,7 +245,6 @@ RSpec.describe AdminUserController do
     it "saves a change to 'can_make_batch_requests'" do
       user = FactoryBot.create(:user)
       expect(user.can_make_batch_requests?).to be false
-      sign_in admin_user
       post :update, params: { :id => user.id,
                               :admin_user => {
                                 :can_make_batch_requests => '1',
@@ -255,7 +255,8 @@ RSpec.describe AdminUserController do
                                 :no_limit => user.no_limit,
                                 :confirmed_not_spam => user.confirmed_not_spam
                               }
-                            }
+                            },
+                    session: { :user_id => admin_user.id }
       expect(flash[:notice]).to eq('User successfully updated.')
       expect(response).to be_redirect
       user = User.find(user.id)
@@ -266,7 +267,6 @@ RSpec.describe AdminUserController do
       existing_email = 'donotreuse@localhost'
       FactoryBot.create(:user, :email => existing_email)
       user = FactoryBot.create(:user, :email => 'user1@localhost')
-      sign_in admin_user
       post :update, params: { :id => user.id,
                               :admin_user => {
                                 :name => user.name,
@@ -276,7 +276,8 @@ RSpec.describe AdminUserController do
                                 :no_limit => user.no_limit,
                                 :confirmed_not_spam => user.confirmed_not_spam
                               }
-                            }
+                            },
+                    session: { :user_id => admin_user.id }
       user = User.find(user.id)
       expect(user.email).to eq('user1@localhost')
     end
@@ -285,7 +286,6 @@ RSpec.describe AdminUserController do
       user = FactoryBot.create(:user)
       admin_role = Role.where(:name => 'admin').first
       expect(user.is_admin?).to be false
-      sign_in admin_user
       post :update, params: { :id => user.id,
                               :admin_user => {
                                 :name => user.name,
@@ -295,14 +295,14 @@ RSpec.describe AdminUserController do
                                 :no_limit => user.no_limit,
                                 :confirmed_not_spam => user.confirmed_not_spam
                               }
-                            }
+                            },
+                    session: { :user_id => admin_user.id }
       user = User.find(user.id)
       expect(user.is_admin?).to be true
     end
 
     it "unsets the user's roles if no role ids are supplied" do
       expect(admin_user.is_admin?).to be true
-      sign_in admin_user
       post :update, params: { :id => admin_user.id,
                               :admin_user => {
                                 :name => admin_user.name,
@@ -312,7 +312,8 @@ RSpec.describe AdminUserController do
                                 :confirmed_not_spam =>
                                   admin_user.confirmed_not_spam
                               }
-                            }
+                            },
+                    session: { :user_id => admin_user.id }
       user = User.find(admin_user.id)
       expect(user.is_admin?).to be false
     end
@@ -321,7 +322,6 @@ RSpec.describe AdminUserController do
       user = FactoryBot.create(:user)
       pro_role = Role.where(:name => 'pro').first
       expect(user.is_pro?).to be false
-      sign_in admin_user
       post :update, params: { :id => user.id,
                               :admin_user => {
                                 :name => user.name,
@@ -331,7 +331,8 @@ RSpec.describe AdminUserController do
                                 :no_limit => user.no_limit,
                                 :confirmed_not_spam => user.confirmed_not_spam
                               }
-                            }
+                            },
+                    session: { :user_id => admin_user.id }
       expect(flash[:error]).to eq("Not permitted to change roles")
       user = User.find(user.id)
       expect(user.is_pro?).to be false
@@ -341,7 +342,6 @@ RSpec.describe AdminUserController do
       user = FactoryBot.create(:user)
       role_id = Role.maximum(:id) + 1
       expect(user.is_pro?).to be false
-      sign_in admin_user
       post :update, params: { :id => user.id,
                               :admin_user => {
                                 :name => user.name,
@@ -351,7 +351,8 @@ RSpec.describe AdminUserController do
                                 :no_limit => user.no_limit,
                                 :confirmed_not_spam => user.confirmed_not_spam
                               }
-                            }
+                            },
+                    session: { :user_id => admin_user.id }
       user = User.find(user.id)
       expect(user.is_pro?).to be false
     end

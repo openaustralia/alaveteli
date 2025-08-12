@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddCreatedUpdatedFields < ActiveRecord::Migration[4.2] # 1.2
   def self.up
     # InfoRequest

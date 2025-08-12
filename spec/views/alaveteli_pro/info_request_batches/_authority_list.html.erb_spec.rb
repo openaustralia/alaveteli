@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe "alaveteli_pro/info_request_batches/_authority_list.html.erb" do
+describe "alaveteli_pro/info_request_batches/_authority_list.html.erb" do
   let(:html_body) { FactoryBot.create(:public_body, name: "One & Two") }
   let(:other_body) { FactoryBot.create(:public_body) }
   let(:other_body_2) { FactoryBot.create(:public_body) }

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class InfoRequest
   module ResponseGatekeeper
     class Nobody < Base

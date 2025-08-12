@@ -1,10 +1,11 @@
+# -*- encoding : utf-8 -*-
 class Ability
   include CanCan::Ability
   include AlaveteliFeatures::Helpers
 
-  attr_reader :user, :project, :public_token
+  attr_reader :user, :project
 
-  def initialize(user, project: nil, public_token: false)
+  def initialize(user, project: nil)
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -34,7 +35,6 @@ class Ability
 
     @user = user
     @project = project
-    @public_token = public_token
 
     # Updating request status
     can :update_request_state, InfoRequest do |request|
@@ -51,14 +51,10 @@ class Ability
       can_view_with_prominence?(request.prominence, request)
     end
 
-    can :manage, OutgoingMessage::Snippet do |request|
-      user && user.is_admin?
-    end
-
     # Viewing batch requests
     can :read, InfoRequestBatch do |batch_request|
       if batch_request.embargo_duration
-        user && (user == batch_request.user || user&.view_embargoed?)
+        user && (user == batch_request.user || User.view_embargoed?(user))
       else
         true
       end
@@ -129,11 +125,6 @@ class Ability
       user && (user.is_admin? || user.is_pro? || info_request.user == user)
     end
 
-    can :share, InfoRequest do |info_request|
-      info_request.embargo &&
-        (user&.is_pro_admin? || info_request.is_actual_owning_user?(user))
-    end
-
     can :admin, Comment do |comment|
       if comment.info_request.embargo
         user && user.is_pro_admin?
@@ -193,22 +184,20 @@ class Ability
     if info_request.embargo
       case prominence
       when 'hidden'
-        user&.view_hidden_and_embargoed?
+        User.view_hidden_and_embargoed?(user)
       when 'requester_only'
-        info_request.is_actual_owning_user?(user) ||
-          user&.view_hidden_and_embargoed?
+        info_request.is_actual_owning_user?(user) || User.view_hidden_and_embargoed?(user)
       else
         info_request.is_actual_owning_user?(user) ||
-          user&.view_embargoed? ||
-          project&.member?(user) ||
-          public_token
+          User.view_embargoed?(user) ||
+          project&.member?(user)
       end
     else
       case prominence
       when 'hidden'
-        user&.view_hidden?
+        User.view_hidden?(user)
       when 'requester_only'
-        info_request.is_actual_owning_user?(user) || user&.view_hidden?
+        info_request.is_actual_owning_user?(user) || User.view_hidden?(user)
       else
         true
       end

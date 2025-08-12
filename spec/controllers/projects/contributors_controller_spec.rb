@@ -27,7 +27,7 @@ RSpec.describe Projects::ContributorsController, spec_meta do
         ability.can :read, project
         ability.can :remove_contributor, user
 
-        sign_in user
+        session[:user_id] = user.id
         delete :destroy, params: { project_id: project.id, id: user.id }
       end
 
@@ -58,7 +58,7 @@ RSpec.describe Projects::ContributorsController, spec_meta do
         ability.can :read, project
         ability.cannot :remove_contributor, user
 
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it 'raises an CanCan::AccessDenied error' do
@@ -74,7 +74,7 @@ RSpec.describe Projects::ContributorsController, spec_meta do
 
       before do
         project.contributors << contributor
-        sign_in user
+        session[:user_id] = user.id
       end
 
       it 'raises an CanCan::AccessDenied error' do

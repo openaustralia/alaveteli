@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 namespace :reindex do
   desc "Reindex events in batches"

@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe 'when getting a country message' do
+describe 'when getting a country message' do
 
   it 'should not raise an IP spoofing error when given mismatched headers' do
     allow(AlaveteliConfiguration).to receive(:geoip_database).and_return(nil)

@@ -1,4 +1,5 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 class Validatable
   include ActiveModel::Model
@@ -18,7 +19,7 @@ class ValidatableCustomMessage
   validates :subject_attr, :not_nil => { :message => 'Custom message' }
 end
 
-RSpec.describe NotNilValidator do
+describe NotNilValidator do
 
   it 'is valid when the subject_attr is not blank' do
     subject = Validatable.new(:subject_attr => 'xyz')

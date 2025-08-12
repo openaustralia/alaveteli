@@ -1,6 +1,7 @@
-require 'spec_helper'
+# -*- encoding : utf-8 -*-
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe TrackController do
+describe TrackController do
   let(:mock_cookie) { '0300fd3e1177127cebff' }
 
   describe 'GET #track_request' do
@@ -21,7 +22,7 @@ RSpec.describe TrackController do
       allow(AlaveteliConfiguration).to receive(:enable_widgets).and_return(true)
       info_request.widget_votes.create(:cookie => mock_cookie)
 
-      sign_in user
+      session[:user_id] = user.id
       request.cookies['widget_vote'] = mock_cookie
 
       get :track_request, params: {
@@ -45,19 +46,14 @@ RSpec.describe TrackController do
                             :url_title => info_request.url_title,
                             :feed => 'track'
                           }
-      if rails_upgrade?
-        expect(response.headers["Cache-Control"]).
-          to eq('private, no-store')
-      else
-        expect(response.headers["Cache-Control"]).
-          to eq('no-cache, no-store')
-      end
+      expect(response.headers["Cache-Control"]).
+        to eq('no-cache, no-store')
       expect(response.headers['Pragma']).to eq('no-cache')
       expect(response.headers['Expires']).to eq('0')
     end
 
     it "should save a request track and redirect if you are logged in" do
-      sign_in user
+      session[:user_id] = user.id
       allow(TrackThing).to receive(:create_track_for_request).and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_request, params: {
@@ -70,7 +66,7 @@ RSpec.describe TrackController do
     end
 
     it "should 404 for non-existent requests" do
-      sign_in user
+      session[:user_id] = user.id
       expect {
         get :track_request, params: { :url_title => "hjksfdh_louytu_qqxxx",
                                       :feed => 'track' }
@@ -78,7 +74,7 @@ RSpec.describe TrackController do
     end
 
     it "should 404 for embargoed requests" do
-      sign_in user
+      session[:user_id] = user.id
       embargoed_request = FactoryBot.create(:embargoed_request)
       expect {
         get :track_request, params: { :url_title => embargoed_request.url_title,
@@ -90,7 +86,7 @@ RSpec.describe TrackController do
 
       before do
         load_raw_emails_data
-        update_xapian_index
+        get_fixtures_xapian_index
       end
 
       it "should get the RSS feed" do
@@ -102,7 +98,11 @@ RSpec.describe TrackController do
                               :url_title => track_thing.info_request.url_title
                             }
         expect(response).to render_template('track/atom_feed')
-        expect(response.media_type).to eq('application/atom+xml')
+        if rails_upgrade?
+          expect(response.media_type).to eq('application/atom+xml')
+        else
+          expect(response.content_type).to eq('application/atom+xml')
+        end
         # TODO: should check it is an atom.builder type being rendered,
         # not sure how to
         expect(assigns[:xapian_object].matches_estimated).to eq(3)
@@ -164,7 +164,11 @@ RSpec.describe TrackController do
                               :url_title => track_thing.info_request.url_title
                             }
         expect(response).to render_template('track/atom_feed')
-        expect(response.media_type).to eq('application/atom+xml')
+        if rails_upgrade?
+          expect(response.media_type).to eq('application/atom+xml')
+        else
+          expect(response.content_type).to eq('application/atom+xml')
+        end
       end
     end
 
@@ -180,7 +184,7 @@ RSpec.describe TrackController do
     let(:user) { FactoryBot.create(:user, :locale => 'en', :name => 'bob') }
 
     it "should save a search track and redirect to the right place" do
-      sign_in user
+      session[:user_id] = user.id
       allow(TrackThing).to receive(:create_track_for_search_query).and_return(track_thing)
       expect(track_thing).to receive(:save).and_call_original
       get :track_search_query, params: { :query_array => "bob variety:sent",
@@ -190,7 +194,7 @@ RSpec.describe TrackController do
     end
 
     it 'sets the flash message partial for a successful track' do
-      sign_in user
+      session[:user_id] = user.id
 
       get :track_search_query, params: {
                                  :query_array => 'bob variety:sent',
@@ -208,7 +212,7 @@ RSpec.describe TrackController do
     end
 
     it 'sets the flash message partial when the user is already tracking' do
-      sign_in user
+      session[:user_id] = user.id
 
       existing =
         FactoryBot.create(:search_track,
@@ -232,7 +236,7 @@ RSpec.describe TrackController do
     it "should redirect with an error message if the query is too long" do
       long_track = TrackThing.new(:track_type => 'search_query',
                                   :track_query => "lorem ipsum " * 42)
-      sign_in user
+      session[:user_id] = user.id
       allow(TrackThing).to receive(:create_track_for_search_query).and_return(long_track)
       get :track_search_query, params: {
                                  :query_array => "bob variety:sent",
@@ -252,11 +256,11 @@ RSpec.describe TrackController do
       # these tests depend on the xapian index existing, although
       # not on its specific contents.
       load_raw_emails_data
-      update_xapian_index
+      get_fixtures_xapian_index
     end
 
     it "should save a search track and redirect to the right place" do
-      sign_in user
+      session[:user_id] = user.id
       track_thing = TrackThing.new(:track_type => 'public_body_updates',
                                    :public_body => public_body)
       allow(TrackThing).to receive(:create_track_for_public_body).and_return(track_thing)
@@ -270,7 +274,7 @@ RSpec.describe TrackController do
     end
 
     it "should redirect with an error message if the query is too long" do
-      sign_in user
+      session[:user_id] = user.id
       long_track = TrackThing.new(:track_type => 'public_body_updates',
                                   :public_body => public_body,
                                   :track_query => "lorem ipsum " * 42)
@@ -319,7 +323,7 @@ RSpec.describe TrackController do
     let(:user) { FactoryBot.create(:user) }
 
     it "should save a user track and redirect to the right place" do
-      sign_in user
+      session[:user_id] = user.id
       track_thing = TrackThing.new(:track_type => 'user_updates',
                                    :tracked_user => target_user,
                                    :track_query => "requested_by:#{target_user.url_name}")
@@ -331,7 +335,7 @@ RSpec.describe TrackController do
     end
 
     it "should redirect with an error message if the query is too long" do
-      sign_in user
+      session[:user_id] = user.id
       long_track = TrackThing.new(:track_type => 'user_updates',
                                   :tracked_user => target_user,
                                   :track_query => "lorem ipsum " * 42)
@@ -355,7 +359,7 @@ RSpec.describe TrackController do
     let(:user) { FactoryBot.create(:user) }
 
     it "should save a list track and redirect to the right place" do
-      sign_in user
+      session[:user_id] = user.id
       track_thing = TrackThing.new(:track_type => 'all_new_requests',
                                    :track_query => "variety:sent")
       allow(TrackThing).to receive(:create_track_for_all_new_requests).
@@ -366,7 +370,7 @@ RSpec.describe TrackController do
     end
 
     it "should redirect with an error message if the query is too long" do
-      sign_in user
+      session[:user_id] = user.id
       long_track = TrackThing.new(:track_type => 'all_new_requests',
                                   :track_query => "lorem ipsum " * 42)
       allow(TrackThing).to receive(:create_track_for_all_new_requests).
@@ -381,7 +385,7 @@ RSpec.describe TrackController do
     let(:track_thing) { FactoryBot.create(:search_track) }
 
     before do
-      sign_in track_thing.tracking_user
+      session[:user_id] = track_thing.tracking_user.id
     end
 
     it 'destroys the track thing' do
@@ -463,31 +467,37 @@ RSpec.describe TrackController do
     context 'when the user passed in the params is logged in' do
 
       it 'deletes all tracks for the user of the type passed in the params' do
-        sign_in track_thing.tracking_user
         post :delete_all_type, params: {
                                  :user => track_thing.tracking_user.id,
                                  :track_type => 'search_query',
                                  :r => '/'
+                               },
+                               session: {
+                                 :user_id => track_thing.tracking_user.id
                                }
         expect(TrackThing.where(:id => track_thing.id)).to be_empty
       end
 
       it 'redirects to the redirect path in the param passed' do
-        sign_in track_thing.tracking_user
         post :delete_all_type, params: {
                                  :user => track_thing.tracking_user.id,
                                  :track_type => 'search_query',
                                  :r => '/'
+                               },
+                               session: {
+                                 :user_id => track_thing.tracking_user.id
                                }
         expect(response).to redirect_to('/')
       end
 
       it 'shows a message telling the user what has happened' do
-        sign_in track_thing.tracking_user
         post :delete_all_type, params: {
                                  :user => track_thing.tracking_user.id,
                                  :track_type => 'search_query',
                                  :r => '/'
+                               },
+                               session: {
+                                 :user_id => track_thing.tracking_user.id
                                }
         expect(flash[:notice]).to eq("You will no longer be emailed updates for those alerts")
       end

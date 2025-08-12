@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AlaveteliPro::AccountHelper
 
   def billing_frequency(billing_unit)

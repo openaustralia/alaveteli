@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdminSpamAddressesController < AdminController
 
   before_action :set_spam_address, :only => [:destroy]

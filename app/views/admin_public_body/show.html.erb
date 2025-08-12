@@ -44,8 +44,7 @@
         <b>Tags</b>
       </td>
       <td>
-        <%= render_tags @public_body.tags,
-                        search_target: list_public_bodies_path %>
+        <%= render :partial => 'tags', :locals => { :body => @public_body} %>
       </td>
     </tr>
   </tbody>
@@ -82,9 +81,9 @@
         <ul>
           <% version.compare(@versions[i+1]) do |change| %>
             <li>
-              <%= change[:name] %> was changed from
-              <code><%= change.fetch(:from, '-') %></code> to
-              <code><%= change.fetch(:to, '-') %></code>
+              <%= "#{change[:name]} was changed from " \
+                  "<code>#{ change.fetch(:from, '-') }</code> to " \
+                  "<code>#{ change.fetch(:to, '-') }</code>" %>
             </li>
           <% end %>
         </ul>

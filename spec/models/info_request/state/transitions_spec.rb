@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe InfoRequest::State::Transitions do
+describe InfoRequest::State::Transitions do
   let(:info_request) { FactoryBot.create(:info_request) }
 
   describe ".transition_label" do

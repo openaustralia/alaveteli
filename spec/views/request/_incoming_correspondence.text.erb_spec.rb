@@ -1,6 +1,7 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe 'request/incoming_correspondence' do
+describe 'request/incoming_correspondence' do
   let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
   let(:incoming_message) { info_request.incoming_messages.first }
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddTimestampsToProfilePhotos < ActiveRecord::Migration[4.2]
   def change
     add_timestamps(:profile_photos, null: true)

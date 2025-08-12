@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateAlaveteliProRequestSummaries < ActiveRecord::Migration[4.2] # 4.1
   def change
     create_table :request_summaries do |t|

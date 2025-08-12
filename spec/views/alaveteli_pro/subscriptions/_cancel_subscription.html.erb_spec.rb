@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 spec_helper = File.join('..', '..', '..', '..', 'spec_helper')
-require 'spec_helper'
+require File.expand_path(spec_helper, __FILE__)
 
-RSpec.describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
+describe 'alaveteli_pro/subscriptions/_cancel_subscription' do
 
   def render_view
     render partial: 'alaveteli_pro/subscriptions/cancel_subscription',

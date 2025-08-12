@@ -1,5 +1,5 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20210114161442
 #
 # Table name: comments
 #
@@ -7,16 +7,16 @@
 #  user_id             :integer          not null
 #  info_request_id     :integer
 #  body                :text             not null
-#  visible             :boolean          default("true"), not null
+#  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  locale              :text             default(""), not null
-#  attention_requested :boolean          default("false"), not null
+#  attention_requested :boolean          default(FALSE), not null
 #
 
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-RSpec.describe Comment do
+describe Comment do
 
   include Rails.application.routes.url_helpers
   include LinkToHelper
