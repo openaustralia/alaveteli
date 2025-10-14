@@ -97,7 +97,7 @@ gem 'acts_as_versioned', :git => 'https://github.com/technoweenie/acts_as_versio
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.18'
 gem 'cancancan', '~> 3.4.0'
-gem 'charlock_holmes', '~> 0.7.7'
+gem 'charlock_holmes', '~> 0.7.9'
 gem 'dalli', '~> 3.2.2'
 gem 'exception_notification', '~> 4.5.0'
 gem 'fancybox-rails', '~> 0.3.0'
@@ -158,7 +158,8 @@ gem 'mime-types', '< 3.0.0', require: false
 
 # Assets
 gem 'bootstrap-sass', '~> 2.3.2.2'
-gem 'mini_racer', '~> 0.6.2'
+gem 'mini_racer'
+# gem 'libv8-node', '~> 16.19.0'
 gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '~> 4.2.0'
 
