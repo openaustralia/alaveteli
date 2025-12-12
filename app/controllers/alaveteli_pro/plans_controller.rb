@@ -5,15 +5,16 @@ class AlaveteliPro::PlansController < AlaveteliPro::BaseController
   before_action :authenticate, :check_has_current_subscription, only: [:show]
 
   def index
-    default_plan_name = add_stripe_namespace('pro')
-    stripe_plan = Stripe::Plan.retrieve(default_plan_name)
-    @plan = AlaveteliPro::WithTax.new(stripe_plan)
+    # default_plan_name = add_stripe_namespace('pro')
+    # stripe_plan = Stripe::Plan.retrieve(default_plan_name)
+    # stripe_plan = "new_price_name" # TODO put actual default plan name here
+    @plan = AlaveteliPro::WithTax.new("new_price_name")
     @pro_site_name = pro_site_name
   end
 
   def show
-    stripe_plan = Stripe::Plan.retrieve(plan_name)
-    @plan = AlaveteliPro::WithTax.new(stripe_plan)
+    # stripe_plan = Stripe::Plan.retrieve(plan_name)
+    @plan = AlaveteliPro::WithTax.new("new_price_name")
   rescue Stripe::InvalidRequestError
     raise ActiveRecord::RecordNotFound
   end
