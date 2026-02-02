@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220210114052
+# Schema version: 20230314171033
 #
 # Table name: public_bodies
 #
@@ -47,6 +47,16 @@ FactoryBot.define do
 
     trait :eir_only do
       tag_string { 'eir_only' }
+    end
+
+    trait :with_note do
+      transient do
+        note_body { 'This is my note' }
+      end
+
+      concrete_notes do
+        [association(:note, body: note_body)]
+      end
     end
 
     factory :blank_email_public_body do

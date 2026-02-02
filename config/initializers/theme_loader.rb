@@ -17,6 +17,9 @@ def require_theme(theme_name)
 
   require theme_main_include
 
+  # Let Zeitwerk ignore files which don't match the expected file structure
+  Rails.autoloaders.main.ignore(theme_lib.join('customstates.rb'))
+
   Rails.configuration.paths['config/refusal_advice'].push(
     root.join('config/refusal_advice')
   )
@@ -28,11 +31,9 @@ if Rails.env == "test"
   # By setting this ALAVETELI_TEST_THEME to a theme name, theme tests can run in the Rails
   # context with the theme loaded. Otherwise the themes from the config aren't loaded in testing
   # so they don't interfere with core Alaveteli tests
-  if defined? ALAVETELI_TEST_THEME
-    require_theme(ALAVETELI_TEST_THEME)
-  end
+  require_theme(ALAVETELI_TEST_THEME) if defined? ALAVETELI_TEST_THEME
 else
-  for url in AlaveteliConfiguration::theme_urls.reverse
+  AlaveteliConfiguration.theme_urls.reverse.each do |url|
     require_theme theme_url_to_theme_name(url)
   end
 end

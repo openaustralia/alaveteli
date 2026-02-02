@@ -24,7 +24,7 @@ set :use_sudo, false
 set :rails_env, configuration['rails_env']
 set :daemon_name, configuration.fetch('daemon_name', 'alaveteli')
 
-server configuration['server'], :app, :web, :db, :primary => true
+server configuration['server'], :app, :web, :db, primary: true
 
 set(:rbenv_ruby_version) do
   command = "cat #{shared_path}/rbenv-version 2>/dev/null || true"
@@ -85,7 +85,7 @@ namespace :deploy do
 
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
-    task t, :roles => :app, :except => { :no_release => true } do
+    task t, roles: :app, except: { no_release: true } do
       run "/etc/init.d/#{ daemon_name } #{ t }"
     end
   end
@@ -125,13 +125,6 @@ namespace :deploy do
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
     run links.map { |a| "ln -sf #{a.last} #{a.first}" }.join(";")
-  end
-
-  namespace :assets do
-    desc 'Symlink non-digest asset paths to the most recent digest versions'
-    task :link_non_digest do
-      run "cd #{latest_release} && bundle exec rake assets:link_non_digest RAILS_ENV=#{rails_env}"
-    end
   end
 
   after 'deploy:setup' do
