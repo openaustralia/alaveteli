@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230209094128
+# Schema version: 20230314171033
 #
 # Table name: public_bodies
 #
@@ -22,6 +22,7 @@
 #  short_name                             :text
 #  request_email                          :text
 #  url_name                               :text
+#  notes                                  :text
 #  first_letter                           :string
 #  publication_scheme                     :text
 #  disclosure_log                         :text
