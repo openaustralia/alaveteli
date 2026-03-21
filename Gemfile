@@ -89,7 +89,7 @@ gem 'acts_as_versioned', git: 'https://github.com/mysociety/acts_as_versioned.gi
 gem 'active_model_otp'
 gem 'bcrypt', '~> 3.1.18'
 gem 'cancancan', '~> 3.5.0'
-gem 'charlock_holmes', '~> 0.7.7'
+gem 'charlock_holmes', '~> 0.7.9'
 gem 'dalli', '~> 3.2.4'
 gem 'exception_notification', '~> 4.5.0'
 gem 'fancybox-rails', '~> 0.3.0'
@@ -117,10 +117,10 @@ gem 'ruby-msg', '~> 1.5.0', git: 'https://github.com/mysociety/ruby-msg.git', br
 gem 'rubyzip', '~> 2.3.2'
 gem 'secure_headers', '~> 6.5.0'
 gem 'sidekiq', '~> 6.5.8'
-gem 'statistics2', '~> 0.54'
+gem 'statistics3'
 gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails7'
 gem 'stripe', '~> 5.55.0'
-gem 'syck', '~> 1.4.1', require: false
+gem 'syck', '~> 1.5.0', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'thin', '~> 1.8.2'
 gem 'vpim', '~> 13.11.11'
