@@ -295,6 +295,12 @@ to match the new templates.
     app/views/request/new.html.erb
     app/views/request/preview.html.erb
 
+# 0.42.0.3
+
+## Highlighted Features
+
+* Updates to Capistrano deployment to use SHARED_* values in general.yml
+
 # 0.42.0.1
 
 ## Highlighted Features
