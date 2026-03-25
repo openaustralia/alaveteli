@@ -25,3 +25,4 @@ jobs:
         rubocop_extensions: rubocop-performance:gemfile rubocop-rails:gemfile
         level: warning
         reporter: github-check
+        filter_mode: nofilter
