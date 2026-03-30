@@ -46,15 +46,13 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       @token = Stripe::Token.retrieve(params[:stripe_token])
 
-      @pro_account.source = @token.id
+      @pro_account.token = @token
       @pro_account.update_stripe_customer
 
       @subscription = @pro_account.subscriptions.build
       @subscription.update_attributes(
         plan: params.require(:plan_id),
-        automatic_tax: {
-            enabled: "true"
-        },
+        tax_percent: tax_percent,
         payment_behavior: 'allow_incomplete'
       )
 
@@ -62,7 +60,8 @@ class AlaveteliPro::SubscriptionsController < AlaveteliPro::BaseController
 
       @subscription.save
 
-    rescue Stripe::CardError => e
+    rescue ProAccount::CardError,
+           Stripe::CardError => e
       flash[:error] = e.message
 
     rescue Stripe::RateLimitError,

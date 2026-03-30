@@ -1,0 +1,28 @@
+name: RuboCop
+
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0
+
+    - name: Run RuboCop linter
+      uses: reviewdog/action-rubocop@v1
+      with:
+        github_token: ${{ secrets.github_token }}
+        rubocop_flags: -DES
+        rubocop_version: gemfile
+        rubocop_extensions: rubocop-performance:gemfile rubocop-rails:gemfile
+        level: warning
+        reporter: github-check
+        filter_mode: nofilter

@@ -42,7 +42,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-20 14:26+0100\n"
+"POT-Creation-Date: 2023-10-17 16:36+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: Natalie Hiirulainen <murahoid@gmail.com>, 2021,2023\n"
 "Language-Team: Georgian (http://app.transifex.com/mysociety/alaveteli/language"
@@ -292,6 +292,9 @@ msgid "<strong>Clarification</strong> has been requested"
 msgstr "<strong>განმარტება</strong> მოთხოვნილია"
 
 msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid "<strong>If you change your name, the name on your old requests won't change.</strong> When you send a request, we use the name you gave us. This makes it hard to stop your old and new names from being connected. This means your old name will still show up on requests that you've already sent and on your public profile page."
 msgstr ""
 
 msgid "<strong>Journalist, Academic or Power User?</strong> {{pro_site_link}} is an all-in-one FOI toolkit including everything you need to keep on top of complex FOI-driven investigations."
@@ -561,7 +564,13 @@ msgstr "ამ გვერდის ბოლოს, დაწერე პა�
 msgid "Attachment (optional):"
 msgstr "თანდართული ფაილები (ნებაყოფლობითია):"
 
+msgid "Attachment available for download."
+msgstr ""
+
 msgid "Attachment has been removed"
+msgstr ""
+
+msgid "Attachment processing..."
 msgstr ""
 
 msgid "Attachment:"
@@ -622,7 +631,7 @@ msgid "Beginning with"
 msgstr "რომლებიც იწყება"
 
 msgid "Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to <a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
-msgstr "გაეცანი <a href=\"{{requests_url}}\">{{number_of_requests}} გამოთხოვილ ინფორმაციას</a> <a href=\"{{authorities_url}}\">{{number_of_authorities}} საჯარო დაწესებულებიდან</a>"
+msgstr "გაეცანი <a href=\"{{requests_url}}\">{{number_of_requests}} გამოთხოვილ ინფორმაციას</a>  <a href=\"{{authorities_url}}\">{{number_of_authorities}} დაწესებულებიდან</a>"
 
 msgid "Browse <a href='{{url}}'>other requests</a> for examples of how to word your request."
 msgstr "დაათვალიერე <a href='{{url}}'>სხვა მოთხოვნები</a> ნიმუშების სანახავად, თუ როგორ დაწერო მოთხოვნის ტექსტი. "
@@ -634,7 +643,7 @@ msgid "Browse all authorities &rarr;"
 msgstr "ნახე ყველა საჯარო დაწესებულება &rarr;"
 
 msgid "Browse all requests &rarr;"
-msgstr "გაეცანი ყველა გამოთხოვილ ინფორმაციას &rarr;"
+msgstr "ყველა განცხადების ნახვა &rarr;"
 
 msgid "Browse and search requests"
 msgstr "მოძებნე გამოთხოვილი ინფორმაცია "
@@ -698,6 +707,12 @@ msgstr "შეცვალე ელ-ფოსტის მისამართ
 
 msgid "Change your email address used on {{site_name}}"
 msgstr "შეცვალე შენი ელ-ფოსტა, გამოყენებული ვებგვერდზე {{site_name}}"
+
+msgid "Change your name"
+msgstr ""
+
+msgid "Change your name used on {{site_name}}"
+msgstr ""
 
 msgid "Change your password"
 msgstr "შეცვალე პაროლი "
@@ -959,6 +974,9 @@ msgstr ""
 
 msgid "Download a zip file of all correspondence"
 msgstr "მიმოწერის ისტორიის ZIP ფორმატით გადმოწერა"
+
+msgid "Download attachment"
+msgstr ""
 
 msgid "Download original attachment"
 msgstr "ორიგინალი დანართის გადმოწერა"
@@ -1295,8 +1313,8 @@ msgstr "აქ შეგიძლია <a href=\"#public_bodies\">ნახო 
 msgid "Here you can see how often {{site_name}} administrators have hidden requests."
 msgstr "აქ შეგიძლია ნახო რამდენად ხშირად დაფარა ვებგვერდის {{site_name}} ადმინისტრატორმა მოთხოვნები."
 
-msgid "Here's your daily request summary from {{site_name}}"
-msgstr "ინებე მოთხოვნების ყოველდღიური შეჯამება ვებგვერდისგან {{site_name}}"
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr ""
 
 msgid "Hi! We need your help. The person who made the following request hasn't told us whether or not it was successful. Would you mind taking a moment to read it and help us keep the place tidy for everyone? Thanks."
 msgstr "გამარჯობა! შენი დახმარება გვჭირდება. პიროვნება, რომელმაც აღნიშნული მოთხოვნა გაგზავნა, არ გვითხრა ის წარმატებით დასრულდა თუ არა. თუ არ შეწუხდები, გთხოვთ, წაიკითხო და დაგვეხმარო ეს საკითხი ყველასთვის სასარგებლოდ გადავჭრათ. გმადლობთ."
@@ -1379,6 +1397,9 @@ msgstr "თუ განცხადება ჯერ ახალი გა�
 msgid "If this is incorrect, or you would like to send a late response to the request or an email on another subject to {{user}}, then please email {{contact_email}} to ask us to reopen the request. You can then resend the response."
 msgstr "თუ ეს არასწორია ან გსურს დაგვიანებული პასუხის გაგზავნა მოთხოვნაზე მომხმარებელთან - {{user}}, მაშინ გამოგვიგზავნე ელ-ფოსტა მისამართზე - {{contact_email}} და მოგვიწოდე მოთხოვნის ხელახლა გახსნისკენ. ამის შემდეგ, შეგეძლება პასუხი ხელახლა გაგზავნო."
 
+msgid "If you <strong>don't want your new name to be linked to your old one</strong>, it's a good idea to make a new account instead."
+msgstr ""
+
 msgid "If you are dissatisfied by the response you got from the public authority, you have the right to complain (<a href=\"{{url}}\">details</a>)."
 msgstr "თუ უკმაყოფილო ხარ პასუხით, რომელიც საჯარო უწყებისგან მიიღე, გასაჩივრების უფლება გაქვს (<a href=\"{{url}}\">დეტალები</a>)."
 
@@ -1392,6 +1413,9 @@ msgid "If you are the requester, then you may {{sign_in_link}} to view the messa
 msgstr ""
 
 msgid "If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr ""
+
+msgid "If you are trying to <strong>remove your name</strong>, please <a href=\"{{contact_us_url}}\">contact us</a>."
 msgstr ""
 
 msgid "If you are {{user_link}}, please"
@@ -1679,6 +1703,12 @@ msgstr "სახელის ველი ვერ იქნება ცა�
 msgid "Name is already taken"
 msgstr "სახელი უკვე დაკავებულია"
 
+msgid "Name successfully updated."
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
 msgid "Needs admin attention"
 msgstr "მოითხოვს ადმინისტრატორის ყურადღებას"
 
@@ -1774,6 +1804,9 @@ msgstr "არ არის საჯარო ინფორმაციის
 
 msgid "Not held"
 msgstr "მფლობელობაში არ არის"
+
+msgid "Note that it may take some time to link your previous requests to your new account name."
+msgstr ""
 
 msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr "გაცნობებთ, რომ განმცხადებელს არ გაეგზავნება შეტყობინება შენი ანოტაციის შესახებ, რადგან მოთხოვნა დაემატა საჯარო დაწესებულების მიერ {{public_body_name}}, მომხმარებლის თხოვნით."
@@ -2133,6 +2166,9 @@ msgstr "გადახედე შენს მოთხოვნას"
 msgid "Previous message"
 msgstr "წინა შეტყობინება"
 
+msgid "Previously known as:"
+msgstr ""
+
 msgid "Print your one time passcode"
 msgstr "ერთჯერადი პასკოდის ამობეჭდვა"
 
@@ -2380,7 +2416,7 @@ msgid "Response to your request"
 msgstr "პასუხი შენს მოთხოვნაზე "
 
 msgid "Response to {{law_used_short}} request"
-msgstr "პასუხი მოთხოვნაზე {{law_used_short}} "
+msgstr "პასუხი {{law_used_short}}ზე"
 
 msgid "Response:"
 msgstr "პასუხი:"
@@ -2702,6 +2738,9 @@ msgstr "გამოწერა განახლებულია"
 msgid "Subscription renewed after failure"
 msgstr "შეცდომის შემდეგ, გამოწერა განახლდა"
 
+msgid "Subscription started"
+msgstr ""
+
 msgid "Success"
 msgstr "წარმატებულია"
 
@@ -2812,6 +2851,9 @@ msgstr "ანგარიშები ისე დარჩა, როგო�
 
 msgid "The article references all requests in this batch"
 msgstr "სტატია წყაროდ უთითებს ყველა მოთხოვნას ამ სერიიდან"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr ""
 
 msgid "The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small>"
 msgstr "საჯარო დაწესებულებას <strong>არ აქვს</strong> მოთხოვნილი ინფორმაცია <small>(იქნებ ამბობენ, რომელ უწყებას აქვს?)</small>"
@@ -3606,6 +3648,9 @@ msgstr "სამწუხაროდ, ამ უწყების სამ�
 msgid "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr "სამწუხაროდ, სამუშაო ელ-ფფოსტის {{law_used_full}} მისამართი არ გვაქვს უწყებისთვის - {{public_body_name}}."
 
+msgid "We don't have this attachment in our cache at present, we are now processing your request and this page will reload once the attachment is available."
+msgstr ""
+
 msgid "We don't know the delivery status for this message."
 msgstr "ამ წერილის მიწოდების სტატუსის შესახებ ინფორმაცია არ გვაქვს."
 
@@ -3922,6 +3967,9 @@ msgstr "საჯარო უწყებაზე '{{authority_name}}' არ�
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "შენ შესახებ ტექსტის შესაცვლელად საჭიროა პირად ანგარიშში ავტორიზაციის გავლა."
 
+msgid "You need to be logged in to change your name"
+msgstr ""
+
 msgid "You need to be logged in to change your profile photo."
 msgstr "პროფილის ფოტოს შესაცვლელად საჭიროა პირად ანგარიშში ავტორიზაციის გავლა."
 
@@ -4064,6 +4112,9 @@ msgstr "გახსოვდეს, შენი წერილი პორ�
 
 msgid "Your name and annotation will appear in <strong>search engines</strong>."
 msgstr "შენი სახელი და ანოტაციის ტექსტი გამოჩნდება <strong>საჯაროდ გამოჩნდება</strong>."
+
+msgid "Your name has been changed since your last message in this request. Please consider mentioning this to the authority and explain that you are the original requester."
+msgstr ""
 
 msgid "Your name, request and any responses will appear in <strong>search engines</strong> (<a href=\"{{url}}\">details</a>)."
 msgstr "შენი სახელი, მოთხოვნა და მასზე მიღებული პასუხი გამოჩნდება <strong>საძიებო სისტემებში</strong> (<a href=\"{{url}}\">დეტალები</a>)."
@@ -4485,7 +4536,7 @@ msgid "{{info_request_user_name}}"
 msgstr ""
 
 msgid "{{law_used_full}} request - {{title}}"
-msgstr "{{law_used_full}} მოთხოვნა - {{title}}"
+msgstr "{{law_used_full}} - {{title}}"
 
 #. TRANSLATORS: Please don't use double quotes (") in this translation
 #. or it will break the site's ability to send emails to authorities!
@@ -4496,7 +4547,7 @@ msgid "{{law_used_short}} requests to '{{public_body_name}}'"
 msgstr "{{law_used_short}} საჯარო უწყებას - '{{public_body_name}}'"
 
 msgid "{{length_of_time}} ago"
-msgstr "{{length_of_time}} წინ"
+msgstr "გასულია {{length_of_time}} "
 
 msgid "{{number_of_comments}} comment"
 msgid_plural "{{number_of_comments}} comments"
@@ -4578,7 +4629,7 @@ msgstr "{{site_name}} ბლოგი და ტვიტები"
 msgid "{{site_name}} covers requests to {{number_of_authorities}} authority, including:"
 msgid_plural "{{site_name}} covers requests to {{number_of_authorities}} authorities, including:"
 msgstr[0] "{{site_name}} ვებგვერდი ფარავს {{number_of_authorities}} საჯარო დაწესებულებას, მათ შორის:"
-msgstr[1] "{{site_name}} აერთიანებს გაგზავნილ მოთხოვნას {{number_of_authorities}} საჯარო დაწესებულებასთან, მათ შორის:"
+msgstr[1] "{{site_name}} {{number_of_authorities}} საჯარო დაწესებულებას აერთიანებს. ინფორმაციის მოთხოვნით, ყველაზე ხშირად, მოქალაქეებმა შემდეგ დაწესებულებებს მიმართეს:"
 
 msgid "{{site_name}} has identified {{authority_name}} may have refused all or part of your request under <strong>{{refusals}}</strong>."
 msgstr "{{site_name}}-მ აღმოაჩინა, რომ უწყებამ -{{authority_name}} შესაძლოა უარყო ნაწილი ან მთლიანად შენი მოთხოვნა <strong>{{refusals}}</strong>."
@@ -4592,7 +4643,7 @@ msgstr "{{site_name}} ინფორმაციის მოთხოვნი
 msgid "{{site_name}} users have made {{number_of_requests}} request, including:"
 msgid_plural "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr[0] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
-msgstr[1] "{{site_name}} ვებგვერდის მომხმარებლებმა გააგზავნეს {{number_of_requests}} მოთხოვნა, მათ შორის:"
+msgstr[1] "{{site_name}}-ის მომხმარებლებმა უკვე გაგზავნეს ინფორმაციის {{number_of_requests}} მოთხოვნა, მათ შორის:"
 
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
 msgstr "{{title}} - საჯარო ინფორმაციის მოთხოვნა {{public_body}}"

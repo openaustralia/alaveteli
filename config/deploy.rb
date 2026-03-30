@@ -4,14 +4,6 @@ set :stage, 'staging' unless exists? :stage
 
 configuration = YAML.load_file('config/deploy.yml')[stage]
 
-# Load general_config from local file if it exists, otherwise use defaults
-# The actual configuration will be loaded from the remote server during deployment
-if File.exist?('config/general.yml')
-  general_config = YAML.load_file('config/general.yml')
-else
-  general_config = {}
-end
-
 set :application, 'alaveteli'
 set :scm, :git
 set :deploy_via, :remote_cache
@@ -55,33 +47,19 @@ namespace :xapian do
   end
 end
 
-# Disable the default asset pipeline
-set :normalize_asset_timestamps, false
+local_config = YAML.load_file('config/general.yml')
+set :shared_children, Array(local_config['SHARED_DIRECTORIES']).map { |d| File.basename(d.chomp('/')) }
 
 namespace :deploy do
 
-  namespace :assets do
-    desc 'Clean up old manifest files before precompilation'
-    task :clean_manifests do
-      run "rm -f #{shared_path}/assets/manifest*"
-      run "rm -f #{shared_path}/assets/.sprockets-manifest*"
-    end
-
-    # Override the default asset pipeline check to avoid manifest file conflicts
-    task :update_asset_mtimes do
-      # Skip the problematic manifest file check
-    end
-
-    desc 'Precompile assets manually'
-    task :precompile do
-      run "cd #{latest_release} && RAILS_ENV=#{rails_env} RAILS_GROUPS=assets bundle exec rake assets:precompile"
-    end
-
-    desc 'Symlink non-digest asset paths to the most recent digest versions'
-    task :link_non_digest do
-      run "cd #{latest_release} && bundle exec rake assets:link_non_digest RAILS_ENV=#{rails_env}"
-    end
+  desc 'Check that shared files and directories exist before deploying'
+  task :check_shared do
+    local_config = YAML.load_file('config/general.yml')
+    shared_files = Array(local_config['SHARED_FILES']).map { |f| "#{shared_path}/#{File.basename(f)}" }
+    missing = shared_files.select { |f| capture("test -f #{f} && echo exists || echo missing").strip == 'missing' }
+    abort "Missing shared files:\n#{missing.join("\n")}" unless missing.empty?
   end
+  before 'deploy:symlink_configuration', 'deploy:check_shared'
 
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
@@ -92,82 +70,44 @@ namespace :deploy do
 
   desc 'Link configuration after a code update'
   task :symlink_configuration do
-    # Load general.yml from the remote shared directory
-    general_yml_content = capture("cat #{shared_path}/general.yml")
-    remote_general_config = YAML.load(general_yml_content)
+    general_config = YAML.safe_load(capture("cat #{shared_path}/general.yml"))
+    shared_files = Array(general_config['SHARED_FILES'])
+    shared_dirs = Array(general_config['SHARED_DIRECTORIES']).map { |d| d.chomp('/') }
 
-    links = {}
-
-    # Add shared files from general.yml
-    shared_files = remote_general_config['SHARED_FILES'] || []
-    shared_files.each do |file|
-      links["#{release_path}/#{file}"] = "#{shared_path}/#{File.basename(file)}"
+    commands = (shared_files + shared_dirs).flat_map do |f|
+      [
+        "mkdir -p $(dirname #{release_path}/#{f})",
+        "ln -snf #{shared_path}/#{File.basename(f)} #{release_path}/#{f}"
+      ]
     end
-
-    # Add shared directories from general.yml
-    shared_directories = remote_general_config['SHARED_DIRECTORIES'] || []
-    shared_directories.each do |dir|
-      dir_name = dir.chomp('/')
-      # Map lib/acts_as_xapian/xapiandbs/ to xapiandbs for backward compatibility
-      if dir_name == 'lib/acts_as_xapian/xapiandbs'
-        links["#{release_path}/#{dir_name}"] = "#{shared_path}/xapiandbs"
-      else
-        links["#{release_path}/#{dir_name}"] = "#{shared_path}/#{File.basename(dir_name)}"
-      end
-    end
-
-    # Add themes directory (not in general.yml but always needed)
-    links["#{release_path}/lib/themes"] = "#{shared_path}/themes"
 
     if rbenv_ruby_version
-      links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
+      commands << "ln -snf #{shared_path}/rbenv-version #{release_path}/.rbenv-version"
     end
 
-    # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
-    run links.map { |a| "ln -sf #{a.last} #{a.first}" }.join(";")
+    run commands.join(" && ")
+  end
+
+  namespace :assets do
+    desc 'Symlink non-digest asset paths to the most recent digest versions'
+    task :link_non_digest do
+      run "cd #{latest_release} && bundle exec rake assets:link_non_digest RAILS_ENV=#{rails_env}"
+    end
   end
 
   after 'deploy:setup' do
-    # Check if general.yml exists in shared directory
-    general_yml_exists = capture("test -f #{shared_path}/general.yml && echo 'exists' || echo 'missing'").strip
+    local_config = YAML.load_file('config/general.yml')
+    shared_files = Array(local_config['SHARED_FILES'])
+    shared_dirs = Array(local_config['SHARED_DIRECTORIES']).map { |d| d.chomp('/') }
 
-    if general_yml_exists == 'exists'
-      # Load general.yml from the remote shared directory
-      general_yml_content = capture("cat #{shared_path}/general.yml")
-      remote_general_config = YAML.load(general_yml_content)
+    dirs_to_create = shared_dirs.map { |d| "#{shared_path}/#{File.basename(d)}" }
 
-      # Create directories for shared directories from general.yml
-      shared_directories = remote_general_config['SHARED_DIRECTORIES'] || []
-      shared_directories.each do |dir|
-        dir_name = dir.chomp('/')
-        # Map lib/acts_as_xapian/xapiandbs/ to xapiandbs for backward compatibility
-        if dir_name == 'lib/acts_as_xapian/xapiandbs'
-          run "mkdir -p #{shared_path}/xapiandbs"
-        else
-          run "mkdir -p #{shared_path}/#{File.basename(dir_name)}"
-        end
-      end
-    else
-      # Fallback to defaults if general.yml doesn't exist yet
-      puts "WARNING: #{shared_path}/general.yml not found. Using default shared directories."
-      run "mkdir -p #{shared_path}/files"
-      run "mkdir -p #{shared_path}/storage"
-      run "mkdir -p #{shared_path}/cache"
-      run "mkdir -p #{shared_path}/log"
-      run "mkdir -p #{shared_path}/tmp/pids"
-      run "mkdir -p #{shared_path}/xapiandbs"
-      run "mkdir -p #{shared_path}/vendor/bundle"
-      run "mkdir -p #{shared_path}/assets"
-    end
-
-    # Always create themes directory (not in general.yml but always needed)
-    run "mkdir -p #{shared_path}/themes"
+    run dirs_to_create.map { |d| "mkdir -p #{d}" }.join(" && ")
   end
 end
 
 after 'deploy:assets:symlink', 'deploy:symlink_configuration'
 
-before 'deploy:assets:precompile', 'deploy:assets:clean_manifests'
 before 'deploy:assets:precompile', 'themes:install'
 after 'deploy:assets:precompile', 'deploy:assets:link_non_digest'
 

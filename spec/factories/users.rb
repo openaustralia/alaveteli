@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20230314171033
+# Schema version: 20230301110831
 #
 # Table name: users
 #
@@ -12,7 +12,7 @@
 #  updated_at                        :datetime         not null
 #  email_confirmed                   :boolean          default(FALSE), not null
 #  url_name                          :text             not null
-#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 11:00:00.000000000 AEDT +11:00)
+#  last_daily_track_email            :datetime         default(Sat, 01 Jan 2000 00:00:00.000000000 GMT +00:00)
 #  ban_text                          :text             default(""), not null
 #  about_me                          :text             default(""), not null
 #  locale                            :string
@@ -48,6 +48,8 @@ FactoryBot.define do
     email_confirmed { true }
     ban_text { '' }
     confirmed_not_spam { true }
+
+    after(:build) { |user| user.send :set_slug }
 
     factory :unconfirmed_user do
       email_confirmed { false }

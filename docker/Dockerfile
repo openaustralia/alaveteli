@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=3.2.9
+ARG RUBY_VERSION=3.0
 FROM ruby:${RUBY_VERSION}-bullseye
 
 ENV DOCKER 1
@@ -25,7 +25,7 @@ RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
 WORKDIR /alaveteli
 RUN git config --global --add safe.directory /alaveteli
 
-RUN gem update --system 3.5.23
+RUN gem update --system
 
 EXPOSE 3000
 CMD wait-for-it db:5432 --strict -- ./docker/entrypoint.sh
