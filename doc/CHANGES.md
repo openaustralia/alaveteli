@@ -3,6 +3,7 @@
 ## Highlighted Features
 
 Prevent token rebinding when it already has a user (Gareth Rees)
+* Allow customisation of text masks (Gareth Rees)
 
 # 0.46.6.0
 
