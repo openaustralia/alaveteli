@@ -124,10 +124,10 @@ gem 'rubyzip', '~> 2.4.1'
 gem 'secure_headers', '~> 7.0.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
-gem 'statistics2', '~> 0.54'
+gem 'statistics3'
 gem 'strip_attributes', git: 'https://github.com/mysociety/strip_attributes.git', branch: 'globalize3-rails8'
 gem 'stripe', '~> 11.7.0'
-gem 'syck', '~> 1.4.1', require: false
+gem 'syck', '~> 1.5.0', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'vpim', '~> 24.2.20'
 gem 'will_paginate', '~> 4.0.1'
