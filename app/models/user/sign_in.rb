@@ -3,8 +3,8 @@
 #
 # Table name: user_sign_ins
 #
-#  id         :bigint           not null, primary key
-#  user_id    :bigint
+#  id         :integer          not null, primary key
+#  user_id    :integer
 #  ip         :inet
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -15,7 +15,7 @@
 class User::SignIn < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
-  belongs_to :user, inverse_of: :sign_ins
+  belongs_to :user, inverse_of: :sign_ins, optional: true
 
   before_create :create?
 

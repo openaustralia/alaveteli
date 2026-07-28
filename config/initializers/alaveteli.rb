@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.44.3.0'
+ALAVETELI_VERSION = '0.45.8.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -24,7 +24,6 @@ ALAVETELI_VERSION = '0.44.3.0'
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
-
 
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration.domain
@@ -40,7 +39,6 @@ require 'quiet_opener.rb'
 require 'attachment_to_html'
 require 'health_checks'
 require 'mail_handler'
-require 'ability'
 require 'normalize_string'
 require 'alaveteli_file_types'
 require 'theme'

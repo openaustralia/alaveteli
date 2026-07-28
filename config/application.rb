@@ -9,10 +9,9 @@ require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 # require "action_mailbox/engine"
-# require "action_text/engine"
+require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
-require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 require File.dirname(__FILE__) + '/../lib/configuration'
@@ -24,6 +23,29 @@ Bundler.require(*Rails.groups)
 
 module Alaveteli
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 8.0
+
+    # Disable new framework default has_many_inversing breaks some specs due to
+    # an apparent regression in Rails
+    config.active_record.has_many_inversing = false # 6.1
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(
+      ignore: %w(
+        acts_as_xapian
+        assets
+        core_ext
+        custom_cops
+        generators
+        has_tag_string
+        tasks
+        themes
+      )
+    )
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -31,9 +53,9 @@ module Alaveteli
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.autoloader = :zeitwerk
-    config.active_record.legacy_connection_handling = false
-    config.active_support.use_rfc4122_namespaced_uuids = true
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -82,8 +104,6 @@ module Alaveteli
     config.autoload_paths << "#{Rails.root}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root}/app/models/concerns"
 
-    config.enable_dependency_loading = true
-
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key
     ENV['RECAPTCHA_SECRET_KEY'] = AlaveteliConfiguration.recaptcha_secret_key
@@ -100,5 +120,7 @@ module Alaveteli
 
     # Allow the generation of full URLs in emails
     config.action_mailer.default_url_options = { host: AlaveteliConfiguration.domain }
+
+    config.active_storage.variant_processor = :mini_magick
   end
 end

@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'config_helper'
 
 module AlaveteliTextMasker
   include ConfigHelper
@@ -116,7 +117,6 @@ module AlaveteliTextMasker
     end
   end
 
-
   def apply_binary_masks(text, options = {})
     # Keep original size, so can check haven't resized it
     orig_size = text.bytesize
@@ -175,5 +175,4 @@ module AlaveteliTextMasker
 
     censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
   end
-
 end

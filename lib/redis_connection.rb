@@ -1,11 +1,21 @@
 require File.expand_path('../config/load_env.rb', __dir__)
+require 'redis-client'
 
 ##
-# Module to parse Redis ENV variables into usable configuration for Sidekiq.
+# Module to parse Redis ENV variables into usable configuration for Sidekiq and
+# ActiveJob::Uniqueness gems.
 #
 module RedisConnection
   def self.instance
     Redis.new(configuration)
+  end
+
+  def self.client
+    if configuration.key?(:sentinels)
+      RedisClient.sentinel(**configuration).new_client
+    else
+      RedisClient.config(**configuration).new_client
+    end
   end
 
   def self.configuration

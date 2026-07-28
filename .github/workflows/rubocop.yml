@@ -1,6 +1,10 @@
 name: RuboCop
 
-on: [pull_request]
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 permissions:
   contents: read
@@ -14,10 +18,10 @@ jobs:
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0
+        ruby-version: 3.2
 
     - name: Run RuboCop linter
-      uses: reviewdog/action-rubocop@v1
+      uses: reviewdog/action-rubocop@v2.14.0
       with:
         github_token: ${{ secrets.github_token }}
         rubocop_flags: -DES

@@ -49,6 +49,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
+  include Categorisable
   include Taggable
   include Notable
   include LinkToHelper
@@ -66,15 +67,18 @@ class InfoRequest < ApplicationRecord
 
   belongs_to :user,
              inverse_of: :info_requests,
-             counter_cache: true
+             counter_cache: true,
+             optional: true
 
   validate :must_be_internal_or_external
 
   belongs_to :public_body,
              inverse_of: :info_requests,
-             counter_cache: true
+             counter_cache: true,
+             validate: false
   belongs_to :info_request_batch,
-             inverse_of: :info_requests
+             inverse_of: :info_requests,
+             optional: true
 
   validates_presence_of :public_body, message: N_("Please select an authority")
 
@@ -188,6 +192,7 @@ class InfoRequest < ApplicationRecord
   before_create :set_use_notifications
   before_validation :compute_idhash
   before_validation :set_law_used, on: :create
+  after_create :notify_public_body
   after_save :update_counter_cache
   after_update :reindex_request_events, if: :reindexable_attribute_changed?
   before_destroy :expire
@@ -291,6 +296,7 @@ class InfoRequest < ApplicationRecord
   # address and make this kind of error.
   def self._clean_idhash(hash)
     return unless hash
+
     hash.gsub(/l/, "1").gsub(/o/, "0")
   end
 
@@ -348,7 +354,7 @@ class InfoRequest < ApplicationRecord
   # TODO: this *should* also check outgoing message joined to is an initial
   # request (rather than follow up)
   def self.find_existing(title, public_body_id, body)
-    conditions = { title: title&.strip, public_body_id: public_body_id }
+    conditions = { title: title&.squish, public_body_id: public_body_id }
 
     InfoRequest.
       includes(:outgoing_messages).
@@ -400,25 +406,23 @@ class InfoRequest < ApplicationRecord
   # Display version of status
   def self.get_status_description(status)
     descriptions = {
-      'waiting_classification'        => _("Awaiting classification."),
-      'waiting_response'              => _("Awaiting response."),
-      'waiting_response_overdue'      => _("Delayed."),
-      'waiting_response_very_overdue' => _("Long overdue."),
-      'not_held'                      => _("Information not held."),
-      'rejected'                      => _("Refused."),
-      'partially_successful'          => _("Partially successful."),
-      'successful'                    => _("Successful."),
-      'waiting_clarification'         => _("Waiting clarification."),
-      'gone_postal'                   => _("Handled by postal mail."),
-      'internal_review'               => _("Awaiting internal review."),
-      'error_message'                 => _("Delivery error"),
-      'requires_admin'                => _("Unusual response."),
-      'attention_requested'           => _("Reported for administrator attention."),
-      'user_withdrawn'                => _("Withdrawn by the requester."),
-      'vexatious'                     => _("Considered by administrators as " \
-                                           "vexatious."),
-      'not_foi'                       => _("Considered by administrators as " \
-                                           "not an FOI request.")
+      'waiting_classification' => _("Awaiting classification"),
+      'waiting_response' => _("Awaiting response"),
+      'waiting_response_overdue' => _("Delayed"),
+      'waiting_response_very_overdue' => _("Long overdue"),
+      'not_held' => _("Information not held"),
+      'rejected' => _("Refused"),
+      'partially_successful' => _("Partially successful"),
+      'successful' => _("Successful"),
+      'waiting_clarification' => _("Waiting clarification"),
+      'gone_postal' => _("Handled by postal mail"),
+      'internal_review' => _("Awaiting internal review"),
+      'error_message' => _("Delivery error"),
+      'requires_admin' => _("Unusual response"),
+      'attention_requested' => _("Reported for administrator attention"),
+      'user_withdrawn' => _("Withdrawn by the requester"),
+      'vexatious' => _("Considered by administrators as vexatious"),
+      'not_foi' => _("Considered by administrators as not an FOI request")
     }
     if descriptions[status]
       descriptions[status]
@@ -518,14 +522,13 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.reject_incoming_at_mta(options)
-    query = InfoRequest.where(["updated_at < (now() -
-                                interval ?)
-                                AND allow_new_responses_from = 'nobody'
-                                AND rejected_incoming_count >= ?
-                                AND reject_incoming_at_mta = ?
-                                AND url_title <> 'holding_pen'",
-                                "#{options[:age_in_months]} months",
-                                options[:rejection_threshold], false])
+    query = InfoRequest.where(
+      updated_at: ...options[:age_in_months].months.ago,
+      rejected_incoming_count: options[:rejection_threshold]..,
+      allow_new_responses_from: 'nobody',
+      reject_incoming_at_mta: false
+    ).where.not(url_title: 'holding_pen')
+
     yield query.pluck(:id) if block_given?
 
     if options[:dryrun]
@@ -694,7 +697,6 @@ class InfoRequest < ApplicationRecord
       )
       info_request.user.notify(event) if info_request.use_notifications?
     end
-
   end
 
   def self.request_sent_types
@@ -757,22 +759,29 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def internal_review_requested?
+    outgoing_messages.where(what_doing: 'internal_review').any?
+  end
+
   def is_external?
     external_url.nil? ? false : true
   end
 
   def user_name
     return external_user_name if is_external?
+
     user&.name
   end
 
   def from_name
     return external_user_name if is_external?
+
     outgoing_messages.first&.from_name || user_name
   end
 
   def safe_from_name
     return external_user_name if is_external?
+
     apply_censor_rules_to_text(from_name)
   end
 
@@ -893,6 +902,7 @@ class InfoRequest < ApplicationRecord
 
   def legislation
     return Legislation.find!(law_used) if law_used
+
     public_body&.legislation || Legislation.default
   end
 
@@ -903,6 +913,7 @@ class InfoRequest < ApplicationRecord
   # Has this email already been received here? Based just on message id.
   def already_received?(email)
     return false unless email.message_id
+
     incoming_messages.any? { email.message_id == _1.message_id }
   end
 
@@ -1010,7 +1021,7 @@ class InfoRequest < ApplicationRecord
 
     calculate_event_states
 
-    if requires_admin?
+    if old_described_state != described_state && requires_admin?
       # Check there is someone to send the message "from"
       if set_by && user
         RequestMailer.requires_admin(self, set_by, message).deliver_now
@@ -1035,6 +1046,7 @@ class InfoRequest < ApplicationRecord
     if cached_value_ok && @cached_calculated_status
       return @cached_calculated_status
     end
+
     @cached_calculated_status = @@custom_states_loaded ? theme_calculate_status : base_calculate_status
   end
 
@@ -1046,6 +1058,7 @@ class InfoRequest < ApplicationRecord
     Time.zone.now.strftime("%Y-%m-%d") > date_very_overdue_after.strftime("%Y-%m-%d")
     return 'waiting_response_overdue' if
     Time.zone.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
+
     'waiting_response'
   end
 
@@ -1183,6 +1196,7 @@ class InfoRequest < ApplicationRecord
   def date_initial_request_last_sent_at
     date = read_attribute(:date_initial_request_last_sent_at)
     return date.to_date if date
+
     calculate_date_initial_request_last_sent_at
   end
 
@@ -1202,6 +1216,7 @@ class InfoRequest < ApplicationRecord
   def date_response_required_by
     date = read_attribute(:date_response_required_by)
     return date if date
+
     calculate_date_response_required_by
   end
 
@@ -1216,6 +1231,7 @@ class InfoRequest < ApplicationRecord
   def date_very_overdue_after
     date = read_attribute(:date_very_overdue_after)
     return date if date
+
     calculate_date_very_overdue_after
   end
 
@@ -1249,15 +1265,18 @@ class InfoRequest < ApplicationRecord
   end
 
   def recipient_name_and_email
-    MailHandler.address_from_name_and_email(
-      # TRANSLATORS: Please don't use double quotes (") in this translation
-      # or it will break the site's ability to send emails to authorities!
-      _("{{law_used_short}} requests at {{public_body}}",
-        law_used_short: legislation,
-        public_body: public_body.short_or_long_name),
-        recipient_email)
-  end
+    # TRANSLATORS: Please don't use double quotes (") in this translation
+    # or it will break the site's ability to send emails to authorities!
+    recipient_name = _("{{law_used_short}} requests at {{public_body}}",
+                       law_used_short: legislation,
+                       public_body: public_body.short_or_long_name)
 
+    if MySociety::Validate.is_valid_email(recipient_email)
+      MailHandler.address_from_name_and_email(recipient_name, recipient_email)
+    else
+      recipient_name
+    end
+  end
 
   def public_response_events
     condition = <<-SQL
@@ -1297,6 +1316,7 @@ class InfoRequest < ApplicationRecord
   # Text from the the initial request, for use in summary display
   def initial_request_text
     return '' if outgoing_messages.empty?
+
     body_opts = { censor_rules: applicable_censor_rules }
     first_message = outgoing_messages.first
     first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
@@ -1335,6 +1355,7 @@ class InfoRequest < ApplicationRecord
     info_request_events.each do |e|
       if ((info_request_event.is_sent_sort? && e.is_sent_sort?) || (info_request_event.is_followup_sort? && e.is_followup_sort?)) && e.outgoing_message_id == info_request_event.outgoing_message_id
         break if e.id == info_request_event.id
+
         last_email = e.params[:email]
       end
     end
@@ -1349,6 +1370,7 @@ class InfoRequest < ApplicationRecord
   # envelope from address until we abandoned it.
   def magic_email(prefix_part)
     raise "id required to create a magic email" unless id
+
     InfoRequest.magic_email_for_id(prefix_part, id)
   end
 
@@ -1466,6 +1488,7 @@ class InfoRequest < ApplicationRecord
     end
     incoming_messages.reverse.each do |incoming_message|
       next if incoming_message == skip_message
+
       incoming_message.safe_from_name
 
       next unless incoming_message.is_public?
@@ -1528,11 +1551,13 @@ class InfoRequest < ApplicationRecord
 
   def is_owning_user?(user)
     return false unless user
+
     user.id == user_id || user.owns_every_request?
   end
 
   def is_actual_owning_user?(user)
     return false unless user
+
     user.id == user_id
   end
 
@@ -1614,6 +1639,7 @@ class InfoRequest < ApplicationRecord
 
   def move_to_public_body(destination_public_body, opts = {})
     return nil unless destination_public_body.try(:persisted?)
+
     old_body = public_body
     editor = opts.fetch(:editor)
 
@@ -1647,6 +1673,7 @@ class InfoRequest < ApplicationRecord
 
   def move_to_user(destination_user, opts = {})
     return nil unless destination_user.try(:persisted?)
+
     old_user = user
     editor = opts.fetch(:editor)
 
@@ -1754,6 +1781,7 @@ class InfoRequest < ApplicationRecord
 
   def holding_pen_request?
     return true if url_title == 'holding_pen'
+
     self == self.class.holding_pen_request
   end
 
@@ -1910,6 +1938,7 @@ class InfoRequest < ApplicationRecord
 
   def set_law_used
     return if law_used_changed?
+
     self.law_used = public_body.legislation.key if public_body
   end
 
@@ -1934,5 +1963,9 @@ class InfoRequest < ApplicationRecord
     %i[url_title prominence user_id].any? do |attr|
       saved_change_to_attribute?(attr)
     end
+  end
+
+  def notify_public_body
+    public_body.request_created
   end
 end

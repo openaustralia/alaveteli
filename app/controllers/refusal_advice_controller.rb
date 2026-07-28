@@ -11,16 +11,14 @@ class RefusalAdviceController < ApplicationController
     internal_redirect_to ||
       help_page_redirect ||
       external_redirect  ||
-      raise(
-        RefusalAdvice::Action::RedirectionError,
-        "Can't redirect to #{action.target}"
-      )
+      redirection_error
   end
 
   private
 
   def authenticate
     return unless info_request
+
     authenticated?(as: info_request.user) || ask_to_login(as: info_request.user)
   end
 
@@ -38,10 +36,10 @@ class RefusalAdviceController < ApplicationController
 
     case action.target[:internal]
     when 'followup'
-      redirect_to new_request_followup_path(request_id: info_request.id)
+      redirect_to new_request_followup_path(info_request.url_title)
     when 'internal_review'
       redirect_to new_request_followup_path(
-        request_id: info_request.id, internal_review: '1'
+        info_request.url_title, internal_review: '1'
       )
     when 'new_request'
       redirect_to new_request_to_body_path(
@@ -58,6 +56,14 @@ class RefusalAdviceController < ApplicationController
   def external_redirect
     external = action.target[:external]
     redirect_to(external, allow_other_host: true) if external
+  end
+
+  def redirection_error
+    type, url = *action.target.first
+    raise(
+      RefusalAdvice::Action::RedirectionError,
+      "Can't redirect to {:#{type}=>#{url.inspect}}"
+    )
   end
 
   def action
@@ -84,15 +90,11 @@ class RefusalAdviceController < ApplicationController
   end
 
   def parsed_refusal_advice_params
-    parsed_params = refusal_advice_params.merge(
+    refusal_advice_params.merge(
       actions: refusal_advice_params.fetch(:actions).
         each_pair do |_, suggestions|
           suggestions.transform_values! { |v| v == 'true' }
         end
     ).to_h
-
-    return parsed_params.deep_symbolize_keys if RUBY_VERSION < '3.0'
-
-    parsed_params
   end
 end

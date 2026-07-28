@@ -8,17 +8,19 @@
 #   region: ''
 #   bucket: ''
 #
-# azure:
-#   service: AzureStorage
-#   storage_account_name: ''
-#   storage_access_key: ''
-#   container: ''
-#
 # google:
 #   service: GCS
 #   credentials:
 #   project: ''
 #   bucket: ''
+
+local:
+  service: Disk
+  root: <%= Rails.root.join('storage/local') %>
+
+test:
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage') %>
 
 ## Raw Emails ##
 

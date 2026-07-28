@@ -3,9 +3,9 @@
 #
 # Table name: dataset_key_sets
 #
-#  id            :bigint           not null, primary key
+#  id            :integer          not null, primary key
 #  resource_type :string
-#  resource_id   :bigint
+#  resource_id   :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
@@ -18,12 +18,13 @@ class Dataset::KeySet < ApplicationRecord
   has_many :keys, foreign_key: 'dataset_key_set_id', inverse_of: :key_set
   has_many :value_sets, foreign_key: 'dataset_key_set_id', inverse_of: :key_set
 
+  accepts_nested_attributes_for :keys, allow_destroy: true
+
   RESOURCE_TYPES = %w[
     Project
     InfoRequest
     InfoRequestBatch
   ].freeze
 
-  validates :resource, presence: true
   validates :resource_type, inclusion: { in: RESOURCE_TYPES }
 end

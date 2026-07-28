@@ -3,10 +3,10 @@
 #
 # Table name: dataset_value_sets
 #
-#  id                 :bigint           not null, primary key
+#  id                 :integer          not null, primary key
 #  resource_type      :string
-#  resource_id        :bigint
-#  dataset_key_set_id :bigint
+#  resource_id        :integer
+#  dataset_key_set_id :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
@@ -35,6 +35,7 @@ FactoryBot.define do
 
     after(:build) do |value_set, evaluator|
       next if value_set.values.count > 0 || evaluator.value_count.zero?
+
       value_set.values = build_list(
         :dataset_value, evaluator.value_count, value_set: value_set
       )

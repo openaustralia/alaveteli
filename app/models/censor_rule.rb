@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20210114161442
+# Schema version: 20240313094449
 #
 # Table name: censor_rules
 #
@@ -13,7 +13,7 @@
 #  last_edit_comment :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  regexp            :boolean
+#  regexp            :boolean          default(FALSE), not null
 #
 
 # models/censor_rule.rb:
@@ -32,11 +32,14 @@ class CensorRule < ApplicationRecord
   ].freeze
 
   belongs_to :info_request,
-             inverse_of: :censor_rules
+             inverse_of: :censor_rules,
+             optional: true
   belongs_to :user,
-             inverse_of: :censor_rules
+             inverse_of: :censor_rules,
+             optional: true
   belongs_to :public_body,
-             inverse_of: :censor_rules
+             inverse_of: :censor_rules,
+             optional: true
 
   validate :require_valid_regexp, if: proc { |rule| rule.regexp? == true }
 
@@ -57,6 +60,7 @@ class CensorRule < ApplicationRecord
 
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?
+
     text_to_censor.gsub(to_replace('UTF-8'), replacement)
   end
 

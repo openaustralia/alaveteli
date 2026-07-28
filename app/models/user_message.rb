@@ -3,13 +3,15 @@
 #
 # Table name: user_messages
 #
-#  id         :bigint           not null, primary key
-#  user_id    :bigint
+#  id         :integer          not null, primary key
+#  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
 class UserMessage < ApplicationRecord
   belongs_to :user,
              inverse_of: :user_messages,
-             counter_cache: true
+             counter_cache: true,
+             optional: true
 end

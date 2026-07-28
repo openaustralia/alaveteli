@@ -24,10 +24,9 @@ end
 
 module ActiveRecord
   class FixtureSet
-
     def self.create_fixtures(fixtures_directory, fixture_set_names, class_names = {}, config = ActiveRecord::Base)
       fixture_set_names = Array(fixture_set_names).map(&:to_s)
-      class_names = ClassCache.new class_names, config
+      class_names.stringify_keys!
 
       # FIXME: Apparently JK uses this.
       connection = block_given? ? yield : ActiveRecord::Base.connection
@@ -107,6 +106,5 @@ module ActiveRecord
       end
       cached_fixtures(connection, fixture_set_names)
     end
-
   end
 end

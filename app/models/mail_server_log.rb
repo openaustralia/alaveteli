@@ -21,12 +21,14 @@
 class MailServerLog < ApplicationRecord
   # `serialize` needs to be called before all other ActiveRecord code.
   # See http://stackoverflow.com/a/15610692/387558
-  serialize :delivery_status, DeliveryStatusSerializer
+  serialize :delivery_status, coder: DeliveryStatusSerializer
 
   belongs_to :info_request,
-             inverse_of: :mail_server_logs
+             inverse_of: :mail_server_logs,
+             optional: true
   belongs_to :mail_server_log_done,
-             inverse_of: :mail_server_logs
+             inverse_of: :mail_server_logs,
+             optional: true
 
   before_create :calculate_delivery_status
 
@@ -240,6 +242,7 @@ class MailServerLog < ApplicationRecord
     DeliveryStatusSerializer.load(read_attribute(:delivery_status))
   # TODO: This rescue can be removed when there are no more cached
   # MTA-specific statuses
+
   rescue ArgumentError
     warn %q(MailServerLog#delivery_status rescuing from invalid delivery
             status. Run bundle exec rake temp:cache_delivery_status to update
@@ -336,5 +339,4 @@ class MailServerLog < ApplicationRecord
   def redact_idhash(line, idhash)
     line.gsub(idhash, _('[REDACTED]'))
   end
-
 end

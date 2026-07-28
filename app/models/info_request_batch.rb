@@ -38,7 +38,6 @@ class InfoRequestBatch < ApplicationRecord
 
   attr_accessor :ignore_existing_batch
 
-  validates_presence_of :user
   validates_presence_of :body
   validates_absence_of :existing_batch,
                        unless: -> { ignore_existing_batch },
@@ -315,6 +314,7 @@ class InfoRequestBatch < ApplicationRecord
 
   def is_owning_user?(user)
     return false unless user
+
     user.id == user_id || user.owns_every_request?
   end
 

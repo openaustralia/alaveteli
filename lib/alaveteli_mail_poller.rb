@@ -1,4 +1,5 @@
 require 'net/pop'
+require 'config_helper'
 
 class AlaveteliMailPoller
   include ConfigHelper
@@ -62,6 +63,7 @@ class AlaveteliMailPoller
         received = true
         popmail.delete
       end
+
     rescue Net::POPError, StandardError => error
       Rails.logger.warn "#{ self } error for #{ unique_id }"
       if send_exception_notifications?
@@ -121,5 +123,4 @@ class AlaveteliMailPoller
   def default_pop3
     Net::POP3.new(settings[:address], settings[:port], false)
   end
-
 end

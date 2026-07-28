@@ -10,13 +10,20 @@ RSpec.describe AlaveteliPro::MetricsReport do
 
   let!(:pro_plan) {
     stripe_helper.create_plan(
-      id: 'pro', product: product.id, amount: 10
+      id: 'price_123', product: product.id, amount: 10
     )
   }
 
   let!(:pro_annual_plan) do
     stripe_helper.create_plan(
-      id: 'pro-annual-billing', product: product.id, amount: 100
+      id: 'price_456', product: product.id, amount: 100
+    )
+  end
+
+  before do
+    allow(AlaveteliConfiguration).to receive(:stripe_prices).and_return(
+      'price_123' => 'pro',
+      'price_456' => 'pro-annual-billing'
     )
   end
 
@@ -148,13 +155,7 @@ RSpec.describe AlaveteliPro::MetricsReport do
       let!(:pending_cancel_sub) do
         subscription = Stripe::Subscription.create(customer: customer,
                                                    plan: pro_plan.id)
-
-        # NOTE: - in later API versions, at_period_end is no longer
-        # available for delete so we'd have to call something like
-        # this instead:
-        # Stripe::Subscription.update(subscription.id,
-        #                             cancel_at_period_end: true)
-        subscription.delete(at_period_end: true)
+        Stripe::Subscription.update(subscription.id, cancel_at_period_end: true)
         subscription
       end
 
