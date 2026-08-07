@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20230412084830
 #
 # Table name: outgoing_messages
 #
@@ -93,7 +92,7 @@ RSpec.describe OutgoingMessage do
     it { is_expected.to include(IOError) }
     it { is_expected.to_not include(TestError) }
 
-    context '.additional_send_errors has been overriden to include a custom error' do
+    context '.additional_send_errors has been overridden to include a custom error' do
       before do
         allow(described_class).to receive(:additional_send_errors).
           and_return([ TestError ])
@@ -122,7 +121,7 @@ RSpec.describe OutgoingMessage do
 
     it { is_expected.to be_valid }
 
-    it 'requires info_reqeust' do
+    it 'requires info_request' do
       outgoing_message.info_request = nil
       expect(outgoing_message).not_to be_valid
     end
@@ -894,6 +893,12 @@ RSpec.describe OutgoingMessage do
       @outgoing_message.body = split_line
       expect(@outgoing_message.get_body_for_html_display).to include(expected)
     end
+
+    it "adds anchors with rel nofollow links to plain text links" do
+      @outgoing_message.body = link = "http://example.com"
+      expect(@outgoing_message.get_body_for_html_display).
+        to include(%Q[<p><a href="#{link}" rel="nofollow">#{link}</a></p>])
+    end
   end
 
   describe '#get_text_for_indexing' do
@@ -1062,7 +1067,7 @@ RSpec.describe OutgoingMessage do
       end
 
       context 'a sent message' do
-        it 'returns one mta_id when a message has been sent once' do
+        it 'returns one mta_id when a message has older Exim message IDs' do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
@@ -1076,6 +1081,22 @@ RSpec.describe OutgoingMessage do
           EOF
 
           expect(message.mta_ids).to eq(['1ZsFHb-0004dK-SM'])
+        end
+
+        it 'returns one mta_id when a message has newer Exim message IDs' do
+          message = FactoryBot.create(:initial_request)
+          body_email = message.info_request.public_body.request_email
+          request_email = message.info_request.incoming_email
+          request_subject = message.info_request.email_subject_request(html: false)
+          smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
+
+          load_mail_server_logs <<-EOF.strip_heredoc
+          2026-02-04 09:28:16 [27817] 1vnK2E-00000002Cfc-2ahs => #{ body_email } F=<#{ request_email }> P=<#{ request_email }> R=dnslookup T=remote_smtp S=2297 H=cluster2.gsi.messagelabs.com [127.0.0.1]:25 X=TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128 CV=no DN="C=US,ST=California,L=Mountain View,O=Symantec Corporation,OU=Symantec.cloud,CN=mail221.messagelabs.com" C="250 ok 1446233056 qp 26062 server-4.tower-221.messagelabs.com!1446233056!7679409!1" QT=1s DT=0s
+          2026-02-04 09:28:16 [27814] 1vnK2E-00000002Cfc-2ahs <= #{ request_email } U=alaveteli P=local S=2252 id=#{ smtp_message_id } T="#{ request_subject }" from <#{ request_email }> for #{ body_email } #{ body_email }
+          2026-02-04 09:28:15 [27814] cwd=/var/www/alaveteli/alaveteli 7 args: /usr/sbin/sendmail -i -t -f #{ request_email } -- #{ body_email }
+          EOF
+
+          expect(message.mta_ids).to eq(['1vnK2E-00000002Cfc-2ahs'])
         end
 
         it 'returns one mta_id when a message has syslog format logs' do
@@ -1873,6 +1894,76 @@ RSpec.describe OutgoingMessage do
 
     it 'updates OutgoingMessage#last_sent_at' do
       expect{ subject }.to change{ outgoing_message.last_sent_at }
+    end
+  end
+
+  describe '#expire' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+
+    it 'delegates to info_request' do
+      expect(outgoing_message.info_request).to receive(:expire)
+      outgoing_message.expire
+    end
+  end
+
+  describe '#log_event' do
+    let(:outgoing_message) { FactoryBot.create(:initial_request) }
+
+    it 'delegates to info_request' do
+      expect(outgoing_message.info_request).to receive(:log_event).with('edit')
+      outgoing_message.log_event('edit')
+    end
+  end
+
+  describe '#update_and_log_event' do
+    let(:outgoing_message) do
+      FactoryBot.create(:initial_request, tag_string: 'foo')
+    end
+
+    let(:info_request) { outgoing_message.info_request }
+
+    def last_event
+      info_request.info_request_events.last
+    end
+
+    it 'updates and logs edit_attachment event' do
+      expect do
+        outgoing_message.update_and_log_event(prominence: 'hidden')
+      end.to change { last_event }
+
+      expect(last_event.event_type).to eq('edit_outgoing')
+    end
+
+    it 'logs prominence and reason changes' do
+      outgoing_message.update_and_log_event(
+        prominence: 'hidden', prominence_reason: 'just because'
+      )
+      expect(last_event.params[:old_prominence]).to eq('normal')
+      expect(last_event.params[:prominence]).to eq('hidden')
+      expect(last_event.params[:old_prominence_reason]).to be_nil
+      expect(last_event.params[:prominence_reason]).to eq('just because')
+    end
+
+    it 'logs tag_string changes' do
+      outgoing_message.update_and_log_event(tag_string: 'foo bar')
+      expect(last_event.params[:old_tag_string]).to eq('foo')
+      expect(last_event.params[:tag_string]).to eq('foo bar')
+      outgoing_message.update_and_log_event(tag_string: 'foo bar baz')
+      expect(last_event.params[:old_tag_string]).to eq('foo bar')
+      expect(last_event.params[:tag_string]).to eq('foo bar baz')
+    end
+
+    it 'logs additional event data' do
+      outgoing_message.update_and_log_event(
+        prominence: 'hidden', event: { editor: 'me' }
+      )
+      expect(last_event.params[:editor]).to eq('me')
+    end
+
+    it 'does not log event if update fails' do
+      expect do
+        outgoing_message.update_and_log_event(prominence: nil)
+      end.to_not change { last_event }
     end
   end
 end

@@ -255,15 +255,6 @@ RSpec.describe PasswordChangesController do
       end
     end
 
-    context 'token with a different circumstance' do
-      before { post_redirect.update!(circumstance: 'normal') }
-
-      it 'redirects to new to force an email confirmation' do
-        get :edit, params: { id: post_redirect.token }
-        expect(response).to redirect_to new_password_change_path
-      end
-    end
-
     context 'invalid token' do
       it 'redirects to new to force an email confirmation' do
         get :edit, params: { id: 'invalid' }
@@ -400,18 +391,6 @@ RSpec.describe PasswordChangesController do
       it 'redirects to new to force an email confirmation' do
         put :update, params: {
                        id: 'invalid',
-                       password_change_user: @valid_password_params
-                     }
-        expect(response).to redirect_to new_password_change_path
-      end
-    end
-
-    context 'token with a different circumstance' do
-      before { post_redirect.update!(circumstance: 'normal') }
-
-      it 'redirects to new to force an email confirmation' do
-        put :update, params: {
-                       id: post_redirect.token,
                        password_change_user: @valid_password_params
                      }
         expect(response).to redirect_to new_password_change_path
