@@ -7,16 +7,12 @@
 #  category_tag :text             not null
 #  created_at   :datetime
 #  updated_at   :datetime
-#  title        :text
-#  description  :text
 #
 
 require 'spec_helper'
 
 RSpec.describe PublicBodyCategory do
-
   context 'when validating' do
-
     it 'should require a title' do
       category = PublicBodyCategory.new
       expect(category).not_to be_valid
@@ -56,11 +52,9 @@ RSpec.describe PublicBodyCategory do
       expect(category.errors[:title].size).to eq(1)
       expect(translation.errors[:title].size).to eq(0)
     end
-
   end
 
   describe '#save' do
-
     it 'saves translations' do
       category = FactoryBot.build(:public_body_category)
       category.translations_attributes = { es: { locale: 'es',
@@ -70,13 +64,10 @@ RSpec.describe PublicBodyCategory do
       category.save!
       expect(PublicBodyCategory.find(category.id).translations.size).to eq(2)
     end
-
   end
 
   describe '#translations_attributes=' do
-
     context 'translation_attrs is a Hash' do
-
       it 'does not persist translations' do
         category = FactoryBot.create(:public_body_category)
         category.translations_attributes = { es: { locale: 'es',
@@ -153,14 +144,11 @@ RSpec.describe PublicBodyCategory do
 
         expect(category.translations.size).to eq(2)
       end
-
     end
   end
-
 end
 
 RSpec.describe PublicBodyCategory::Translation do
-
   it 'requires a locale' do
     translation = PublicBodyCategory::Translation.new
     translation.valid?
@@ -168,8 +156,10 @@ RSpec.describe PublicBodyCategory::Translation do
   end
 
   it 'is valid if no required attributes are assigned' do
-    translation = PublicBodyCategory::Translation.
-                    new(locale: AlaveteliLocalization.default_locale)
+    translation = PublicBodyCategory::Translation.new(
+      locale: AlaveteliLocalization.default_locale,
+      globalized_model: PublicBodyCategory.first
+    )
     expect(translation).to be_valid
   end
 
@@ -186,28 +176,23 @@ RSpec.describe PublicBodyCategory::Translation do
   end
 
   describe '#default_locale?' do
-
     it 'returns true if the locale is the default locale' do
       translation = PublicBodyCategory::Translation.new(locale: "en")
       expect(translation.default_locale?).to be true
     end
 
     context 'when the default locale contains an underscore' do
-
       it 'returns true if the locale is the default locale' do
         AlaveteliLocalization.set_locales('en_GB es', 'en_GB')
         translation = PublicBodyCategory::Translation.new(locale: "en_GB")
 
         expect(translation.default_locale?).to be true
       end
-
     end
 
     it 'returns false if the locale is not the default locale' do
       translation = PublicBodyCategory::Translation.new(locale: "es")
       expect(translation.default_locale?).to be false
     end
-
   end
-
 end

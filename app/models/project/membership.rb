@@ -3,10 +3,10 @@
 #
 # Table name: project_memberships
 #
-#  id         :bigint           not null, primary key
-#  project_id :bigint
-#  user_id    :bigint
-#  role_id    :bigint
+#  id         :integer          not null, primary key
+#  project_id :integer
+#  user_id    :integer
+#  role_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -19,6 +19,4 @@ class Project::Membership < ApplicationRecord
   belongs_to :project
   belongs_to :user
   belongs_to :role
-
-  validates :project, :user, :role, presence: true
 end

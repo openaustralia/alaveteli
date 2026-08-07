@@ -8,8 +8,6 @@
 #  user_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  title      :string
-#  content    :text
 #
 
 class Announcement < ApplicationRecord
@@ -74,7 +72,7 @@ class Announcement < ApplicationRecord
     end
   }
 
-  validates :content, :user,
+  validates :content,
             presence: true
   validates :visibility,
             presence: true,

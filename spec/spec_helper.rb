@@ -41,7 +41,7 @@ RSpec.configure do |config|
   config.include StripAttributes::Matchers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_paths = [Rails.root.join("spec", "fixtures")]
 
   # The order (!) of this is important thanks to foreign keys
   config.global_fixtures = :users,
@@ -64,6 +64,9 @@ RSpec.configure do |config|
                            :public_body_headings,
                            :public_body_heading_translations,
                            :public_body_category_links,
+                           :categories,
+                           :category_translations,
+                           :category_relationships,
                            :notes,
                            :note_translations
 
@@ -97,19 +100,7 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    if ENV['ALAVETELI_USE_OINK']
-      oink_log = Rails.root + 'log/oink.log'
-      File.write(oink_log, '') if File.exist?(oink_log)
-    end
-
     BCrypt::Engine.cost = 1
-  end
-
-  config.after(:suite) do
-    if ENV['ALAVETELI_USE_OINK']
-      puts ""
-      puts `oink --threshold=0 --format verbose log/oink.log`
-    end
   end
 
   # Any test that messes with the locale needs to restore the state afterwards so that it
@@ -120,20 +111,6 @@ RSpec.configure do |config|
   config.after(:each) do
     AlaveteliLocalization.set_locales(AlaveteliConfiguration.available_locales,
                                       AlaveteliConfiguration.default_locale)
-  end
-
-  # Turn routing-filter off in functional and unit tests as per
-  # https://github.com/svenfuchs/routing-filter/blob/master/README.markdown#testing
-  config.before(:each) do |example|
-    if [:controller, :helper, :model].include? example.metadata[:type]
-      RoutingFilter.active = false
-    end
-  end
-
-  config.after(:each) do |example|
-    if [:controller, :helper, :model].include? example.metadata[:type]
-      RoutingFilter.active = true
-    end
   end
 
   # This section makes the garbage collector run less often to speed up tests

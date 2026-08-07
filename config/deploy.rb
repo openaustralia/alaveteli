@@ -38,7 +38,6 @@ namespace :themes do
   end
 end
 
-
 # Not in the rake namespace because we're also specifying app-specific arguments here
 namespace :xapian do
   desc 'Rebuilds the Xapian index as per the ./scripts/destroy-and-rebuild-xapian-index script'
@@ -51,16 +50,6 @@ local_config = YAML.load_file('config/general.yml')
 set :shared_children, Array(local_config['SHARED_DIRECTORIES']).map { |d| File.basename(d.chomp('/')) }
 
 namespace :deploy do
-
-  desc 'Check that shared files and directories exist before deploying'
-  task :check_shared do
-    local_config = YAML.load_file('config/general.yml')
-    shared_files = Array(local_config['SHARED_FILES']).map { |f| "#{shared_path}/#{File.basename(f)}" }
-    missing = shared_files.select { |f| capture("test -f #{f} && echo exists || echo missing").strip == 'missing' }
-    abort "Missing shared files:\n#{missing.join("\n")}" unless missing.empty?
-  end
-  before 'deploy:symlink_configuration', 'deploy:check_shared'
-
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
     task t, roles: :app, except: { no_release: true } do

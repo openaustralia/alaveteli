@@ -103,6 +103,7 @@ class InfoRequestBatchZip
   def prepare_foi_attachment(attachment)
     message = attachment.incoming_message
     return if cannot?(:read, message)
+    return if cannot?(:read, attachment)
 
     sent_at = message.sent_at.to_formatted_s(:filename)
 
@@ -110,7 +111,7 @@ class InfoRequestBatchZip
       base_path(message.info_request),
       sent_at,
       "attachments-#{message.id}",
-      attachment.filename
+      attachment.display_filename
     ].join('/')
 
     ZippableFile.new(path, attachment.body)

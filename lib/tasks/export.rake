@@ -6,20 +6,11 @@ namespace :export do
   #create models to access join and translation tables
   class InfoRequestBatchPublicBody < ActiveRecord::Base
     self.table_name = "info_request_batches_public_bodies"
-    belongs_to :info_request_batch
-    belongs_to :public_body
+    belongs_to :info_request_batch, optional: true
+    belongs_to :public_body, optional: true
     default_scope -> { order(:info_request_batch_id, :public_body_id) }
   end
 
-  class PublicBodyCategoryTranslation < ActiveRecord::Base
-    self.table_name = "public_body_category_translations"
-    belongs_to :public_body_category
-  end
-
-  class PublicBodyHeadingTranslation < ActiveRecord::Base
-    self.table_name = "public_body_heading_translations"
-    belongs_to :public_body_heading
-  end
 
   class HasTagStringTag < ActiveRecord::Base
     self.table_name = "has_tag_string_tags"
@@ -48,11 +39,11 @@ namespace :export do
 
     to_run = to_run.split(",") if to_run
 
-    DataExport.csv_export(PublicBodyCategory, to_run)
-    DataExport.csv_export(PublicBodyHeading, to_run)
-    DataExport.csv_export(PublicBodyCategoryLink, to_run)
-    DataExport.csv_export(PublicBodyCategoryTranslation, to_run)
-    DataExport.csv_export(PublicBodyHeadingTranslation, to_run)
+    DataExport.csv_export(
+      Category, to_run, Category,
+      %w[id title description category_tag created_at updated_at]
+    )
+    DataExport.csv_export(CategoryRelationship, to_run)
     DataExport.csv_export(InfoRequestBatchPublicBody, to_run)
     DataExport.csv_export(HasTagStringTag,
                           to_run,

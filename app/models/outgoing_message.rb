@@ -42,7 +42,6 @@ class OutgoingMessage < ApplicationRecord
   attr_accessor :default_letter
 
   before_validation :cache_from_name
-  validates_presence_of :info_request
   validates_presence_of :from_name, unless: -> (m) { !m.info_request&.user }
   validates_inclusion_of :status, in: STATUS_TYPES
   validates_inclusion_of :message_type, in: MESSAGE_TYPES
@@ -56,7 +55,8 @@ class OutgoingMessage < ApplicationRecord
   belongs_to :incoming_message_followup,
              inverse_of: :outgoing_message_followups,
              foreign_key: 'incoming_message_followup_id',
-             class_name: 'IncomingMessage'
+             class_name: 'IncomingMessage',
+             optional: true
 
   has_one :user,
           inverse_of: :outgoing_messages,
@@ -139,11 +139,13 @@ class OutgoingMessage < ApplicationRecord
 
   def from_name
     return info_request.external_user_name if info_request.is_external?
+
     super || info_request.user_name
   end
 
   def safe_from_name
     return info_request.external_user_name if info_request.is_external?
+
     info_request.apply_censor_rules_to_text(from_name)
   end
 
@@ -412,6 +414,7 @@ class OutgoingMessage < ApplicationRecord
 
   def cache_from_name
     return if read_attribute(:from_name)
+
     self.from_name = info_request.user_name if info_request
   end
 

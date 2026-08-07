@@ -7,15 +7,12 @@
 #  display_order :integer
 #  created_at    :datetime
 #  updated_at    :datetime
-#  name          :text
 #
 
 require 'spec_helper'
 
 RSpec.describe PublicBodyHeading do
-
   context 'when validating' do
-
     it 'should require a name' do
       heading = PublicBodyHeading.new
       expect(heading).not_to be_valid
@@ -40,11 +37,9 @@ RSpec.describe PublicBodyHeading do
       translation = heading.translations.build
       expect(heading).to_not be_valid
     end
-
   end
 
   context 'when setting a display order' do
-
     it 'should return 0 if there are no public body headings' do
       PublicBodyHeading.destroy_all
       expect(PublicBodyHeading.next_display_order).to eq(0)
@@ -58,7 +53,6 @@ RSpec.describe PublicBodyHeading do
   end
 
   describe :save do
-
     it 'saves translations' do
       heading = FactoryBot.build(:public_body_heading)
       heading.translations_attributes = { es: { locale: 'es',
@@ -67,13 +61,10 @@ RSpec.describe PublicBodyHeading do
       heading.save!
       expect(PublicBodyHeading.find(heading.id).translations.size).to eq(2)
     end
-
   end
 
   describe :translations_attributes= do
-
     context 'translation_attrs is a Hash' do
-
       it 'does not persist translations' do
         heading = FactoryBot.create(:public_body_heading)
         heading.translations_attributes = { es: { locale: 'es',
@@ -149,7 +140,6 @@ RSpec.describe PublicBodyHeading do
 end
 
 RSpec.describe PublicBodyHeading::Translation do
-
   it 'requires a locale' do
     translation = PublicBodyHeading::Translation.new
     translation.valid?
@@ -158,9 +148,9 @@ RSpec.describe PublicBodyHeading::Translation do
 
   it 'is valid if all required attributes are assigned' do
     translation = PublicBodyHeading::Translation.new(
-      locale: AlaveteliLocalization.default_locale
+      locale: AlaveteliLocalization.default_locale,
+      globalized_model: PublicBodyHeading.first
     )
     expect(translation).to be_valid
   end
-
 end

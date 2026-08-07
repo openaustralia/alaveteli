@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe PasswordChangesController do
-
   describe 'GET new' do
-
     it 'assigns the pretoken if supplied' do
       get :new, params: { pretoken: 'abcdef' }
       expect(assigns[:pretoken]).to eq('abcdef')
@@ -42,13 +40,10 @@ RSpec.describe PasswordChangesController do
       get :new
       expect(response).to render_template(:new)
     end
-
   end
 
   describe 'POST create' do
-
     context 'when a user is signed in' do
-
       it 'ignores an email submitted in the post params' do
         user = FactoryBot.create(:user)
         sign_in user
@@ -69,16 +64,13 @@ RSpec.describe PasswordChangesController do
     end
 
     context 'when no user is signed in and no email is submitted' do
-
       it 're-renders the form' do
         post :create
         expect(response).to render_template(:new)
       end
-
     end
 
     context 'when receiving an email address of an existing user' do
-
       it 'assigns the user' do
         user = FactoryBot.create(:user)
         post :create, params: {
@@ -124,7 +116,6 @@ RSpec.describe PasswordChangesController do
       end
 
       context 'when a pretoken is supplied' do
-
         it 'adds the pretoken to the post redirect uri' do
           user = FactoryBot.create(:user)
           pretoken = PostRedirect.create(user: user, uri: '/')
@@ -151,7 +142,6 @@ RSpec.describe PasswordChangesController do
           expected = edit_password_change_url(post_redirect.token)
           expect(post_redirect.uri).to eq(expected)
         end
-
       end
 
       it 'sends a confirmation email' do
@@ -207,13 +197,10 @@ RSpec.describe PasswordChangesController do
                       }
         expect(response).to render_template(:new)
       end
-
     end
-
   end
 
   describe 'GET edit' do
-
     let(:user) { FactoryBot.create(:user) }
 
     let(:post_redirect) do
@@ -245,7 +232,6 @@ RSpec.describe PasswordChangesController do
     end
 
     context 'no user is specified' do
-
       let(:post_redirect) { PostRedirect.new(user: nil) }
 
       it 'redirects to new for the user to enter their email' do
@@ -258,7 +244,15 @@ RSpec.describe PasswordChangesController do
         expect(response).
           to redirect_to(new_password_change_path(pretoken: 'abcdef'))
       end
+    end
 
+    context 'token with a different circumstance' do
+      before { post_redirect.update!(circumstance: 'normal') }
+
+      it 'redirects to new to force an email confirmation' do
+        get :edit, params: { id: post_redirect.token }
+        expect(response).to redirect_to new_password_change_path
+      end
     end
 
     context 'token with a different circumstance' do
@@ -271,12 +265,10 @@ RSpec.describe PasswordChangesController do
     end
 
     context 'invalid token' do
-
       it 'redirects to new to force an email confirmation' do
         get :edit, params: { id: 'invalid' }
         expect(response).to redirect_to new_password_change_path
       end
-
     end
 
     context 'with enable_two_factor_auth disabled' do
@@ -323,7 +315,6 @@ RSpec.describe PasswordChangesController do
   end
 
   describe 'PUT update' do
-
     let(:user) { FactoryBot.create(:user) }
 
     let(:post_redirect) do
@@ -394,7 +385,6 @@ RSpec.describe PasswordChangesController do
     end
 
     context 'no user is specified' do
-
       let(:post_redirect) { PostRedirect.new(user: nil) }
 
       it 'redirects to #new when a user cannot be found' do
@@ -404,11 +394,9 @@ RSpec.describe PasswordChangesController do
                      }
         expect(response).to redirect_to(new_password_change_path)
       end
-
     end
 
     context 'invalid token' do
-
       it 'redirects to new to force an email confirmation' do
         put :update, params: {
                        id: 'invalid',
@@ -416,7 +404,18 @@ RSpec.describe PasswordChangesController do
                      }
         expect(response).to redirect_to new_password_change_path
       end
+    end
 
+    context 'token with a different circumstance' do
+      before { post_redirect.update!(circumstance: 'normal') }
+
+      it 'redirects to new to force an email confirmation' do
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: @valid_password_params
+                     }
+        expect(response).to redirect_to new_password_change_path
+      end
     end
 
     context 'token with a different circumstance' do
@@ -432,7 +431,6 @@ RSpec.describe PasswordChangesController do
     end
 
     context 'when a pretoken is supplied' do
-
       it 'redirects to the post redirect uri' do
         pretoken = PostRedirect.create(user: user, uri: '/')
         put :update, params: {
@@ -461,11 +459,9 @@ RSpec.describe PasswordChangesController do
                      }
         expect(response).to redirect_to(show_user_profile_path(user.url_name))
       end
-
     end
 
     context 'when there is no pretoken' do
-
       it 'redirects to the user profile on success' do
         put :update, params: {
                        id: post_redirect.token,
@@ -473,11 +469,9 @@ RSpec.describe PasswordChangesController do
                      }
         expect(response).to redirect_to(show_user_profile_path(user.url_name))
       end
-
     end
 
     context 'when the user has two factor authentication enabled' do
-
       let(:user) { FactoryBot.create(:user, :enable_otp) }
 
       before(:each) do
@@ -553,9 +547,6 @@ RSpec.describe PasswordChangesController do
 
         expect(user.reload.hashed_password).to eq(old_hash)
       end
-
     end
-
   end
-
 end
