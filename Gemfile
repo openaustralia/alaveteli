@@ -144,6 +144,12 @@ gem 'csv', '~> 3.3.5'
 gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.0'
 gem 'rdoc', '~> 6.15.1'
+# Ruby 3.4.10 ships stringio 3.1.2 as a default gem, and Passenger's preloader
+# requires stringio before Bundler.setup runs, so a newer locked stringio makes
+# the app fail to spawn with Gem::LoadError. Nothing constrains stringio (psych
+# depends on it unconstrained), so pin it to the default gem version. Pinning
+# above the default reintroduces the failure - revisit on each Ruby upgrade.
+gem 'stringio', '3.1.2'
 gem 'uri', '~> 1.1.0'
 
 # Gems only used by the research export task
