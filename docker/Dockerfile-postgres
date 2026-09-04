@@ -1,4 +1,8 @@
-FROM postgres:13.5
+# Keep the major version in step with production RDS (see the infrastructure
+# repo's terraform/database.tf) and with the postgresql-client pinned in
+# docker/Dockerfile. A client newer than this server writes a structure.sql
+# the server can't read back.
+FROM postgres:15
 RUN localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
 ENV LANG en_GB.utf8
 ADD ./docker/createdb.sh /docker-entrypoint-initdb.d/
