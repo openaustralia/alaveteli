@@ -18,7 +18,7 @@ jobs:
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.2
+        ruby-version: 3.4.10
 
     - name: Run RuboCop linter
       uses: reviewdog/action-rubocop@v2.14.0
@@ -28,3 +28,5 @@ jobs:
         rubocop_version: gemfile
         rubocop_extensions: rubocop-performance:gemfile rubocop-rails:gemfile
         level: warning
+        reporter: github-check
+        filter_mode: nofilter

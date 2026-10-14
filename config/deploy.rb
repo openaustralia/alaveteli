@@ -46,6 +46,9 @@ namespace :xapian do
   end
 end
 
+local_config = YAML.load_file('config/general.yml')
+set :shared_children, Array(local_config['SHARED_DIRECTORIES']).map { |d| File.basename(d.chomp('/')) }
+
 namespace :deploy do
   [:start, :stop, :restart].each do |t|
     desc "#{t.to_s.capitalize} Alaveteli service defined in /etc/init.d/"
@@ -56,28 +59,22 @@ namespace :deploy do
 
   desc 'Link configuration after a code update'
   task :symlink_configuration do
-    links = {
-      "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
-      "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
-      "#{release_path}/config/rails_env.rb" => "#{shared_path}/rails_env.rb",
-      "#{release_path}/config/httpd.conf" => "#{shared_path}/httpd.conf",
-      "#{release_path}/config/aliases" => "#{shared_path}/aliases",
-      "#{release_path}/public/foi-live-creation.png" => "#{shared_path}/foi-live-creation.png",
-      "#{release_path}/public/foi-user-use.png" => "#{shared_path}/foi-user-use.png",
-      "#{release_path}/files" => "#{shared_path}/files",
-      "#{release_path}/cache" => "#{shared_path}/cache",
-      "#{release_path}/log" => "#{shared_path}/log",
-      "#{release_path}/tmp/pids" => "#{shared_path}/tmp/pids",
-      "#{release_path}/lib/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
-      "#{release_path}/lib/themes" => "#{shared_path}/themes"
-    }
+    general_config = YAML.safe_load(capture("cat #{shared_path}/general.yml"))
+    shared_files = Array(general_config['SHARED_FILES'])
+    shared_dirs = Array(general_config['SHARED_DIRECTORIES']).map { |d| d.chomp('/') }
 
-    if rbenv_ruby_version
-      links["#{release_path}/.rbenv-version"] = "#{shared_path}/rbenv-version"
+    commands = (shared_files + shared_dirs).flat_map do |f|
+      [
+        "mkdir -p $(dirname #{release_path}/#{f})",
+        "ln -snf #{shared_path}/#{File.basename(f)} #{release_path}/#{f}"
+      ]
     end
 
-    # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
-    run links.map { |a| "ln -sf #{a.last} #{a.first}" }.join(";")
+    if rbenv_ruby_version
+      commands << "ln -snf #{shared_path}/rbenv-version #{release_path}/.rbenv-version"
+    end
+
+    run commands.join(" && ")
   end
 
   namespace :assets do
@@ -88,12 +85,13 @@ namespace :deploy do
   end
 
   after 'deploy:setup' do
-    run "mkdir -p #{shared_path}/files"
-    run "mkdir -p #{shared_path}/cache"
-    run "mkdir -p #{shared_path}/log"
-    run "mkdir -p #{shared_path}/tmp/pids"
-    run "mkdir -p #{shared_path}/xapiandbs"
-    run "mkdir -p #{shared_path}/themes"
+    local_config = YAML.load_file('config/general.yml')
+    shared_files = Array(local_config['SHARED_FILES'])
+    shared_dirs = Array(local_config['SHARED_DIRECTORIES']).map { |d| d.chomp('/') }
+
+    dirs_to_create = shared_dirs.map { |d| "#{shared_path}/#{File.basename(d)}" }
+
+    run dirs_to_create.map { |d| "mkdir -p #{d}" }.join(" && ")
   end
 end
 

@@ -127,10 +127,9 @@ gem 'ruby-progressbar', '~> 1.13'
 gem 'secure_headers', '~> 7.0.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
-gem 'statistics2', '~> 0.54'
 gem 'strip_attributes', mysociety: 'strip_attributes', branch: 'globalize3-rails8'
 gem 'stripe', '~> 13.5.1'
-gem 'syck', '~> 1.4.1', require: false
+gem 'syck', '~> 1.5.0', require: false
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'vpim', '~> 24.2.20'
 gem 'will_paginate', '~> 4.0.1'
@@ -145,6 +144,12 @@ gem 'csv', '~> 3.3.5'
 gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.0'
 gem 'rdoc', '~> 6.15.1'
+# Ruby 3.4.10 ships stringio 3.1.2 as a default gem, and Passenger's preloader
+# requires stringio before Bundler.setup runs, so a newer locked stringio makes
+# the app fail to spawn with Gem::LoadError. Nothing constrains stringio (psych
+# depends on it unconstrained), so pin it to the default gem version. Pinning
+# above the default reintroduces the failure - revisit on each Ruby upgrade.
+gem 'stringio', '3.1.2'
 gem 'uri', '~> 1.1.0'
 
 # Gems only used by the research export task

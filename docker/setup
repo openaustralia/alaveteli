@@ -13,15 +13,20 @@ error_msg() { printf "\033[31m%s\033[0m\n" "$*"; }
 notice_msg() { printf "\033[33m%s\033[0m " "$*"; }
 success_msg() { printf "\033[32m%s\033[0m\n" "$*"; }
 
+# Every step below is chained to this so a failure stops the run. Without it
+# the script prints a green "done" after each step regardless of exit status,
+# reports "Setup finished", and exits 0 even when nothing was created.
+abort_msg() { error_msg 'failed'; exit 1; }
+
 notice_msg 'Installing Ruby gems...'
-bundle check >/dev/null || bundle install
+{ bundle check >/dev/null || bundle install; } || abort_msg
 success_msg 'done'
 
 if [ -L config/general.yml ]; then
   THEME=$(basename -s .yml $(readlink config/general.yml) | sed 's/^general-//')
   notice_msg "Switching to $THEME..."
-  bundle exec script/switch-theme.rb $THEME 2>/dev/null
-  bin/rails assets:clean >/dev/null
+  bundle exec script/switch-theme.rb $THEME 2>/dev/null || abort_msg
+  bin/rails assets:clean >/dev/null || abort_msg
   success_msg 'done'
 fi
 
@@ -33,7 +38,6 @@ for arg in "$@"; do
   case $arg in
     --reset-data)
       RESET_DATA_FLAG=1
-      shift
       ;;
     *);;
   esac
@@ -41,8 +45,8 @@ done
 
 notice_msg 'Migrating development and test databases...'
 if [ $RESET_DATA_FLAG -eq 1 ]; then
-  bin/rails db:migrate db:seed >/dev/null
-  bin/rails db:migrate RAILS_ENV=test >/dev/null
+  bin/rails db:migrate db:seed >/dev/null || abort_msg
+  bin/rails db:migrate RAILS_ENV=test >/dev/null || abort_msg
   success_msg 'done'
 else
   error_msg 'skipped'
@@ -50,7 +54,7 @@ fi
 
 notice_msg 'Loading sample data...'
 if [ $RESET_DATA_FLAG -eq 1 ]; then
-  bundle exec script/load-sample-data > /dev/null
+  bundle exec script/load-sample-data > /dev/null || abort_msg
   success_msg 'done'
 else
   error_msg 'skipped'
@@ -58,7 +62,7 @@ fi
 
 notice_msg 'Removing external requests...'
 if [ $RESET_DATA_FLAG -eq 1 ]; then
-  bin/rails runner 'InfoRequest.external.destroy_all'
+  bin/rails runner 'InfoRequest.external.destroy_all' || abort_msg
   success_msg 'done'
 else
   error_msg 'skipped'
@@ -66,7 +70,7 @@ fi
 
 notice_msg 'Rebuilding Xapian index...'
 if [ $RESET_DATA_FLAG -eq 1 ]; then
-  bundle exec script/destroy-and-rebuild-xapian-index > /dev/null
+  bundle exec script/destroy-and-rebuild-xapian-index > /dev/null || abort_msg
   success_msg 'done'
 else
   error_msg 'skipped'

@@ -1,3 +1,9 @@
+# develop
+
+## Highlighted Features
+
+* Dropped support for generating PDF of request correspondence (Graeme Porteous)
+
 # 0.46.8.0
 
 ## Highlighted Features
@@ -315,6 +321,25 @@ to match the new templates.
     app/views/user/signchangeemail_confirm.html.erb
     app/views/user/wrong_user.html.erb
     app/views/user_mailer/already_registered.text.erb
+
+# 0.45.8.0
+
+## Highlighted Features
+
+* Prevent token rebinding when it already has a user (Gareth Rees, FOIMonkey)
+* Prevent token rebinding for non-normal circumstances (Gareth Rees)
+
+# 0.45.7.0
+
+## Highlighted Features
+
+* Check `PostRedirect#circumstance` when changing password (Gareth Rees)
+
+# 0.45.6.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
 
 # 0.45.5.0
 
@@ -658,6 +683,25 @@ to match the new templates.
     app/views/widgets/new.html.erb
     app/views/widgets/show.html.erb
 
+# 0.44.3.0
+
+## Highlighted Features
+
+* Prevent token rebinding when it already has a user (Gareth Rees, FOIMonkey)
+* Prevent token rebinding for non-normal circumstances (Gareth Rees)
+
+# 0.44.2.0
+
+## Highlighted Features
+
+* Check `PostRedirect#circumstance` when changing password (Gareth Rees)
+
+# 0.44.1.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.44.0.3
 
 ## Highlighted Features
@@ -962,6 +1006,12 @@ to match the new templates.
     app/views/request/_sidebar.html.erb
     app/views/request/new.html.erb
     app/views/request/preview.html.erb
+
+# 0.42.0.3
+
+## Highlighted Features
+
+* Updates to Capistrano deployment to use SHARED_* values in general.yml
 
 # 0.42.0.2
 
