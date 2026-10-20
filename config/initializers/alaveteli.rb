@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.46.7.0'
+ALAVETELI_VERSION = '0.46.8.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -34,7 +34,7 @@ require 'core_ext/warning'
 require 'use_spans_for_errors.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
-require 'quiet_opener.rb'
+require 'fetch_url.rb'
 require 'attachment_to_html'
 require 'health_checks'
 require 'mail_handler'
