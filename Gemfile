@@ -145,6 +145,9 @@ gem 'zip_tricks', '~> 5.6.0'
 gem 'benchmark', '~> 0.5.0'
 gem 'csv', '~> 3.3.7'
 gem 'drb', '~> 2.2.3'
+# Exact pin to Ruby 3.4's default version. Passenger activates the default
+# before Bundler runs, so a newer locked version fails to boot the app.
+gem 'forwardable', '1.3.3'
 gem 'ostruct', '~> 0.6.3'
 gem 'pstore', '~> 0.3.0'
 gem 'rdoc', '~> 8.1.0'
