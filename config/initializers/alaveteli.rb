@@ -10,7 +10,7 @@ load "debug_helpers.rb"
 load "util.rb"
 
 # Application version
-ALAVETELI_VERSION = '0.46.8.0'
+ALAVETELI_VERSION = '0.47.0.0'
 
 # Add new inflection rules using the following format
 # (all these examples are active by default):
@@ -30,6 +30,7 @@ ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration.domain
 
 # Load monkey patches and other things from lib/
 require 'core_ext/warning'
+require 'core_ext/active_storage_ensure_attached'
 
 require 'use_spans_for_errors.rb'
 require 'world_foi_websites.rb'

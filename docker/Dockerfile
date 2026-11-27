@@ -1,8 +1,12 @@
 ARG RUBY_VERSION=3.4
 FROM ruby:${RUBY_VERSION}-trixie
 
-ENV DOCKER 1
-ENV DEBIAN_FRONTEND noninteractive
+ENV DOCKER=1
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && \
+    apt-get install -y postgresql-common && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 
 # Debian trixie only packages postgresql-client 17, whose pg_dump writes
 # `SET transaction_timeout = 0;` into db/structure.sql. That parameter is
