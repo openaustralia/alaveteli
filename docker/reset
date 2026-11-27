@@ -16,7 +16,7 @@ if docker volume ls | grep $DB_VOLUME >/dev/null; then
       n|N) break;;
       y|Y)
         docker volume rm $DB_VOLUME >/dev/null
-        ARGS="${ARGS} --reset_data"
+        ARGS="--reset-data"
         break;;
       *) echo 'Response not valid';;
     esac
@@ -25,4 +25,5 @@ fi
 
 docker compose build --pull
 
-./docker/setup "${ARGS}"
+# Unquoted so an empty ARGS expands to no argument at all.
+./docker/setup $ARGS
